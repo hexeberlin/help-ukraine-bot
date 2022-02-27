@@ -10,19 +10,19 @@ APP_NAME = os.environ.get('APP_NAME', 'telegram-bot-help-in-berlin')
 PORT = int(os.environ.get('PORT', 5000))
 TOKEN = os.environ["TOKEN"]
 REMINDER_MESSAGE = """
-    Dear group members,
-    We remind you that this is a group for helping and finding help. If you can – write in English. Please refrain from putting unrelated entries here. Anybody adding hate or trolling comments will be banned from the group.
-    The overview of useful links  about documents, transport, accommodation etc. can be found here https://bit.ly/help-for-ukrainians
+  Dear group members,
+  We remind you that this is a group for helping and finding help. If you can – write in English. Please refrain from putting unrelated entries here. Anybody adding hate or trolling comments will be banned from the group.
+  The overview of useful links  about documents, transport, accommodation etc. can be found here https://bit.ly/help-for-ukrainians
 
-    Уважаемые участники группы,
-    Напоминаем вам, что цель этой группы – предоставление и поиск помощи. Если можете – пожалуйста пишите по английски. Пожалуйста, воздержитесь от размещения здесь записей, не имеющих отношения к теме. Пользователи, добавляющие агрессивные или тролящие комментарии,  будут удаляны из группы.
-    Обзор полезных ссылок о документах, транспорте, жилье и т.д. можно найти здесь
-     https://bit.ly/help-for-ukrainians
+  Уважаемые участники группы,
+  Напоминаем вам, что цель этой группы – предоставление и поиск помощи. Если можете – пожалуйста пишите по английски. Пожалуйста, воздержитесь от размещения здесь записей, не имеющих отношения к теме. Пользователи, добавляющие агрессивные или тролящие комментарии,  будут удаляны из группы.
+  Обзор полезных ссылок о документах, транспорте, жилье и т.д. можно найти здесь
+   https://bit.ly/help-for-ukrainians
 
-    Шановні учасники групи
-    Нагадуємо вам, що це група для допомоги та пошуку допомоги. Якщо можете – пишіть англійською. Будь ласка, утримайтеся від розміщення записів, що не мають відношення до теми. Будь-хто, хто додаватиме коментарі ненависті або тролінгу, буде видалено з групи.
-    Огляд корисних посилань про документи, транспорт, житло тощо. можна знайти тут
-     https://bit.ly/help-for-ukrainians
+  Шановні учасники групи
+  Нагадуємо вам, що це група для допомоги та пошуку допомоги. Якщо можете – пишіть англійською. Будь ласка, утримайтеся від розміщення записів, що не мають відношення до теми. Будь-хто, хто додаватиме коментарі ненависті або тролінгу, буде видалено з групи.
+  Огляд корисних посилань про документи, транспорт, житло тощо. можна знайти тут
+   https://bit.ly/help-for-ukrainians
 """
 ONE_HOUR = 60 * 60
 
