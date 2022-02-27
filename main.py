@@ -42,7 +42,7 @@ def help_command(update: Update, context: CallbackContext) -> None:
 
 def handle_msg(update: Update, context: CallbackContext) -> None:
     """Echo the user message."""
-    if 'joined the group' in update.message.text or 'left the group' in update.message.text:
+    if effective_message_type(update.message) in ['new_chat_members', 'left_chat_member']:
         update.message.delete()
 
 
