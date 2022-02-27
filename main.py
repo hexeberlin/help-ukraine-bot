@@ -75,9 +75,9 @@ def delete_greetings(bot: Bot, update: Update) -> None:
 
 
 commands = {
-    '//start': start_timer,
-    '//stop': stop_timer,
-    '//help': help_command
+    '/start': start_timer,
+    '/stop': stop_timer,
+    '/help': help_command
 }
 
 
