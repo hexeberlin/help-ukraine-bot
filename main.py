@@ -2,6 +2,7 @@ import logging
 
 from telegram import Update, ForceReply
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
+from telegram.utils.helpers import effective_message_type
 
 import requests
 import telegram
@@ -39,28 +40,28 @@ def help_command(update: Update, context: CallbackContext) -> None:
     update.message.reply_text(REMINDER_MESSAGE)
 
 
-def is_greeting(txt: str)->bool:
-    return 
-
 def handle_msg(update: Update, context: CallbackContext) -> None:
     """Echo the user message."""
-    if is_greeting('joined the group' in update.message.text or 'left the group' in update.message.text):
+    if 'joined the group' in update.message.text or 'left the group' in update.message.text:
         update.message.delete()
 
 
 def callback_alarm(bot, job):
     bot.send_message(chat_id=job.context, text='Alarm')
 
+
 def callback_timer(bot, update, job_queue):
     bot.send_message(chat_id=update.message.chat_id,
-                      text='Starting!')
+                     text='Starting!')
     job_queue.run_repeating(callback_alarm, 5, context=update.message.chat_id)
+
 
 def stop_timer(bot, update, job_queue):
     bot.send_message(chat_id=update.message.chat_id,
-                      text='Stoped!')
+                     text='Stoped!')
     job_queue.stop()
-    
+
+
 def main() -> None:
     """Start the bot."""
     # Create the Updater and pass it your bot's token.
@@ -68,14 +69,17 @@ def main() -> None:
 
     # Get the dispatcher to register handlers
     dispatcher = updater.dispatcher
-    
+
     # on different commands - answer in Telegram
-    dispatcher.add_handler(CommandHandler('start', callback_timer, pass_job_queue=True))
-    dispatcher.add_handler(CommandHandler('stop', stop_timer, pass_job_queue=True))
+    dispatcher.add_handler(CommandHandler(
+        'start', callback_timer, pass_job_queue=True))
+    dispatcher.add_handler(CommandHandler(
+        'stop', stop_timer, pass_job_queue=True))
     dispatcher.add_handler(CommandHandler("help", help_command))
 
     # on non command i.e message - echo the message on Telegram
-    dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, handle_msg))
+    dispatcher.add_handler(MessageHandler(
+        Filters.text & ~Filters.command, handle_msg))
 
     # Start the Bot
     updater.start_polling()
@@ -85,7 +89,6 @@ def main() -> None:
     # start_polling() is non-blocking and will stop the bot gracefully.
     updater.idle()
 
-    
+
 if __name__ == '__main__':
     main()
-
