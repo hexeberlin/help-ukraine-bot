@@ -2,13 +2,23 @@ from telegram import Update
 import requests
 import telegram
 import os
+from datetime import datetime
 TOKEN = os.environ["TOKEN"]
+
+def is_greeting(txt: str)->bool:
+    return 'joined the group' in message_text or 'left the group' in message_text
 
 def webhook(request):
     bot = telegram.Bot(token=TOKEN)
     if request.method == "POST":
         update = Update.de_json(request.get_json(force=True), bot)
         chat_id = update.message.chat.id
+        message_id = update.message.message_id
+        message_text = update.message.text
+
+        if is_greeting(message_text):
+            bot.deleteMessage(chat_id=chat_id, message_id=message_id)
+
         reminder_message = """
                     Dear group members,
                     We remind you that this is a group for helping and finding help. Please refrain from putting unrelated entries here. Anybody adding hate or trolling comments will be banned from the group.
