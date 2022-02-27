@@ -1,0 +1,9 @@
+.idea/*
+*.class
+*.iml
+*.swp
+*.jar
+*.zip
+*.log
+*.pyc
+myenv
