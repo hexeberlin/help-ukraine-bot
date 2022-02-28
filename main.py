@@ -1,8 +1,10 @@
 import logging
 
 from telegram import Update, Bot
+from telegram.constants import PARSEMODE_MARKDOWN
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 from telegram.utils.helpers import effective_message_type
+from faq import faq
 
 import os
 
@@ -44,6 +46,16 @@ def send_reminder(bot: Bot, chat_id: str):
 def help_command(bot: Bot, update: Update) -> None:
     """Send a message when the command /help is issued."""
     send_reminder(bot, chat_id=update.message.chat_id)
+
+
+def faq_command(bot: Bot, update: Update) -> None:
+    """Send a message when the command /faq is issued."""
+    logger.info(f"FAQ {update.message.text}")
+    topic = update.message.text.replace("/faq ", "")
+    message = faq(topic)
+    bot.send_message(
+        chat_id=update.message.chat_id, text=message, parse_mode=PARSEMODE_MARKDOWN
+    )
 
 
 def handle_msg(bot: Bot, update: Update) -> None:
@@ -91,6 +103,7 @@ def main() -> None:
     dispatcher.add_handler(CommandHandler("start", callback_timer, pass_job_queue=True))
     dispatcher.add_handler(CommandHandler("stop", stop_timer, pass_job_queue=True))
     dispatcher.add_handler(CommandHandler("help", help_command))
+    dispatcher.add_handler(CommandHandler("faq", faq_command))
 
     # on non command i.e message - echo the message on Telegram
     dispatcher.add_handler(MessageHandler(Filters.all, handle_msg))
