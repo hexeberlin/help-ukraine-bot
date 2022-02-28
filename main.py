@@ -6,8 +6,8 @@ from telegram.utils.helpers import effective_message_type
 
 import os
 
-APP_NAME = os.environ.get('APP_NAME', 'telegram-bot-help-in-berlin')
-PORT = int(os.environ.get('PORT', 5000))
+APP_NAME = os.environ.get("APP_NAME", "telegram-bot-help-in-berlin")
+PORT = int(os.environ.get("PORT", 5000))
 TOKEN = os.environ["TOKEN"]
 REMINDER_MESSAGE = """
   Dear group members,
@@ -24,50 +24,58 @@ REMINDER_MESSAGE = """
   Огляд корисних посилань про документи, транспорт, житло тощо. можна знайти тут
    https://bit.ly/help-for-ukrainians
 """
-ONE_HOUR = 60 * 60
+REMINDER_INTERVAL = int(os.environ.get("REMINDER_INTERVAL", 30 * 60))
 
 # Enable logging
 logging.basicConfig(
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
 )
 
 logger = logging.getLogger(__name__)
 
 
-# Define a few command handlers. These usually take the two arguments update and
-# context.
+def send_reminder(bot: Bot, chat_id: str):
+    chat = bot.get_chat(chat_id)
+    message = chat.pinned_message.text if chat.pinned_message else REMINDER_MESSAGE
+    logger.info(f"Sending a reminder to chat {chat_id}")
+    bot.send_message(chat_id=chat_id, text=message)
+
+
 def help_command(bot: Bot, update: Update) -> None:
     """Send a message when the command /help is issued."""
-    bot.send_message(chat_id=update.message.chat_id, text=REMINDER_MESSAGE)
+    send_reminder(bot, chat_id=update.message.chat_id)
 
 
 def handle_msg(bot: Bot, update: Update) -> None:
     """Echo the user message."""
     tp = effective_message_type(update.message)
-    logger.info(f'Handling type is {tp}')
-    if effective_message_type(update.message) in ['new_chat_members', 'left_chat_member']:
-        bot.delete_message(chat_id=update.message.chat_id,
-                           message_id=update.message.message_id)
+    logger.info(f"Handling type is {tp}")
+    if effective_message_type(update.message) in [
+        "new_chat_members",
+        "left_chat_member",
+    ]:
+        bot.delete_message(
+            chat_id=update.message.chat_id, message_id=update.message.message_id
+        )
 
 
 def callback_alarm(bot: Bot, job):
     """callback_alarm"""
-    logger.info('Sending a reminder')
-    bot.send_message(chat_id=job.context, text=REMINDER_MESSAGE)
+    chat_id = job.context
+    send_reminder(bot, chat_id=chat_id)
 
 
-def callback_timer(bot: Bot, update, job_queue):
+def callback_timer(bot: Bot, update: Update, job_queue):
     """callback_timer"""
-    bot.send_message(chat_id=update.message.chat_id,
-                     text='Starting!')
-    job_queue.run_repeating(callback_alarm, ONE_HOUR, first=1,
-                            context=update.message.chat_id)
+    bot.send_message(chat_id=update.message.chat_id, text="Starting!")
+    job_queue.run_repeating(
+        callback_alarm, REMINDER_INTERVAL, first=1, context=update.message.chat_id
+    )
 
 
-def stop_timer(bot: Bot, update, job_queue):
+def stop_timer(bot: Bot, update: Update, job_queue):
     """stop_timer"""
-    bot.send_message(chat_id=update.message.chat_id,
-                     text='Stoped!')
+    bot.send_message(chat_id=update.message.chat_id, text="Stoped!")
     job_queue.stop()
 
 
@@ -80,22 +88,18 @@ def main() -> None:
     dispatcher = updater.dispatcher
 
     # on different commands - answer in Telegram
-    dispatcher.add_handler(CommandHandler(
-        'start', callback_timer, pass_job_queue=True))
-    dispatcher.add_handler(CommandHandler(
-        'stop', stop_timer, pass_job_queue=True))
-    dispatcher.add_handler(CommandHandler('help', help_command))
+    dispatcher.add_handler(CommandHandler("start", callback_timer, pass_job_queue=True))
+    dispatcher.add_handler(CommandHandler("stop", stop_timer, pass_job_queue=True))
+    dispatcher.add_handler(CommandHandler("help", help_command))
 
     # on non command i.e message - echo the message on Telegram
     dispatcher.add_handler(MessageHandler(Filters.all, handle_msg))
 
-    updater.start_webhook(listen="0.0.0.0",
-                          port=int(PORT),
-                          url_path=TOKEN)
-    updater.bot.setWebhook(f'https://{APP_NAME}.herokuapp.com/{TOKEN}')
+    updater.start_webhook(listen="0.0.0.0", port=int(PORT), url_path=TOKEN)
+    updater.bot.setWebhook(f"https://{APP_NAME}.herokuapp.com/{TOKEN}")
 
     updater.idle()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
