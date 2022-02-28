@@ -56,11 +56,14 @@ def handle_msg(bot: Bot, update: Update) -> None:
 
 def callback_alarm(bot: Bot, job):
     """callback_alarm"""
-    logger.info("Sending a reminder")
-    bot.send_message(chat_id=job.context, text=REMINDER_MESSAGE)
+    chat_id = job.context
+    chat = bot.get_chat(chat_id)
+    message = chat.pinned_message if chat.pinned_message else REMINDER_MESSAGE
+    logger.info(f"Sending a reminder to chat {chat_id}")
+    bot.send_message(chat_id=chat_id, text=message)
 
 
-def callback_timer(bot: Bot, update, job_queue):
+def callback_timer(bot: Bot, update: Update, job_queue):
     """callback_timer"""
     bot.send_message(chat_id=update.message.chat_id, text="Starting!")
     job_queue.run_repeating(
@@ -68,7 +71,7 @@ def callback_timer(bot: Bot, update, job_queue):
     )
 
 
-def stop_timer(bot: Bot, update, job_queue):
+def stop_timer(bot: Bot, update: Update, job_queue):
     """stop_timer"""
     bot.send_message(chat_id=update.message.chat_id, text="Stoped!")
     job_queue.stop()
