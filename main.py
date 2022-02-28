@@ -53,7 +53,7 @@ def faq_command(bot: Bot, update: Update) -> None:
     topic = update.message.text.replace("/faq ", "")
     message = faq(topic)
     bot.send_message(
-        chat_id=update.message.chat_id, text=message, parse_mode=ParseMode.MARKDOWN_V2
+        chat_id=update.message.chat_id, text=message, parse_mode=ParseMode.MARKDOWN
     )
 
 
