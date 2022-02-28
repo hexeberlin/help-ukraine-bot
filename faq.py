@@ -42,7 +42,7 @@ The BlaBlaCar team""",
 
 
 def faq(topic: str) -> str:
-    documents = messages.keys()
+    documents = ", ".join(messages.keys())
     return messages.get(
         topic, f"Нет такой страницы FAQ. Доступные страницы {documents}"
     )
