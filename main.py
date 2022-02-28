@@ -60,7 +60,7 @@ def callback_timer(bot: Bot, update, job_queue):
     """callback_timer"""
     bot.send_message(chat_id=update.message.chat_id,
                      text='Starting!')
-    job_queue.run_repeating(callback_alarm, ONE_HOUR,
+    job_queue.run_repeating(callback_alarm, ONE_HOUR, first=1,
                             context=update.message.chat_id)
 
 
