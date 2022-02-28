@@ -34,11 +34,16 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
-# Define a few command handlers. These usually take the two arguments update and
-# context.
+def send_reminder(bot: Bot, chat_id: str):
+    chat = bot.get_chat(chat_id)
+    message = chat.pinned_message.text if chat.pinned_message else REMINDER_MESSAGE
+    logger.info(f"Sending a reminder to chat {chat_id}")
+    bot.send_message(chat_id=chat_id, text=message)
+
+
 def help_command(bot: Bot, update: Update) -> None:
     """Send a message when the command /help is issued."""
-    bot.send_message(chat_id=update.message.chat_id, text=REMINDER_MESSAGE)
+    send_reminder(bot, chat_id=update.message.chat_id)
 
 
 def handle_msg(bot: Bot, update: Update) -> None:
@@ -57,10 +62,7 @@ def handle_msg(bot: Bot, update: Update) -> None:
 def callback_alarm(bot: Bot, job):
     """callback_alarm"""
     chat_id = job.context
-    chat = bot.get_chat(chat_id)
-    message = chat.pinned_message if chat.pinned_message else REMINDER_MESSAGE
-    logger.info(f"Sending a reminder to chat {chat_id}")
-    bot.send_message(chat_id=chat_id, text=message)
+    send_reminder(bot, chat_id=chat_id)
 
 
 def callback_timer(bot: Bot, update: Update, job_queue):
