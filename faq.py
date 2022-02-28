@@ -1,3 +1,6 @@
+from typing import List
+
+
 messages = {
     "drive-ua": """Ви можете допомогти іншим на BlaBlaCar
 
@@ -34,8 +37,12 @@ Today it is not our usual call to carpool. It is a call for solidarity, a call t
 
 Our thoughts are with you,
 The BlaBlaCar team""",
+    "train": "[Усі потяги з Польщі до Німеччини, а також в Німеччині для українців безкоштовні / All trains from Poland to Germany and in Germany are free for Ukrainians](https://www.deutschebahn.com/de/presse/pressestart_zentrales_uebersicht/Bahn-erleichtert-Gefluechteten-aus-der-Ukraine-Weiterreise-nach-Deutschland-Sonderzuege-in-Planung-7311236#:~:text=Die%20Deutsche%20Bahn%20erm%C3%B6glicht%20Gefl%C3%BCchteten,und%20innerhalb%20Deutschlands%20erleichtert%20werden)",
 }
 
 
 def faq(topic: str) -> str:
-    return messages.get(topic, "Нет такой страницы FAQ")
+    documents = messages.keys()
+    return messages.get(
+        topic, f"Нет такой страницы FAQ. Доступные страницы {documents}"
+    )
