@@ -38,10 +38,16 @@ Today it is not our usual call to carpool. It is a call for solidarity, a call t
 Our thoughts are with you,
 The BlaBlaCar team""",
     "train": "[Усі потяги з Польщі до Німеччини, а також в Німеччині для українців безкоштовні / All trains from Poland to Germany and in Germany are free for Ukrainians](https://www.deutschebahn.com/de/presse/pressestart_zentrales_uebersicht/Bahn-erleichtert-Gefluechteten-aus-der-Ukraine-Weiterreise-nach-Deutschland-Sonderzuege-in-Planung-7311236#:~:text=Die%20Deutsche%20Bahn%20erm%C3%B6glicht%20Gefl%C3%BCchteten,und%20innerhalb%20Deutschlands%20erleichtert%20werden)",
+    "bus": "The following are available [FlixBus](https://corporate.flixbus.com/flixbus-supports-ukraine/), [Helpbus](https://helpbus.eu/)",
+    "other": """- [PL - DE transport (Telegram)](https://t.me/+XHrjC1uX9ZVjYjZi)
+- [Telegram group about leaving Ukraine](https://t.me/bysol_evacuation)
+- [Information about open borders and entry requirements for Ukrainian citizens](https://cryptpad.fr/pad/#/2/pad/view/wznYh8Q6eEGuTI-UrgBjqqwsUrz9JzlHFoLURk1kd48/)
+- [Information to leave Ukraine](https://t.me/huiiivoiiine)""",
 }
 
 
 def faq(topic: str) -> str:
+    """faq"""
     documents = ", ".join(messages.keys())
     return messages.get(
         topic, f"Нет такой страницы FAQ. Доступные страницы {documents}"
