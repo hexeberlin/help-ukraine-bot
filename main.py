@@ -1,7 +1,6 @@
 import logging
 
-from telegram import Update, Bot
-from telegram.constants import PARSEMODE_MARKDOWN
+from telegram import Update, Bot, ParseMode
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 from telegram.utils.helpers import effective_message_type
 from faq import faq
@@ -54,7 +53,7 @@ def faq_command(bot: Bot, update: Update) -> None:
     topic = update.message.text.replace("/faq ", "")
     message = faq(topic)
     bot.send_message(
-        chat_id=update.message.chat_id, text=message, parse_mode=PARSEMODE_MARKDOWN
+        chat_id=update.message.chat_id, text=message, parse_mode=ParseMode.MARKDOWN_V2
     )
 
 
