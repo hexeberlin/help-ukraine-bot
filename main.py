@@ -4,7 +4,6 @@ from functools import wraps
 from telegram import Update, Bot, ParseMode
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
 from telegram.utils.helpers import effective_message_type
-from faq import faq
 
 import os
 
@@ -35,6 +34,7 @@ logging.basicConfig(
 
 logger = logging.getLogger(__name__)
 
+
 # Permissions
 def restricted(func):
     """A decorator that limits the access to commands only for admins"""
@@ -47,6 +47,7 @@ def restricted(func):
             return
         return func(bot, context, *args, **kwargs)
     return wrapped
+
 
 def send_reminder(bot: Bot, chat_id: str):
     chat = bot.get_chat(chat_id)
@@ -88,6 +89,7 @@ def callback_alarm(bot: Bot, job):
     chat_id = job.context
     send_reminder(bot, chat_id=chat_id)
 
+
 @restricted
 def callback_timer(bot: Bot, update: Update, job_queue):
     """callback_timer"""
@@ -95,6 +97,7 @@ def callback_timer(bot: Bot, update: Update, job_queue):
     job_queue.run_repeating(
         callback_alarm, REMINDER_INTERVAL, first=1, context=update.message.chat_id
     )
+
 
 @restricted
 def stop_timer(bot: Bot, update: Update, job_queue):
@@ -115,7 +118,6 @@ def main() -> None:
     dispatcher.add_handler(CommandHandler("start", callback_timer, pass_job_queue=True))
     dispatcher.add_handler(CommandHandler("stop", stop_timer, pass_job_queue=True))
     dispatcher.add_handler(CommandHandler("help", help_command))
-    dispatcher.add_handler(CommandHandler("faq", faq_command))
 
     # on non command i.e message - echo the message on Telegram
     dispatcher.add_handler(MessageHandler(Filters.all, handle_msg))
