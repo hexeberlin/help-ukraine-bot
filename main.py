@@ -122,8 +122,8 @@ def main() -> None:
     # on non command i.e message - echo the message on Telegram
     dispatcher.add_handler(MessageHandler(Filters.all, handle_msg))
 
-    updater.start_webhook(listen="127.0.0.1", port=int(PORT))
-    updater.bot.setWebhook("https://e74f-2a01-c22-355e-a600-4c3f-19ef-271e-6520.ngrok.io")
+    updater.start_webhook(listen="0.0.0.0", port=int(PORT), url_path=TOKEN)
+    updater.bot.setWebhook(f"https://{APP_NAME}.herokuapp.com/{TOKEN}")
 
     updater.idle()
 
