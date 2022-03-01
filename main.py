@@ -39,22 +39,13 @@ logger = logging.getLogger(__name__)
 def restricted(func):
     """A decorator that limits the access to commands only for admins"""
     @wraps(func)
-    def wrapped(update: Update, context: CallbackContext, *args, **kwargs):
-        user_id = update.effective_user.id
-        chat_id = update.effective_chat.id
-        bot = context.bot
+    def wrapped(bot: Bot, context: CallbackContext, *args, **kwargs):
+        user_id = context.effective_user.id
+        chat_id = context.effective_chat.id
         admins = [u.user.id for u in bot.get_chat_administrators(chat_id)]
-
-        bot.send_message(chat_id=update.message.chat_id, text=str(admins))
-        bot.send_message(chat_id=update.message.chat_id, text=str(user_id))
-
         if user_id not in admins:
-            bot.send_message(chat_id=update.message.chat_id, text="No access")
-
             return
-        bot.send_message(chat_id=update.message.chat_id, text="access")
-
-        return func(update, context, *args, **kwargs)
+        return func(bot, context, *args, **kwargs)
     return wrapped
 
 def send_reminder(bot: Bot, chat_id: str):
@@ -69,7 +60,6 @@ def help_command(bot: Bot, update: Update) -> None:
     send_reminder(bot, chat_id=update.message.chat_id)
 
 
-@restricted
 def faq_command(bot: Bot, update: Update) -> None:
     """Send a message when the command /faq is issued."""
     logger.info(f"FAQ {update.message.text}")
@@ -98,7 +88,7 @@ def callback_alarm(bot: Bot, job):
     chat_id = job.context
     send_reminder(bot, chat_id=chat_id)
 
-
+@restricted
 def callback_timer(bot: Bot, update: Update, job_queue):
     """callback_timer"""
     bot.send_message(chat_id=update.message.chat_id, text="Starting!")
@@ -106,19 +96,11 @@ def callback_timer(bot: Bot, update: Update, job_queue):
         callback_alarm, REMINDER_INTERVAL, first=1, context=update.message.chat_id
     )
 
-
+@restricted
 def stop_timer(bot: Bot, update: Update, job_queue):
     """stop_timer"""
     bot.send_message(chat_id=update.message.chat_id, text="Stoped!")
     job_queue.stop()
-
-def get_admins(bot: Bot, update: Update):
-    """get_admins"""
-    admins = [o.user.id for o in bot.get_chat_administrators(update.effective_chat.id)]
-    me = update.effective_user.id
-
-    bot.send_message(chat_id=update.message.chat_id, text=str(admins))
-    bot.send_message(chat_id=update.message.chat_id, text=str(me))
 
 
 def main() -> None:
@@ -134,13 +116,12 @@ def main() -> None:
     dispatcher.add_handler(CommandHandler("stop", stop_timer, pass_job_queue=True))
     dispatcher.add_handler(CommandHandler("help", help_command))
     dispatcher.add_handler(CommandHandler("faq", faq_command))
-    dispatcher.add_handler(CommandHandler("admins", get_admins))
 
     # on non command i.e message - echo the message on Telegram
     dispatcher.add_handler(MessageHandler(Filters.all, handle_msg))
 
-    updater.start_webhook(listen="0.0.0.0", port=int(PORT), url_path=TOKEN)
-    updater.bot.setWebhook(f"https://{APP_NAME}.herokuapp.com/{TOKEN}")
+    updater.start_webhook(listen="127.0.0.1", port=int(PORT))
+    updater.bot.setWebhook("https://e74f-2a01-c22-355e-a600-4c3f-19ef-271e-6520.ngrok.io")
 
     updater.idle()
 
