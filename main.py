@@ -1,7 +1,7 @@
 import logging
 from functools import wraps
 
-from telegram import Update, Bot, ParseMode
+from telegram import Update, Bot
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
 from telegram.utils.helpers import effective_message_type
 
@@ -59,16 +59,6 @@ def send_reminder(bot: Bot, chat_id: str):
 def help_command(bot: Bot, update: Update) -> None:
     """Send a message when the command /help is issued."""
     send_reminder(bot, chat_id=update.message.chat_id)
-
-
-def faq_command(bot: Bot, update: Update) -> None:
-    """Send a message when the command /faq is issued."""
-    logger.info(f"FAQ {update.message.text}")
-    topic = update.message.text.replace("/faq ", "")
-    message = faq(topic)
-    bot.send_message(
-        chat_id=update.message.chat_id, text=message, parse_mode=ParseMode.MARKDOWN
-    )
 
 
 def handle_msg(bot: Bot, update: Update) -> None:
