@@ -1,12 +1,21 @@
 import logging
+from functools import wraps
 
-from telegram import Update, Bot
-from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
+from telegram import Message, Update, Bot, ParseMode
+from telegram.ext import (
+    Updater,
+    CommandHandler,
+    MessageHandler,
+    Filters,
+    CallbackContext,
+)
 from telegram.utils.helpers import effective_message_type
 
 import os
 
-APP_NAME = os.environ.get("APP_NAME", "telegram-bot-help-in-berlin")
+from faq import faq
+
+APP_NAME = os.environ["APP_NAME"]
 PORT = int(os.environ.get("PORT", 5000))
 TOKEN = os.environ["TOKEN"]
 REMINDER_MESSAGE = """
@@ -34,16 +43,51 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
+# Permissions
+def restricted(func):
+    """A decorator that limits the access to commands only for admins"""
+
+    @wraps(func)
+    def wrapped(bot: Bot, context: CallbackContext, *args, **kwargs):
+        user_id = context.effective_user.id
+        chat_id = context.effective_chat.id
+        admins = [u.user.id for u in bot.get_chat_administrators(chat_id)]
+
+        if user_id not in admins:
+            logger.warn("Non admin attempts to access a restricted function")
+            return
+
+        logger.info("Restricted function permission granted")
+        return func(bot, context, *args, **kwargs)
+
+    return wrapped
+
+
 def send_reminder(bot: Bot, chat_id: str):
+    """send_reminder"""
     chat = bot.get_chat(chat_id)
-    message = chat.pinned_message.text if chat.pinned_message else REMINDER_MESSAGE
+    msg: Message = chat.pinned_message
     logger.info(f"Sending a reminder to chat {chat_id}")
-    bot.send_message(chat_id=chat_id, text=message)
+
+    if msg:
+        bot.forward_message(chat_id, chat_id, msg.message_id)
+    else:
+        bot.send_message(chat_id=chat_id, text=REMINDER_MESSAGE)
 
 
 def help_command(bot: Bot, update: Update) -> None:
     """Send a message when the command /help is issued."""
     send_reminder(bot, chat_id=update.message.chat_id)
+
+
+def faq_command(bot: Bot, update: Update) -> None:
+    """Send a message when the command /faq is issued."""
+    logger.info(f"FAQ {update.message.text}")
+    topic = update.message.text.replace("/faq ", "")
+    message = faq(topic)
+    bot.send_message(
+        chat_id=update.message.chat_id, text=message, parse_mode=ParseMode.MARKDOWN
+    )
 
 
 def handle_msg(bot: Bot, update: Update) -> None:
@@ -65,6 +109,7 @@ def callback_alarm(bot: Bot, job):
     send_reminder(bot, chat_id=chat_id)
 
 
+@restricted
 def callback_timer(bot: Bot, update: Update, job_queue):
     """callback_timer"""
     bot.send_message(chat_id=update.message.chat_id, text="Starting!")
@@ -73,6 +118,7 @@ def callback_timer(bot: Bot, update: Update, job_queue):
     )
 
 
+@restricted
 def stop_timer(bot: Bot, update: Update, job_queue):
     """stop_timer"""
     bot.send_message(chat_id=update.message.chat_id, text="Stoped!")
