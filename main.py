@@ -91,26 +91,42 @@ def handle_msg(bot: Bot, update: Update) -> None:
         )
 
 
-def callback_alarm(bot: Bot, job: Job):
-    """callback_alarm"""
+def alarm(bot: Bot, job: Job):
+    """alarm"""
     chat_id = job.context
     send_reminder(bot, chat_id=chat_id)
 
 
 @restricted
-def callback_timer(bot: Bot, update: Update, job_queue: JobQueue):
-    """callback_timer"""
-    bot.send_message(chat_id=update.message.chat_id, text="Starting!")
-    job_queue.run_repeating(
-        callback_alarm, REMINDER_INTERVAL, first=1, context=update.message.chat_id
-    )
+def start_timer(bot: Bot, update: Update, job_queue: JobQueue):
+    """start_timer"""
+    chat_id = update.message.chat_id
+    logger.info("Started reminders in channel %s", chat_id)
+
+    jobs: tuple[Job] = job_queue.get_jobs_by_name(chat_id)
+
+    #  Restart already existing jobs
+    for job in jobs:
+        job.enabled = True
+
+    # Start a new job if there was none previously
+    if not jobs:
+        job_queue.run_repeating(
+            alarm, REMINDER_INTERVAL, first=1, context=chat_id, name=chat_id
+        )
 
 
 @restricted
 def stop_timer(bot: Bot, update: Update, job_queue: JobQueue):
     """stop_timer"""
-    bot.send_message(chat_id=update.message.chat_id, text="Stoped!")
-    job_queue.stop()
+    chat_id = update.message.chat_id
+
+    #  Stop already existing jobs
+    jobs: tuple[Job] = job_queue.get_jobs_by_name(chat_id)
+    for job in jobs:
+        job.enabled = False
+
+    logger.info("Stopped reminders in channel %s", chat_id)
 
 
 def main() -> None:
@@ -122,7 +138,7 @@ def main() -> None:
     dispatcher = updater.dispatcher
 
     # on different commands - answer in Telegram
-    dispatcher.add_handler(CommandHandler("start", callback_timer, pass_job_queue=True))
+    dispatcher.add_handler(CommandHandler("start", start_timer, pass_job_queue=True))
     dispatcher.add_handler(CommandHandler("stop", stop_timer, pass_job_queue=True))
     dispatcher.add_handler(CommandHandler("help", help_command))
 
