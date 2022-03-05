@@ -121,8 +121,9 @@ def start_timer(bot: Bot, update: Update, job_queue: JobQueue):
 
     # Start a new job if there was none previously
     if not jobs:
-        update.message.reply_text(
-            text=f"I'm starting sending the reminders every {REMINDER_INTERVAL}s."
+        bot.send_message(
+            chat_id=chat_id,
+            text=f"I'm starting sending the reminders every {REMINDER_INTERVAL}s.",
         )
         job_queue.run_repeating(
             alarm, REMINDER_INTERVAL, first=1, context=chat_id, name=chat_id
