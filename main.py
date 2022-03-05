@@ -107,10 +107,24 @@ def start_timer(bot: Bot, update: Update, job_queue: JobQueue):
 
     #  Restart already existing jobs
     for job in jobs:
+        if not job.enabled:
+            bot.send_message(
+                chat_id=chat_id,
+                text=f"I'm re-starting sending the reminders every {REMINDER_INTERVAL}s.",
+            )
+        else:
+            bot.send_message(
+                chat_id=chat_id,
+                text=f"I'm already sending the reminders every {REMINDER_INTERVAL}s.",
+            )
         job.enabled = True
 
     # Start a new job if there was none previously
     if not jobs:
+        bot.send_message(
+            chat_id=chat_id,
+            text=f"I'm starting sending the reminders every {REMINDER_INTERVAL}s.",
+        )
         job_queue.run_repeating(
             alarm, REMINDER_INTERVAL, first=1, context=chat_id, name=chat_id
         )
@@ -124,6 +138,7 @@ def stop_timer(bot: Bot, update: Update, job_queue: JobQueue):
     #  Stop already existing jobs
     jobs: tuple[Job] = job_queue.get_jobs_by_name(chat_id)
     for job in jobs:
+        bot.send_message(chat_id=chat_id, text="I'm stopping sending the reminders.")
         job.enabled = False
 
     logger.info("Stopped reminders in channel %s", chat_id)
