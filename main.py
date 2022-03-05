@@ -1,3 +1,5 @@
+"""put module docstring here"""
+import os
 import logging
 from functools import wraps
 
@@ -8,31 +10,17 @@ from telegram.ext import (
     MessageHandler,
     Filters,
     CallbackContext,
+    JobQueue,
+    Job,
 )
 from telegram.utils.helpers import effective_message_type
-
-import os
 
 from faq import faq
 
 APP_NAME = os.environ["APP_NAME"]
 PORT = int(os.environ.get("PORT", 5000))
 TOKEN = os.environ["TOKEN"]
-REMINDER_MESSAGE = """
-  Dear group members,
-  We remind you that this is a group for helping and finding help. If you can – write in English. Please refrain from putting unrelated entries here. Anybody adding hate or trolling comments will be banned from the group.
-  The overview of useful links  about documents, transport, accommodation etc. can be found here https://bit.ly/help-for-ukrainians
-
-  Уважаемые участники группы,
-  Напоминаем вам, что цель этой группы – предоставление и поиск помощи. Если можете – пожалуйста пишите по английски. Пожалуйста, воздержитесь от размещения здесь записей, не имеющих отношения к теме. Пользователи, добавляющие агрессивные или тролящие комментарии,  будут удаляны из группы.
-  Обзор полезных ссылок о документах, транспорте, жилье и т.д. можно найти здесь
-   https://bit.ly/help-for-ukrainians
-
-  Шановні учасники групи
-  Нагадуємо вам, що це група для допомоги та пошуку допомоги. Якщо можете – пишіть англійською. Будь ласка, утримайтеся від розміщення записів, що не мають відношення до теми. Будь-хто, хто додаватиме коментарі ненависті або тролінгу, буде видалено з групи.
-  Огляд корисних посилань про документи, транспорт, житло тощо. можна знайти тут
-   https://bit.ly/help-for-ukrainians
-"""
+REMINDER_MESSAGE = os.environ.get("REMINDER_MESSAGE", "I WILL POST PINNED MESSAGE HERE")
 REMINDER_INTERVAL = int(os.environ.get("REMINDER_INTERVAL", 30 * 60))
 
 # Enable logging
@@ -54,7 +42,7 @@ def restricted(func):
         admins = [u.user.id for u in bot.get_chat_administrators(chat_id)]
 
         if user_id not in admins:
-            logger.warn("Non admin attempts to access a restricted function")
+            logger.warning("Non admin attempts to access a restricted function")
             return
 
         logger.info("Restricted function permission granted")
@@ -67,7 +55,7 @@ def send_reminder(bot: Bot, chat_id: str):
     """send_reminder"""
     chat = bot.get_chat(chat_id)
     msg: Message = chat.pinned_message
-    logger.info(f"Sending a reminder to chat {chat_id}")
+    logger.info("Sending a reminder to chat %s", chat_id)
 
     if msg:
         bot.forward_message(chat_id, chat_id, msg.message_id)
@@ -82,7 +70,7 @@ def help_command(bot: Bot, update: Update) -> None:
 
 def faq_command(bot: Bot, update: Update) -> None:
     """Send a message when the command /faq is issued."""
-    logger.info(f"FAQ {update.message.text}")
+    logger.info("FAQ %s", update.message.text)
     topic = update.message.text.replace("/faq ", "")
     message = faq(topic)
     bot.send_message(
@@ -92,8 +80,8 @@ def faq_command(bot: Bot, update: Update) -> None:
 
 def handle_msg(bot: Bot, update: Update) -> None:
     """Echo the user message."""
-    tp = effective_message_type(update.message)
-    logger.info(f"Handling type is {tp}")
+    msg_type = effective_message_type(update.message)
+    logger.debug("Handling type is %s", msg_type)
     if effective_message_type(update.message) in [
         "new_chat_members",
         "left_chat_member",
@@ -103,14 +91,14 @@ def handle_msg(bot: Bot, update: Update) -> None:
         )
 
 
-def callback_alarm(bot: Bot, job):
+def callback_alarm(bot: Bot, job: Job):
     """callback_alarm"""
     chat_id = job.context
     send_reminder(bot, chat_id=chat_id)
 
 
 @restricted
-def callback_timer(bot: Bot, update: Update, job_queue):
+def callback_timer(bot: Bot, update: Update, job_queue: JobQueue):
     """callback_timer"""
     bot.send_message(chat_id=update.message.chat_id, text="Starting!")
     job_queue.run_repeating(
@@ -119,7 +107,7 @@ def callback_timer(bot: Bot, update: Update, job_queue):
 
 
 @restricted
-def stop_timer(bot: Bot, update: Update, job_queue):
+def stop_timer(bot: Bot, update: Update, job_queue: JobQueue):
     """stop_timer"""
     bot.send_message(chat_id=update.message.chat_id, text="Stoped!")
     job_queue.stop()

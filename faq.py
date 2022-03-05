@@ -1,6 +1,3 @@
-from typing import List
-
-
 messages = {
     "drive-ua": """Ви можете допомогти іншим на BlaBlaCar
 
