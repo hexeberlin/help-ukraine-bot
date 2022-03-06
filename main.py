@@ -2,18 +2,27 @@
 import os
 import logging
 from functools import wraps
+from uuid import uuid4
 
-from telegram import Message, Update, Bot, ParseMode
+from telegram import (
+    InlineQueryResultArticle,
+    InputTextMessageContent,
+    Message,
+    Update,
+    Bot,
+    ParseMode,
+)
 from telegram.ext import (
     Updater,
     CommandHandler,
     MessageHandler,
+    InlineQueryHandler,
     Filters,
     CallbackContext,
     JobQueue,
     Job,
 )
-from telegram.utils.helpers import effective_message_type
+from telegram.utils.helpers import effective_message_type, escape_markdown
 
 from faq import faq
 
@@ -78,7 +87,7 @@ def faq_command(bot: Bot, update: Update) -> None:
     )
 
 
-def handle_msg(bot: Bot, update: Update) -> None:
+def delete_greetings(bot: Bot, update: Update) -> None:
     """Echo the user message."""
     msg_type = effective_message_type(update.message)
     logger.debug("Handling type is %s", msg_type)
@@ -144,6 +153,38 @@ def stop_timer(bot: Bot, update: Update, job_queue: JobQueue):
     logger.info("Stopped reminders in channel %s", chat_id)
 
 
+def inlinequery(bot: Bot, update: Update) -> None:
+    """Handle the inline query."""
+    query = update.inline_query.query
+
+    if query == "":
+        return
+
+    results = [
+        InlineQueryResultArticle(
+            id=str(uuid4()),
+            title="Caps",
+            input_message_content=InputTextMessageContent(query.upper()),
+        ),
+        InlineQueryResultArticle(
+            id=str(uuid4()),
+            title="Bold",
+            input_message_content=InputTextMessageContent(
+                f"*{escape_markdown(query)}*", parse_mode=ParseMode.MARKDOWN
+            ),
+        ),
+        InlineQueryResultArticle(
+            id=str(uuid4()),
+            title="Italic",
+            input_message_content=InputTextMessageContent(
+                f"_{escape_markdown(query)}_", parse_mode=ParseMode.MARKDOWN
+            ),
+        ),
+    ]
+
+    update.inline_query.answer(results)
+
+
 def main() -> None:
     """Start the bot."""
     # Create the Updater and pass it your bot's token.
@@ -152,13 +193,16 @@ def main() -> None:
     # Get the dispatcher to register handlers
     dispatcher = updater.dispatcher
 
-    # on different commands - answer in Telegram
+    # Commands
     dispatcher.add_handler(CommandHandler("start", start_timer, pass_job_queue=True))
     dispatcher.add_handler(CommandHandler("stop", stop_timer, pass_job_queue=True))
     dispatcher.add_handler(CommandHandler("help", help_command))
 
-    # on non command i.e message - echo the message on Telegram
-    dispatcher.add_handler(MessageHandler(Filters.all, handle_msg))
+    # Messages
+    dispatcher.add_handler(MessageHandler(Filters.all, delete_greetings))
+
+    # Inlines
+    dispatcher.add_handler(InlineQueryHandler(inlinequery))
 
     updater.start_webhook(listen="0.0.0.0", port=int(PORT), url_path=TOKEN)
     updater.bot.setWebhook(f"https://{APP_NAME}.herokuapp.com/{TOKEN}")
