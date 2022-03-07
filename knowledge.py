@@ -2,22 +2,28 @@
 from uuid import uuid4
 import json
 
-from dataclasses import dataclass
 
-
-@dataclass
 class Reply:
     """Reply for an answer"""
 
     id: str
     title: str
+    lower_title: str
     content: str
+    lower_content: str
+
+    def __init__(self, title: str, content: str) -> None:
+        self.id = str(uuid4())
+        self.title = title
+        self.lower_title = title.lower()
+        self.content = content
+        self.lower_content = content.lower()
 
 
 replies: list[Reply] = []
 with open("knowledge.json", encoding="utf-8") as f:
     records = json.load(f)["replies"]
-    replies = [Reply(id=str(uuid4()), **r) for r in records]
+    replies = [Reply(**r) for r in records]
 
 
 def search(query: str) -> list[Reply]:
@@ -29,5 +35,8 @@ def search(query: str) -> list[Reply]:
     Returns:
         list[Reply]: Replies containing query
     """
-    result = filter(lambda r: query in r.title or query in r.content, replies)
+    lower_query = query.lower()
+    result = filter(
+        lambda r: lower_query in r.lower_title or query in r.lower_content, replies
+    )
     return result
