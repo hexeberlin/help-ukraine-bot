@@ -24,7 +24,7 @@ from telegram.ext import (
 )
 from telegram.utils.helpers import effective_message_type, escape_markdown
 
-from faq import faq
+from knowledge import search
 
 APP_NAME = os.environ["APP_NAME"]
 PORT = int(os.environ.get("PORT", 5000))
@@ -75,16 +75,6 @@ def send_reminder(bot: Bot, chat_id: str):
 def help_command(bot: Bot, update: Update) -> None:
     """Send a message when the command /help is issued."""
     send_reminder(bot, chat_id=update.message.chat_id)
-
-
-def faq_command(bot: Bot, update: Update) -> None:
-    """Send a message when the command /faq is issued."""
-    logger.info("FAQ %s", update.message.text)
-    topic = update.message.text.replace("/faq ", "")
-    message = faq(topic)
-    bot.send_message(
-        chat_id=update.message.chat_id, text=message, parse_mode=ParseMode.MARKDOWN
-    )
 
 
 def delete_greetings(bot: Bot, update: Update) -> None:
@@ -153,33 +143,20 @@ def stop_timer(bot: Bot, update: Update, job_queue: JobQueue):
     logger.info("Stopped reminders in channel %s", chat_id)
 
 
-def inlinequery(bot: Bot, update: Update) -> None:
+def find_replies(bot: Bot, update: Update) -> None:
     """Handle the inline query."""
     query = update.inline_query.query
 
-    if query == "":
-        return
-
+    replies = search(query)
     results = [
         InlineQueryResultArticle(
-            id=str(uuid4()),
-            title="Caps",
-            input_message_content=InputTextMessageContent(query.upper()),
-        ),
-        InlineQueryResultArticle(
-            id=str(uuid4()),
-            title="Bold",
+            id=str(uuid4),
+            title=r.title,
             input_message_content=InputTextMessageContent(
-                f"*{escape_markdown(query)}*", parse_mode=ParseMode.MARKDOWN
+                r.content, parse_mode=ParseMode.MARKDOWN
             ),
-        ),
-        InlineQueryResultArticle(
-            id=str(uuid4()),
-            title="Italic",
-            input_message_content=InputTextMessageContent(
-                f"_{escape_markdown(query)}_", parse_mode=ParseMode.MARKDOWN
-            ),
-        ),
+        )
+        for r in replies
     ]
 
     update.inline_query.answer(results)
@@ -202,7 +179,7 @@ def main() -> None:
     dispatcher.add_handler(MessageHandler(Filters.all, delete_greetings))
 
     # Inlines
-    dispatcher.add_handler(InlineQueryHandler(inlinequery))
+    dispatcher.add_handler(InlineQueryHandler(find_replies))
 
     updater.start_webhook(listen="0.0.0.0", port=int(PORT), url_path=TOKEN)
     updater.bot.setWebhook(f"https://{APP_NAME}.herokuapp.com/{TOKEN}")
