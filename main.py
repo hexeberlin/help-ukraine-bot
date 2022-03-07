@@ -150,7 +150,7 @@ def find_replies(bot: Bot, update: Update) -> None:
     replies = search(query)
     results = [
         InlineQueryResultArticle(
-            id=str(uuid4),
+            id=r.id,
             title=r.title,
             input_message_content=InputTextMessageContent(
                 r.content, parse_mode=ParseMode.MARKDOWN

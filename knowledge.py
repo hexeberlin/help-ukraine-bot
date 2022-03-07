@@ -1,11 +1,15 @@
-from dataclasses import dataclass
+"""Knowledge base of the bot"""
+from uuid import uuid4
 import json
+
+from dataclasses import dataclass
 
 
 @dataclass
 class Reply:
     """Reply for an answer"""
 
+    id: str
     title: str
     content: str
 
@@ -13,7 +17,7 @@ class Reply:
 replies: list[Reply] = []
 with open("knowledge.json", encoding="utf-8") as f:
     records = json.load(f)["replies"]
-    replies = [Reply(**r) for r in records]
+    replies = [Reply(id=str(uuid4()), **r) for r in records]
 
 
 def search(query: str) -> list[Reply]:
