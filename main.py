@@ -31,6 +31,10 @@ PORT = int(os.environ.get("PORT", 5000))
 TOKEN = os.environ["TOKEN"]
 REMINDER_MESSAGE = os.environ.get("REMINDER_MESSAGE", "I WILL POST PINNED MESSAGE HERE")
 REMINDER_INTERVAL = int(os.environ.get("REMINDER_INTERVAL", 30 * 60))
+THUMB_URL = os.environ.get(
+    "THUMB_URL",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Flag_of_Ukraine.svg/2560px-Flag_of_Ukraine.svg.png",
+)
 
 # Enable logging
 logging.basicConfig(
@@ -155,6 +159,7 @@ def find_replies(bot: Bot, update: Update) -> None:
             input_message_content=InputTextMessageContent(
                 r.content, parse_mode=ParseMode.MARKDOWN
             ),
+            thumb_url=THUMB_URL,
         )
         for r in replies
     ]
