@@ -24,6 +24,8 @@ from telegram.ext import (
 )
 from telegram.utils.helpers import effective_message_type, escape_markdown
 
+import commands
+import guidebook
 from knowledge import search
 
 APP_NAME = os.environ["APP_NAME"]
@@ -35,6 +37,7 @@ THUMB_URL = os.environ.get(
     "THUMB_URL",
     "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Flag_of_Ukraine.svg/2560px-Flag_of_Ukraine.svg.png",
 )
+BOOK = guidebook.load_guidebook()
 
 # Enable logging
 logging.basicConfig(
@@ -167,6 +170,11 @@ def find_replies(bot: Bot, update: Update) -> None:
     update.inline_query.answer(results)
 
 
+def cities_command(bot: Bot, update: Update, name=None):
+    results = commands.cities(BOOK, name)
+    bot.send_message(chat_id=update.message.chat_id, text=results)
+
+
 def main() -> None:
     """Start the bot."""
     # Create the Updater and pass it your bot's token.
@@ -179,6 +187,8 @@ def main() -> None:
     dispatcher.add_handler(CommandHandler("start", start_timer, pass_job_queue=True))
     dispatcher.add_handler(CommandHandler("stop", stop_timer, pass_job_queue=True))
     dispatcher.add_handler(CommandHandler("help", help_command))
+
+    dispatcher.add_handler(CommandHandler("cities", cities_command))
 
     # Messages
     dispatcher.add_handler(MessageHandler(Filters.all, delete_greetings))
