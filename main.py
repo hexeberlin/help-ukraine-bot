@@ -26,7 +26,6 @@ from telegram.utils.helpers import effective_message_type, escape_markdown
 
 import guidebook
 from knowledge import search
-from guidebook import *
 
 APP_NAME = os.environ["APP_NAME"]
 PORT = int(os.environ.get("PORT", 5000))
@@ -185,7 +184,7 @@ def main() -> None:
     # Get the dispatcher to register handlers
     dispatcher = updater.dispatcher
 
-    book = guidebook.load_guidebook()
+    # book = guidebook.load_guidebook()
 
     # Commands
     dispatcher.add_handler(CommandHandler("start", start_timer, pass_job_queue=True))
@@ -193,8 +192,8 @@ def main() -> None:
     dispatcher.add_handler(CommandHandler("help", help_command))
     dispatcher.add_handler(CommandHandler("siren", siren_command))
 
-    dispatcher.add_handler(CommandHandler("cities", guidebook.cities()))
-    dispatcher.add_handler(CommandHandler("hello", guidebook.cities()))
+    # dispatcher.add_handler(CommandHandler("cities", guidebook.cities()))
+    dispatcher.add_handler(CommandHandler("hello", "hello"))
 
     # Messages
     dispatcher.add_handler(MessageHandler(Filters.all, delete_greetings))
