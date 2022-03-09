@@ -37,6 +37,6 @@ def search(query: str) -> list[Reply]:
     """
     lower_query = query.lower()
     result = filter(
-        lambda r: lower_query in r.lower_title or query in r.lower_content, replies
+        lambda r: lower_query in r.lower_title or query in r.lower_content.replace("_", "\n"), replies
     )
     return result
