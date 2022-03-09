@@ -177,12 +177,13 @@ def find_replies(bot: Bot, update: Update) -> None:
     update.inline_query.answer(results)
 
 
-def cities_command(name=None):
+def cities_command(bot: Bot, update: Update, name=None):
     logger.info("cities")
 
     book = guidebook.load_guidebook()
-    results = commands.cities(book, name)
-    send_msg(results=results)
+    # results = commands.cities(book, name)
+    results = "heloo world"
+    bot.send_message(chat_id=update.message.chat_id, text=results)
 
 
 def main() -> None:
