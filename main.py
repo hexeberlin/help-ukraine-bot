@@ -24,6 +24,7 @@ from telegram.ext import (
 )
 from telegram.utils.helpers import effective_message_type, escape_markdown
 
+import commands
 import guidebook
 from knowledge import search
 
@@ -80,9 +81,9 @@ def send_reminder(bot: Bot, chat_id: str):
     # bot.send_message(chat_id=chat_id, text=SIREN_MESSAGE)
 
 
-def send_msg(bot: Bot, chat_id: str):
+def send_msg(bot: Bot, chat_id: str, results: str):
     logger.degug("Sending msg")
-    bot.send_message(chat_id=chat_id, text="Not found")
+    bot.send_message(chat_id=chat_id, text=results)
 
 
 def help_command(bot: Bot, update: Update) -> None:
@@ -176,6 +177,14 @@ def find_replies(bot: Bot, update: Update) -> None:
     update.inline_query.answer(results)
 
 
+def cities_command(name=None):
+    logger.info("cities")
+
+    book = guidebook.load_guidebook()
+    results = commands.cities(book, name)
+    send_msg(results=results)
+
+
 def main() -> None:
     """Start the bot."""
     # Create the Updater and pass it your bot's token.
@@ -190,9 +199,8 @@ def main() -> None:
     dispatcher.add_handler(CommandHandler("start", start_timer, pass_job_queue=True))
     dispatcher.add_handler(CommandHandler("stop", stop_timer, pass_job_queue=True))
     dispatcher.add_handler(CommandHandler("help", help_command))
-    dispatcher.add_handler(CommandHandler("hello", send_msg))
 
-    # dispatcher.add_handler(CommandHandler("cities", guidebook.cities()))
+    dispatcher.add_handler(CommandHandler("cities", cities_command))
 
     # Messages
     dispatcher.add_handler(MessageHandler(Filters.all, delete_greetings))
