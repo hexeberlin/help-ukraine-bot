@@ -38,6 +38,7 @@ THUMB_URL = os.environ.get(
     "THUMB_URL",
     "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Flag_of_Ukraine.svg/2560px-Flag_of_Ukraine.svg.png",
 )
+BOOK = guidebook.load_guidebook()
 
 # Enable logging
 logging.basicConfig(
@@ -173,11 +174,7 @@ def find_replies(bot: Bot, update: Update) -> None:
 
 
 def cities_command(bot: Bot, update: Update, name=None):
-    logger.info("cities")
-
-    book = guidebook.load_guidebook()
-    results = commands.cities(book, name)
-    # results = "heloo world"
+    results = commands.cities(BOOK, name)
     bot.send_message(chat_id=update.message.chat_id, text=results)
 
 
