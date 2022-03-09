@@ -175,9 +175,9 @@ def find_replies(bot: Bot, update: Update) -> None:
 def cities_command(bot: Bot, update: Update, name=None):
     logger.info("cities")
 
-    # book = guidebook.load_guidebook()
-    # results = commands.cities(book, name)
-    results = "heloo world"
+    book = guidebook.load_guidebook()
+    results = commands.cities(book, name)
+    # results = "heloo world"
     bot.send_message(chat_id=update.message.chat_id, text=results)
 
 
