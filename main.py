@@ -80,8 +80,8 @@ def send_reminder(bot: Bot, chat_id: str):
     # bot.send_message(chat_id=chat_id, text=SIREN_MESSAGE)
 
 
-def send_msg(bot: Bot, chat_id: str, msg: str):
-    logger.info("Sending msg")
+def send_msg(bot: Bot, chat_id: str):
+    logger.degug("Sending msg")
     bot.send_message(chat_id=chat_id, text="Not found")
 
 
@@ -190,7 +190,7 @@ def main() -> None:
     dispatcher.add_handler(CommandHandler("start", start_timer, pass_job_queue=True))
     dispatcher.add_handler(CommandHandler("stop", stop_timer, pass_job_queue=True))
     dispatcher.add_handler(CommandHandler("help", help_command))
-    dispatcher.add_handler(CommandHandler("hello", start_timer))
+    dispatcher.add_handler(CommandHandler("hello", send_msg))
 
     # dispatcher.add_handler(CommandHandler("cities", guidebook.cities()))
 
