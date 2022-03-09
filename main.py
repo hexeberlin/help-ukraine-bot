@@ -201,7 +201,7 @@ def main() -> None:
     dispatcher.add_handler(CommandHandler("siren", siren_command))
 
     # dispatcher.add_handler(CommandHandler("cities", guidebook.cities()))
-    dispatcher.add_handler(CommandHandler("hello", send_msg(msg="hello")))
+    # dispatcher.add_handler(CommandHandler("hello", send_msg(msg="hello")))
 
     # Messages
     dispatcher.add_handler(MessageHandler(Filters.all, delete_greetings))
