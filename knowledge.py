@@ -17,7 +17,7 @@ class Reply:
         self.title = title
         self.lower_title = title.lower()
         self.content = content
-        self.lower_content = content.lower().replace("_", "\_")
+        self.lower_content = content.lower()
 
 
 replies: list[Reply] = []
@@ -36,7 +36,6 @@ def search(query: str) -> list[Reply]:
         list[Reply]: Replies containing query
     """
     lower_query = query.lower()
-
     result = filter(
         lambda r: lower_query in r.lower_title or query in r.lower_content, replies
     )
