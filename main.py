@@ -81,11 +81,6 @@ def send_reminder(bot: Bot, chat_id: str):
     # bot.send_message(chat_id=chat_id, text=SIREN_MESSAGE)
 
 
-def send_msg(bot: Bot, chat_id: str, results: str):
-    logger.degug("Sending msg")
-    bot.send_message(chat_id=chat_id, text=results)
-
-
 def help_command(bot: Bot, update: Update) -> None:
     """Send a message when the command /help is issued."""
     send_reminder(bot, chat_id=update.message.chat_id)
