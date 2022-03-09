@@ -93,11 +93,6 @@ def help_command(bot: Bot, update: Update) -> None:
     send_reminder(bot, chat_id=update.message.chat_id)
 
 
-def siren_command(bot: Bot, update: Update) -> None:
-    """Send a message when the command /help is issued."""
-    send_reminder(bot, chat_id=update.message.chat_id)
-
-
 def delete_greetings(bot: Bot, update: Update) -> None:
     """Echo the user message."""
     msg_type = effective_message_type(update.message)
@@ -198,8 +193,7 @@ def main() -> None:
     dispatcher.add_handler(CommandHandler("start", start_timer, pass_job_queue=True))
     dispatcher.add_handler(CommandHandler("stop", stop_timer, pass_job_queue=True))
     dispatcher.add_handler(CommandHandler("help", help_command))
-    dispatcher.add_handler(CommandHandler("siren", siren_command))
-    dispatcher.add_handler(CommandHandler("hello", send_msg))
+    dispatcher.add_handler(CommandHandler("hello", start_timer))
 
     # dispatcher.add_handler(CommandHandler("cities", guidebook.cities()))
 
