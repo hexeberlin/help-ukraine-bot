@@ -80,7 +80,7 @@ def send_reminder(bot: Bot, chat_id: str):
     # bot.send_message(chat_id=chat_id, text=SIREN_MESSAGE)
 
 
-def send_msg(bot: Bot, chat_id: str, msg):
+def send_msg(bot: Bot, chat_id: str, msg: str):
     logger.info("Sending msg")
     if msg:
         bot.send_message(chat_id=chat_id, text=msg)
@@ -199,9 +199,9 @@ def main() -> None:
     dispatcher.add_handler(CommandHandler("stop", stop_timer, pass_job_queue=True))
     dispatcher.add_handler(CommandHandler("help", help_command))
     dispatcher.add_handler(CommandHandler("siren", siren_command))
+    dispatcher.add_handler(CommandHandler("hello", send_msg))
 
     # dispatcher.add_handler(CommandHandler("cities", guidebook.cities()))
-    # dispatcher.add_handler(CommandHandler("hello", send_msg(msg="hello")))
 
     # Messages
     dispatcher.add_handler(MessageHandler(Filters.all, delete_greetings))
