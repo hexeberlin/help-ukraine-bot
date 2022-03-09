@@ -196,7 +196,7 @@ def main() -> None:
     dispatcher.add_handler(CommandHandler("stop", stop_timer, pass_job_queue=True))
     dispatcher.add_handler(CommandHandler("help", help_command))
 
-    # dispatcher.add_handler(CommandHandler("cities", cities_command))
+    dispatcher.add_handler(CommandHandler("cities", cities_command))
 
     # Messages
     dispatcher.add_handler(MessageHandler(Filters.all, delete_greetings))
