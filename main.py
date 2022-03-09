@@ -76,7 +76,7 @@ def send_reminder(bot: Bot, chat_id: str):
     else:
         bot.send_message(chat_id=chat_id, text=REMINDER_MESSAGE)
 
-    bot.send_message(chat_id=chat_id, text=SIREN_MESSAGE)
+    # bot.send_message(chat_id=chat_id, text=SIREN_MESSAGE)
 
 
 def help_command(bot: Bot, update: Update) -> None:
