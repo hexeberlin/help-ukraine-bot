@@ -80,6 +80,13 @@ def send_reminder(bot: Bot, chat_id: str):
     # bot.send_message(chat_id=chat_id, text=SIREN_MESSAGE)
 
 
+def send_msg(bot: Bot, chat_id: str, msg):
+    if msg:
+        bot.send_message(chat_id=chat_id, text=msg)
+    else:
+        bot.send_message(chat_id=chat_id, text="Not found")
+
+
 def help_command(bot: Bot, update: Update) -> None:
     """Send a message when the command /help is issued."""
     send_reminder(bot, chat_id=update.message.chat_id)
@@ -193,7 +200,7 @@ def main() -> None:
     dispatcher.add_handler(CommandHandler("siren", siren_command))
 
     # dispatcher.add_handler(CommandHandler("cities", guidebook.cities()))
-    dispatcher.add_handler(CommandHandler("hello", "hello"))
+    dispatcher.add_handler(CommandHandler("hello", send_msg(msg="hello")))
 
     # Messages
     dispatcher.add_handler(MessageHandler(Filters.all, delete_greetings))
