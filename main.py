@@ -30,6 +30,7 @@ APP_NAME = os.environ["APP_NAME"]
 PORT = int(os.environ.get("PORT", 5000))
 TOKEN = os.environ["TOKEN"]
 REMINDER_MESSAGE = os.environ.get("REMINDER_MESSAGE", "I WILL POST PINNED MESSAGE HERE")
+SIREN_MESSAGE = "СИРЕНЫ"
 REMINDER_INTERVAL = int(os.environ.get("REMINDER_INTERVAL", 30 * 60))
 THUMB_URL = os.environ.get(
     "THUMB_URL",
@@ -75,8 +76,15 @@ def send_reminder(bot: Bot, chat_id: str):
     else:
         bot.send_message(chat_id=chat_id, text=REMINDER_MESSAGE)
 
+    bot.send_message(chat_id=chat_id, text=SIREN_MESSAGE)
+
 
 def help_command(bot: Bot, update: Update) -> None:
+    """Send a message when the command /help is issued."""
+    send_reminder(bot, chat_id=update.message.chat_id)
+
+
+def siren_command(bot: Bot, update: Update) -> None:
     """Send a message when the command /help is issued."""
     send_reminder(bot, chat_id=update.message.chat_id)
 
@@ -179,6 +187,7 @@ def main() -> None:
     dispatcher.add_handler(CommandHandler("start", start_timer, pass_job_queue=True))
     dispatcher.add_handler(CommandHandler("stop", stop_timer, pass_job_queue=True))
     dispatcher.add_handler(CommandHandler("help", help_command))
+    dispatcher.add_handler(CommandHandler("siren", siren_command))
 
     # Messages
     dispatcher.add_handler(MessageHandler(Filters.all, delete_greetings))
