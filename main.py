@@ -81,6 +81,7 @@ def send_reminder(bot: Bot, chat_id: str):
 
 
 def send_msg(bot: Bot, chat_id: str, msg):
+    logger.info("Sending msg")
     if msg:
         bot.send_message(chat_id=chat_id, text=msg)
     else:
