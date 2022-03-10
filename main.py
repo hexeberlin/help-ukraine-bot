@@ -81,7 +81,9 @@ def send_reminder(bot: Bot, chat_id: str):
 
 def help_command(bot: Bot, update: Update) -> None:
     """Send a message when the command /help is issued."""
-    send_reminder(bot, chat_id=update.message.chat_id)
+    help = commands.help()
+    bot.send_message(chat_id=update.message.chat_id, text=help)
+
 
 
 def delete_greetings(bot: Bot, update: Update) -> None:
@@ -190,6 +192,11 @@ def legal_command(bot: Bot, update: Update):
     bot.send_message(chat_id=update.message.chat_id, text=results)
 
 
+def children_lessons(bot: Bot, update: Update):
+    results = commands.teachers_for_peace()
+    bot.send_message(chat_id=update.message.chat_id, text=results)
+
+
 def evac_command(bot: Bot, update: Update):
     results = commands.evacuation(BOOK)
     bot.send_message(chat_id=update.message.chat_id, text=results)
@@ -221,6 +228,8 @@ def main() -> None:
 
     dispatcher.add_handler(CommandHandler("evacuation", evac_command))
     dispatcher.add_handler(CommandHandler("evacuationCities", evac_cities_command))
+
+    dispatcher.add_handler(CommandHandler("childrenLessons", children_lessons))
 
 
     # Messages
