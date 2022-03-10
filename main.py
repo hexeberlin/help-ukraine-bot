@@ -170,10 +170,8 @@ def find_replies(bot: Bot, update: Update) -> None:
 
 
 def cities_command(bot: Bot, update: Update):
-    msg_text = update.message.text
-    logger.info("msg text:" + msg_text)
-    # name = msg_text.split(" ")[1].strip()
-    results = commands.cities(BOOK, None)
+    name = update.message.text.removeprefix("/cities").strip()
+    results = commands.cities(BOOK, name)
     bot.send_message(chat_id=update.message.chat_id, text=results)
 
 
