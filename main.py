@@ -176,7 +176,7 @@ def cities_command(bot: Bot, update: Update):
 
 
 def countries_command(bot: Bot, update: Update):
-    name = update.message.text.removeprefix("/cities").strip().lower()
+    name = update.message.text.removeprefix("/countries").strip().lower()
     results = commands.countries(BOOK, name)
     bot.send_message(chat_id=update.message.chat_id, text=results)
 
