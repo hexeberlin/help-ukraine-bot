@@ -1,5 +1,6 @@
 import yaml
 import logging
+from requests.structures import CaseInsensitiveDict
 
 logger = logging.getLogger(__name__)
 
@@ -7,7 +8,7 @@ logger = logging.getLogger(__name__)
 def load_guidebook():
     with open("guidebook.yml", "r") as stream:
         try:
-            guidebook = yaml.safe_load(stream)
+            guidebook = CaseInsensitiveDict(yaml.safe_load(stream))
             return guidebook
         except yaml.YAMLError as exc:
             print(exc)
@@ -34,9 +35,9 @@ def cities(guidebook, name=None):
     if name is None:
         return convert_dict_to_string(guidebook["cities"])
     else:
-        cities = set(k.lower() for k in guidebook["cities"])
-        if name in cities:
-            return convert_list_to_string(guidebook["cities"][name])
+        key_dict = {k.lower(): k for k, v in guidebook["cities"].items()}
+        if name in key_dict:
+            return convert_list_to_string(guidebook["cities"][key_dict[name]])
         else:
             return convert_dict_to_string(guidebook["cities"])
 
@@ -65,9 +66,9 @@ def evacuation_cities(guidebook, name=None):
             return convert_dict_to_string(guidebook["evacuation_cities"])
 
 
-# if __name__ == "__main__":
-#     test_str = "/cities Leipzig"
-#     name = test_str.split(" ")[1].strip()
-#     guidebook = load_guidebook()
-#     result = cities(guidebook, name)
-#     print(result)
+if __name__ == "__main__":
+    test_str = "/cities leipzig"
+    name = test_str.split(" ")[1].strip()
+    guidebook = load_guidebook()
+    result = cities(guidebook, name)
+    print(result)
