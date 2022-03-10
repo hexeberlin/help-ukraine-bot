@@ -185,6 +185,11 @@ def hryvnia_command(bot: Bot, update: Update):
     bot.send_message(chat_id=update.message.chat_id, text=results)
 
 
+def legal_command(bot: Bot, update: Update):
+    results = commands.legal()
+    bot.send_message(chat_id=update.message.chat_id, text=results)
+
+
 
 def main() -> None:
     """Start the bot."""
@@ -203,6 +208,7 @@ def main() -> None:
     dispatcher.add_handler(CommandHandler("countries", countries_command))
 
     dispatcher.add_handler(CommandHandler("hryvnia", hryvnia_command))
+    dispatcher.add_handler(CommandHandler("legal", legal_command))
 
 
     # Messages
