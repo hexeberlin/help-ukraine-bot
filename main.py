@@ -199,16 +199,18 @@ def evac_cities_command(bot: Bot, update: Update, name=None):
     bot.send_message(chat_id=update.message.chat_id, text=results)
 
 
-def add_commands(bot: Bot, dispatcher):
+def show_command_list(bot: Bot):
     bot.set_my_commands(commands=[
         BotCommand("cities", "Chats for german cities"),
         BotCommand("countries", "Chats for countries"),
         BotCommand("hryvnia", "Hryvnia exchange"),
         BotCommand("legal", "Chat for legal help"),
         BotCommand("evac", "Evacuation general"),
-        BotCommand("evacCities", "Evacuation chats for ukrainian cities"),
-
+        BotCommand("evacCities", "Evacuation chats for ukrainian cities")
     ])
+
+
+def add_commands(dispatcher):
     # Commands
     dispatcher.add_handler(CommandHandler("start", start_timer, pass_job_queue=True))
     dispatcher.add_handler(CommandHandler("stop", stop_timer, pass_job_queue=True))
@@ -232,7 +234,8 @@ def main() -> None:
     # Get the dispatcher to register handlers
     dispatcher = updater.dispatcher
 
-    add_commands(bot=Bot, dispatcher=dispatcher)
+    show_command_list
+    add_commands(dispatcher)
 
     # Messages
     dispatcher.add_handler(MessageHandler(Filters.all, delete_greetings))
