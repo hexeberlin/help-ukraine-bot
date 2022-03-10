@@ -201,7 +201,7 @@ def evac_cities_command(bot: Bot, update: Update, name=None):
 
 def add_commands(dispatcher):
 
-    Bot.set_my_commands([
+    Bot.set_my_commands(commands = [
         BotCommand("cities", "Chats for german cities"),
         BotCommand("countries", "Chats for countries"),
         BotCommand("hryvnia", "Hryvnia exchange"),
