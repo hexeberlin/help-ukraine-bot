@@ -48,7 +48,7 @@ def countries(guidebook, name=None):
 
 
 def evacuation(guidebook):
-    return convert_list_to_string(guidebook["evacuation"])
+    return convert_dict_to_string(guidebook["evacuation"])
 
 
 def evacuation_cities(guidebook, name=None):
