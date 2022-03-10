@@ -34,9 +34,8 @@ def cities(guidebook, name=None):
     if name is None:
         return convert_dict_to_string(guidebook["cities"])
     else:
-        logger.info("cities name:" + name)
-        if name in guidebook["cities"]:
-            logger.info("cities name:" + name)
+        cities = set(k.lower() for k in guidebook["cities"])
+        if name in cities:
             return convert_list_to_string(guidebook["cities"][name])
         else:
             return convert_dict_to_string(guidebook["cities"])
