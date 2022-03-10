@@ -12,7 +12,7 @@ def countries(book, name=None):
 
 def hryvnia():
     replies = knowledge.replies
-    return any(x for x in replies if x.title == "Обмен гривен/Exchange hryvnia")
+    return any(x for x in replies if x.title == "Обмен гривен/Exchange hryvnia").content
 
 
 def legal():
