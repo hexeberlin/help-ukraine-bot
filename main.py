@@ -45,15 +45,13 @@ logging.basicConfig(
 
 logger = logging.getLogger(__name__)
 
-bot = Bot
-
 
 # Permissions
 def restricted(func):
     """A decorator that limits the access to commands only for admins"""
 
     @wraps(func)
-    def wrapped(context: CallbackContext, *args, **kwargs):
+    def wrapped(bot: Bot, context: CallbackContext, *args, **kwargs):
         user_id = context.effective_user.id
         chat_id = context.effective_chat.id
         admins = [u.user.id for u in bot.get_chat_administrators(chat_id)]
@@ -68,7 +66,7 @@ def restricted(func):
     return wrapped
 
 
-def send_reminder(chat_id: str):
+def send_reminder(bot: Bot, chat_id: str):
     """send_reminder"""
     chat = bot.get_chat(chat_id)
     msg: Message = chat.pinned_message
@@ -80,12 +78,12 @@ def send_reminder(chat_id: str):
         bot.send_message(chat_id=chat_id, text=REMINDER_MESSAGE)
 
 
-def help_command(update: Update) -> None:
+def help_command(bot: Bot, update: Update) -> None:
     """Send a message when the command /help is issued."""
     send_reminder(bot, chat_id=update.message.chat_id)
 
 
-def delete_greetings( update: Update) -> None:
+def delete_greetings(bot: Bot, update: Update) -> None:
     """Echo the user message."""
     msg_type = effective_message_type(update.message)
     logger.debug("Handling type is %s", msg_type)
@@ -98,14 +96,14 @@ def delete_greetings( update: Update) -> None:
         )
 
 
-def alarm(job: Job):
+def alarm(bot: Bot, job: Job):
     """alarm"""
     chat_id = job.context
     send_reminder(bot, chat_id=chat_id)
 
 
 @restricted
-def start_timer(update: Update, job_queue: JobQueue):
+def start_timer(bot: Bot, update: Update, job_queue: JobQueue):
     """start_timer"""
     chat_id = update.message.chat_id
     logger.info("Started reminders in channel %s", chat_id)
@@ -138,7 +136,7 @@ def start_timer(update: Update, job_queue: JobQueue):
 
 
 @restricted
-def stop_timer(update: Update, job_queue: JobQueue):
+def stop_timer(bot: Bot, update: Update, job_queue: JobQueue):
     """stop_timer"""
     chat_id = update.message.chat_id
 
@@ -151,7 +149,7 @@ def stop_timer(update: Update, job_queue: JobQueue):
     logger.info("Stopped reminders in channel %s", chat_id)
 
 
-def find_replies(update: Update) -> None:
+def find_replies(bot: Bot, update: Update) -> None:
     """Handle the inline query."""
     query = update.inline_query.query
 
@@ -171,37 +169,38 @@ def find_replies(update: Update) -> None:
     update.inline_query.answer(results)
 
 
-def cities_command( update: Update, name=None):
+def cities_command(bot: Bot, update: Update):
+    name = update.message
     results = commands.cities(BOOK, name)
     bot.send_message(chat_id=update.message.chat_id, text=results)
 
 
-def countries_command( update: Update, name=None):
+def countries_command(bot: Bot, update: Update, name=None):
     results = commands.countries(BOOK, name)
     bot.send_message(chat_id=update.message.chat_id, text=results)
 
 
-def hryvnia_command(update: Update):
+def hryvnia_command(bot: Bot, update: Update):
     results = commands.hryvnia()
     bot.send_message(chat_id=update.message.chat_id, text=results)
 
 
-def legal_command( update: Update):
+def legal_command(bot: Bot, update: Update):
     results = commands.legal()
     bot.send_message(chat_id=update.message.chat_id, text=results)
 
 
-def evac_command( update: Update):
+def evac_command(bot: Bot, update: Update):
     results = commands.evacuation(BOOK)
     bot.send_message(chat_id=update.message.chat_id, text=results)
 
 
-def evac_cities_command( update: Update, name=None):
+def evac_cities_command(bot: Bot, update: Update, name=None):
     results = commands.evacuation_cities(BOOK, name)
     bot.send_message(chat_id=update.message.chat_id, text=results)
 
 
-def show_command_list():
+def show_command_list(bot: Bot):
     bot.set_my_commands(commands=[
         BotCommand("/cities", "Chats for german cities"),
         BotCommand("/countries", "Chats for countries"),
@@ -236,7 +235,8 @@ def main() -> None:
     # Get the dispatcher to register handlers
     dispatcher = updater.dispatcher
 
-    show_command_list
+
+    # show_command_list
     add_commands(dispatcher)
 
     # Messages
