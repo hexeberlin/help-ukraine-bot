@@ -232,7 +232,7 @@ def main() -> None:
     # Get the dispatcher to register handlers
     dispatcher = updater.dispatcher
 
-    add_commands(dispatcher=dispatcher)
+    add_commands(bot=Bot, dispatcher=dispatcher)
 
     # Messages
     dispatcher.add_handler(MessageHandler(Filters.all, delete_greetings))
