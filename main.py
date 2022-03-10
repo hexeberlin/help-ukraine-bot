@@ -206,7 +206,7 @@ def show_command_list(bot: Bot):
         BotCommand("/countries", "Chats for countries"),
         BotCommand("/hryvnia", "Hryvnia exchange"),
         BotCommand("/legal", "Chat for legal help"),
-        BotCommand("/evac", "Evacuation general"),
+        BotCommand("/evacuation", "Evacuation general"),
         # BotCommand("evacCities", "Evacuation chats for ukrainian cities")
     ])
 
@@ -223,7 +223,7 @@ def add_commands(dispatcher):
     dispatcher.add_handler(CommandHandler("hryvnia", hryvnia_command))
     dispatcher.add_handler(CommandHandler("legal", legal_command))
 
-    dispatcher.add_handler(CommandHandler("evac", evac_command))
+    dispatcher.add_handler(CommandHandler("evacuation", evac_command))
     dispatcher.add_handler(CommandHandler("evacuationCities", evac_cities_command))
 
 
