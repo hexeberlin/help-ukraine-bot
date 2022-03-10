@@ -234,7 +234,7 @@ def main() -> None:
     # Get the dispatcher to register handlers
     dispatcher = updater.dispatcher
 
-    show_command_list
+    show_command_list()
     add_commands(dispatcher)
 
     # Messages
