@@ -170,7 +170,7 @@ def find_replies(bot: Bot, update: Update) -> None:
 
 
 def cities_command(bot: Bot, update: Update):
-    name = update.message.text.strip()
+    name = update.message.text.split(" ")[1].strip()
     results = commands.cities(BOOK, name)
     bot.send_message(chat_id=update.message.chat_id, text=results)
 

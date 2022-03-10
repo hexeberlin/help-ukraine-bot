@@ -36,6 +36,7 @@ def cities(guidebook, name=None):
     else:
         logger.info("cities name:" + name)
         if name in guidebook["cities"]:
+            logger.info("cities name:" + name)
             return convert_list_to_string(guidebook["cities"][name])
         else:
             return convert_dict_to_string(guidebook["cities"])
