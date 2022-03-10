@@ -201,12 +201,12 @@ def evac_cities_command(bot: Bot, update: Update, name=None):
 
 def show_command_list(bot: Bot):
     bot.set_my_commands(commands=[
-        BotCommand("cities", "Chats for german cities"),
-        BotCommand("countries", "Chats for countries"),
-        BotCommand("hryvnia", "Hryvnia exchange"),
-        BotCommand("legal", "Chat for legal help"),
-        BotCommand("evac", "Evacuation general"),
-        BotCommand("evacCities", "Evacuation chats for ukrainian cities")
+        BotCommand("/cities", "Chats for german cities"),
+        BotCommand("/countries", "Chats for countries"),
+        BotCommand("/hryvnia", "Hryvnia exchange"),
+        BotCommand("/legal", "Chat for legal help"),
+        BotCommand("/evac", "Evacuation general"),
+        # BotCommand("evacCities", "Evacuation chats for ukrainian cities")
     ])
 
 
