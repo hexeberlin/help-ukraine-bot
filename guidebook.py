@@ -67,6 +67,8 @@ def evacuation_cities(guidebook, name=None):
 
 
 # if __name__ == "__main__":
+#     test_str = "/cities Leipzig"
+#     name = test_str.split(" ")[1].strip()
 #     guidebook = load_guidebook()
-#     result = cities(guidebook, " Paris")
+#     result = cities(guidebook, name)
 #     print(result)
