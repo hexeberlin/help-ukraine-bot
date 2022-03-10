@@ -2,7 +2,6 @@
 import os
 import logging
 from functools import wraps
-from uuid import uuid4
 
 from telegram import (
     InlineQueryResultArticle,
@@ -10,7 +9,7 @@ from telegram import (
     Message,
     Update,
     Bot,
-    ParseMode,
+    ParseMode, BotCommand,
 )
 from telegram.ext import (
     Updater,
@@ -195,22 +194,22 @@ def evac_command(bot: Bot, update: Update):
     bot.send_message(chat_id=update.message.chat_id, text=results)
 
 
-def evac_cities_command(name=None):
-    send_message(message=commands.evacuation_cities(BOOK, name))
+def evac_cities_command(bot: Bot, update: Update, name=None):
+    results = commands.evacuation_cities(BOOK, name)
+    bot.send_message(chat_id=update.message.chat_id, text=results)
 
 
-def send_message(bot: Bot, update: Update, message=None):
-    bot.send_message(chat_id=update.message.chat_id, text=message)
+def add_commands(dispatcher):
 
+    dispatcher.set_my_commands([
+        BotCommand("cities", "Chats for german cities"),
+        BotCommand("countries", "Chats for countries"),
+        BotCommand("hryvnia", "Hryvnia exchange"),
+        BotCommand("legal", "Chat for legal help"),
+        BotCommand("evac", "Evacuation general"),
+        BotCommand("evacCities", "Evacuation chats for ukrainian cities"),
 
-def main() -> None:
-    """Start the bot."""
-    # Create the Updater and pass it your bot's token.
-    updater = Updater(TOKEN)
-
-    # Get the dispatcher to register handlers
-    dispatcher = updater.dispatcher
-
+    ])
     # Commands
     dispatcher.add_handler(CommandHandler("start", start_timer, pass_job_queue=True))
     dispatcher.add_handler(CommandHandler("stop", stop_timer, pass_job_queue=True))
@@ -225,6 +224,16 @@ def main() -> None:
     dispatcher.add_handler(CommandHandler("evacuation", evac_command))
     dispatcher.add_handler(CommandHandler("evacuationCities", evac_cities_command))
 
+
+def main() -> None:
+    """Start the bot."""
+    # Create the Updater and pass it your bot's token.
+    updater = Updater(TOKEN)
+
+    # Get the dispatcher to register handlers
+    dispatcher = updater.dispatcher
+
+    add_commands(dispatcher)
 
     # Messages
     dispatcher.add_handler(MessageHandler(Filters.all, delete_greetings))
