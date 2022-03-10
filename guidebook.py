@@ -46,3 +46,16 @@ def countries(guidebook, name=None):
         else:
             return convert_dict_to_string(guidebook["countries"])
 
+
+def evacuation(guidebook):
+    return convert_list_to_string(guidebook["evacuation"])
+
+
+def evacuation_cities(guidebook, name=None):
+    if name is None:
+        return convert_dict_to_string(guidebook["evacuation_cities"])
+    else:
+        if (name in guidebook["evacuation_cities"]):
+            return convert_list_to_string(guidebook["evacuation_cities"][name])
+        else:
+            return convert_dict_to_string(guidebook["evacuation_cities"])

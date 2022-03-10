@@ -24,3 +24,11 @@ def hryvnia():
 
 def legal():
     return get_from_knowledge(LEGAL_TITLE)
+
+
+def evacuation(book):
+    return guidebook.evacuation(book)
+
+
+def evacuation_cities(book, name=None):
+    return guidebook.evacuation_cities(book, name)

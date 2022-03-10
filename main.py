@@ -190,6 +190,15 @@ def legal_command(bot: Bot, update: Update):
     bot.send_message(chat_id=update.message.chat_id, text=results)
 
 
+def evac_command(bot: Bot, update: Update):
+    results = commands.evacuation()
+    bot.send_message(chat_id=update.message.chat_id, text=results)
+
+
+def evac_cities(bot: Bot, update: Update, name=None):
+    results = commands.evacuation_cities(BOOK, name)
+    bot.send_message(chat_id=update.message.chat_id, text=results)
+
 
 def main() -> None:
     """Start the bot."""
@@ -209,6 +218,9 @@ def main() -> None:
 
     dispatcher.add_handler(CommandHandler("hryvnia", hryvnia_command))
     dispatcher.add_handler(CommandHandler("legal", legal_command))
+
+    dispatcher.add_handler(CommandHandler("evacuation", legal_command))
+    dispatcher.add_handler(CommandHandler("evacuationCities", legal_command))
 
 
     # Messages
