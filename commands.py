@@ -1,6 +1,14 @@
 import guidebook
 import knowledge
 
+HRYVNIA_TITLE = "Обмен гривен/Exchange hryvnia"
+LEGAL_TITLE = "Юридическая помощь/Legal help"
+
+
+def get_from_knowledge(title):
+    replies = knowledge.replies
+    return [p for p in replies if p.title == title][0].content
+
 
 def cities(book, name=None):
     return guidebook.cities(book, name)
@@ -11,10 +19,8 @@ def countries(book, name=None):
 
 
 def hryvnia():
-    replies = knowledge.replies
-    return [p for p in replies if p.title == "Обмен гривен/Exchange hryvnia"][0].content
+    return get_from_knowledge(HRYVNIA_TITLE)
 
 
 def legal():
-    replies = knowledge.replies
-    return any(x for x in replies if x.title == "Юридическая помощь/Legal help")
+    return get_from_knowledge(LEGAL_TITLE)
