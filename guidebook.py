@@ -36,6 +36,13 @@ def cities(guidebook, name=None):
         else:
             return convert_dict_to_string(guidebook["cities"])
 
-if __name__ == "__main__":
-    guidebook = load_guidebook()
-    print(cities(guidebook, ""))
+
+def countries(guidebook, name=None):
+    if name is None:
+        return convert_dict_to_string(guidebook["countries"])
+    else:
+        if (name in guidebook["countries"]):
+            return convert_list_to_string(guidebook["countries"][name])
+        else:
+            return convert_dict_to_string(guidebook["countries"])
+

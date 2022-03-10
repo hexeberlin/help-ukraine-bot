@@ -1,8 +1,6 @@
 cities:
   Augsburg:
     - https://t.me/augsburghilftukraine
-  Austria:
-    - https://t.me/refugeesinAustria
   Baden-Württemberg:
     - https://t.me/+n8doQy7ubEBmZGE6
   Bayern:
@@ -40,14 +38,10 @@ cities:
     - https://t.me/ukr_de_essen
   Erfurt:
     - https://t.me/thuringia_stands_with_ukraine
-  France:
-    - https://t.me/refugeesinFrance
   Frankfurt am Main:
     - https://t.me/+BcQ_210Ex4cwYjEy
   Freiburg:
     - https://t.me/freiburghilft
-  Germany:
-    - https://t.me/refugees_in_Germany
   Hamburg:
     - https://t.me/hamburg_hilft
     - https://t.me/+5XuTo4a1gmw3YTcy
@@ -58,8 +52,6 @@ cities:
     - https://t.me/+zc9HnLCyckMzMGRi
   Hessen:
     - https://t.me/+HTYW-_jDZVtkZDJi
-  Italy:
-    - https://t.me/dodomu_italia_ucraina
   Jena:
     - https://t.me/thuringia_stands_with_ukraine
   Karlsruhe:
@@ -86,8 +78,6 @@ cities:
     - https://t.me/+ACMWRk-ONEllMzEy
   München:
     - https://t.me/helpUkrainetowin
-  Netherlands:
-    - https://t.me/oekrainehulpnederland
   Nordrhein-Westfalen:
     - https://t.me/+iVakIX2oQK1jYmFi
     - https://t.me/Help_Ukraine_NRW
@@ -97,8 +87,6 @@ cities:
     - https://t.me/help_in_Nuremberg_UA
   Paris:
     - https://t.me/+KUk3d_a3w7dkYWI0
-  Poland:
-    - https://t.me/refugeesinPoland
   Potsdam:
     - https://t.me/potsdamhelpsukrainians
   Rheinland-Pfalz:
@@ -115,20 +103,12 @@ cities:
     - https://t.me/+IWXBYfN9765mODZi
   Schleswig-Holstein:
     - https://t.me/+IhWtHU4b5HsyNGIy
-  Spain:
-    - https://t.me/HelpUkraineEspana
   Stuttgart:
     - https://t.me/helpforukraine22
-  Sweden:
-    - https://t.me/refugeesinSweden
-  Switzerland:
-    - https://t.me/refugeesinSwitzerland
   Thüringen:
     - https://t.me/thuringia_stands_with_ukraine
     - https://t.me/th_helps_ukraine
     - https://t.me/+9R0NgYYt91kwNmUy
-  Ukraine:
-    - https://t.me/refugeesinUkraine
   Vienna:
     - https://t.me/warhelpeuplaces
   Weimar:
@@ -137,6 +117,28 @@ cities:
     - https://t.me/ukrainehilfewuppertal
   Zurich:
     - https://t.me/zh_helps_ukraine
+
+countries:
+  Ukraine:
+    - https://t.me/refugeesinUkraine
+  Austria:
+    - https://t.me/refugeesinAustria
+  France:
+    - https://t.me/refugeesinFrance
+  Germany:
+    - https://t.me/refugees_in_Germany
+  Italy:
+    - https://t.me/dodomu_italia_ucraina
+  Netherlands:
+    - https://t.me/oekrainehulpnederland
+  Poland:
+    - https://t.me/refugeesinPoland
+  Spain:
+    - https://t.me/HelpUkraineEspana
+  Sweden:
+    - https://t.me/refugeesinSweden
+  Switzerland:
+    - https://t.me/refugeesinSwitzerland
   Австрия:
     - https://t.me/refugeesinAustria
   Бельгия:

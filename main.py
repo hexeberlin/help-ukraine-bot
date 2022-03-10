@@ -175,6 +175,11 @@ def cities_command(bot: Bot, update: Update, name=None):
     bot.send_message(chat_id=update.message.chat_id, text=results)
 
 
+def countries_command(bot: Bot, update: Update, name=None):
+    results = commands.countries(BOOK, name)
+    bot.send_message(chat_id=update.message.chat_id, text=results)
+
+
 def main() -> None:
     """Start the bot."""
     # Create the Updater and pass it your bot's token.
@@ -189,6 +194,7 @@ def main() -> None:
     dispatcher.add_handler(CommandHandler("help", help_command))
 
     dispatcher.add_handler(CommandHandler("cities", cities_command))
+    dispatcher.add_handler(CommandHandler("countries", countries_command))
 
     # Messages
     dispatcher.add_handler(MessageHandler(Filters.all, delete_greetings))
