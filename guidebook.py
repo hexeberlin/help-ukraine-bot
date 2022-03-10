@@ -1,4 +1,7 @@
 import yaml
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 def load_guidebook():
@@ -31,7 +34,8 @@ def cities(guidebook, name=None):
     if name is None:
         return convert_dict_to_string(guidebook["cities"])
     else:
-        if (name in guidebook["cities"]):
+        logger.info("cities name:" + name)
+        if name in guidebook["cities"]:
             return convert_list_to_string(guidebook["cities"][name])
         else:
             return convert_dict_to_string(guidebook["cities"])
@@ -59,3 +63,9 @@ def evacuation_cities(guidebook, name=None):
             return convert_list_to_string(guidebook["evacuation_cities"][name])
         else:
             return convert_dict_to_string(guidebook["evacuation_cities"])
+
+
+# if __name__ == "__main__":
+#     guidebook = load_guidebook()
+#     result = cities(guidebook, " Paris")
+#     print(result)
