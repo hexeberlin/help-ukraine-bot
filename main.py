@@ -195,9 +195,12 @@ def evac_command(bot: Bot, update: Update):
     bot.send_message(chat_id=update.message.chat_id, text=results)
 
 
-def evac_cities_command(bot: Bot, update: Update, name=None):
-    results = commands.evacuation_cities(BOOK, name)
-    bot.send_message(chat_id=update.message.chat_id, text=results)
+def evac_cities_command(name=None):
+    send_message(message=commands.evacuation_cities(BOOK, name))
+
+
+def send_message(bot: Bot, update: Update, message=None):
+    bot.send_message(chat_id=update.message.chat_id, text=message)
 
 
 def main() -> None:
