@@ -180,6 +180,12 @@ def countries_command(bot: Bot, update: Update, name=None):
     bot.send_message(chat_id=update.message.chat_id, text=results)
 
 
+def hryvnia_command(bot: Bot, update: Update):
+    results = commands.hryvnia()
+    bot.send_message(chat_id=update.message.chat_id, text=results)
+
+
+
 def main() -> None:
     """Start the bot."""
     # Create the Updater and pass it your bot's token.
@@ -195,6 +201,9 @@ def main() -> None:
 
     dispatcher.add_handler(CommandHandler("cities", cities_command))
     dispatcher.add_handler(CommandHandler("countries", countries_command))
+
+    dispatcher.add_handler(CommandHandler("hryvnia", hryvnia_command))
+
 
     # Messages
     dispatcher.add_handler(MessageHandler(Filters.all, delete_greetings))
