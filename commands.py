@@ -11,11 +11,11 @@ def get_from_knowledge(title):
 
 
 def cities(book, name=None):
-    return guidebook.cities(book, name)
+    return guidebook.cities_chats(book, name)
 
 
 def countries(book, name=None):
-    return guidebook.countries(book, name)
+    return guidebook.countries_chats(book, name)
 
 
 def hryvnia():

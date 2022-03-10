@@ -31,25 +31,25 @@ def convert_list_to_string(info):
     return result
 
 
-def cities(guidebook, name=None):
+def get_info(dict, name):
     if name is None:
-        return convert_dict_to_string(guidebook["cities"])
+        return convert_dict_to_string(dict)
     else:
-        key_dict = {k.lower(): k for k, v in guidebook["cities"].items()}
+        key_dict = {k.lower(): k for k, v in dict.items()}
         if name in key_dict:
-            return convert_list_to_string(guidebook["cities"][key_dict[name]])
+            return convert_list_to_string(dict[key_dict[name]])
         else:
-            return convert_dict_to_string(guidebook["cities"])
+            return convert_dict_to_string(dict)
 
 
-def countries(guidebook, name=None):
-    if name is None:
-        return convert_dict_to_string(guidebook["countries"])
-    else:
-        if (name in guidebook["countries"]):
-            return convert_list_to_string(guidebook["countries"][name])
-        else:
-            return convert_dict_to_string(guidebook["countries"])
+def cities_chats(guidebook, name=None):
+    cities = guidebook["cities"]
+    return get_info(cities, name)
+
+
+def countries_chats(guidebook, name=None):
+    countries = guidebook["countries"]
+    return get_info(countries, name)
 
 
 def evacuation(guidebook):
@@ -65,10 +65,3 @@ def evacuation_cities(guidebook, name=None):
         else:
             return convert_dict_to_string(guidebook["evacuation_cities"])
 
-
-if __name__ == "__main__":
-    test_str = "/cities leipzig"
-    name = test_str.split(" ")[1].strip()
-    guidebook = load_guidebook()
-    result = cities(guidebook, name)
-    print(result)
