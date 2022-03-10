@@ -191,7 +191,7 @@ def legal_command(bot: Bot, update: Update):
 
 
 def evac_command(bot: Bot, update: Update):
-    results = commands.evacuation()
+    results = commands.evacuation(BOOK)
     bot.send_message(chat_id=update.message.chat_id, text=results)
 
 
