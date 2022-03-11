@@ -84,7 +84,6 @@ def help_command(bot: Bot, update: Update):
     bot.send_message(chat_id=update.message.chat_id, text=help)
 
 
-
 def delete_greetings(bot: Bot, update: Update) -> None:
     """Echo the user message."""
     msg_type = effective_message_type(update.message)

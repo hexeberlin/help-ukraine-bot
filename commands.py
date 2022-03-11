@@ -23,22 +23,22 @@ def countries(book, name=None):
 
 
 def help():
-    return ("Привет! Используйте одну из команд: "
-           + "/cities чтобы увидеть все чаты помощи по городам Германии"
-           + "/countries чтобы увидеть все чаты помощи по странам"
-           + "/hryvnia чтобы получить информацию про обмен гривен"
-           + "/legal чтобы получить юридическую помощь"
-           + "/evacuation общие чаты об эвакуации из Украины"
-           + "/evacuationCities чаты эвакуации по городам"
-           + "/childrenLessons онлайн уроки для детей из Украины"
-           + os.linesep()
-           + "Hi! Please use one of the following commands: "
-           + "/cities to display existing chats for cities in Germany"
-           + "/countries to display existing chats for the countries"
-           + "/hryvnia to display information about hryvnia exchange"
-           + "/legal to get information about legal help"
-           + "/evacuation to get information about evacuation from Ukraine"
-           + "/evacuationCities evacuation chats for cities"
+    return ("Привет! Используйте одну из команд:\n"
+           + "/cities чтобы увидеть все чаты помощи по городам Германии\n"
+           + "/countries чтобы увидеть все чаты помощи по странам\n"
+           + "/hryvnia чтобы получить информацию про обмен гривен\n"
+           + "/legal чтобы получить юридическую помощь\n"
+           + "/evacuation общие чаты об эвакуации из Украины\n"
+           + "/evacuationCities чаты эвакуации по городам\n"
+           + "/childrenLessons онлайн уроки для детей из Украины\n\n"
+           + os.linesep
+           + "Hi! Please use one of the following commands:\n"
+           + "/cities to display existing chats for cities in Germany\n"
+           + "/countries to display existing chats for the countries\n"
+           + "/hryvnia to display information about hryvnia exchange\n"
+           + "/legal to get information about legal help\n"
+           + "/evacuation to get information about evacuation from Ukraine\n"
+           + "/evacuationCities evacuation chats for cities\n"
            + "/childrenLessons online lessons for children from Ukraine")
 
 
