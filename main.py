@@ -189,11 +189,15 @@ def hryvnia_command(bot: Bot, update: Update):
 
 def legal_command(bot: Bot, update: Update):
     results = commands.legal()
+    reply_to_message(bot, update, results)
+
+
+def reply_to_message(bot, update, reply):
     chat_id = update.message.chat_id
     parent_message_id = update.message.reply_to_message.message_id
     command_message_id = update.message.message_id
     bot.delete_message(chat_id=chat_id, message_id=command_message_id)
-    bot.send_message(chat_id=chat_id, reply_to_message_id=parent_message_id, text=results)
+    bot.send_message(chat_id=chat_id, reply_to_message_id=parent_message_id, text=reply)
 
 
 def children_lessons(bot: Bot, update: Update):
