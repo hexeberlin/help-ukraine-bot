@@ -78,7 +78,7 @@ def send_reminder(bot: Bot, chat_id: str):
         bot.send_message(chat_id=chat_id, text=REMINDER_MESSAGE)
 
 
-def help_command(bot: Bot, update: Update) -> None:
+def help_command(bot: Bot, update: Update):
     """Send a message when the command /help is issued."""
     help = commands.help()
     bot.send_message(chat_id=update.message.chat_id, text=help)
