@@ -189,7 +189,7 @@ def hryvnia_command(bot: Bot, update: Update):
 
 def legal_command(bot: Bot, update: Update):
     results = commands.legal()
-    bot.send_message(chat_id=update.message.chat_id, text=results)
+    bot.send_message(chat_id=update.message.chat_id, reply_to_message_id=update.message.message_id, text=results)
 
 
 def children_lessons(bot: Bot, update: Update):
@@ -244,8 +244,6 @@ def main() -> None:
     # Get the dispatcher to register handlers
     dispatcher = updater.dispatcher
 
-
-    # show_command_list
     add_commands(dispatcher)
 
     # Messages
