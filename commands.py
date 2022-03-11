@@ -21,6 +21,7 @@ def cities(book, name=None):
 def countries(book, name=None):
     return guidebook.countries_chats(book, name)
 
+
 def help():
     return ("Привет! Используйте одну из команд: "
            + "/cities чтобы увидеть все чаты помощи по городам Германии"
@@ -49,7 +50,7 @@ def legal():
     return get_from_knowledge(LEGAL_TITLE)
 
 
-def teachers_for_peace(book):
+def teachers_for_peace():
     return get_from_knowledge(TEACHERS_TITLE)
 
 
