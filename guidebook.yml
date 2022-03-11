@@ -34,14 +34,11 @@ cities:
     - https://t.me/+djV5nXL6pWdlYmQ6
   Duisburg:
     - https://t.me/duisburgukraine
-  Dortmund:
-    - https://t.me/ukraine_dortmund
   Essen:
     - https://t.me/ukr_de_essen
   Erfurt:
     - https://t.me/thuringia_stands_with_ukraine
   Frankfurt am Main:
-  FaM:
     - https://t.me/+BcQ_210Ex4cwYjEy
   Freiburg:
     - https://t.me/freiburghilft
@@ -123,39 +120,47 @@ cities:
 
 countries:
   Ukraine:
-  Украина:
     - https://t.me/refugeesinUkraine
+  Austria:
+    - https://t.me/refugeesinAustria
   France:
-  Франция:
     - https://t.me/refugeesinFrance
   Germany:
-  Германия:
     - https://t.me/refugees_in_Germany
   Italy:
-  Италия:
     - https://t.me/dodomu_italia_ucraina
   Netherlands:
-  Нидерланды:
     - https://t.me/oekrainehulpnederland
   Poland:
-  Польша:
     - https://t.me/refugeesinPoland
   Spain:
-  Испания:
     - https://t.me/HelpUkraineEspana
   Sweden:
-  Швеция:
     - https://t.me/refugeesinSweden
   Switzerland:
-  Швейцария:
     - https://t.me/refugeesinSwitzerland
-  Austria:
   Австрия:
     - https://t.me/refugeesinAustria
-  Belgium:
   Бельгия:
     - https://t.me/refugeesinBelgium
-
+  Германия:
+    - https://t.me/refugees_in_Germany
+  Испания:
+    - https://t.me/HelpUkraineEspana
+  Италия:
+    - https://t.me/dodomu_italia_ucraina
+  Нидерланды:
+    - https://t.me/oekrainehulpnederland
+  Польша:
+    - https://t.me/refugeesinPoland
+  Украина:
+    - https://t.me/refugeesinUkraine
+  Франция:
+    - https://t.me/refugeesinFrance
+  Швейцария:
+    - https://t.me/refugeesinSwitzerland
+  Швеция:
+    - https://t.me/refugeesinSweden
 
 evacuation:
   Эвакуация из Украины:

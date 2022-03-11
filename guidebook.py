@@ -65,3 +65,6 @@ def evacuation_cities(guidebook, name=None):
         else:
             return convert_dict_to_string(guidebook["evacuation_cities"])
 
+if __name__ == "__main__":
+    guidebook = load_guidebook()
+    countries_chats(guidebook, "poland")
