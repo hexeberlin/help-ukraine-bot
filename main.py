@@ -210,6 +210,10 @@ def children_lessons(bot: Bot, update: Update):
     reply_to_message(bot, update, results)
 
 
+def handbook(bot: Bot, update: Update):
+    results = commands.handbook()
+    reply_to_message(bot, update, results)
+
 def evac_command(bot: Bot, update: Update):
     results = commands.evacuation(BOOK)
     reply_to_message(bot, update, results)
@@ -247,6 +251,9 @@ def add_commands(dispatcher):
     dispatcher.add_handler(CommandHandler("evacuationCities", evac_cities_command))
 
     dispatcher.add_handler(CommandHandler("childrenLessons", children_lessons))
+    dispatcher.add_handler(CommandHandler("handbook", handbook))
+
+
 
 
 def main() -> None:

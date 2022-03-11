@@ -7,6 +7,7 @@ import knowledge
 HRYVNIA_TITLE = "Обмен гривен/Exchange hryvnia"
 LEGAL_TITLE = "Юридическая помощь/Legal help"
 TEACHERS_TITLE = "Онлайн уроки для детей/Online lessons for children"
+HANDBOOK_TITLE = "Mетодичка"
 
 
 def get_from_knowledge(title):
@@ -52,6 +53,10 @@ def legal():
 
 def teachers_for_peace():
     return get_from_knowledge(TEACHERS_TITLE)
+
+
+def handbook():
+    return get_from_knowledge(HANDBOOK_TITLE)
 
 
 def evacuation(book):
