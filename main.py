@@ -95,15 +95,16 @@ def send_reminder(bot: Bot, chat_id: str):
 
 def delete_greetings(bot: Bot, update: Update) -> None:
     """Echo the user message."""
-    msg_type = effective_message_type(update.message)
-    logger.debug("Handling type is %s", msg_type)
-    if effective_message_type(update.message) in [
-        "new_chat_members",
-        "left_chat_member",
-    ]:
-        bot.delete_message(
-            chat_id=update.message.chat_id, message_id=update.message.message_id
-        )
+    if update.message is not None:
+        msg_type = effective_message_type(update.message)
+        logger.debug("Handling type is %s", msg_type)
+        if effective_message_type(update.message) in [
+            "new_chat_members",
+            "left_chat_member",
+        ]:
+            bot.delete_message(
+                chat_id=update.message.chat_id, message_id=update.message.message_id
+            )
 
 
 def alarm(bot: Bot, job: Job):
