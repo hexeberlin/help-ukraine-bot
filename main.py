@@ -276,7 +276,7 @@ def main() -> None:
     # Create the Updater and pass it your bot's token.
     updater = Updater(TOKEN)
 
-    schedule.every().minute.at(":17").do(job)
+    # schedule.every().minute.at(":17").do(job)
     # Get the dispatcher to register handlers
     dispatcher = updater.dispatcher
 
