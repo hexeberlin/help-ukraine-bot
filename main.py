@@ -28,18 +28,6 @@ import commands
 import guidebook
 from knowledge import search
 
-APP_NAME = os.environ["APP_NAME"]
-PORT = int(os.environ.get("PORT", 5000))
-TOKEN = os.environ["TOKEN"]
-CHAT_ID = os.environ["CHAT_ID"]
-REMINDER_MESSAGE = os.environ.get("REMINDER_MESSAGE", "I WILL POST PINNED MESSAGE HERE")
-REMINDER_INTERVAL = int(os.environ.get("REMINDER_INTERVAL", 30 * 60))
-THUMB_URL = os.environ.get(
-    "THUMB_URL",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Flag_of_Ukraine.svg/2560px-Flag_of_Ukraine.svg.png",
-)
-BOOK = guidebook.load_guidebook()
-
 # Enable logging
 logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
@@ -47,6 +35,24 @@ logging.basicConfig(
 
 logger = logging.getLogger(__name__)
 
+
+config = configparser.ConfigParser()
+config.read('settings.env')
+
+try:
+    APP_NAME = env['APP_NAME']
+    TOKEN = env['TOKEN']
+except KeyError:
+    APP_NAME = config.get('DEVELOPMENT', 'APP_NAME')
+    TOKEN = config.get('DEVELOPMENT', 'TOKEN')
+PORT = int(env.get("PORT", 5000))
+REMINDER_MESSAGE = env.get("REMINDER_MESSAGE", "I WILL POST PINNED MESSAGE HERE")
+REMINDER_INTERVAL = int(env.get("REMINDER_INTERVAL", 30 * 60))
+THUMB_URL = env.get(
+    "THUMB_URL",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Flag_of_Ukraine.svg/2560px-Flag_of_Ukraine.svg.png",
+)
+BOOK = guidebook.load_guidebook()
 
 # Permissions
 def restricted(func):
