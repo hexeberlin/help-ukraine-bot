@@ -1,5 +1,6 @@
 """put module docstring here"""
-import os
+import configparser
+from os import environ as env
 import logging
 import schedule
 from functools import wraps
@@ -10,7 +11,8 @@ from telegram import (
     Message,
     Update,
     Bot,
-    ParseMode, BotCommand,
+    BotCommand,
+    ParseMode,
 )
 from telegram.ext import (
     Updater,
@@ -22,7 +24,7 @@ from telegram.ext import (
     JobQueue,
     Job,
 )
-from telegram.utils.helpers import effective_message_type, escape_markdown
+from telegram.utils.helpers import effective_message_type
 
 import commands
 import guidebook
@@ -198,7 +200,6 @@ def reply_to_message(bot, update, reply):
 
     bot.delete_message(chat_id=chat_id, message_id=command_message_id)
 
-
 def help_command(bot: Bot, update: Update):
     """Send a message when the command /help is issued."""
     help = commands.help()
@@ -211,8 +212,7 @@ def cities_command(bot: Bot, update: Update):
     reply_to_message(bot, update, results)
 
 
-def countries_command(bot: Bot, update: Update):
-    name = update.message.text.removeprefix("/countries").strip().lower()
+def countries_command(bot: Bot, update: Update, name=None):
     results = commands.countries(BOOK, name)
     reply_to_message(bot, update, results)
 
@@ -246,16 +246,20 @@ def evac_cities_command(bot: Bot, update: Update, name=None):
     results = commands.evacuation_cities(BOOK, name)
     reply_to_message(bot, update, results)
 
-
 def show_command_list(bot: Bot):
-    bot.set_my_commands(commands=[
-        BotCommand("/cities", "Chats for german cities"),
-        BotCommand("/countries", "Chats for countries"),
-        BotCommand("/hryvnia", "Hryvnia exchange"),
-        BotCommand("/legal", "Chat for legal help"),
-        BotCommand("/evacuation", "Evacuation general"),
-        # BotCommand("evacCities", "Evacuation chats for ukrainian cities")
-    ])
+    commands = [
+        BotCommand("start", "to start the bot"),
+        BotCommand("stop", "to stop the bot"),
+        BotCommand("cities", "сhats for german cities"),
+        BotCommand("countries", "сhats for countries"),
+        BotCommand("hryvnia", "Hryvnia exchange"),
+        BotCommand("legal", "сhat for legal help"),
+        BotCommand("evacuation", "general evacuation info"),
+        BotCommand("evacuation_cities", "evacuation chats for ukrainian cities"),
+        BotCommand("children_lessons", "online lessons for children from Ukraine"),
+        BotCommand("handbook", "FAQ"),
+    ]
+    bot.set_my_commands(commands)
 
 
 def add_commands(dispatcher):
@@ -264,17 +268,17 @@ def add_commands(dispatcher):
     dispatcher.add_handler(CommandHandler("stop", stop_timer, pass_job_queue=True))
     dispatcher.add_handler(CommandHandler("help", help_command))
 
+    dispatcher.add_handler(CommandHandler("children_lessons", children_lessons))
+
     dispatcher.add_handler(CommandHandler("cities", cities_command))
     dispatcher.add_handler(CommandHandler("countries", countries_command))
 
-    dispatcher.add_handler(CommandHandler("hryvnia", hryvnia_command))
-    dispatcher.add_handler(CommandHandler("legal", legal_command))
-
     dispatcher.add_handler(CommandHandler("evacuation", evac_command))
-    dispatcher.add_handler(CommandHandler("evacuationCities", evac_cities_command))
+    dispatcher.add_handler(CommandHandler("evacuation_cities", evac_cities_command))
 
-    dispatcher.add_handler(CommandHandler("childrenLessons", children_lessons))
+    dispatcher.add_handler(CommandHandler("hryvnia", hryvnia_command))
     dispatcher.add_handler(CommandHandler("handbook", handbook))
+    dispatcher.add_handler(CommandHandler("legal", legal_command))
 
 
 def main() -> None:
@@ -282,11 +286,11 @@ def main() -> None:
     # Create the Updater and pass it your bot's token.
     updater = Updater(TOKEN)
 
-    # schedule.every().minute.at(":17").do(job)
     # Get the dispatcher to register handlers
     dispatcher = updater.dispatcher
 
     add_commands(dispatcher)
+    show_command_list(updater.bot)
 
     # Messages
     dispatcher.add_handler(MessageHandler(Filters.all, delete_greetings))
@@ -294,8 +298,11 @@ def main() -> None:
     # Inlines
     dispatcher.add_handler(InlineQueryHandler(find_replies))
 
-    updater.start_webhook(listen="0.0.0.0", port=int(PORT), url_path=TOKEN)
-    updater.bot.setWebhook(f"https://{APP_NAME}.herokuapp.com/{TOKEN}")
+    if APP_NAME == "TESTING":
+        updater.start_polling()
+    else:
+        updater.start_webhook(listen="0.0.0.0", port=int(PORT), url_path=TOKEN)
+        updater.bot.setWebhook(f"https://{APP_NAME}.herokuapp.com/{TOKEN}")
 
     updater.idle()
 

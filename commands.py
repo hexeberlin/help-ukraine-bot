@@ -29,8 +29,8 @@ def help():
             + "/hryvnia чтобы получить информацию про обмен гривен\n"
             + "/legal чтобы получить юридическую помощь\n"
             + "/evacuation общие чаты об эвакуации из Украины\n"
-            + "/evacuationCities чаты эвакуации по городам\n"
-            + "/childrenLessons онлайн уроки для детей из Украины\n"
+            + "/evacuation_cities чаты эвакуации по городам\n"
+            + "/children_lessons онлайн уроки для детей из Украины\n"
             + "/handbook Методичка\n"
             + "\n"
 
@@ -41,8 +41,8 @@ def help():
             + "/hryvnia to display information about hryvnia exchange\n"
             + "/legal to get information about legal help\n"
             + "/evacuation to get information about evacuation from Ukraine\n"
-            + "/evacuationCities evacuation chats for cities\n"
-            + "/childrenLessons online lessons for children from Ukraine\n"
+            + "/evacuation_cities evacuation chats for cities\n"
+            + "/children_lessons online lessons for children from Ukraine\n"
             + "/handbook Handbook\n"
             + "\n")
 
