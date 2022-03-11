@@ -1,6 +1,7 @@
 """put module docstring here"""
 import os
 import logging
+import schedule
 from functools import wraps
 
 from telegram import (
@@ -30,6 +31,7 @@ from knowledge import search
 APP_NAME = os.environ["APP_NAME"]
 PORT = int(os.environ.get("PORT", 5000))
 TOKEN = os.environ["TOKEN"]
+CHAT_ID = os.environ["CHAT_ID"]
 REMINDER_MESSAGE = os.environ.get("REMINDER_MESSAGE", "I WILL POST PINNED MESSAGE HERE")
 REMINDER_INTERVAL = int(os.environ.get("REMINDER_INTERVAL", 30 * 60))
 THUMB_URL = os.environ.get(
@@ -64,6 +66,18 @@ def restricted(func):
         return func(bot, context, *args, **kwargs)
 
     return wrapped
+
+
+def job(bot):
+    print("I'm working...")
+    chat = bot.get_chat(CHAT_ID)
+    msg: Message = chat.pinned_message
+    logger.info("Sending a reminder to chat %s", CHAT_ID)
+
+    if msg:
+        bot.forward_message(CHAT_ID, CHAT_ID, msg.message_id)
+    else:
+        bot.send_message(chat_id=CHAT_ID, text="some very annoying message")
 
 
 def send_reminder(bot: Bot, chat_id: str):
@@ -214,6 +228,7 @@ def handbook(bot: Bot, update: Update):
     results = commands.handbook()
     reply_to_message(bot, update, results)
 
+
 def evac_command(bot: Bot, update: Update):
     results = commands.evacuation(BOOK)
     reply_to_message(bot, update, results)
@@ -254,13 +269,12 @@ def add_commands(dispatcher):
     dispatcher.add_handler(CommandHandler("handbook", handbook))
 
 
-
-
 def main() -> None:
     """Start the bot."""
     # Create the Updater and pass it your bot's token.
     updater = Updater(TOKEN)
 
+    schedule.every().minute.at(":17").do(job(updater.bot))
     # Get the dispatcher to register handlers
     dispatcher = updater.dispatcher
 
