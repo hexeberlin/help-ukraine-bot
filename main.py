@@ -175,7 +175,10 @@ def reply_to_message(bot, update, reply):
     parent_message_id = update.message.reply_to_message.message_id
     command_message_id = update.message.message_id
     bot.delete_message(chat_id=chat_id, message_id=command_message_id)
-    bot.send_message(chat_id=chat_id, reply_to_message_id=parent_message_id, text=reply)
+    if parent_message_id is None:
+        bot.send_message(chat_id=chat_id, text=reply)
+    else:
+        bot.send_message(chat_id=chat_id, reply_to_message_id=parent_message_id, text=reply)
 
 
 def cities_command(bot: Bot, update: Update):
