@@ -170,28 +170,6 @@ def find_replies(bot: Bot, update: Update) -> None:
     update.inline_query.answer(results)
 
 
-def cities_command(bot: Bot, update: Update):
-    name = update.message.text.removeprefix("/cities").strip().lower()
-    results = commands.cities(BOOK, name)
-    bot.send_message(chat_id=update.message.chat_id, text=results)
-
-
-def countries_command(bot: Bot, update: Update):
-    name = update.message.text.removeprefix("/countries").strip().lower()
-    results = commands.countries(BOOK, name)
-    bot.send_message(chat_id=update.message.chat_id, text=results)
-
-
-def hryvnia_command(bot: Bot, update: Update):
-    results = commands.hryvnia()
-    bot.send_message(chat_id=update.message.chat_id, text=results)
-
-
-def legal_command(bot: Bot, update: Update):
-    results = commands.legal()
-    reply_to_message(bot, update, results)
-
-
 def reply_to_message(bot, update, reply):
     chat_id = update.message.chat_id
     parent_message_id = update.message.reply_to_message.message_id
@@ -200,19 +178,41 @@ def reply_to_message(bot, update, reply):
     bot.send_message(chat_id=chat_id, reply_to_message_id=parent_message_id, text=reply)
 
 
+def cities_command(bot: Bot, update: Update):
+    name = update.message.text.removeprefix("/cities").strip().lower()
+    results = commands.cities(BOOK, name)
+    reply_to_message(bot, update, results)
+
+
+def countries_command(bot: Bot, update: Update):
+    name = update.message.text.removeprefix("/countries").strip().lower()
+    results = commands.countries(BOOK, name)
+    reply_to_message(bot, update, results)
+
+
+def hryvnia_command(bot: Bot, update: Update):
+    results = commands.hryvnia()
+    reply_to_message(bot, update, results)
+
+
+def legal_command(bot: Bot, update: Update):
+    results = commands.legal()
+    reply_to_message(bot, update, results)
+
+
 def children_lessons(bot: Bot, update: Update):
     results = commands.teachers_for_peace()
-    bot.send_message(chat_id=update.message.chat_id, text=results)
+    reply_to_message(bot, update, results)
 
 
 def evac_command(bot: Bot, update: Update):
     results = commands.evacuation(BOOK)
-    bot.send_message(chat_id=update.message.chat_id, text=results)
+    reply_to_message(bot, update, results)
 
 
 def evac_cities_command(bot: Bot, update: Update, name=None):
     results = commands.evacuation_cities(BOOK, name)
-    bot.send_message(chat_id=update.message.chat_id, text=results)
+    reply_to_message(bot, update, results)
 
 
 def show_command_list(bot: Bot):
