@@ -191,8 +191,8 @@ def legal_command(bot: Bot, update: Update):
     results = commands.legal()
     parent_message_id = update.message.reply_to_message.message_id
     command_message_id = update.message.message_id
-    print("\n parent " + parent_message_id + "\n")
-    print("command" + command_message_id + "\n")
+    print("\n parent " + str(parent_message_id) + "\n")
+    print("command" + str(command_message_id) + "\n")
     # bot.delete_message(
     #     chat_id=update.message.chat_id, message_id=update.message.message_id
     # )
