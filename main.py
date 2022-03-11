@@ -68,8 +68,8 @@ def restricted(func):
     return wrapped
 
 
-def job(bot):
-    print("I'm working...")
+def job(bot: Bot):
+    logger.info("i am an important job")
     chat = bot.get_chat(CHAT_ID)
     msg: Message = chat.pinned_message
     logger.info("Sending a reminder to chat %s", CHAT_ID)
