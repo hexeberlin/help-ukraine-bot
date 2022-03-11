@@ -200,6 +200,7 @@ def reply_to_message(bot, update, reply):
 
     bot.delete_message(chat_id=chat_id, message_id=command_message_id)
 
+
 def help_command(bot: Bot, update: Update):
     """Send a message when the command /help is issued."""
     help = commands.help()
@@ -212,7 +213,8 @@ def cities_command(bot: Bot, update: Update):
     reply_to_message(bot, update, results)
 
 
-def countries_command(bot: Bot, update: Update, name=None):
+def countries_command(bot: Bot, update: Update):
+    name = update.message.text.removeprefix("/countries").strip().lower()
     results = commands.countries(BOOK, name)
     reply_to_message(bot, update, results)
 
@@ -245,6 +247,7 @@ def evac_command(bot: Bot, update: Update):
 def evac_cities_command(bot: Bot, update: Update, name=None):
     results = commands.evacuation_cities(BOOK, name)
     reply_to_message(bot, update, results)
+
 
 def show_command_list(bot: Bot):
     commands = [
