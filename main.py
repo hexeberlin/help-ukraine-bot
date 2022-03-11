@@ -1,5 +1,6 @@
 """put module docstring here"""
-import os
+import configparser
+from os import environ as env
 import logging
 import schedule
 from functools import wraps
@@ -10,7 +11,8 @@ from telegram import (
     Message,
     Update,
     Bot,
-    ParseMode, BotCommand,
+    BotCommand,
+    ParseMode,
 )
 from telegram.ext import (
     Updater,
@@ -22,19 +24,26 @@ from telegram.ext import (
     JobQueue,
     Job,
 )
-from telegram.utils.helpers import effective_message_type, escape_markdown
+from telegram.utils.helpers import effective_message_type
 
 import commands
 import guidebook
 from knowledge import search
 
-APP_NAME = os.environ["APP_NAME"]
-PORT = int(os.environ.get("PORT", 5000))
-TOKEN = os.environ["TOKEN"]
-CHAT_ID = os.environ["CHAT_ID"]
-REMINDER_MESSAGE = os.environ.get("REMINDER_MESSAGE", "I WILL POST PINNED MESSAGE HERE")
-REMINDER_INTERVAL = int(os.environ.get("REMINDER_INTERVAL", 30 * 60))
-THUMB_URL = os.environ.get(
+config = configparser.ConfigParser()
+config.read('settings.env')
+if config:
+    config_vars = config['DEVELOPMENT']
+    APP_NAME = config_vars.get('APP_NAME')
+    TOKEN = config_vars.get('TOKEN')
+else:
+    APP_NAME = env["APP_NAME"]
+    TOKEN = env["TOKEN"]
+
+PORT = int(env.get("PORT", 5000))
+REMINDER_MESSAGE = env.get("REMINDER_MESSAGE", "I WILL POST PINNED MESSAGE HERE")
+REMINDER_INTERVAL = int(env.get("REMINDER_INTERVAL", 30 * 60))
+THUMB_URL = env.get(
     "THUMB_URL",
     "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Flag_of_Ukraine.svg/2560px-Flag_of_Ukraine.svg.png",
 )
@@ -192,7 +201,6 @@ def reply_to_message(bot, update, reply):
 
     bot.delete_message(chat_id=chat_id, message_id=command_message_id)
 
-
 def help_command(bot: Bot, update: Update):
     """Send a message when the command /help is issued."""
     help = commands.help()
@@ -205,8 +213,7 @@ def cities_command(bot: Bot, update: Update):
     reply_to_message(bot, update, results)
 
 
-def countries_command(bot: Bot, update: Update):
-    name = update.message.text.removeprefix("/countries").strip().lower()
+def countries_command(bot: Bot, update: Update, name=None):
     results = commands.countries(BOOK, name)
     reply_to_message(bot, update, results)
 
@@ -239,7 +246,6 @@ def evac_command(bot: Bot, update: Update):
 def evac_cities_command(bot: Bot, update: Update, name=None):
     results = commands.evacuation_cities(BOOK, name)
     reply_to_message(bot, update, results)
-
 
 def show_command_list(bot: Bot):
     bot.set_my_commands(commands=[
@@ -280,6 +286,31 @@ def main() -> None:
     # Get the dispatcher to register handlers
     dispatcher = updater.dispatcher
 
+    # Commands
+    dispatcher.add_handler(CommandHandler("start", start_timer, pass_job_queue=True))
+    dispatcher.add_handler(CommandHandler("stop", stop_timer, pass_job_queue=True))
+    dispatcher.add_handler(CommandHandler("help", help_command))
+
+    dispatcher.add_handler(CommandHandler("cities", cities_command))
+    dispatcher.add_handler(CommandHandler("countries", countries_command))
+
+    dispatcher.add_handler(CommandHandler("hryvnia", hryvnia_command))
+    dispatcher.add_handler(CommandHandler("legal", legal_command))
+
+    dispatcher.add_handler(CommandHandler("evacuation", evac_command))
+    dispatcher.add_handler(CommandHandler("evacuationCities", evac_cities_command))
+
+    dispatcher.add_handler(CommandHandler("childrenLessons", children_lessons))
+
+
+def main() -> None:
+    """Start the bot."""
+    # Create the Updater and pass it your bot's token.
+    updater = Updater(TOKEN)
+
+    # Get the dispatcher to register handlers
+    dispatcher = updater.dispatcher
+
     add_commands(dispatcher)
 
     # Messages
@@ -288,8 +319,12 @@ def main() -> None:
     # Inlines
     dispatcher.add_handler(InlineQueryHandler(find_replies))
 
-    updater.start_webhook(listen="0.0.0.0", port=int(PORT), url_path=TOKEN)
-    updater.bot.setWebhook(f"https://{APP_NAME}.herokuapp.com/{TOKEN}")
+    # TODO (Manya) if-else clause based on env
+    if APP_NAME == "TESTING":
+        updater.start_polling()
+    else:
+        updater.start_webhook(listen="0.0.0.0", port=int(PORT), url_path=TOKEN)
+        updater.bot.setWebhook(f"https://{APP_NAME}.herokuapp.com/{TOKEN}")
 
     updater.idle()
 

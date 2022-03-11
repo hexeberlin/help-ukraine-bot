@@ -1,4 +1,5 @@
 """Knowledge base of the bot"""
+from typing import List
 from uuid import uuid4
 import json
 
@@ -20,13 +21,13 @@ class Reply:
         self.lower_content = content.lower()
 
 
-replies: list[Reply] = []
+replies: List[Reply] = []
 with open("knowledge.json", encoding="utf-8") as f:
     records = json.load(f)["replies"]
     replies = [Reply(**r) for r in records]
 
 
-def search(query: str) -> list[Reply]:
+def search(query: str) -> List[Reply]:
     """Searches for relevant replies
 
     Args:
