@@ -248,14 +248,19 @@ def evac_cities_command(bot: Bot, update: Update, name=None):
     reply_to_message(bot, update, results)
 
 def show_command_list(bot: Bot):
-    bot.set_my_commands(commands=[
-        BotCommand("/cities", "Chats for german cities"),
-        BotCommand("/countries", "Chats for countries"),
-        BotCommand("/hryvnia", "Hryvnia exchange"),
-        BotCommand("/legal", "Chat for legal help"),
-        BotCommand("/evacuation", "Evacuation general"),
-        # BotCommand("evacCities", "Evacuation chats for ukrainian cities")
-    ])
+    commands = [
+        BotCommand("start", "to start the bot"),
+        BotCommand("stop", "to stop the bot"),
+        BotCommand("cities", "сhats for german cities"),
+        BotCommand("countries", "сhats for countries"),
+        BotCommand("hryvnia", "Hryvnia exchange"),
+        BotCommand("legal", "сhat for legal help"),
+        BotCommand("evacuation", "general evacuation info"),
+        BotCommand("evacuation_cities", "evacuation chats for ukrainian cities"),
+        BotCommand("children_lessons", "online lessons for children from Ukraine"),
+        BotCommand("handbook", "FAQ"),
+    ]
+    bot.set_my_commands(commands)
 
 
 def add_commands(dispatcher):
@@ -264,43 +269,17 @@ def add_commands(dispatcher):
     dispatcher.add_handler(CommandHandler("stop", stop_timer, pass_job_queue=True))
     dispatcher.add_handler(CommandHandler("help", help_command))
 
+    dispatcher.add_handler(CommandHandler("children_lessons", children_lessons))
+
     dispatcher.add_handler(CommandHandler("cities", cities_command))
     dispatcher.add_handler(CommandHandler("countries", countries_command))
 
-    dispatcher.add_handler(CommandHandler("hryvnia", hryvnia_command))
-    dispatcher.add_handler(CommandHandler("legal", legal_command))
-
     dispatcher.add_handler(CommandHandler("evacuation", evac_command))
-    dispatcher.add_handler(CommandHandler("evacuationCities", evac_cities_command))
+    dispatcher.add_handler(CommandHandler("evacuation_cities", evac_cities_command))
 
-    dispatcher.add_handler(CommandHandler("childrenLessons", children_lessons))
+    dispatcher.add_handler(CommandHandler("hryvnia", hryvnia_command))
     dispatcher.add_handler(CommandHandler("handbook", handbook))
-
-
-def main() -> None:
-    """Start the bot."""
-    # Create the Updater and pass it your bot's token.
-    updater = Updater(TOKEN)
-
-    # schedule.every().minute.at(":17").do(job)
-    # Get the dispatcher to register handlers
-    dispatcher = updater.dispatcher
-
-    # Commands
-    dispatcher.add_handler(CommandHandler("start", start_timer, pass_job_queue=True))
-    dispatcher.add_handler(CommandHandler("stop", stop_timer, pass_job_queue=True))
-    dispatcher.add_handler(CommandHandler("help", help_command))
-
-    dispatcher.add_handler(CommandHandler("cities", cities_command))
-    dispatcher.add_handler(CommandHandler("countries", countries_command))
-
-    dispatcher.add_handler(CommandHandler("hryvnia", hryvnia_command))
     dispatcher.add_handler(CommandHandler("legal", legal_command))
-
-    dispatcher.add_handler(CommandHandler("evacuation", evac_command))
-    dispatcher.add_handler(CommandHandler("evacuationCities", evac_cities_command))
-
-    dispatcher.add_handler(CommandHandler("childrenLessons", children_lessons))
 
 
 def main() -> None:
@@ -312,6 +291,7 @@ def main() -> None:
     dispatcher = updater.dispatcher
 
     add_commands(dispatcher)
+    show_command_list(updater.bot)
 
     # Messages
     dispatcher.add_handler(MessageHandler(Filters.all, delete_greetings))
@@ -319,7 +299,6 @@ def main() -> None:
     # Inlines
     dispatcher.add_handler(InlineQueryHandler(find_replies))
 
-    # TODO (Manya) if-else clause based on env
     if APP_NAME == "TESTING":
         updater.start_polling()
     else:

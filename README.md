@@ -4,5 +4,5 @@ Add this lines to your `settings.env` file and replace the token with your bot t
 ```
 [DEVELOPMENT]
 APP_NAME=TESTING
-TOKEN=our_secret_token
+TOKEN=very_secret_token
 ```
