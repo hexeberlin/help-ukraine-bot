@@ -250,14 +250,15 @@ def show_command_list(bot: Bot):
     commands = [
         BotCommand("start", "to start the bot"),
         BotCommand("stop", "to stop the bot"),
+        BotCommand("children_lessons", "online lessons for children from Ukraine"),
         BotCommand("cities", "сhats for german cities"),
         BotCommand("countries", "сhats for countries"),
-        BotCommand("hryvnia", "Hryvnia exchange"),
-        BotCommand("legal", "сhat for legal help"),
         BotCommand("evacuation", "general evacuation info"),
         BotCommand("evacuation_cities", "evacuation chats for ukrainian cities"),
-        BotCommand("children_lessons", "online lessons for children from Ukraine"),
         BotCommand("handbook", "FAQ"),
+        BotCommand("help", "bot functionality"),
+        BotCommand("hryvnia", "Hryvnia exchange"),
+        BotCommand("legal", "сhat for legal help"),
     ]
     bot.set_my_commands(commands)
 
