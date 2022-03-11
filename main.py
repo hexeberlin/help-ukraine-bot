@@ -75,7 +75,8 @@ def job(bot):
     logger.info("Sending a reminder to chat %s", CHAT_ID)
 
     if msg:
-        bot.forward_message(CHAT_ID, CHAT_ID, msg.message_id)
+        # bot.forward_message(CHAT_ID, CHAT_ID, msg.message_id)
+        bot.send_message(chat_id=CHAT_ID, text="some very annoying message")
     else:
         bot.send_message(chat_id=CHAT_ID, text="some very annoying message")
 
@@ -274,7 +275,7 @@ def main() -> None:
     # Create the Updater and pass it your bot's token.
     updater = Updater(TOKEN)
 
-    schedule.every().minute.at(":17").do(job(updater.bot))
+    schedule.every().minute.at(":17").do(job, updater.bot)
     # Get the dispatcher to register handlers
     dispatcher = updater.dispatcher
 
