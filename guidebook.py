@@ -57,13 +57,9 @@ def evacuation(guidebook):
 
 
 def evacuation_cities(guidebook, name=None):
-    if name is None:
-        return convert_dict_to_string(guidebook["evacuation_cities"])
-    else:
-        if (name in guidebook["evacuation_cities"]):
-            return convert_list_to_string(guidebook["evacuation_cities"][name])
-        else:
-            return convert_dict_to_string(guidebook["evacuation_cities"])
+    evac_cities = guidebook["evacuation_cities"]
+    return get_info(evac_cities, name)
+
 
 if __name__ == "__main__":
     guidebook = load_guidebook()

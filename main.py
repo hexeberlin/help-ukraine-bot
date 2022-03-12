@@ -244,7 +244,8 @@ def evac_command(bot: Bot, update: Update):
     reply_to_message(bot, update, results)
 
 
-def evac_cities_command(bot: Bot, update: Update, name=None):
+def evac_cities_command(bot: Bot, update: Update):
+    name = update.message.text.removeprefix("/evacuation_cities").strip().lower()
     results = commands.evacuation_cities(BOOK, name)
     reply_to_message(bot, update, results)
 
@@ -252,7 +253,6 @@ def evac_cities_command(bot: Bot, update: Update, name=None):
 def show_command_list(bot: Bot):
     commands = [
         BotCommand("start", "to start the bot"),
-        BotCommand("stop", "to stop the bot"),
         BotCommand("children_lessons", "online lessons for children from Ukraine"),
         BotCommand("cities", "сhats for german cities"),
         BotCommand("countries", "сhats for countries"),
