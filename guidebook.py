@@ -61,6 +61,11 @@ def evacuation_cities(guidebook, name=None):
     return get_info(evac_cities, name)
 
 
-if __name__ == "__main__":
-    guidebook = load_guidebook()
-    countries_chats(guidebook, "poland")
+def taxis(guidebook):
+    taxis = guidebook["taxis"]
+    return convert_list_to_string(taxis)
+
+
+# if __name__ == "__main__":
+#     guidebook = load_guidebook()
+#     countries_chats(guidebook, "poland")

@@ -250,6 +250,11 @@ def evac_cities_command(bot: Bot, update: Update):
     reply_to_message(bot, update, results)
 
 
+def taxi_command(bot: Bot, update: Update):
+    results = commands.taxis(BOOK)
+    reply_to_message(bot, update, results)
+
+
 def show_command_list(bot: Bot):
     commands = [
         BotCommand("start", "to start the bot"),
@@ -262,6 +267,7 @@ def show_command_list(bot: Bot):
         BotCommand("help", "bot functionality"),
         BotCommand("hryvnia", "Hryvnia exchange"),
         BotCommand("legal", "сhat for legal help"),
+        BotCommand("taxis", "сhat for legal help"),
     ]
     bot.set_my_commands(commands)
 
@@ -283,6 +289,7 @@ def add_commands(dispatcher):
     dispatcher.add_handler(CommandHandler("hryvnia", hryvnia_command))
     dispatcher.add_handler(CommandHandler("handbook", handbook))
     dispatcher.add_handler(CommandHandler("legal", legal_command))
+    dispatcher.add_handler(CommandHandler("taxis", taxi_command))
 
 
 def main() -> None:

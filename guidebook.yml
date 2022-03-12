@@ -136,6 +136,9 @@ countries:
     - https://t.me/dodomu_italia_ucraina
   Netherlands:
     - https://t.me/help_ua_nl_bot
+    - https://infohelpua.com/
+    - https://m.facebook.com/OekrainersInNederland/
+    - https://www.amsterdam.nl/en/refugees/amsterdam-supports-ukraine/
   Poland:
     - https://t.me/refugeesinPoland
   Spain:
@@ -156,6 +159,9 @@ countries:
     - https://t.me/dodomu_italia_ucraina
   Нидерланды:
     - https://t.me/help_ua_nl_bot
+    - https://infohelpua.com/
+    - https://m.facebook.com/OekrainersInNederland/
+    - https://www.amsterdam.nl/en/refugees/amsterdam-supports-ukraine/
   Польша:
     - https://t.me/refugeesinPoland
   Украина:
@@ -230,3 +236,5 @@ evacuation_cities:
     - https://t.me/evacuationChernovtsy
   Чернiгiв:
     - https://t.me/+i1Np0FJLhs4zMzli
+taxis:
+  - "taxi phone: +49 30 202020"

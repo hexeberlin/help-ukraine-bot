@@ -69,3 +69,7 @@ def evacuation(book):
 
 def evacuation_cities(book, name=None):
     return guidebook.evacuation_cities(book, name)
+
+
+def taxis(book):
+    return guidebook.taxis(book)
