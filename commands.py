@@ -15,11 +15,11 @@ def get_from_knowledge(title):
 
 
 def cities(book, name=None):
-    return guidebook.cities_chats(book, name)
+    return guidebook.get_info(book,"cities", name)
 
 
 def countries(book, name=None):
-    return guidebook.countries_chats(book, name)
+    return guidebook.get_info(book,"countries", name)
 
 
 def help():
@@ -68,7 +68,7 @@ def evacuation(book):
 
 
 def evacuation_cities(book, name=None):
-    return guidebook.evacuation_cities(book, name)
+    return guidebook.get_info(book, "evacuation_cities", name)
 
 
 def taxis(book):
@@ -76,4 +76,4 @@ def taxis(book):
 
 
 def medical(book, name=None):
-    return guidebook.medical(book, name)
+    return guidebook.get_info(book, "medical", name)

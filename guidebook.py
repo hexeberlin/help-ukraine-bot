@@ -31,7 +31,8 @@ def convert_list_to_string(info):
     return result + "\n============================"
 
 
-def get_info(dict, name):
+def get_info(guidebook, group_name, name):
+    dict = guidebook[group_name]
     if name is None:
         return convert_dict_to_string(dict)
     else:
@@ -42,33 +43,14 @@ def get_info(dict, name):
             return convert_dict_to_string(dict)
 
 
-def cities_chats(guidebook, name=None):
-    cities = guidebook["cities"]
-    return get_info(cities, name)
-
-
-def countries_chats(guidebook, name=None):
-    countries = guidebook["countries"]
-    return get_info(countries, name)
-
-
 def evacuation(guidebook):
     return convert_dict_to_string(guidebook["evacuation"])
-
-
-def evacuation_cities(guidebook, name=None):
-    evac_cities = guidebook["evacuation_cities"]
-    return get_info(evac_cities, name)
 
 
 def taxis(guidebook):
     taxis = guidebook["taxis"]
     return convert_list_to_string(taxis)
 
-
-def medical(guidebook, name=None):
-    medical = guidebook["medical"]
-    return get_info(medical, name)
 
 # if __name__ == "__main__":
 #     guidebook = load_guidebook()
