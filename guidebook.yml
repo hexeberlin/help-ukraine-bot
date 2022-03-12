@@ -238,3 +238,20 @@ evacuation_cities:
     - https://t.me/+i1Np0FJLhs4zMzli
 taxis:
   - "taxi phone: +49 30 202020"
+medical:
+  General:
+    - "Бесплатное медицинское обеспечение"
+    - https://www.berlin.de/ukraine/ru/pribytie/okasanie-medizinskoj/
+    - https://handbookgermany.de/de/ukraine-info/ru/medizinische-versorgung.html
+    - http://www.gesundheit-ein-menschenrecht.de/kontaktstellen
+    - https://www.kvberlin.de/fuer-patienten/ukraine?fbclid=IwAR3OV_-vw6rw14wOAKcpEK5HucFTia3Ugt0sy1KipI9qsjB56Uochqm3PSo
+    - https://www.malteser.de/menschen-ohne-krankenversicherung.html
+  Pregnant:
+    - https://chat.whatsapp.com/GPDPtkjiMlf1HnSIttlKtS
+    - https://www.berlin.de/ba-friedrichshain-kreuzberg/politik-und-verwaltung/aemter/gesundheitsamt/zentrum-fuer-sexuelle-gesundheit-und-familienplanung/russ_flyer-zentrum-fk-15x15.pdf
+  Psychological:
+    - https://www.imja.online/charity
+  Gynecologist:
+    - "Гинеколог:\nHerr Matthias Rödel (Speaks Russian) \n Hermannstr.147 \n 12051 Berlin \n 030/6222097"
+  Dentist:
+    - "Зубной:\nDavid Stolyar (Speaks Russian) \nWindscheidstr. 11 \n10627 Berlin-Charlottenburg \n+49 (0)30 - 32 70 17-18"

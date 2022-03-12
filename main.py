@@ -255,6 +255,12 @@ def taxi_command(bot: Bot, update: Update):
     reply_to_message(bot, update, results)
 
 
+def medical_command(bot: Bot, update: Update):
+    name = update.message.text.removeprefix("/medical").strip().lower()
+    results = commands.medical(BOOK, name)
+    reply_to_message(bot, update, results)
+
+
 def show_command_list(bot: Bot):
     commands = [
         BotCommand("start", "to start the bot"),
@@ -268,6 +274,7 @@ def show_command_list(bot: Bot):
         BotCommand("hryvnia", "Hryvnia exchange"),
         BotCommand("legal", "сhat for legal help"),
         BotCommand("taxis", "сhat for legal help"),
+        BotCommand("medical", "medical help"),
     ]
     bot.set_my_commands(commands)
 
@@ -290,6 +297,8 @@ def add_commands(dispatcher):
     dispatcher.add_handler(CommandHandler("handbook", handbook))
     dispatcher.add_handler(CommandHandler("legal", legal_command))
     dispatcher.add_handler(CommandHandler("taxis", taxi_command))
+
+    dispatcher.add_handler(CommandHandler("medical", medical_command))
 
 
 def main() -> None:

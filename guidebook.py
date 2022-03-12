@@ -15,20 +15,20 @@ def load_guidebook():
 
 
 def convert_dict_to_string(info):
-    result = ""
+    result = "============================\n"
     for key, value in info.items():
         result += key + " :\n"
         for s in value:
             result += "- " + s + "\n"
 
-    return result
+    return result + "\n============================"
 
 
 def convert_list_to_string(info):
-    result = ""
+    result = "============================\n"
     for s in info:
         result += s + "\n"
-    return result
+    return result + "\n============================"
 
 
 def get_info(dict, name):
@@ -65,6 +65,10 @@ def taxis(guidebook):
     taxis = guidebook["taxis"]
     return convert_list_to_string(taxis)
 
+
+def medical(guidebook, name=None):
+    medical = guidebook["medical"]
+    return get_info(medical, name)
 
 # if __name__ == "__main__":
 #     guidebook = load_guidebook()
