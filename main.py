@@ -272,6 +272,10 @@ def social_help_command(bot: Bot, update: Update):
     reply_to_message(bot, update, results)
 
 
+def jobs_command(bot: Bot, update: Update):
+    results = commands.jobs(BOOK)
+    reply_to_message(bot, update, results)
+
 
 def show_command_list(bot: Bot):
     commands = [
@@ -288,6 +292,8 @@ def show_command_list(bot: Bot):
         BotCommand("taxis", "сhat for legal help"),
         BotCommand("medical", "medical help"),
         BotCommand("socialhelp", "social help"),
+        BotCommand("jobs", "jobs in germany"),
+
     ]
     bot.set_my_commands(commands)
 
@@ -314,6 +320,7 @@ def add_commands(dispatcher):
 
     dispatcher.add_handler(CommandHandler("medical", medical_command))
     dispatcher.add_handler(CommandHandler("socialhelp", social_help_command))
+    dispatcher.add_handler(CommandHandler("jobs", jobs_command))
 
 
 def main() -> None:

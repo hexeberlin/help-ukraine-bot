@@ -35,6 +35,7 @@ def help():
             + "/children_lessons онлайн уроки для детей из Украины\n"
             + "/handbook Методичка\n"
             + "/socialhelp Социальная помощь\n"
+            + "/jobs Работа в Германии\n"
             + "\n"
 
             + os.linesep
@@ -49,6 +50,7 @@ def help():
             + "/children_lessons online lessons for children from Ukraine\n"
             + "/handbook Handbook\n"
             + "/socialhelp Social help\n"
+            + "/jobs Jobs in Germany\n"
             + "\n")
 
 
@@ -86,3 +88,7 @@ def medical(book, name=None):
 
 def social_help():
     return get_from_knowledge(SOCIAL_HELP_TITLE)
+
+
+def jobs(book, name=None):
+    return guidebook.get_info(book, "jobs", name)
