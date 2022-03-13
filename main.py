@@ -66,6 +66,10 @@ def restricted(func):
         chat_id = context.effective_chat.id
         admins = [u.user.id for u in bot.get_chat_administrators(chat_id)]
 
+        for admin in admins:
+            logger.warning(id)
+
+
         if user_id not in admins:
             logger.warning("Non admin attempts to access a restricted function")
             return
@@ -75,18 +79,6 @@ def restricted(func):
 
     return wrapped
 
-
-def job():
-    logger.info("i am an important job")
-    # chat = bot.get_chat(CHAT_ID)
-    # msg: Message = chat.pinned_message
-    # logger.info("Sending a reminder to chat %s", CHAT_ID)
-    #
-    # if msg:
-    #     # bot.forward_message(CHAT_ID, CHAT_ID, msg.message_id)
-    #     bot.send_message(chat_id=CHAT_ID, text="some very annoying message")
-    # else:
-    #     bot.send_message(chat_id=CHAT_ID, text="some very annoying message")
 
 
 def send_reminder(bot: Bot, chat_id: str):
@@ -272,7 +264,6 @@ def social_help_command(bot: Bot, update: Update):
 
 def show_command_list(bot: Bot):
     commands = [
-        BotCommand("start", "to start the bot"),
         BotCommand("children_lessons", "online lessons for children from Ukraine"),
         BotCommand("cities", "сhats for german cities, you need to pass the name of the city"),
         BotCommand("countries", "сhats for countries"),
