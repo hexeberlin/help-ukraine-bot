@@ -65,12 +65,12 @@ def restricted(func):
         user_id = context.effective_user.id
         chat_id = context.effective_chat.id
         admins = [u.user.id for u in bot.get_chat_administrators(chat_id)]
-        admin1 = [u.user.id for u in bot.get_chat_administrators(chat_id)]
+        admin1 = [u.user for u in bot.get_chat_administrators(chat_id)]
 
         logger.warning("author: " + str(user_id))
 
         for admin in admin1:
-            logger.warning("admin: " + str(admin.id) + admin.username)
+            logger.warning("admin: " + str(admin.id) + " " + admin.username)
 
 
         if user_id not in admins:
