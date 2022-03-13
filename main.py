@@ -37,7 +37,6 @@ logging.basicConfig(
 
 logger = logging.getLogger(__name__)
 
-
 config = configparser.ConfigParser()
 config.read('settings.env')
 
@@ -55,6 +54,7 @@ THUMB_URL = env.get(
     "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Flag_of_Ukraine.svg/2560px-Flag_of_Ukraine.svg.png",
 )
 BOOK = guidebook.load_guidebook()
+
 
 # Permissions
 def restricted(func):
@@ -209,7 +209,10 @@ def help_command(bot: Bot, update: Update):
 
 def cities_command(bot: Bot, update: Update):
     name = update.message.text.removeprefix("/cities").strip().lower()
-    results = commands.cities(BOOK, name)
+    if name is None or not name:
+        results = "Пожалуйста, уточните название города: /cities Name"
+    else:
+        results = commands.cities(BOOK, name)
     reply_to_message(bot, update, results)
 
 
@@ -265,7 +268,7 @@ def show_command_list(bot: Bot):
     commands = [
         BotCommand("start", "to start the bot"),
         BotCommand("children_lessons", "online lessons for children from Ukraine"),
-        BotCommand("cities", "сhats for german cities"),
+        BotCommand("cities", "сhats for german cities, you need to pass the name of the city"),
         BotCommand("countries", "сhats for countries"),
         BotCommand("evacuation", "general evacuation info"),
         BotCommand("evacuation_cities", "evacuation chats for ukrainian cities"),

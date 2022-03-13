@@ -33,14 +33,12 @@ def convert_list_to_string(info):
 
 def get_info(guidebook, group_name, name):
     dict = guidebook[group_name]
-    if name is None:
-        return convert_dict_to_string(dict)
+
+    key_dict = {k.lower(): k for k, v in dict.items()}
+    if name in key_dict:
+        return convert_list_to_string(dict[key_dict[name]])
     else:
-        key_dict = {k.lower(): k for k, v in dict.items()}
-        if name in key_dict:
-            return convert_list_to_string(dict[key_dict[name]])
-        else:
-            return convert_dict_to_string(dict)
+        return "К сожалению, мы пока не располагаем этой информацией"
 
 
 def evacuation(guidebook):
@@ -50,7 +48,6 @@ def evacuation(guidebook):
 def taxis(guidebook):
     taxis = guidebook["taxis"]
     return convert_list_to_string(taxis)
-
 
 # if __name__ == "__main__":
 #     guidebook = load_guidebook()
