@@ -215,6 +215,10 @@ def cities_command(bot: Bot, update: Update):
     reply_to_message(bot, update, results)
 
 
+def cities_all_command(bot: Bot, update: Update):
+    results = commands.cities(BOOK)
+    reply_to_message(bot, update, results)
+
 def countries_command(bot: Bot, update: Update):
     name = update.message.text.removeprefix("/countries").strip().lower()
     results = commands.countries(BOOK, name)
@@ -273,6 +277,7 @@ def show_command_list(bot: Bot):
     commands = [
         BotCommand("children_lessons", "online lessons for children from Ukraine"),
         BotCommand("cities", "сhats for german cities, you need to pass the name of the city"),
+        BotCommand("cities_all", "сhats for german cities, you need to pass the name of the city"),
         BotCommand("countries", "сhats for countries"),
         BotCommand("evacuation", "general evacuation info"),
         BotCommand("evacuation_cities", "evacuation chats for ukrainian cities"),
@@ -296,6 +301,7 @@ def add_commands(dispatcher):
     dispatcher.add_handler(CommandHandler("children_lessons", children_lessons))
 
     dispatcher.add_handler(CommandHandler("cities", cities_command))
+    dispatcher.add_handler(CommandHandler("cities_all", cities_all_command))
     dispatcher.add_handler(CommandHandler("countries", countries_command))
 
     dispatcher.add_handler(CommandHandler("evacuation", evac_command))
