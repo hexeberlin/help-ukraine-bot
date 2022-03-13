@@ -7,6 +7,7 @@ HRYVNIA_TITLE = "Обмен гривен/Exchange hryvnia"
 LEGAL_TITLE = "Юридическая помощь/Legal help"
 TEACHERS_TITLE = "Онлайн уроки для детей/Online lessons for children"
 HANDBOOK_TITLE = "Mетодичка"
+SOCIAL_HELP_TITLE = "Социальная помощь"
 
 
 def get_from_knowledge(title):
@@ -32,6 +33,7 @@ def help():
             + "/evacuation_cities чаты эвакуации по городам\n"
             + "/children_lessons онлайн уроки для детей из Украины\n"
             + "/handbook Методичка\n"
+            + "/socialhelp Социальная помощь\n"
             + "\n"
 
             + os.linesep
@@ -44,6 +46,7 @@ def help():
             + "/evacuation_cities evacuation chats for cities\n"
             + "/children_lessons online lessons for children from Ukraine\n"
             + "/handbook Handbook\n"
+            + "/socialhelp Social help\n"
             + "\n")
 
 
@@ -77,3 +80,7 @@ def taxis(book):
 
 def medical(book, name=None):
     return guidebook.get_info(book, "medical", name)
+
+
+def social_help():
+    return get_from_knowledge(SOCIAL_HELP_TITLE)

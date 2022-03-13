@@ -264,6 +264,12 @@ def medical_command(bot: Bot, update: Update):
     reply_to_message(bot, update, results)
 
 
+def social_help_command(bot: Bot, update: Update):
+    results = commands.social_help()
+    reply_to_message(bot, update, results)
+
+
+
 def show_command_list(bot: Bot):
     commands = [
         BotCommand("start", "to start the bot"),
@@ -278,6 +284,7 @@ def show_command_list(bot: Bot):
         BotCommand("legal", "сhat for legal help"),
         BotCommand("taxis", "сhat for legal help"),
         BotCommand("medical", "medical help"),
+        BotCommand("socialhelp", "social help"),
     ]
     bot.set_my_commands(commands)
 
@@ -302,6 +309,7 @@ def add_commands(dispatcher):
     dispatcher.add_handler(CommandHandler("taxis", taxi_command))
 
     dispatcher.add_handler(CommandHandler("medical", medical_command))
+    dispatcher.add_handler(CommandHandler("socialhelp", social_help_command))
 
 
 def main() -> None:
