@@ -34,11 +34,17 @@ def convert_list_to_string(info):
 def get_info(guidebook, group_name, name):
     dict = guidebook[group_name]
 
-    key_dict = {k.lower(): k for k, v in dict.items()}
-    if name in key_dict:
-        return convert_list_to_string(dict[key_dict[name]])
+    if name is None:
+        return convert_dict_to_string(dict)
     else:
-        return "К сожалению, мы пока не располагаем этой информацией"
+        key_dict = {k.lower(): k for k, v in dict.items()}
+        if name in key_dict:
+            return convert_list_to_string(dict[key_dict[name]])
+        else:
+            if group_name == "cities":
+                return "К сожалению, мы пока не располагаем этой информацией"
+            else:
+                return convert_dict_to_string(dict)
 
 
 def evacuation(guidebook):
