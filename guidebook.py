@@ -56,5 +56,4 @@ def taxis(guidebook):
     return convert_list_to_string(taxis)
 
 # if __name__ == "__main__":
-#     guidebook = load_guidebook()
-#     countries_chats(guidebook, "poland")
+#     print ("asdf" + str(None))

@@ -70,7 +70,7 @@ def restricted(func):
         logger.warning("author: " + str(user_id))
 
         for admin in admin1:
-            logger.warning("admin: " + str(admin.id) + " " + admin.username)
+            logger.warning("admin: " + str(admin.id) + " " + str(admin.username))
 
 
         if user_id not in admins:
