@@ -206,7 +206,7 @@ def help_command(bot: Bot, update: Update):
 
 
 def cities_command(bot: Bot, update: Update):
-    name = update.message.text.removeprefix("/cities").strip().lower()
+    name = update.message.text.removeprefix("/cities").replace("@ukraine_help_testbot", "").strip().lower()
     if name is None or not name:
         results = "Пожалуйста, уточните название города: /cities Name"
     else:
