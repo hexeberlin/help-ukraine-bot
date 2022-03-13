@@ -35,6 +35,8 @@ def help():
             + "/children_lessons онлайн уроки для детей из Украины\n"
             + "/handbook Методичка\n"
             + "/socialhelp Социальная помощь\n"
+            + "/medial Медицинская помощь\n"
+            + "/dentist Стоматологическая помощь\n"
             + "/jobs Работа в Германии\n"
             + "\n"
 
@@ -50,6 +52,8 @@ def help():
             + "/children_lessons online lessons for children from Ukraine\n"
             + "/handbook Handbook\n"
             + "/socialhelp Social help\n"
+            + "/medial medical help\n"
+            + "/dentist dentist help\n"
             + "/jobs Jobs in Germany\n"
             + "\n")
 
@@ -85,6 +89,9 @@ def taxis(book):
 def medical(book, name=None):
     return guidebook.get_info(book, "medical", name)
 
+
+def dentist(book, name=None):
+    return guidebook.get_info(book, "dentist", name)
 
 def social_help():
     return get_from_knowledge(SOCIAL_HELP_TITLE)
