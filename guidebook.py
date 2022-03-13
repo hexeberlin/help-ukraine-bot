@@ -31,7 +31,7 @@ def convert_list_to_string(info):
     return result + "\n============================"
 
 
-def get_info(guidebook, group_name, name):
+def get_info(guidebook, group_name, name=None):
     dict = guidebook[group_name]
 
     if name is None:

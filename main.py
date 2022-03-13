@@ -215,6 +215,10 @@ def cities_command(bot: Bot, update: Update):
     reply_to_message(bot, update, results)
 
 
+def cities_all_command(bot: Bot, update: Update):
+    results = commands.cities(BOOK)
+    reply_to_message(bot, update, results)
+
 def countries_command(bot: Bot, update: Update):
     name = update.message.text.removeprefix("/countries").strip().lower()
     results = commands.countries(BOOK, name)
@@ -263,16 +267,26 @@ def medical_command(bot: Bot, update: Update):
     reply_to_message(bot, update, results)
 
 
+def dentist_command(bot: Bot, update: Update):
+    results = commands.dentist(BOOK)
+    reply_to_message(bot, update, results)
+
+
 def social_help_command(bot: Bot, update: Update):
     results = commands.social_help()
     reply_to_message(bot, update, results)
 
+
+def jobs_command(bot: Bot, update: Update):
+    results = commands.jobs(BOOK)
+    reply_to_message(bot, update, results)
 
 
 def show_command_list(bot: Bot):
     commands = [
         BotCommand("children_lessons", "online lessons for children from Ukraine"),
         BotCommand("cities", "сhats for german cities, you need to pass the name of the city"),
+        BotCommand("cities_all", "сhats for german cities, you need to pass the name of the city"),
         BotCommand("countries", "сhats for countries"),
         BotCommand("evacuation", "general evacuation info"),
         BotCommand("evacuation_cities", "evacuation chats for ukrainian cities"),
@@ -282,7 +296,10 @@ def show_command_list(bot: Bot):
         BotCommand("legal", "сhat for legal help"),
         BotCommand("taxis", "сhat for legal help"),
         BotCommand("medical", "medical help"),
+        BotCommand("dentist", "dentist help"),
         BotCommand("socialhelp", "social help"),
+        BotCommand("jobs", "jobs in germany"),
+
     ]
     bot.set_my_commands(commands)
 
@@ -296,6 +313,7 @@ def add_commands(dispatcher):
     dispatcher.add_handler(CommandHandler("children_lessons", children_lessons))
 
     dispatcher.add_handler(CommandHandler("cities", cities_command))
+    dispatcher.add_handler(CommandHandler("cities_all", cities_all_command))
     dispatcher.add_handler(CommandHandler("countries", countries_command))
 
     dispatcher.add_handler(CommandHandler("evacuation", evac_command))
@@ -307,7 +325,9 @@ def add_commands(dispatcher):
     dispatcher.add_handler(CommandHandler("taxis", taxi_command))
 
     dispatcher.add_handler(CommandHandler("medical", medical_command))
+    dispatcher.add_handler(CommandHandler("dentist", dentist_command))
     dispatcher.add_handler(CommandHandler("socialhelp", social_help_command))
+    dispatcher.add_handler(CommandHandler("jobs", jobs_command))
 
 
 def main() -> None:
