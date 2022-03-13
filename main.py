@@ -65,11 +65,12 @@ def restricted(func):
         user_id = context.effective_user.id
         chat_id = context.effective_chat.id
         admins = [u.user.id for u in bot.get_chat_administrators(chat_id)]
+        admin1 = [u.user.id for u in bot.get_chat_administrators(chat_id)]
 
         logger.warning("author: " + str(user_id))
 
-        for admin in admins:
-            logger.warning("admin: " + str(admin))
+        for admin in admin1:
+            logger.warning("admin: " + str(admin.id) + admin.username)
 
 
         if user_id not in admins:
@@ -119,6 +120,7 @@ def alarm(bot: Bot, job: Job):
 def start_timer(bot: Bot, update: Update, job_queue: JobQueue):
     """start_timer"""
     chat_id = update.message.chat_id
+    command_message_id = update.message.message_id
     logger.info("Started reminders in channel %s", chat_id)
 
     jobs: tuple[Job] = job_queue.get_jobs_by_name(chat_id)
@@ -146,6 +148,8 @@ def start_timer(bot: Bot, update: Update, job_queue: JobQueue):
         job_queue.run_repeating(
             alarm, REMINDER_INTERVAL, first=1, context=chat_id, name=chat_id
         )
+    bot.delete_message(chat_id=chat_id, message_id=command_message_id)
+
 
 
 @restricted
