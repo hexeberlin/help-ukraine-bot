@@ -199,6 +199,11 @@ def reply_to_message(bot, update, reply):
     bot.delete_message(chat_id=chat_id, message_id=command_message_id)
 
 
+def get_param(bot, update, command) :
+    bot_name = bot.name
+    return update.message.text.removeprefix(command).replace(bot_name, "").strip().lower()
+
+
 def help_command(bot: Bot, update: Update):
     """Send a message when the command /help is issued."""
     help = commands.help()
@@ -206,8 +211,7 @@ def help_command(bot: Bot, update: Update):
 
 
 def cities_command(bot: Bot, update: Update):
-    bot_name = bot.name
-    name = update.message.text.removeprefix("/cities").replace(bot_name, "").strip().lower()
+    name = get_param(bot, update,"/cities")
     if name is None or not name:
         results = "Пожалуйста, уточните название города: /cities Name"
     else:
@@ -219,8 +223,9 @@ def cities_all_command(bot: Bot, update: Update):
     results = commands.cities(BOOK)
     reply_to_message(bot, update, results)
 
+
 def countries_command(bot: Bot, update: Update):
-    name = update.message.text.removeprefix("/countries").strip().lower()
+    name = get_param(bot, update, "/countries")
     results = commands.countries(BOOK, name)
     reply_to_message(bot, update, results)
 
@@ -251,7 +256,7 @@ def evac_command(bot: Bot, update: Update):
 
 
 def evac_cities_command(bot: Bot, update: Update):
-    name = update.message.text.removeprefix("/evacuation_cities").strip().lower()
+    name = get_param(bot, update, "/evacuation_cities")
     results = commands.evacuation_cities(BOOK, name)
     reply_to_message(bot, update, results)
 
@@ -262,7 +267,7 @@ def taxi_command(bot: Bot, update: Update):
 
 
 def medical_command(bot: Bot, update: Update):
-    name = update.message.text.removeprefix("/medical").strip().lower()
+    name = get_param(bot, update, "/medical")
     results = commands.medical(BOOK, name)
     reply_to_message(bot, update, results)
 
@@ -283,7 +288,7 @@ def jobs_command(bot: Bot, update: Update):
 
 
 def freestuff_command(bot: Bot, update: Update):
-    name = update.message.text.removeprefix("/freestuff").strip().lower()
+    name = get_param(bot, update, "/freestuff")
     results = commands.freestuff(BOOK, name)
     reply_to_message(bot, update, results)
 
