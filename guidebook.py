@@ -20,6 +20,7 @@ def convert_dict_to_string(info):
         result += key + " :\n"
         for s in value:
             result += "- " + s + "\n"
+        result += "\n"
 
     return result + "\n============================"
 
