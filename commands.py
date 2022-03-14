@@ -99,3 +99,17 @@ def social_help():
 
 def jobs(book, name=None):
     return guidebook.get_info(book, "jobs", name)
+
+
+def freestuff(book, name=None):
+    return guidebook.get_info(book, "freestuff", name)
+
+
+def animal_help(book, name=None):
+    return guidebook.get_info(book, "animals", name)
+
+
+def volunteer(book, name=None):
+    return guidebook.get_info(book, "volunteer", name)
+
+

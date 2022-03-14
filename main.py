@@ -282,6 +282,22 @@ def jobs_command(bot: Bot, update: Update):
     reply_to_message(bot, update, results)
 
 
+def freestuff_command(bot: Bot, update: Update):
+    name = update.message.text.removeprefix("/freestuff").strip().lower()
+    results = commands.freestuff(BOOK, name)
+    reply_to_message(bot, update, results)
+
+
+def animal_help_command(bot: Bot, update: Update):
+    results = commands.animal_help(BOOK)
+    reply_to_message(bot, update, results)
+
+
+def volunteer_command(bot: Bot, update: Update):
+    results = commands.volunteer(BOOK)
+    reply_to_message(bot, update, results)
+
+
 def show_command_list(bot: Bot):
     commands = [
         BotCommand("children_lessons", "online lessons for children from Ukraine"),
@@ -299,6 +315,9 @@ def show_command_list(bot: Bot):
         BotCommand("dentist", "dentist help"),
         BotCommand("socialhelp", "social help"),
         BotCommand("jobs", "jobs in germany"),
+        BotCommand("freestuff", "free stuff in berlin"),
+        BotCommand("vet", "animal help"),
+        BotCommand("volunteer", "volunteer"),
 
     ]
     bot.set_my_commands(commands)
@@ -328,6 +347,10 @@ def add_commands(dispatcher):
     dispatcher.add_handler(CommandHandler("dentist", dentist_command))
     dispatcher.add_handler(CommandHandler("socialhelp", social_help_command))
     dispatcher.add_handler(CommandHandler("jobs", jobs_command))
+
+    dispatcher.add_handler(CommandHandler("freestuff", freestuff_command))
+    dispatcher.add_handler(CommandHandler("vet", animal_help_command))
+    dispatcher.add_handler(CommandHandler("volunteer", volunteer_command))
 
 
 def main() -> None:
