@@ -113,3 +113,7 @@ def volunteer(book, name=None):
     return guidebook.get_info(book, "volunteer", name)
 
 
+def deutsch(book, name=None):
+    return guidebook.get_info(book, "deutsch", name)
+
+

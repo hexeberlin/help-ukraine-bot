@@ -80,7 +80,7 @@ def restricted(func):
 
 def send_pinned_reminder(bot: Bot, update: Update, chat_id: str):
     """send_reminder"""
-    logger.info("Sending an info reminder to chat %s", chat_id)
+    logger.info("Sending a pinned reminder to chat %s", chat_id)
     social_help_command(bot, update)
 
 
@@ -117,8 +117,10 @@ def start_timer(bot: Bot, update: Update, job_queue: JobQueue):
     command_message_id = update.message.message_id
     if chat_id in BERLIN_HELPS_UKRAIN_CHAT_ID:
         reminder(bot, update, job_queue)
-
-    bot.delete_message(chat_id=chat_id, message_id=command_message_id)
+    try:
+        bot.delete_message(chat_id=chat_id, message_id=command_message_id)
+    except:
+        logger.info("Command was already deleted %s", command_message_id)
 
 
 def reminder(bot: Bot, update: Update, job_queue: JobQueue):
@@ -130,17 +132,7 @@ def reminder(bot: Bot, update: Update, job_queue: JobQueue):
     #  Restart already existing jobs
     for job in jobs:
         if not job.enabled:
-            print("jan name: " + job.name)
-            bot.send_message(
-                chat_id=chat_id,
-                text=f"I'm re-starting sending the reminders every {REMINDER_INTERVAL_PINNED}s.",
-            )
-        else:
-            bot.send_message(
-                chat_id=chat_id,
-                text=f"I'm already sending the reminders every {REMINDER_INTERVAL_PINNED}s.",
-            )
-        job.enabled = True
+            job.enabled = True
 
     # Start a new job if there was none previously
     if not jobs:
@@ -152,10 +144,10 @@ def add_pinned_reminder_job(bot: Bot, update: Update, job_queue: JobQueue ):
     chat_id = update.message.chat_id
     bot.send_message(
         chat_id=chat_id,
-        text=f"I'm starting sending the reminders every {REMINDER_INTERVAL_PINNED}s.",
+        text=f"I'm starting sending the pinned reminder every {REMINDER_INTERVAL_PINNED}s.",
     )
     job_queue.run_repeating(
-        send_info_reminder(bot, chat_id=chat_id), REMINDER_INTERVAL_PINNED, first=1, context=chat_id, name=chat_id
+        send_info_reminder(bot, chat_id=chat_id), REMINDER_INTERVAL_PINNED, first=1, context=chat_id, name="pinned"
     )
 
 
@@ -163,11 +155,11 @@ def add_info_job(bot: Bot, update: Update, job_queue: JobQueue):
     chat_id = update.message.chat_id
     bot.send_message(
         chat_id=chat_id,
-        text=f"I'm starting sending the reminders every {REMINDER_INTERVAL_INFO}s.",
+        text=f"I'm starting sending the info reminder every {REMINDER_INTERVAL_INFO}s.",
     )
     job_queue.run_repeating(
         send_pinned_reminder(bot, update, chat_id=chat_id), REMINDER_INTERVAL_INFO, first=1, context=chat_id,
-        name=chat_id
+        name="info"
     )
 
 
@@ -322,6 +314,11 @@ def volunteer_command(bot: Bot, update: Update):
     reply_to_message(bot, update, results)
 
 
+def deutsch_command(bot: Bot, update: Update):
+    results = commands.deutsch(BOOK)
+    reply_to_message(bot, update, results)
+
+
 def show_command_list(bot: Bot):
     commands = [
         BotCommand("children_lessons", "online lessons for children from Ukraine"),
@@ -342,6 +339,7 @@ def show_command_list(bot: Bot):
         BotCommand("freestuff", "free stuff in berlin"),
         BotCommand("vet", "animal help"),
         BotCommand("volunteer", "volunteer"),
+        BotCommand("deutsch", "german lessons"),
 
     ]
     bot.set_my_commands(commands)
@@ -375,6 +373,7 @@ def add_commands(dispatcher):
     dispatcher.add_handler(CommandHandler("freestuff", freestuff_command))
     dispatcher.add_handler(CommandHandler("vet", animal_help_command))
     dispatcher.add_handler(CommandHandler("volunteer", volunteer_command))
+    dispatcher.add_handler(CommandHandler("deutsch", deutsch_command))
 
 
 def main() -> None:
