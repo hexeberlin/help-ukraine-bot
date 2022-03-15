@@ -1,5 +1,6 @@
 """put module docstring here"""
 import configparser
+from http.client import BAD_REQUEST
 from os import environ as env
 import logging
 from functools import wraps
@@ -23,6 +24,7 @@ from telegram.ext import (
     JobQueue,
     Job,
 )
+from telegram.error import BadRequest
 from telegram.utils.helpers import effective_message_type
 
 import commands
@@ -83,7 +85,13 @@ def restricted(func):
     return wrapped
 
 
-def send_reminder(bot: Bot, chat_id: str):
+def send_pinned_reminder(bot: Bot, update: Update, chat_id: str):
+    """send_reminder"""
+    logger.info("Sending a pinned reminder to chat %s", chat_id)
+    social_help_command(bot, update)
+
+
+def send_info_reminder(bot: Bot, chat_id: str):
     """send_reminder"""
     chat = bot.get_chat(chat_id)
     msg: Message = chat.pinned_message
@@ -139,6 +147,36 @@ def reminder(bot: Bot, update: Update, job_queue: JobQueue):
         add_info_job(bot, update, job_queue)
 
 
+def add_pinned_reminder_job(bot: Bot, update: Update, job_queue: JobQueue):
+    chat_id = update.message.chat_id
+    bot.send_message(
+        chat_id=chat_id,
+        text=f"I'm starting sending the pinned reminder every {REMINDER_INTERVAL_PINNED}s.",
+    )
+    job_queue.run_repeating(
+        send_info_reminder(bot, chat_id=chat_id),
+        REMINDER_INTERVAL_PINNED,
+        first=1,
+        context=chat_id,
+        name="pinned",
+    )
+
+
+def add_info_job(bot: Bot, update: Update, job_queue: JobQueue):
+    chat_id = update.message.chat_id
+    bot.send_message(
+        chat_id=chat_id,
+        text=f"I'm starting sending the info reminder every {REMINDER_INTERVAL_INFO}s.",
+    )
+    job_queue.run_repeating(
+        send_pinned_reminder(bot, update, chat_id=chat_id),
+        REMINDER_INTERVAL_INFO,
+        first=1,
+        context=chat_id,
+        name="info",
+    )
+
+
 @restricted
 def stop_timer(bot: Bot, update: Update, job_queue: JobQueue):
     """stop_timer"""
@@ -184,8 +222,10 @@ def reply_to_message(bot, update, reply):
         bot.send_message(
             chat_id=chat_id, reply_to_message_id=parent_message_id, text=reply
         )
-
-    bot.delete_message(chat_id=chat_id, message_id=command_message_id)
+    try:
+        bot.delete_message(chat_id=chat_id, message_id=command_message_id)
+    except BadRequest:
+        logger.info("Command was already deleted %s", command_message_id)
 
 
 def get_param(bot, update, command):
@@ -227,6 +267,11 @@ def countries_command(bot: Bot, update: Update):
 
 def dentist_command(bot: Bot, update: Update):
     results = commands.dentist(BOOK)
+    reply_to_message(bot, update, results)
+
+
+def deutsch_command(bot: Bot, update: Update):
+    results = commands.deutsch(BOOK)
     reply_to_message(bot, update, results)
 
 
@@ -300,18 +345,13 @@ def volunteer_command(bot: Bot, update: Update):
     reply_to_message(bot, update, results)
 
 
-def deutsch_command(bot: Bot, update: Update):
-    results = commands.deutsch(BOOK)
+def translators_command(bot: Bot, update: Update):
+    results = commands.translators()
     reply_to_message(bot, update, results)
 
 
 def travel_command(bot: Bot, update: Update):
     results = commands.travel(BOOK)
-    reply_to_message(bot, update, results)
-
-
-def translators_command(bot: Bot, update: Update):
-    results = commands.translators()
     reply_to_message(bot, update, results)
 
 
@@ -341,6 +381,9 @@ def show_command_list(bot: Bot):
         BotCommand("freestuff", "free stuff in berlin"),
         BotCommand("vet", "animal help"),
         BotCommand("volunteer", "volunteer"),
+        BotCommand("deutsch", "german lessons"),
+        BotCommand("travel", "travel possibilities"),
+        BotCommand("translators", "translators"),
     ]
     bot.set_my_commands(commands)
 
