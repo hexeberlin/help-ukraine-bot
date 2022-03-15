@@ -389,6 +389,8 @@ def add_commands(dispatcher):
     dispatcher.add_handler(CommandHandler("travel", travel_command))
     dispatcher.add_handler(CommandHandler("translators", translators_command))
 
+    dispatcher.add_handler(CommandHandler("adminsonly", translators_command))
+
 
 def main() -> None:
     """Start the bot."""
