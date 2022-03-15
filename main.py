@@ -122,12 +122,13 @@ def start_timer(bot: Bot, update: Update, job_queue: JobQueue):
     chat_id = update.message.chat_id
     command_message_id = update.message.message_id
     if chat_id in BERLIN_HELPS_UKRAIN_CHAT_ID:
-        reminder(bot, job_queue, chat_id)
+        reminder(bot, update, job_queue)
 
     bot.delete_message(chat_id=chat_id, message_id=command_message_id)
 
 
-def reminder(bot: Bot, update: Update, job_queue: JobQueue, chat_id):
+def reminder(bot: Bot, update: Update, job_queue: JobQueue):
+    chat_id = update.message.chat_id
     logger.info("Started reminders in channel %s", chat_id)
 
     jobs: tuple[Job] = job_queue.get_jobs_by_name(chat_id)
