@@ -55,7 +55,7 @@ THUMB_URL = env.get(
     "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Flag_of_Ukraine.svg/2560px-Flag_of_Ukraine.svg.png",
 )
 BOOK = guidebook.load_guidebook()
-BERLIN_HELPS_UKRAIN_CHAT_ID = [-1001589772550, -1001790676165]
+BERLIN_HELPS_UKRAIN_CHAT_ID = [-1001589772550, -1001790676165, -735136184]
 
 
 # Permissions
@@ -121,7 +121,7 @@ def start_timer(bot: Bot, update: Update, job_queue: JobQueue):
     """start_timer"""
     chat_id = update.message.chat_id
     command_message_id = update.message.message_id
-    if chat_id == BERLIN_HELPS_UKRAIN_CHAT_ID:
+    if chat_id in BERLIN_HELPS_UKRAIN_CHAT_ID:
         reminder(bot, job_queue, chat_id)
 
     bot.delete_message(chat_id=chat_id, message_id=command_message_id)
