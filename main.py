@@ -1,6 +1,5 @@
 """put module docstring here"""
 import configparser
-from http.client import BAD_REQUEST
 from os import environ as env
 import logging
 from functools import wraps
@@ -68,12 +67,6 @@ def restricted(func):
         user_id = context.effective_user.id
         chat_id = context.effective_chat.id
         admins = [u.user.id for u in bot.get_chat_administrators(chat_id)]
-        admin1 = [u.user for u in bot.get_chat_administrators(chat_id)]
-
-        logger.warning("author: " + str(user_id))
-
-        for admin in admin1:
-            logger.warning("admin: " + str(admin.id) + " " + str(admin.username))
 
         if user_id not in admins:
             logger.warning("Non admin attempts to access a restricted function")
