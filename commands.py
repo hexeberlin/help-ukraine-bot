@@ -8,7 +8,7 @@ LEGAL_TITLE = "Юридическая помощь/Legal help"
 TEACHERS_TITLE = "Онлайн уроки для детей/Online lessons for children"
 HANDBOOK_TITLE = "Mетодичка"
 SOCIAL_HELP_TITLE = "Социальная помощь"
-TRANSLATORS_TITLE = "Переводчики"
+TRANSLATORS_TITLE = "Переводчики/Translators"
 
 
 def get_from_knowledge(title):
@@ -116,6 +116,10 @@ def taxis(book):
 
 def teachers_for_peace():
     return get_from_knowledge(TEACHERS_TITLE)
+
+
+def translators():
+     return get_from_knowledge(TRANSLATORS_TITLE)
 
 
 def volunteer(book, name=None):
