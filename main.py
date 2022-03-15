@@ -110,12 +110,6 @@ def delete_greetings(bot: Bot, update: Update) -> None:
             )
 
 
-def alarm(bot: Bot, job: Job):
-    """alarm"""
-    chat_id = job.context
-    send_pinned_reminder(bot, chat_id=chat_id)
-
-
 @restricted
 def start_timer(bot: Bot, update: Update, job_queue: JobQueue):
     """start_timer"""
@@ -154,7 +148,7 @@ def reminder(bot: Bot, update: Update, job_queue: JobQueue):
         add_info_job(bot, update, job_queue)
 
 
-def add_pinned_reminder_job(bot, update: Update, job_queue, ):
+def add_pinned_reminder_job(bot: Bot, update: Update, job_queue: JobQueue ):
     chat_id = update.message.chat_id
     bot.send_message(
         chat_id=chat_id,
@@ -165,7 +159,7 @@ def add_pinned_reminder_job(bot, update: Update, job_queue, ):
     )
 
 
-def add_info_job(bot, update: Update, job_queue):
+def add_info_job(bot: Bot, update: Update, job_queue: JobQueue):
     chat_id = update.message.chat_id
     bot.send_message(
         chat_id=chat_id,
