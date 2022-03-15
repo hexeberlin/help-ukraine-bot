@@ -319,6 +319,16 @@ def deutsch_command(bot: Bot, update: Update):
     reply_to_message(bot, update, results)
 
 
+def travel_command(bot: Bot, update: Update):
+    results = commands.travel(BOOK)
+    reply_to_message(bot, update, results)
+
+
+def translators_command(bot: Bot, update: Update):
+    results = commands.translators()
+    reply_to_message(bot, update, results)
+
+
 def show_command_list(bot: Bot):
     commands = [
         BotCommand("children_lessons", "online lessons for children from Ukraine"),
@@ -340,6 +350,8 @@ def show_command_list(bot: Bot):
         BotCommand("vet", "animal help"),
         BotCommand("volunteer", "volunteer"),
         BotCommand("deutsch", "german lessons"),
+        BotCommand("travel", "travel possibilities"),
+        BotCommand("translators", "translators"),
 
     ]
     bot.set_my_commands(commands)
@@ -374,6 +386,8 @@ def add_commands(dispatcher):
     dispatcher.add_handler(CommandHandler("vet", animal_help_command))
     dispatcher.add_handler(CommandHandler("volunteer", volunteer_command))
     dispatcher.add_handler(CommandHandler("deutsch", deutsch_command))
+    dispatcher.add_handler(CommandHandler("travel", travel_command))
+    dispatcher.add_handler(CommandHandler("translators", translators_command))
 
 
 def main() -> None:

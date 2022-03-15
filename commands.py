@@ -8,6 +8,7 @@ LEGAL_TITLE = "Юридическая помощь/Legal help"
 TEACHERS_TITLE = "Онлайн уроки для детей/Online lessons for children"
 HANDBOOK_TITLE = "Mетодичка"
 SOCIAL_HELP_TITLE = "Социальная помощь"
+TRANSLATORS_TITLE = "Переводчики"
 
 
 def get_from_knowledge(title):
@@ -93,6 +94,7 @@ def medical(book, name=None):
 def dentist(book, name=None):
     return guidebook.get_info(book, "dentist", name)
 
+
 def social_help():
     return get_from_knowledge(SOCIAL_HELP_TITLE)
 
@@ -115,5 +117,14 @@ def volunteer(book, name=None):
 
 def deutsch(book, name=None):
     return guidebook.get_info(book, "deutsch", name)
+
+
+def travel(book, name=None):
+    return guidebook.get_info(book, "travel", name)
+
+
+def translators():
+    return get_from_knowledge(TRANSLATORS_TITLE)
+
 
 
