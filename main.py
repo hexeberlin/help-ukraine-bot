@@ -247,11 +247,10 @@ def freestuff_command(bot: Bot, update: Update):
     reply_to_message(bot, update, results)
 
 
-# def germany_domestic_command(bot: Bot, update: Update, args):
-#     # name = get_param(bot, update, "/germanydomestic")
-#     name = args
-#     results = commands.germany_domestic(BOOK, name)
-#     reply_to_message(bot, update, results)
+def germany_domestic_command(bot: Bot, update: Update):
+    name = get_param(bot, update, "/germany_domestic")
+    results = commands.germany_domestic(BOOK, name)
+    reply_to_message(bot, update, results)
 
 
 def handbook(bot: Bot, update: Update):
@@ -280,8 +279,9 @@ def legal_command(bot: Bot, update: Update):
     reply_to_message(bot, update, results)
 
 
-def hryvnia_command(bot: Bot, update: Update):
-    results = commands.hryvnia()
+def medical_command(bot: Bot, update: Update):
+    name = get_param(bot, update, "/medical")
+    results = commands.medical(BOOK, name)
     reply_to_message(bot, update, results)
 
 
@@ -328,7 +328,7 @@ def show_command_list(bot: Bot):
         BotCommand("countries", "сhats for countries"),
         BotCommand("evacuation", "general evacuation info"),
         BotCommand("evacuation_cities", "evacuation chats for ukrainian cities"),
-        BotCommand("germanydomestic", "Germany-wide refugee centers"),
+        BotCommand("germany_domestic", "Germany-wide refugee centers"),
         BotCommand("handbook", "FAQ"),
         BotCommand("help", "bot functionality"),
         BotCommand("hryvnia", "Hryvnia exchange"),
@@ -356,9 +356,7 @@ def add_commands(dispatcher):
     dispatcher.add_handler(CommandHandler("cities", cities_command))
     dispatcher.add_handler(CommandHandler("cities_all", cities_all_command))
     dispatcher.add_handler(CommandHandler("countries", countries_command))
-    # dispatcher.add_handler(
-    #     CommandHandler("germanydomestic", germany_domestic_command, pass_args=True)
-    # )
+    dispatcher.add_handler(CommandHandler("germany_domestic", germany_domestic_command))
 
     dispatcher.add_handler(CommandHandler("evacuation", evac_command))
     dispatcher.add_handler(CommandHandler("evacuation_cities", evac_cities_command))

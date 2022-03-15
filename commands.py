@@ -45,9 +45,9 @@ def freestuff(book, name=None):
 
 
 def germany_domestic(book, name=None):
-    separator = repr("=" * 30)
-    results = guidebook.germany_domestic(book, group_name="domestic", name=name)
-    return separator + results + "blabla"
+    separator = "=" * 30
+    results = guidebook.germany_domestic(book, group_name="germany_domestic", name=name)
+    return separator + "\n" + results + "\n" + separator
 
 
 def handbook():

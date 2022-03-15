@@ -61,6 +61,11 @@ def germany_domestic(
     guidebook: CaseInsensitiveDict, group_name: str, name: str = None
 ) -> str:
     guidebook_dict = guidebook[group_name]
-    if not name:
-        return guidebook_dict["general"]
-    return guidebook_dict[name]
+    if guidebook_dict:
+        if not name:
+            hint = (
+                "\nПожалуйста, уточните название федеративной земли: \n"
+                "/germany_domestic Name"
+            )
+            return guidebook_dict["general"][0] + hint
+        return guidebook_dict[name][0]
