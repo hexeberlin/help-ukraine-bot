@@ -280,9 +280,8 @@ def legal_command(bot: Bot, update: Update):
     reply_to_message(bot, update, results)
 
 
-def medical_command(bot: Bot, update: Update):
-    name = get_param(bot, update, "/medical")
-    results = commands.medical(BOOK, name)
+def hryvnia_command(bot: Bot, update: Update):
+    results = commands.hryvnia()
     reply_to_message(bot, update, results)
 
 
