@@ -55,7 +55,7 @@ THUMB_URL = env.get(
     "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Flag_of_Ukraine.svg/2560px-Flag_of_Ukraine.svg.png",
 )
 BOOK = guidebook.load_guidebook()
-BERLIN_HELPS_UKRAIN_CHAT_ID = ["-1001589772550", "-1001790676165"]
+BERLIN_HELPS_UKRAIN_CHAT_ID = [-1001589772550, -1001790676165]
 
 
 # Permissions
@@ -135,6 +135,7 @@ def reminder(bot: Bot, update: Update, job_queue: JobQueue, chat_id):
     #  Restart already existing jobs
     for job in jobs:
         if not job.enabled:
+            print("jan name: " + job.name)
             bot.send_message(
                 chat_id=chat_id,
                 text=f"I'm re-starting sending the reminders every {REMINDER_INTERVAL_PINNED}s.",
