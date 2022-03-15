@@ -54,6 +54,7 @@ THUMB_URL = env.get(
     "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Flag_of_Ukraine.svg/2560px-Flag_of_Ukraine.svg.png",
 )
 BOOK = guidebook.load_guidebook()
+BERLIN_HELPS_UKRAIN_CHAT_ID = ["-1001589772550", ""]
 
 
 # Permissions
@@ -65,13 +66,6 @@ def restricted(func):
         user_id = context.effective_user.id
         chat_id = context.effective_chat.id
         admins = [u.user.id for u in bot.get_chat_administrators(chat_id)]
-        admin1 = [u.user for u in bot.get_chat_administrators(chat_id)]
-
-        logger.warning("author: " + str(user_id))
-
-        for admin in admin1:
-            logger.warning("admin: " + str(admin.id) + " " + admin.username)
-
 
         if user_id not in admins:
             logger.warning("Non admin attempts to access a restricted function")
@@ -121,6 +115,14 @@ def start_timer(bot: Bot, update: Update, job_queue: JobQueue):
     """start_timer"""
     chat_id = update.message.chat_id
     command_message_id = update.message.message_id
+    if chat_id == BERLIN_HELPS_UKRAIN_CHAT_ID:
+        reminder()
+
+    bot.delete_message(chat_id=chat_id, message_id=command_message_id)
+
+
+def reminder(bot: Bot, update: Update, job_queue: JobQueue, chat_id):
+    command_message_id = update.message.message_id
     logger.info("Started reminders in channel %s", chat_id)
 
     jobs: tuple[Job] = job_queue.get_jobs_by_name(chat_id)
@@ -148,8 +150,6 @@ def start_timer(bot: Bot, update: Update, job_queue: JobQueue):
         job_queue.run_repeating(
             alarm, REMINDER_INTERVAL, first=1, context=chat_id, name=chat_id
         )
-    bot.delete_message(chat_id=chat_id, message_id=command_message_id)
-
 
 
 @restricted
