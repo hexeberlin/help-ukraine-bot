@@ -55,7 +55,7 @@ THUMB_URL = env.get(
     "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Flag_of_Ukraine.svg/2560px-Flag_of_Ukraine.svg.png",
 )
 BOOK = guidebook.load_guidebook()
-BERLIN_HELPS_UKRAIN_CHAT_ID = ["-1001589772550", ""]
+BERLIN_HELPS_UKRAIN_CHAT_ID = ["-1001589772550", "-1001790676165"]
 
 
 # Permissions
@@ -78,12 +78,17 @@ def restricted(func):
     return wrapped
 
 
+def send_pinned_reminder(bot: Bot, update: Update, chat_id: str):
+    """send_reminder"""
+    logger.info("Sending an info reminder to chat %s", chat_id)
+    social_help_command(bot, update)
 
-def send_reminder(bot: Bot, chat_id: str):
+
+def send_info_reminder(bot: Bot, chat_id: str):
     """send_reminder"""
     chat = bot.get_chat(chat_id)
     msg: Message = chat.pinned_message
-    logger.info("Sending a reminder to chat %s", chat_id)
+    logger.info("Sending a info to chat %s", chat_id)
 
     if msg:
         bot.forward_message(chat_id, chat_id, msg.message_id)
@@ -108,7 +113,7 @@ def delete_greetings(bot: Bot, update: Update) -> None:
 def alarm(bot: Bot, job: Job):
     """alarm"""
     chat_id = job.context
-    send_reminder(bot, chat_id=chat_id)
+    send_pinned_reminder(bot, chat_id=chat_id)
 
 
 @restricted
@@ -116,14 +121,13 @@ def start_timer(bot: Bot, update: Update, job_queue: JobQueue):
     """start_timer"""
     chat_id = update.message.chat_id
     command_message_id = update.message.message_id
-    # if chat_id == BERLIN_HELPS_UKRAIN_CHAT_ID:
-    reminder(bot, update, job_queue, chat_id)
+    if chat_id == BERLIN_HELPS_UKRAIN_CHAT_ID:
+        reminder(bot, job_queue, chat_id)
 
     bot.delete_message(chat_id=chat_id, message_id=command_message_id)
 
 
 def reminder(bot: Bot, update: Update, job_queue: JobQueue, chat_id):
-    command_message_id = update.message.message_id
     logger.info("Started reminders in channel %s", chat_id)
 
     jobs: tuple[Job] = job_queue.get_jobs_by_name(chat_id)
@@ -144,13 +148,31 @@ def reminder(bot: Bot, update: Update, job_queue: JobQueue, chat_id):
 
     # Start a new job if there was none previously
     if not jobs:
-        bot.send_message(
-            chat_id=chat_id,
-            text=f"I'm starting sending the reminders every {REMINDER_INTERVAL_PINNED}s.",
-        )
-        job_queue.run_repeating(
-            alarm, REMINDER_INTERVAL_PINNED, first=1, context=chat_id, name=chat_id
-        )
+        add_pinned_reminder_job(bot, update, job_queue)
+        add_pinned_reminder_job(bot, update, job_queue)
+
+
+def add_pinned_reminder_job(bot, update: Update, job_queue, ):
+    chat_id = update.message.chat_id
+    bot.send_message(
+        chat_id=chat_id,
+        text=f"I'm starting sending the reminders every {REMINDER_INTERVAL_PINNED}s.",
+    )
+    job_queue.run_repeating(
+        send_info_reminder(bot, chat_id=chat_id), REMINDER_INTERVAL_PINNED, first=1, context=chat_id, name=chat_id
+    )
+
+
+def add_info_job(bot, update: Update, job_queue):
+    chat_id = update.message.chat_id
+    bot.send_message(
+        chat_id=chat_id,
+        text=f"I'm starting sending the reminders every {REMINDER_INTERVAL_INFO}s.",
+    )
+    job_queue.run_repeating(
+        send_pinned_reminder(bot, update, chat_id=chat_id), REMINDER_INTERVAL_INFO, first=1, context=chat_id,
+        name=chat_id
+    )
 
 
 @restricted
@@ -200,7 +222,7 @@ def reply_to_message(bot, update, reply):
     bot.delete_message(chat_id=chat_id, message_id=command_message_id)
 
 
-def get_param(bot, update, command) :
+def get_param(bot, update, command):
     bot_name = bot.name
     return update.message.text.removeprefix(command).replace(bot_name, "").strip().lower()
 
@@ -212,7 +234,7 @@ def help_command(bot: Bot, update: Update):
 
 
 def cities_command(bot: Bot, update: Update):
-    name = get_param(bot, update,"/cities")
+    name = get_param(bot, update, "/cities")
     if name is None or not name:
         results = "Пожалуйста, уточните название города: /cities Name"
     else:
