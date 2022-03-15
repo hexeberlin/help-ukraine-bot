@@ -305,14 +305,61 @@ volunteer:
     - "LAF/AKUZ: https://www.adiuto.org/berlin/akuz"
     - "Potsdam: https://www.adiuto.org/initiative/potsdam-welcome-team"
     - "Hangar 1, Columbiadamm 10, 12101 Berlin. Please email kontakt@hangar1.de"
-deutsch:
-  General:
-    - "Сейчас доступны вот такие опции, почитайте пожалуйста пост:\nhttps://t.me/berlinhelpsukrainians/60853"
-  Resources:
-    - https://www.duolingo.com/
-    - https://www.babbel.com/
-travel:
-  Buses:
-    - https://corporate.flixbus.com/flixbus-supports-ukraine/
-  Trains:
-    - https://www.bahn.de/info/helpukraine
+domestic:
+  general:
+    - |
+      Берлинский центр приёма беженцев практически переполнен.
+      Имеет смысл ехать и регистрироваться в следующие пункты приёма беженцев:
+      - Bremen/Бремен
+      - Mecklenburg-Vorpommern / Померания
+      - Niedersachsen / Нижняя Саксония
+      - Sachsen-Anhalt/ Саксония
+      - Rheinland-Pfalz
+      - NRW
+  hb:
+    - |
+      Bremen:
+
+      Zentrale Aufnahmestelle für Asylbewerber & ausländische Flüchtlinge (ZASt)
+      Alfred-Faust-Str. 15, 28277 Bremen
+      Telefon: 0421 361 - 3148
+      raymond.bohnenkamp@soziales.bremen.de
+      zast@soziales.bremen.de
+  mv:
+    - |
+      Mecklenburg-Vorpommern:
+
+      Amt für Migration und Flüchtlingsangelegenheiten
+      Nostorfer Str. 1
+      19258 Nostorf/Horst
+      Telefon: 03855880
+      Fax: 038558856555
+      amf-poststelle@laiv-mv.de
+  ni:
+    - |
+      Niedersachsen:
+
+      Landesaufnahmebehörde Niedersachsen
+      EAE Braunschweig\nBoeselagerstr. 4, 38108 Braunschweig
+      Telefon:05313547-104 oder 109
+      Carsten.Frambach@lab.niedersachsen.de
+      Dagmar.Busse@lab.niedersachsen.de"
+  st:
+    - |
+      Sachsen-Anhalt:
+
+      Zentrale Anlaufstelle für Asylbewerber des Landes Sachsen-Anhalt
+      Friedrich-List-Str. 1a
+      38820 Halberstadt
+  rp:
+    - |
+      Rheinland-Pfalz:
+
+      Aufsichts- und Dienstleistungsdirektion
+      Aufnahmeeinrichtung für Asylbegehrende
+      Dasbachstraße 19, 54292 Trier
+  nw:
+    - |
+      Nordrhein-Westfalen:
+      Landeserstaufnahmeeinrichtung (LEA)
+      Gersteinring 50, 44791 Bochum 0293182 6600
