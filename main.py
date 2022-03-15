@@ -48,7 +48,8 @@ except KeyError:
     TOKEN = config.get('DEVELOPMENT', 'TOKEN')
 PORT = int(env.get("PORT", 5000))
 REMINDER_MESSAGE = env.get("REMINDER_MESSAGE", "I WILL POST PINNED MESSAGE HERE")
-REMINDER_INTERVAL = int(env.get("REMINDER_INTERVAL", 30 * 60))
+REMINDER_INTERVAL_PINNED = int(env.get("REMINDER_INTERVAL", 30 * 60))
+REMINDER_INTERVAL_INFO = int(env.get("REMINDER_INTERVAL", 5 * 60))
 THUMB_URL = env.get(
     "THUMB_URL",
     "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Flag_of_Ukraine.svg/2560px-Flag_of_Ukraine.svg.png",
@@ -115,8 +116,8 @@ def start_timer(bot: Bot, update: Update, job_queue: JobQueue):
     """start_timer"""
     chat_id = update.message.chat_id
     command_message_id = update.message.message_id
-    if chat_id == BERLIN_HELPS_UKRAIN_CHAT_ID:
-        reminder()
+    # if chat_id == BERLIN_HELPS_UKRAIN_CHAT_ID:
+    reminder(bot, update, job_queue, chat_id)
 
     bot.delete_message(chat_id=chat_id, message_id=command_message_id)
 
@@ -132,12 +133,12 @@ def reminder(bot: Bot, update: Update, job_queue: JobQueue, chat_id):
         if not job.enabled:
             bot.send_message(
                 chat_id=chat_id,
-                text=f"I'm re-starting sending the reminders every {REMINDER_INTERVAL}s.",
+                text=f"I'm re-starting sending the reminders every {REMINDER_INTERVAL_PINNED}s.",
             )
         else:
             bot.send_message(
                 chat_id=chat_id,
-                text=f"I'm already sending the reminders every {REMINDER_INTERVAL}s.",
+                text=f"I'm already sending the reminders every {REMINDER_INTERVAL_PINNED}s.",
             )
         job.enabled = True
 
@@ -145,10 +146,10 @@ def reminder(bot: Bot, update: Update, job_queue: JobQueue, chat_id):
     if not jobs:
         bot.send_message(
             chat_id=chat_id,
-            text=f"I'm starting sending the reminders every {REMINDER_INTERVAL}s.",
+            text=f"I'm starting sending the reminders every {REMINDER_INTERVAL_PINNED}s.",
         )
         job_queue.run_repeating(
-            alarm, REMINDER_INTERVAL, first=1, context=chat_id, name=chat_id
+            alarm, REMINDER_INTERVAL_PINNED, first=1, context=chat_id, name=chat_id
         )
 
 
