@@ -151,7 +151,7 @@ def reminder(bot: Bot, update: Update, job_queue: JobQueue):
     # Start a new job if there was none previously
     if not jobs:
         add_pinned_reminder_job(bot, update, job_queue)
-        add_pinned_reminder_job(bot, update, job_queue)
+        add_info_job(bot, update, job_queue)
 
 
 def add_pinned_reminder_job(bot, update: Update, job_queue, ):
