@@ -316,3 +316,109 @@ travel:
     - https://corporate.flixbus.com/flixbus-supports-ukraine/
   Trains:
     - https://www.bahn.de/info/helpukraine
+germany_domestic:
+  general:
+    - |
+      Берлинский центр приёма беженцев практически переполнен.
+
+      Имеет смысл ехать и регистрироваться в следующие пункты приёма беженцев:
+      - Bremen / Бремен
+      - Mecklenburg-Vorpommern / Мекленбург-Передняя Померания
+      - Niedersachsen / Нижняя Саксония
+      - Sachsen-Anhalt/ Саксония-Анхальт
+      - Rheinland-Pfalz / Рейнланд-Пфальц
+      - NRW / Северный Рейн-Вестфалия
+  hb:
+    - |
+      Bremen:
+
+      Zentrale Aufnahmestelle für Asylbewerber & ausländische Flüchtlinge (ZASt)
+      Alfred-Faust-Str. 15, 28277 Bremen
+      Telefon: 0421 361 - 3148
+      raymond.bohnenkamp@soziales.bremen.de
+      zast@soziales.bremen.de
+  mv:
+    - |
+      Mecklenburg-Vorpommern:
+
+      Amt für Migration und Flüchtlingsangelegenheiten
+      Nostorfer Str. 1
+      19258 Nostorf/Horst
+      Telefon: 03855880
+      Fax: 038558856555
+      amf-poststelle@laiv-mv.de
+  ni:
+    - |
+      Niedersachsen:
+
+      Landesaufnahmebehörde Niedersachsen
+      EAE Braunschweig\nBoeselagerstr. 4, 38108 Braunschweig
+      Telefon:05313547-104 oder 109
+      Carsten.Frambach@lab.niedersachsen.de
+      Dagmar.Busse@lab.niedersachsen.de"
+  st:
+    - |
+      Sachsen-Anhalt:
+
+      Zentrale Anlaufstelle für Asylbewerber des Landes Sachsen-Anhalt
+      Friedrich-List-Str. 1a
+      38820 Halberstadt
+  rp:
+    - |
+      Rheinland-Pfalz:
+
+      Aufsichts- und Dienstleistungsdirektion
+      Aufnahmeeinrichtung für Asylbegehrende
+      Dasbachstraße 19, 54292 Trier
+  nw:
+    - |
+      Nordrhein-Westfalen:
+      Landeserstaufnahmeeinrichtung (LEA)
+      Gersteinring 50, 44791 Bochum 0293182 6600
+  бремен:
+    - |
+      Bremen:
+
+      Zentrale Aufnahmestelle für Asylbewerber & ausländische Flüchtlinge (ZASt)
+      Alfred-Faust-Str. 15, 28277 Bremen
+      Telefon: 0421 361 - 3148
+      raymond.bohnenkamp@soziales.bremen.de
+      zast@soziales.bremen.de
+  мекленбург:
+    - |
+      Mecklenburg-Vorpommern:
+
+      Amt für Migration und Flüchtlingsangelegenheiten
+      Nostorfer Str. 1
+      19258 Nostorf/Horst
+      Telefon: 03855880
+      Fax: 038558856555
+      amf-poststelle@laiv-mv.de
+  нижняя_саксония:
+    - |
+      Niedersachsen:
+
+      Landesaufnahmebehörde Niedersachsen
+      EAE Braunschweig\nBoeselagerstr. 4, 38108 Braunschweig
+      Telefon:05313547-104 oder 109
+      Carsten.Frambach@lab.niedersachsen.de
+      Dagmar.Busse@lab.niedersachsen.de"
+  саксония:
+    - |
+      Sachsen-Anhalt:
+
+      Zentrale Anlaufstelle für Asylbewerber des Landes Sachsen-Anhalt
+      Friedrich-List-Str. 1a
+      38820 Halberstadt
+  рейнланд_пфальц:
+    - |
+      Rheinland-Pfalz:
+
+      Aufsichts- und Dienstleistungsdirektion
+      Aufnahmeeinrichtung für Asylbegehrende
+      Dasbachstraße 19, 54292 Trier
+  рейн_вестфалия:
+    - |
+      Nordrhein-Westfalen:
+      Landeserstaufnahmeeinrichtung (LEA)
+      Gersteinring 50, 44791 Bochum 0293182 6600
