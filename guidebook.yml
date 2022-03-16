@@ -1,4 +1,6 @@
 cities:
+  Altmark:
+    - https://t.me/+slxkkb7eY9w0Y2Qy
   Augsburg:
     - https://t.me/augsburghilftukraine
   Baden-Württemberg:
@@ -44,6 +46,8 @@ cities:
     - https://t.me/+BcQ_210Ex4cwYjEy
   Freiburg:
     - https://t.me/freiburghilft
+  Görlitz:
+    - https://t.me/Goerlitz_helps_Ukraine
   Hamburg:
     - https://t.me/hamburg_hilft
     - https://t.me/+5XuTo4a1gmw3YTcy
@@ -70,6 +74,8 @@ cities:
     - https://t.me/ukrainerinleipzig
     - https://t.me/accomodation_leipzig_ukraine
     - https://t.me/ukrainerinleipzigACCOMODATION
+  Lüneburg:
+    - https://t.me/+slxkkb7eY9w0Y2Qy
   Magdeburg:
     - https://t.me/magdeburg_ukraine
   Mainz:
@@ -114,8 +120,12 @@ cities:
     - https://t.me/thuringia_stands_with_ukraine
     - https://t.me/th_helps_ukraine
     - https://t.me/+9R0NgYYt91kwNmUy
+  Uelzen:
+    - https://t.me/+slxkkb7eY9w0Y2Qy
   Vienna:
     - https://t.me/warhelpeuplaces
+  Wendland:
+    - https://t.me/+slxkkb7eY9w0Y2Qy
   Weimar:
     - https://t.me/thuringia_stands_with_ukraine
   Wuppertal:
@@ -247,13 +257,17 @@ medical:
     - https://www.kvberlin.de/fuer-patienten/ukraine?fbclid=IwAR3OV_-vw6rw14wOAKcpEK5HucFTia3Ugt0sy1KipI9qsjB56Uochqm3PSo
     - https://www.malteser.de/menschen-ohne-krankenversicherung.html
     - https://www.berlin-aidshilfe.de/
+    - https://www.kvberlin.de/fuer-patienten/ukraine
   Pregnant:
     - https://chat.whatsapp.com/GPDPtkjiMlf1HnSIttlKtS
     - https://www.berlin.de/ba-friedrichshain-kreuzberg/politik-und-verwaltung/aemter/gesundheitsamt/zentrum-fuer-sexuelle-gesundheit-und-familienplanung/russ_flyer-zentrum-fk-15x15.pdf
   Psychological:
     - https://www.imja.online/charity
+    - https://krisenchat.de/ukraine
   Gynecologist:
     - "Гинеколог:\nHerr Matthias Rödel (Speaks Russian) \n Hermannstr.147 \n 12051 Berlin \n 030/6222097"
+  Oncology:
+    - https://medwatch.de/2022/03/11/информация-для-онкобольных-из-украин/
 dentist:
   Врачи:
     - "Зубной:\nDavid Stolyar (Speaks Russian) \nWindscheidstr. 11 \n10627 Berlin-Charlottenburg \n+49 (0)30 - 32 70 17-18"
@@ -270,8 +284,9 @@ jobs:
     - https://jobsforukraine.net
     - https://www.jobaidukraine.com/
     - https://www.jobs4ukraine.eu/91ce6995f87d40c1816ae05a7686a9c7
+    - https://www.uatalents.com/
 freestuff:
-  cloths&food:
+  clothes&food:
     - https://gabenzaun.de/.#
     - "Центр Гуманитарной помощи беженцам с Украины \nAnsbacher Straße 30, \n10789 Berlin, \nПн-Пт 10:00 - 18:00, Сб-Вс 10:00 - 16:00 \n+49 152 08277408"
     - "Check In Hotel, \nMichael Brückner Str 1a, \n12439 Berlin. \nOpening times: Mo-Fr 15.00-20.00"
@@ -300,4 +315,120 @@ volunteer:
     - "LAF/AKUZ: https://www.adiuto.org/berlin/akuz"
     - "Potsdam: https://www.adiuto.org/initiative/potsdam-welcome-team"
     - "Hangar 1, Columbiadamm 10, 12101 Berlin. Please email kontakt@hangar1.de"
+deutsch:
+  General:
+    - "Сейчас доступны вот такие опции, почитайте пожалуйста пост:\nhttps://t.me/berlinhelpsukrainians/60853"
+  Resources:
+    - https://www.duolingo.com/
+    - https://www.babbel.com/
+travel:
+  Buses:
+    - https://corporate.flixbus.com/flixbus-supports-ukraine/
+  Trains:
+    - https://www.bahn.de/info/helpukraine
+germany_domestic:
+  general:
+    - |
+      Берлинский центр приёма беженцев практически переполнен.
 
+      Имеет смысл ехать и регистрироваться в следующие пункты приёма беженцев:
+      - Bremen / Бремен
+      - Mecklenburg-Vorpommern / Мекленбург-Передняя Померания
+      - Niedersachsen / Нижняя Саксония
+      - Sachsen-Anhalt/ Саксония-Анхальт
+      - Rheinland-Pfalz / Рейнланд-Пфальц
+      - NRW / Северный Рейн-Вестфалия
+  hb:
+    - |
+      Bremen:
+
+      Zentrale Aufnahmestelle für Asylbewerber & ausländische Flüchtlinge (ZASt)
+      Alfred-Faust-Str. 15, 28277 Bremen
+      Telefon: 0421 361 - 3148
+      raymond.bohnenkamp@soziales.bremen.de
+      zast@soziales.bremen.de
+  mv:
+    - |
+      Mecklenburg-Vorpommern:
+
+      Amt für Migration und Flüchtlingsangelegenheiten
+      Nostorfer Str. 1
+      19258 Nostorf/Horst
+      Telefon: 03855880
+      Fax: 038558856555
+      amf-poststelle@laiv-mv.de
+  ni:
+    - |
+      Niedersachsen:
+
+      Landesaufnahmebehörde Niedersachsen
+      EAE Braunschweig\nBoeselagerstr. 4, 38108 Braunschweig
+      Telefon:05313547-104 oder 109
+      Carsten.Frambach@lab.niedersachsen.de
+      Dagmar.Busse@lab.niedersachsen.de"
+  st:
+    - |
+      Sachsen-Anhalt:
+
+      Zentrale Anlaufstelle für Asylbewerber des Landes Sachsen-Anhalt
+      Friedrich-List-Str. 1a
+      38820 Halberstadt
+  rp:
+    - |
+      Rheinland-Pfalz:
+
+      Aufsichts- und Dienstleistungsdirektion
+      Aufnahmeeinrichtung für Asylbegehrende
+      Dasbachstraße 19, 54292 Trier
+  nw:
+    - |
+      Nordrhein-Westfalen:
+      Landeserstaufnahmeeinrichtung (LEA)
+      Gersteinring 50, 44791 Bochum 0293182 6600
+  бремен:
+    - |
+      Bremen:
+
+      Zentrale Aufnahmestelle für Asylbewerber & ausländische Flüchtlinge (ZASt)
+      Alfred-Faust-Str. 15, 28277 Bremen
+      Telefon: 0421 361 - 3148
+      raymond.bohnenkamp@soziales.bremen.de
+      zast@soziales.bremen.de
+  мекленбург:
+    - |
+      Mecklenburg-Vorpommern:
+
+      Amt für Migration und Flüchtlingsangelegenheiten
+      Nostorfer Str. 1
+      19258 Nostorf/Horst
+      Telefon: 03855880
+      Fax: 038558856555
+      amf-poststelle@laiv-mv.de
+  нижняя_саксония:
+    - |
+      Niedersachsen:
+
+      Landesaufnahmebehörde Niedersachsen
+      EAE Braunschweig\nBoeselagerstr. 4, 38108 Braunschweig
+      Telefon:05313547-104 oder 109
+      Carsten.Frambach@lab.niedersachsen.de
+      Dagmar.Busse@lab.niedersachsen.de"
+  саксония:
+    - |
+      Sachsen-Anhalt:
+
+      Zentrale Anlaufstelle für Asylbewerber des Landes Sachsen-Anhalt
+      Friedrich-List-Str. 1a
+      38820 Halberstadt
+  рейнланд_пфальц:
+    - |
+      Rheinland-Pfalz:
+
+      Aufsichts- und Dienstleistungsdirektion
+      Aufnahmeeinrichtung für Asylbegehrende
+      Dasbachstraße 19, 54292 Trier
+  рейн_вестфалия:
+    - |
+      Nordrhein-Westfalen:
+      Landeserstaufnahmeeinrichtung (LEA)
+      Gersteinring 50, 44791 Bochum 0293182 6600

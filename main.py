@@ -2,7 +2,6 @@
 import configparser
 from os import environ as env
 import logging
-import schedule
 from functools import wraps
 
 from telegram import (
@@ -24,6 +23,7 @@ from telegram.ext import (
     JobQueue,
     Job,
 )
+from telegram.error import BadRequest
 from telegram.utils.helpers import effective_message_type
 
 import commands
@@ -38,22 +38,24 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 config = configparser.ConfigParser()
-config.read('settings.env')
+config.read("settings.env")
 
 try:
-    APP_NAME = env['APP_NAME']
-    TOKEN = env['TOKEN']
+    APP_NAME = env["APP_NAME"]
+    TOKEN = env["TOKEN"]
 except KeyError:
-    APP_NAME = config.get('DEVELOPMENT', 'APP_NAME')
-    TOKEN = config.get('DEVELOPMENT', 'TOKEN')
+    APP_NAME = config.get("DEVELOPMENT", "APP_NAME")
+    TOKEN = config.get("DEVELOPMENT", "TOKEN")
 PORT = int(env.get("PORT", 5000))
 REMINDER_MESSAGE = env.get("REMINDER_MESSAGE", "I WILL POST PINNED MESSAGE HERE")
-REMINDER_INTERVAL = int(env.get("REMINDER_INTERVAL", 30 * 60))
+REMINDER_INTERVAL_PINNED = int(env.get("REMINDER_INTERVAL", 30 * 60))
+REMINDER_INTERVAL_INFO = int(env.get("REMINDER_INTERVAL", 5 * 60))
 THUMB_URL = env.get(
     "THUMB_URL",
     "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Flag_of_Ukraine.svg/2560px-Flag_of_Ukraine.svg.png",
 )
 BOOK = guidebook.load_guidebook()
+BERLIN_HELPS_UKRAIN_CHAT_ID = [-1001589772550, -1001790676165, -735136184]
 
 
 # Permissions
@@ -65,13 +67,6 @@ def restricted(func):
         user_id = context.effective_user.id
         chat_id = context.effective_chat.id
         admins = [u.user.id for u in bot.get_chat_administrators(chat_id)]
-        admin1 = [u.user for u in bot.get_chat_administrators(chat_id)]
-
-        logger.warning("author: " + str(user_id))
-
-        for admin in admin1:
-            logger.warning("admin: " + str(admin.id) + " " + str(admin.username))
-
 
         if user_id not in admins:
             logger.warning("Non admin attempts to access a restricted function")
@@ -83,12 +78,17 @@ def restricted(func):
     return wrapped
 
 
+def send_pinned_reminder(bot: Bot, update: Update, chat_id: str):
+    """send_reminder"""
+    logger.info("Sending a pinned reminder to chat %s", chat_id)
+    social_help_command(bot, update)
 
-def send_reminder(bot: Bot, chat_id: str):
+
+def send_info_reminder(bot: Bot, chat_id: str):
     """send_reminder"""
     chat = bot.get_chat(chat_id)
     msg: Message = chat.pinned_message
-    logger.info("Sending a reminder to chat %s", chat_id)
+    logger.info("Sending a info to chat %s", chat_id)
 
     if msg:
         bot.forward_message(chat_id, chat_id, msg.message_id)
@@ -110,17 +110,21 @@ def delete_greetings(bot: Bot, update: Update) -> None:
             )
 
 
-def alarm(bot: Bot, job: Job):
-    """alarm"""
-    chat_id = job.context
-    send_reminder(bot, chat_id=chat_id)
-
-
 @restricted
 def start_timer(bot: Bot, update: Update, job_queue: JobQueue):
     """start_timer"""
     chat_id = update.message.chat_id
     command_message_id = update.message.message_id
+    if chat_id in BERLIN_HELPS_UKRAIN_CHAT_ID:
+        reminder(bot, update, job_queue)
+    try:
+        bot.delete_message(chat_id=chat_id, message_id=command_message_id)
+    except:
+        logger.info("Command was already deleted %s", command_message_id)
+
+
+def reminder(bot: Bot, update: Update, job_queue: JobQueue):
+    chat_id = update.message.chat_id
     logger.info("Started reminders in channel %s", chat_id)
 
     jobs: tuple[Job] = job_queue.get_jobs_by_name(chat_id)
@@ -128,28 +132,42 @@ def start_timer(bot: Bot, update: Update, job_queue: JobQueue):
     #  Restart already existing jobs
     for job in jobs:
         if not job.enabled:
-            bot.send_message(
-                chat_id=chat_id,
-                text=f"I'm re-starting sending the reminders every {REMINDER_INTERVAL}s.",
-            )
-        else:
-            bot.send_message(
-                chat_id=chat_id,
-                text=f"I'm already sending the reminders every {REMINDER_INTERVAL}s.",
-            )
-        job.enabled = True
+            job.enabled = True
 
     # Start a new job if there was none previously
     if not jobs:
-        bot.send_message(
-            chat_id=chat_id,
-            text=f"I'm starting sending the reminders every {REMINDER_INTERVAL}s.",
-        )
-        job_queue.run_repeating(
-            alarm, REMINDER_INTERVAL, first=1, context=chat_id, name=chat_id
-        )
-    bot.delete_message(chat_id=chat_id, message_id=command_message_id)
+        add_pinned_reminder_job(bot, update, job_queue)
+        add_info_job(bot, update, job_queue)
 
+
+def add_pinned_reminder_job(bot: Bot, update: Update, job_queue: JobQueue):
+    chat_id = update.message.chat_id
+    bot.send_message(
+        chat_id=chat_id,
+        text=f"I'm starting sending the pinned reminder every {REMINDER_INTERVAL_PINNED}s.",
+    )
+    job_queue.run_repeating(
+        send_info_reminder(bot, chat_id=chat_id),
+        REMINDER_INTERVAL_PINNED,
+        first=1,
+        context=chat_id,
+        name=chat_id,
+    )
+
+
+def add_info_job(bot: Bot, update: Update, job_queue: JobQueue):
+    chat_id = update.message.chat_id
+    bot.send_message(
+        chat_id=chat_id,
+        text=f"I'm starting sending the info reminder every {REMINDER_INTERVAL_INFO}s.",
+    )
+    job_queue.run_repeating(
+        send_pinned_reminder(bot, update, chat_id=chat_id),
+        REMINDER_INTERVAL_INFO,
+        first=1,
+        context=chat_id,
+        name=chat_id,
+    )
 
 
 @restricted
@@ -194,25 +212,35 @@ def reply_to_message(bot, update, reply):
         bot.send_message(chat_id=chat_id, text=reply)
     else:
         parent_message_id = update.message.reply_to_message.message_id
-        bot.send_message(chat_id=chat_id, reply_to_message_id=parent_message_id, text=reply)
+        bot.send_message(
+            chat_id=chat_id, reply_to_message_id=parent_message_id, text=reply
+        )
+    try:
+        bot.delete_message(chat_id=chat_id, message_id=command_message_id)
+    except BadRequest:
+        logger.info("Command was already deleted %s", command_message_id)
 
-    bot.delete_message(chat_id=chat_id, message_id=command_message_id)
 
-
-def get_param(bot, update, command) :
+def get_param(bot, update, command):
     bot_name = bot.name
-    return update.message.text.removeprefix(command).replace(bot_name, "").strip().lower()
+    return (
+        update.message.text.removeprefix(command).replace(bot_name, "").strip().lower()
+    )
 
 
-def help_command(bot: Bot, update: Update):
-    """Send a message when the command /help is issued."""
-    help = commands.help()
-    reply_to_message(bot, update, help)
+def animal_help_command(bot: Bot, update: Update):
+    results = commands.animal_help(BOOK)
+    reply_to_message(bot, update, results)
+
+
+def children_lessons_command(bot: Bot, update: Update):
+    results = commands.teachers_for_peace()
+    reply_to_message(bot, update, results)
 
 
 def cities_command(bot: Bot, update: Update):
-    name = get_param(bot, update,"/cities")
-    if name is None or not name:
+    name = get_param(bot, update, "/cities")
+    if not name:
         results = "Пожалуйста, уточните название города: /cities Name"
     else:
         results = commands.cities(BOOK, name)
@@ -230,23 +258,13 @@ def countries_command(bot: Bot, update: Update):
     reply_to_message(bot, update, results)
 
 
-def hryvnia_command(bot: Bot, update: Update):
-    results = commands.hryvnia()
+def dentist_command(bot: Bot, update: Update):
+    results = commands.dentist(BOOK)
     reply_to_message(bot, update, results)
 
 
-def legal_command(bot: Bot, update: Update):
-    results = commands.legal()
-    reply_to_message(bot, update, results)
-
-
-def children_lessons(bot: Bot, update: Update):
-    results = commands.teachers_for_peace()
-    reply_to_message(bot, update, results)
-
-
-def handbook(bot: Bot, update: Update):
-    results = commands.handbook()
+def deutsch_command(bot: Bot, update: Update):
+    results = commands.deutsch(BOOK)
     reply_to_message(bot, update, results)
 
 
@@ -261,8 +279,46 @@ def evac_cities_command(bot: Bot, update: Update):
     reply_to_message(bot, update, results)
 
 
-def taxi_command(bot: Bot, update: Update):
-    results = commands.taxis(BOOK)
+def freestuff_command(bot: Bot, update: Update):
+    name = get_param(bot, update, "/freestuff")
+    results = commands.freestuff(BOOK, name)
+    reply_to_message(bot, update, results)
+
+
+def germany_domestic_command(bot: Bot, update: Update):
+    name = get_param(bot, update, "/germany_domestic")
+    results = commands.germany_domestic(BOOK, name)
+    reply_to_message(bot, update, results)
+
+
+def handbook(bot: Bot, update: Update):
+    results = commands.handbook()
+    reply_to_message(bot, update, results)
+
+
+def help_command(bot: Bot, update: Update):
+    """Send a message when the command /help is issued."""
+    help = commands.help()
+    reply_to_message(bot, update, help)
+
+
+def hryvnia_command(bot: Bot, update: Update):
+    results = commands.hryvnia()
+    reply_to_message(bot, update, results)
+
+
+def jobs_command(bot: Bot, update: Update):
+    results = commands.jobs(BOOK)
+    reply_to_message(bot, update, results)
+
+
+def kids_with_special_needs_command(bot: Bot, update: Update):
+    results = commands.kids_with_special_needs()
+    reply_to_message(bot, update, results)
+
+
+def legal_command(bot: Bot, update: Update):
+    results = commands.legal()
     reply_to_message(bot, update, results)
 
 
@@ -272,29 +328,23 @@ def medical_command(bot: Bot, update: Update):
     reply_to_message(bot, update, results)
 
 
-def dentist_command(bot: Bot, update: Update):
-    results = commands.dentist(BOOK)
-    reply_to_message(bot, update, results)
-
-
 def social_help_command(bot: Bot, update: Update):
     results = commands.social_help()
     reply_to_message(bot, update, results)
 
 
-def jobs_command(bot: Bot, update: Update):
-    results = commands.jobs(BOOK)
+def taxi_command(bot: Bot, update: Update):
+    results = commands.taxis(BOOK)
     reply_to_message(bot, update, results)
 
 
-def freestuff_command(bot: Bot, update: Update):
-    name = get_param(bot, update, "/freestuff")
-    results = commands.freestuff(BOOK, name)
+def translators_command(bot: Bot, update: Update):
+    results = commands.translators()
     reply_to_message(bot, update, results)
 
 
-def animal_help_command(bot: Bot, update: Update):
-    results = commands.animal_help(BOOK)
+def travel_command(bot: Bot, update: Update):
+    results = commands.travel(BOOK)
     reply_to_message(bot, update, results)
 
 
@@ -305,12 +355,19 @@ def volunteer_command(bot: Bot, update: Update):
 
 def show_command_list(bot: Bot):
     commands = [
-        BotCommand("children_lessons", "online lessons for children from Ukraine"),
-        BotCommand("cities", "сhats for german cities, you need to pass the name of the city"),
-        BotCommand("cities_all", "сhats for german cities, you need to pass the name of the city"),
+        BotCommand(
+            "cities", "сhats for german cities, you need to pass the name of the city"
+        ),
+        BotCommand(
+            "cities_all",
+            "сhats for german cities, you need to pass the name of the city",
+        ),
         BotCommand("countries", "сhats for countries"),
         BotCommand("evacuation", "general evacuation info"),
         BotCommand("evacuation_cities", "evacuation chats for ukrainian cities"),
+        BotCommand("children_lessons", "online lessons for children from Ukraine"),
+        BotCommand("kids_with_special_needs", "help for children with special needs"),
+        BotCommand("germany_domestic", "Germany-wide refugee centers"),
         BotCommand("handbook", "FAQ"),
         BotCommand("help", "bot functionality"),
         BotCommand("hryvnia", "Hryvnia exchange"),
@@ -323,7 +380,9 @@ def show_command_list(bot: Bot):
         BotCommand("freestuff", "free stuff in berlin"),
         BotCommand("vet", "animal help"),
         BotCommand("volunteer", "volunteer"),
-
+        BotCommand("deutsch", "german lessons"),
+        BotCommand("travel", "travel possibilities"),
+        BotCommand("translators", "translators"),
     ]
     bot.set_my_commands(commands)
 
@@ -334,11 +393,13 @@ def add_commands(dispatcher):
     dispatcher.add_handler(CommandHandler("stop", stop_timer, pass_job_queue=True))
     dispatcher.add_handler(CommandHandler("help", help_command))
 
-    dispatcher.add_handler(CommandHandler("children_lessons", children_lessons))
+    dispatcher.add_handler(CommandHandler("children_lessons", children_lessons_command))
+    dispatcher.add_handler(CommandHandler("kids_with_special_needs", kids_with_special_needs_command))
 
     dispatcher.add_handler(CommandHandler("cities", cities_command))
     dispatcher.add_handler(CommandHandler("cities_all", cities_all_command))
     dispatcher.add_handler(CommandHandler("countries", countries_command))
+    dispatcher.add_handler(CommandHandler("germany_domestic", germany_domestic_command))
 
     dispatcher.add_handler(CommandHandler("evacuation", evac_command))
     dispatcher.add_handler(CommandHandler("evacuation_cities", evac_cities_command))
@@ -356,6 +417,9 @@ def add_commands(dispatcher):
     dispatcher.add_handler(CommandHandler("freestuff", freestuff_command))
     dispatcher.add_handler(CommandHandler("vet", animal_help_command))
     dispatcher.add_handler(CommandHandler("volunteer", volunteer_command))
+    dispatcher.add_handler(CommandHandler("deutsch", deutsch_command))
+    dispatcher.add_handler(CommandHandler("travel", travel_command))
+    dispatcher.add_handler(CommandHandler("translators", translators_command))
 
 
 def main() -> None:
