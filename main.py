@@ -48,14 +48,17 @@ except KeyError:
     TOKEN = config.get("DEVELOPMENT", "TOKEN")
 PORT = int(env.get("PORT", 5000))
 REMINDER_MESSAGE = env.get("REMINDER_MESSAGE", "I WILL POST PINNED MESSAGE HERE")
-REMINDER_INTERVAL_PINNED = int(env.get("REMINDER_INTERVAL", 30 * 60))
-REMINDER_INTERVAL_INFO = int(env.get("REMINDER_INTERVAL", 5 * 60))
+REMINDER_INTERVAL_PINNED = int(env.get("REMINDER_INTERVAL", 1 * 60))
+REMINDER_INTERVAL_INFO = int(env.get("REMINDER_INTERVAL", 1 * 60))
 THUMB_URL = env.get(
     "THUMB_URL",
     "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Flag_of_Ukraine.svg/2560px-Flag_of_Ukraine.svg.png",
 )
 BOOK = guidebook.load_guidebook()
 BERLIN_HELPS_UKRAIN_CHAT_ID = [-1001589772550, -1001790676165, -735136184]
+PINNED_JOB = "pinned"
+SOCIAL_JOB = "social"
+JOBS_NAME = [PINNED_JOB, SOCIAL_JOB]
 
 
 # Permissions
@@ -119,7 +122,7 @@ def start_timer(bot: Bot, update: Update, job_queue: JobQueue):
         reminder(bot, update, job_queue)
     try:
         bot.delete_message(chat_id=chat_id, message_id=command_message_id)
-    except:
+    except BadRequest:
         logger.info("Command was already deleted %s", command_message_id)
 
 
@@ -127,7 +130,7 @@ def reminder(bot: Bot, update: Update, job_queue: JobQueue):
     chat_id = update.message.chat_id
     logger.info("Started reminders in channel %s", chat_id)
 
-    jobs: tuple[Job] = job_queue.get_jobs_by_name(chat_id)
+    jobs: tuple[Job] = job_queue.get_jobs_by_name(PINNED_JOB) + job_queue.get_jobs_by_name(SOCIAL_JOB)
 
     #  Restart already existing jobs
     for job in jobs:
@@ -151,7 +154,7 @@ def add_pinned_reminder_job(bot: Bot, update: Update, job_queue: JobQueue):
         REMINDER_INTERVAL_PINNED,
         first=1,
         context=chat_id,
-        name=chat_id,
+        name=PINNED_JOB,
     )
 
 
@@ -166,7 +169,7 @@ def add_info_job(bot: Bot, update: Update, job_queue: JobQueue):
         REMINDER_INTERVAL_INFO,
         first=1,
         context=chat_id,
-        name=chat_id,
+        name=SOCIAL_JOB,
     )
 
 
