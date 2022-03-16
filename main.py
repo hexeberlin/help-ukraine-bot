@@ -82,20 +82,20 @@ def restricted(func):
     return wrapped
 
 
-def send_pinned_reminder(bot: Bot,  job: Job):
-    """send_reminder"""
-    chat_id = job.context
-    logger.info("Sending a pinned reminder to chat %s", chat_id)
-    results = commands.pinned_message()
-    bot.send_message(chat_id=chat_id, text=results)
-
-
 def send_social_reminder(bot: Bot, job: Job):
     """send_reminder"""
     chat_id = job.context
+    logger.info("Sending a social reminder to chat %s", chat_id)
+    results = commands.social_help()
+    bot.send_message(chat_id=chat_id, text=results)
+
+
+def send_pinned_reminder(bot: Bot, job: Job):
+    """send_reminder"""
+    chat_id = job.context
     chat = bot.get_chat(chat_id)
-    msg: Message = chat.social_help()
-    logger.info("Sending a info to chat %s", chat_id)
+    msg: Message = chat.pinned_message
+    logger.info("Sending pinned message to chat %s", chat_id)
 
     if msg:
         bot.forward_message(chat_id, chat_id, msg.message_id)
