@@ -445,7 +445,6 @@ def main() -> None:
 
     # Inlines
     dispatcher.add_handler(InlineQueryHandler(find_replies))
-    updater.start_polling()
 
     if APP_NAME == "TESTING":
         updater.start_polling()
