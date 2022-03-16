@@ -236,7 +236,7 @@ def get_param(bot, update, command):
 
 
 def animal_help_command(bot: Bot, update: Update):
-    results = commands.animal_help(BOOK)
+    results = commands.get_from_guidebook(BOOK, "animals")
     reply_to_message(bot, update, results)
 
 
@@ -250,28 +250,28 @@ def cities_command(bot: Bot, update: Update):
     if not name:
         results = "Пожалуйста, уточните название города: /cities Name"
     else:
-        results = commands.cities(BOOK, name)
+        results = commands.get_from_guidebook(BOOK,"cities",  name)
     reply_to_message(bot, update, results)
 
 
 def cities_all_command(bot: Bot, update: Update):
-    results = commands.cities(BOOK)
+    results = commands.get_from_guidebook(BOOK, "cities")
     reply_to_message(bot, update, results)
 
 
 def countries_command(bot: Bot, update: Update):
     name = get_param(bot, update, "/countries")
-    results = commands.countries(BOOK, name)
+    results = commands.get_from_guidebook(BOOK, "countries", name)
     reply_to_message(bot, update, results)
 
 
 def dentist_command(bot: Bot, update: Update):
-    results = commands.dentist(BOOK)
+    results = commands.get_from_guidebook(BOOK, "dentist")
     reply_to_message(bot, update, results)
 
 
 def deutsch_command(bot: Bot, update: Update):
-    results = commands.deutsch(BOOK)
+    results = commands.get_from_guidebook(BOOK, "deutsch")
     reply_to_message(bot, update, results)
 
 
@@ -282,13 +282,13 @@ def evac_command(bot: Bot, update: Update):
 
 def evac_cities_command(bot: Bot, update: Update):
     name = get_param(bot, update, "/evacuation_cities")
-    results = commands.evacuation_cities(BOOK, name)
+    results = commands.get_from_guidebook(BOOK, "evacuation_cities", name)
     reply_to_message(bot, update, results)
 
 
 def freestuff_command(bot: Bot, update: Update):
     name = get_param(bot, update, "/freestuff")
-    results = commands.freestuff(BOOK, name)
+    results = commands.get_from_guidebook(BOOK, "freestuff", name)
     reply_to_message(bot, update, results)
 
 
@@ -315,7 +315,7 @@ def hryvnia_command(bot: Bot, update: Update):
 
 
 def jobs_command(bot: Bot, update: Update):
-    results = commands.jobs(BOOK)
+    results = commands.get_from_guidebook(BOOK, "jobs")
     reply_to_message(bot, update, results)
 
 
@@ -331,7 +331,7 @@ def legal_command(bot: Bot, update: Update):
 
 def medical_command(bot: Bot, update: Update):
     name = get_param(bot, update, "/medical")
-    results = commands.medical(BOOK, name)
+    results = commands.get_from_guidebook(BOOK,"medical",  name)
     reply_to_message(bot, update, results)
 
 
@@ -351,12 +351,12 @@ def translators_command(bot: Bot, update: Update):
 
 
 def travel_command(bot: Bot, update: Update):
-    results = commands.travel(BOOK)
+    results = commands.get_from_guidebook(BOOK, "travel")
     reply_to_message(bot, update, results)
 
 
 def volunteer_command(bot: Bot, update: Update):
-    results = commands.volunteer(BOOK)
+    results = commands.get_from_guidebook(BOOK, "volunteer")
     reply_to_message(bot, update, results)
 
 
