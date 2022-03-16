@@ -9,6 +9,7 @@ TEACHERS_TITLE = "Онлайн уроки для детей/Online lessons for c
 HANDBOOK_TITLE = "Mетодичка"
 SOCIAL_HELP_TITLE = "Социальная помощь"
 TRANSLATORS_TITLE = "Переводчики/Translators"
+KIDS_WITH_SPECIAL_NEEDS_TITLE = "Дети с особыми образовательными потребностями/Kids with special needs"
 
 
 def get_from_knowledge(title):
@@ -97,6 +98,9 @@ def hryvnia():
 def jobs(book, name=None):
     return guidebook.get_info(book, "jobs", name)
 
+
+def kids_with_special_needs():
+    return get_from_knowledge(KIDS_WITH_SPECIAL_NEEDS_TITLE)
 
 def legal():
     return get_from_knowledge(LEGAL_TITLE)

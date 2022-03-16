@@ -233,7 +233,7 @@ def animal_help_command(bot: Bot, update: Update):
     reply_to_message(bot, update, results)
 
 
-def children_lessons(bot: Bot, update: Update):
+def children_lessons_command(bot: Bot, update: Update):
     results = commands.teachers_for_peace()
     reply_to_message(bot, update, results)
 
@@ -312,6 +312,11 @@ def jobs_command(bot: Bot, update: Update):
     reply_to_message(bot, update, results)
 
 
+def kids_with_special_needs_command(bot: Bot, update: Update):
+    results = commands.kids_with_special_needs()
+    reply_to_message(bot, update, results)
+
+
 def legal_command(bot: Bot, update: Update):
     results = commands.legal()
     reply_to_message(bot, update, results)
@@ -350,7 +355,6 @@ def travel_command(bot: Bot, update: Update):
 
 def show_command_list(bot: Bot):
     commands = [
-        BotCommand("children_lessons", "online lessons for children from Ukraine"),
         BotCommand(
             "cities", "сhats for german cities, you need to pass the name of the city"
         ),
@@ -361,6 +365,8 @@ def show_command_list(bot: Bot):
         BotCommand("countries", "сhats for countries"),
         BotCommand("evacuation", "general evacuation info"),
         BotCommand("evacuation_cities", "evacuation chats for ukrainian cities"),
+        BotCommand("children_lessons", "online lessons for children from Ukraine"),
+        BotCommand("kids_with_special_needs", "help for children with special needs"),
         BotCommand("germany_domestic", "Germany-wide refugee centers"),
         BotCommand("handbook", "FAQ"),
         BotCommand("help", "bot functionality"),
@@ -387,7 +393,8 @@ def add_commands(dispatcher):
     dispatcher.add_handler(CommandHandler("stop", stop_timer, pass_job_queue=True))
     dispatcher.add_handler(CommandHandler("help", help_command))
 
-    dispatcher.add_handler(CommandHandler("children_lessons", children_lessons))
+    dispatcher.add_handler(CommandHandler("children_lessons", children_lessons_command))
+    dispatcher.add_handler(CommandHandler("kids_with_special_needs", kids_with_special_needs_command))
 
     dispatcher.add_handler(CommandHandler("cities", cities_command))
     dispatcher.add_handler(CommandHandler("cities_all", cities_all_command))
