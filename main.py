@@ -86,15 +86,15 @@ def send_pinned_reminder(bot: Bot,  job: Job):
     """send_reminder"""
     chat_id = job.context
     logger.info("Sending a pinned reminder to chat %s", chat_id)
-    results = commands.social_help()
+    results = commands.pinned_message()
     bot.send_message(chat_id=chat_id, text=results)
 
 
-def send_info_reminder(bot: Bot, job: Job):
+def send_social_reminder(bot: Bot, job: Job):
     """send_reminder"""
     chat_id = job.context
     chat = bot.get_chat(chat_id)
-    msg: Message = chat.pinned_message
+    msg: Message = chat.social_help()
     logger.info("Sending a info to chat %s", chat_id)
 
     if msg:
@@ -169,7 +169,7 @@ def add_info_job(bot: Bot, update: Update, job_queue: JobQueue):
         text=f"I'm starting sending the info reminder every {REMINDER_INTERVAL_INFO}s.",
     )
     job_queue.run_repeating(
-        send_info_reminder,
+        send_social_reminder,
         REMINDER_INTERVAL_INFO,
         first=1,
         context=chat_id,
