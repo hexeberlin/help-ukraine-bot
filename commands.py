@@ -33,6 +33,10 @@ def dentist(book, name=None):
     return guidebook.get_info(book, "dentist", name)
 
 
+def deutsch(book, name=None):
+     return guidebook.get_info(book, "deutsch", name)
+
+
 def evacuation(book):
     return guidebook.evacuation(book)
 
@@ -124,6 +128,10 @@ def teachers_for_peace():
 
 def translators():
      return get_from_knowledge(TRANSLATORS_TITLE)
+
+
+def travel(book, name=None):
+     return guidebook.get_info(book, "travel", name)
 
 
 def volunteer(book, name=None):

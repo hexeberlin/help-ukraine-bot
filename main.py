@@ -338,11 +338,6 @@ def taxi_command(bot: Bot, update: Update):
     reply_to_message(bot, update, results)
 
 
-def volunteer_command(bot: Bot, update: Update):
-    results = commands.volunteer(BOOK)
-    reply_to_message(bot, update, results)
-
-
 def translators_command(bot: Bot, update: Update):
     results = commands.translators()
     reply_to_message(bot, update, results)
@@ -350,6 +345,11 @@ def translators_command(bot: Bot, update: Update):
 
 def travel_command(bot: Bot, update: Update):
     results = commands.travel(BOOK)
+    reply_to_message(bot, update, results)
+
+
+def volunteer_command(bot: Bot, update: Update):
+    results = commands.volunteer(BOOK)
     reply_to_message(bot, update, results)
 
 
