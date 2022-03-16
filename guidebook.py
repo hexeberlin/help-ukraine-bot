@@ -1,6 +1,6 @@
-import yaml
 import logging
 from requests.structures import CaseInsensitiveDict
+import yaml
 
 logger = logging.getLogger(__name__)
 
@@ -56,5 +56,16 @@ def taxis(guidebook):
     taxis = guidebook["taxis"]
     return convert_list_to_string(taxis)
 
-# if __name__ == "__main__":
-#     print ("asdf" + str(None))
+
+def germany_domestic(
+    guidebook: CaseInsensitiveDict, group_name: str, name: str = None
+) -> str:
+    guidebook_dict = guidebook[group_name]
+    if guidebook_dict:
+        if not name:
+            hint = (
+                "\nПожалуйста, уточните название федеративной земли: \n"
+                "/germany_domestic Name"
+            )
+            return guidebook_dict["general"][0] + hint
+        return guidebook_dict[name][0]
