@@ -22,6 +22,7 @@ from telegram.ext import (
     CallbackContext,
     JobQueue,
     Job,
+
 )
 from telegram.error import BadRequest
 from telegram.utils.helpers import effective_message_type
@@ -48,8 +49,8 @@ except KeyError:
     TOKEN = config.get("DEVELOPMENT", "TOKEN")
 PORT = int(env.get("PORT", 5000))
 REMINDER_MESSAGE = env.get("REMINDER_MESSAGE", "I WILL POST PINNED MESSAGE HERE")
-REMINDER_INTERVAL_PINNED = int(env.get("REMINDER_INTERVAL", 1 * 60))
-REMINDER_INTERVAL_INFO = int(env.get("REMINDER_INTERVAL", 1 * 60))
+REMINDER_INTERVAL_PINNED = int(env.get("REMINDER_INTERVAL", 30 * 60))
+REMINDER_INTERVAL_INFO = int(env.get("REMINDER_INTERVAL", 5 * 60))
 THUMB_URL = env.get(
     "THUMB_URL",
     "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Flag_of_Ukraine.svg/2560px-Flag_of_Ukraine.svg.png",
@@ -81,14 +82,17 @@ def restricted(func):
     return wrapped
 
 
-def send_pinned_reminder(bot: Bot, update: Update, chat_id: str):
+def send_pinned_reminder(bot: Bot,  job: Job):
     """send_reminder"""
+    chat_id = job.context
     logger.info("Sending a pinned reminder to chat %s", chat_id)
-    social_help_command(bot, update)
+    results = commands.social_help()
+    bot.send_message(chat_id=chat_id, text=results)
 
 
-def send_info_reminder(bot: Bot, chat_id: str):
+def send_info_reminder(bot: Bot, job: Job):
     """send_reminder"""
+    chat_id = job.context
     chat = bot.get_chat(chat_id)
     msg: Message = chat.pinned_message
     logger.info("Sending a info to chat %s", chat_id)
@@ -150,7 +154,7 @@ def add_pinned_reminder_job(bot: Bot, update: Update, job_queue: JobQueue):
         text=f"I'm starting sending the pinned reminder every {REMINDER_INTERVAL_PINNED}s.",
     )
     job_queue.run_repeating(
-        send_info_reminder(bot, chat_id=chat_id),
+        send_pinned_reminder,
         REMINDER_INTERVAL_PINNED,
         first=1,
         context=chat_id,
@@ -165,7 +169,7 @@ def add_info_job(bot: Bot, update: Update, job_queue: JobQueue):
         text=f"I'm starting sending the info reminder every {REMINDER_INTERVAL_INFO}s.",
     )
     job_queue.run_repeating(
-        send_pinned_reminder(bot, update, chat_id=chat_id),
+        send_info_reminder,
         REMINDER_INTERVAL_INFO,
         first=1,
         context=chat_id,
@@ -441,6 +445,7 @@ def main() -> None:
 
     # Inlines
     dispatcher.add_handler(InlineQueryHandler(find_replies))
+    updater.start_polling()
 
     if APP_NAME == "TESTING":
         updater.start_polling()
