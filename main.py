@@ -151,7 +151,7 @@ def add_pinned_reminder_job(bot: Bot, update: Update, job_queue: JobQueue):
         REMINDER_INTERVAL_PINNED,
         first=1,
         context=chat_id,
-        name="pinned",
+        name=chat_id,
     )
 
 
@@ -166,7 +166,7 @@ def add_info_job(bot: Bot, update: Update, job_queue: JobQueue):
         REMINDER_INTERVAL_INFO,
         first=1,
         context=chat_id,
-        name="info",
+        name=chat_id,
     )
 
 
