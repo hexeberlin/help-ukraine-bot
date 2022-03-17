@@ -56,6 +56,7 @@ THUMB_URL = env.get(
     "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Flag_of_Ukraine.svg/2560px-Flag_of_Ukraine.svg.png",
 )
 BOOK = guidebook.load_guidebook()
+VOCABULARY = guidebook.load_vocabulary()
 BERLIN_HELPS_UKRAIN_CHAT_ID = [-1001589772550, -1001790676165, -735136184]
 PINNED_JOB = "pinned"
 SOCIAL_JOB = "social"
@@ -250,7 +251,7 @@ def cities_command(bot: Bot, update: Update):
     if not name:
         results = "Пожалуйста, уточните название города: /cities Name"
     else:
-        results = commands.get_from_guidebook(BOOK,"cities",  name)
+        results = commands.get_from_guidebook(BOOK, "cities", name)
     reply_to_message(bot, update, results)
 
 
@@ -261,6 +262,8 @@ def cities_all_command(bot: Bot, update: Update):
 
 def countries_command(bot: Bot, update: Update):
     name = get_param(bot, update, "/countries")
+    if name:
+        name = VOCABULARY[name]
     results = commands.get_from_guidebook(BOOK, "countries", name)
     reply_to_message(bot, update, results)
 
@@ -331,7 +334,7 @@ def legal_command(bot: Bot, update: Update):
 
 def medical_command(bot: Bot, update: Update):
     name = get_param(bot, update, "/medical")
-    results = commands.get_from_guidebook(BOOK,"medical",  name)
+    results = commands.get_from_guidebook(BOOK, "medical", name)
     reply_to_message(bot, update, results)
 
 

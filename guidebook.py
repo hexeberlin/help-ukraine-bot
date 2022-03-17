@@ -14,6 +14,19 @@ def load_guidebook():
             print(exc)
 
 
+def load_vocabulary():
+    with open("vocabulary.yml", "r") as stream:
+        try:
+            vocabulary = CaseInsensitiveDict(yaml.safe_load(stream))
+            new_vocabulary = CaseInsensitiveDict()
+            for k, v in vocabulary.items():
+                for i in v:
+                    new_vocabulary[i] = k
+            return new_vocabulary
+        except yaml.YAMLError as exc:
+            print(exc)
+
+
 def convert_dict_to_string(info):
     result = "============================\n"
     for key, value in info.items():
@@ -32,20 +45,19 @@ def convert_list_to_string(info):
     return result + "\n============================"
 
 
-def get_info(guidebook, group_name, name=None):
-    dict = guidebook[group_name]
+def get_info(guidebook: CaseInsensitiveDict, group_name: str, name: str = None):
+    group_dict = guidebook[group_name]
 
     if name is None:
-        return convert_dict_to_string(dict)
+        return convert_dict_to_string(group_dict)
     else:
-        key_dict = {k.lower(): k for k, v in dict.items()}
-        if name in key_dict:
-            return convert_list_to_string(dict[key_dict[name]])
+        if name in group_dict:
+            return convert_list_to_string(group_dict[name])
         else:
             if group_name == "cities":
-                return "К сожалению, мы пока не располагаем этой информацией"
+                return "К сожалению, мы пока не располагаем этой информацией по городу %s" % (name)
             else:
-                return convert_dict_to_string(dict)
+                return convert_dict_to_string(group_dict)
 
 
 def evacuation(guidebook):
@@ -58,7 +70,7 @@ def taxis(guidebook):
 
 
 def germany_domestic(
-    guidebook: CaseInsensitiveDict, group_name: str, name: str = None
+        guidebook: CaseInsensitiveDict, group_name: str, name: str = None
 ) -> str:
     guidebook_dict = guidebook[group_name]
     if guidebook_dict:

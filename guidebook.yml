@@ -138,6 +138,8 @@ countries:
     - https://t.me/refugeesinUkraine
   Austria:
     - https://t.me/refugeesinAustria
+  Belgium:
+    - https://t.me/refugeesinBelgium
   France:
     - https://t.me/refugeesinFrance
   Germany:
@@ -157,31 +159,8 @@ countries:
     - https://t.me/refugeesinSweden
   Switzerland:
     - https://t.me/refugeesinSwitzerland
-  Австрия:
-    - https://t.me/refugeesinAustria
-  Бельгия:
-    - https://t.me/refugeesinBelgium
-  Германия:
-    - https://t.me/refugees_in_Germany
-  Испания:
-    - https://t.me/HelpUkraineEspana
-  Италия:
-    - https://t.me/dodomu_italia_ucraina
-  Нидерланды:
-    - https://t.me/help_ua_nl_bot
-    - https://infohelpua.com/
-    - https://m.facebook.com/OekrainersInNederland/
-    - https://www.amsterdam.nl/en/refugees/amsterdam-supports-ukraine/
-  Польша:
-    - https://t.me/refugeesinPoland
-  Украина:
-    - https://t.me/refugeesinUkraine
-  Франция:
-    - https://t.me/refugeesinFrance
-  Швейцария:
-    - https://t.me/refugeesinSwitzerland
-  Швеция:
-    - https://t.me/refugeesinSweden
+
+
 
 evacuation:
   Эвакуация из Украины:

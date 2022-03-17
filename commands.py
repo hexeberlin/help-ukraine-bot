@@ -1,5 +1,7 @@
 import os
 
+from requests.structures import CaseInsensitiveDict
+
 import guidebook
 import knowledge
 
@@ -17,7 +19,7 @@ def get_from_knowledge(title):
     return [p for p in replies if p.title == title][0].content
 
 
-def get_from_guidebook(book, group, name=None):
+def get_from_guidebook(book: CaseInsensitiveDict, group, name=None):
     return guidebook.get_info(book, group, name)
 
 
