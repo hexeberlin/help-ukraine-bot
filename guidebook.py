@@ -27,8 +27,9 @@ def load_vocabulary():
             print(exc)
 
 
-def convert_dict_to_string(info):
+def convert_dict_to_string(info, group_name):
     result = "============================\n"
+    result += "результаты для %s" %(group_name)
     for key, value in info.items():
         result += key + " :\n"
         for s in value:
@@ -38,21 +39,22 @@ def convert_dict_to_string(info):
     return result + "\n============================"
 
 
-def convert_list_to_string(info):
+def convert_list_to_string(info, group_name, name):
     result = "============================\n"
+    result += "вы искали %s в %s \n" % (name, group_name)
     for s in info:
         result += s + "\n"
     return result + "\n============================"
 
 
 def get_info(guidebook: CaseInsensitiveDict, group_name: str, name: str = None):
-    group_dict = guidebook[group_name]
+    group_dict = CaseInsensitiveDict(guidebook[group_name])
 
     if name is None:
-        return convert_dict_to_string(group_dict)
+        return convert_dict_to_string(group_dict, group_name)
     else:
         if name in group_dict:
-            return convert_list_to_string(group_dict[name])
+            return convert_list_to_string(group_dict[name], group_name, name)
         else:
             if group_name == "cities":
                 return "К сожалению, мы пока не располагаем этой информацией по городу %s" % (name)
