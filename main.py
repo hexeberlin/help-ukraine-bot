@@ -50,7 +50,7 @@ except KeyError:
 PORT = int(env.get("PORT", 5000))
 REMINDER_MESSAGE = env.get("REMINDER_MESSAGE", "I WILL POST PINNED MESSAGE HERE")
 REMINDER_INTERVAL_PINNED = int(env.get("REMINDER_INTERVAL", 30 * 60))
-REMINDER_INTERVAL_INFO = int(env.get("REMINDER_INTERVAL", 5 * 60))
+REMINDER_INTERVAL_INFO = int(env.get("REMINDER_INTERVAL", 10 * 60))
 THUMB_URL = env.get(
     "THUMB_URL",
     "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Flag_of_Ukraine.svg/2560px-Flag_of_Ukraine.svg.png",
