@@ -3,7 +3,7 @@ import configparser
 from os import environ as env
 import logging
 from functools import wraps
-
+from typing import Tuple
 from telegram import (
     InlineQueryResultArticle,
     InputTextMessageContent,
@@ -22,13 +22,12 @@ from telegram.ext import (
     CallbackContext,
     JobQueue,
     Job,
-
 )
 from telegram.error import BadRequest
 from telegram.utils.helpers import effective_message_type
 
 import commands
-import guidebook
+from guidebook import Guidebook
 from knowledge import search
 
 # Enable logging
@@ -47,6 +46,7 @@ try:
 except KeyError:
     APP_NAME = config.get("DEVELOPMENT", "APP_NAME")
     TOKEN = config.get("DEVELOPMENT", "TOKEN")
+
 PORT = int(env.get("PORT", 5000))
 REMINDER_MESSAGE = env.get("REMINDER_MESSAGE", "I WILL POST PINNED MESSAGE HERE")
 REMINDER_INTERVAL_PINNED = int(env.get("REMINDER_INTERVAL", 30 * 60))
@@ -55,12 +55,13 @@ THUMB_URL = env.get(
     "THUMB_URL",
     "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Flag_of_Ukraine.svg/2560px-Flag_of_Ukraine.svg.png",
 )
-BOOK = guidebook.load_guidebook()
-VOCABULARY = guidebook.load_vocabulary()
+
 BERLIN_HELPS_UKRAIN_CHAT_ID = [-1001589772550, -1001790676165, -735136184]
 PINNED_JOB = "pinned"
 SOCIAL_JOB = "social"
 JOBS_NAME = [PINNED_JOB, SOCIAL_JOB]
+
+guidebook = Guidebook()
 
 
 # Permissions
@@ -88,7 +89,7 @@ def send_social_reminder(bot: Bot, job: Job):
     chat_id = job.context
     logger.info("Sending a social reminder to chat %s", chat_id)
     results = commands.social_help()
-    bot.send_message(chat_id=chat_id, text=results)
+    bot.send_message(chat_id=chat_id, text=results, disable_web_page_preview=True)
 
 
 def send_pinned_reminder(bot: Bot, job: Job):
@@ -106,23 +107,23 @@ def send_pinned_reminder(bot: Bot, job: Job):
 
 def delete_greetings(bot: Bot, update: Update) -> None:
     """Echo the user message."""
-    if update.message is not None:
-        msg_type = effective_message_type(update.message)
+    message = update.message
+    if message:
+        msg_type = effective_message_type(message)
         logger.debug("Handling type is %s", msg_type)
-        if effective_message_type(update.message) in [
+        if effective_message_type(message) in [
             "new_chat_members",
             "left_chat_member",
         ]:
-            bot.delete_message(
-                chat_id=update.message.chat_id, message_id=update.message.message_id
-            )
+            bot.delete_message(chat_id=message.chat_id, message_id=message.message_id)
 
 
 @restricted
 def start_timer(bot: Bot, update: Update, job_queue: JobQueue):
     """start_timer"""
-    chat_id = update.message.chat_id
-    command_message_id = update.message.message_id
+    message = update.message
+    chat_id = message.chat_id
+    command_message_id = message.message_id
     if chat_id in BERLIN_HELPS_UKRAIN_CHAT_ID:
         reminder(bot, update, job_queue)
     try:
@@ -135,7 +136,9 @@ def reminder(bot: Bot, update: Update, job_queue: JobQueue):
     chat_id = update.message.chat_id
     logger.info("Started reminders in channel %s", chat_id)
 
-    jobs: tuple[Job] = job_queue.get_jobs_by_name(PINNED_JOB) + job_queue.get_jobs_by_name(SOCIAL_JOB)
+    jobs: Tuple[Job] = job_queue.get_jobs_by_name(
+        PINNED_JOB
+    ) + job_queue.get_jobs_by_name(SOCIAL_JOB)
 
     #  Restart already existing jobs
     for job in jobs:
@@ -184,7 +187,7 @@ def stop_timer(bot: Bot, update: Update, job_queue: JobQueue):
     chat_id = update.message.chat_id
 
     #  Stop already existing jobs
-    jobs: tuple[Job] = job_queue.get_jobs_by_name(chat_id)
+    jobs: Tuple[Job] = job_queue.get_jobs_by_name(chat_id)
     for job in jobs:
         bot.send_message(chat_id=chat_id, text="I'm stopping sending the reminders.")
         job.enabled = False
@@ -192,7 +195,7 @@ def stop_timer(bot: Bot, update: Update, job_queue: JobQueue):
     logger.info("Stopped reminders in channel %s", chat_id)
 
 
-def find_replies(bot: Bot, update: Update) -> None:
+def find_replies(update: Update) -> None:
     """Handle the inline query."""
     query = update.inline_query.query
 
@@ -212,16 +215,24 @@ def find_replies(bot: Bot, update: Update) -> None:
     update.inline_query.answer(results)
 
 
-def reply_to_message(bot, update, reply):
-    chat_id = update.message.chat_id
-    command_message_id = update.message.message_id
+def reply_to_message(bot, update, reply, disable_web_page_preview=True):
+    message = update.message
+    chat_id = message.chat_id
+    command_message_id = message.message_id
 
-    if update.message.reply_to_message is None:
-        bot.send_message(chat_id=chat_id, text=reply)
-    else:
-        parent_message_id = update.message.reply_to_message.message_id
+    if message.reply_to_message is None:
         bot.send_message(
-            chat_id=chat_id, reply_to_message_id=parent_message_id, text=reply
+            chat_id=chat_id,
+            text=reply,
+            disable_web_page_preview=disable_web_page_preview,
+        )
+    else:
+        parent_message_id = message.reply_to_message.message_id
+        bot.send_message(
+            chat_id=chat_id,
+            reply_to_message_id=parent_message_id,
+            text=reply,
+            disable_web_page_preview=disable_web_page_preview,
         )
     try:
         bot.delete_message(chat_id=chat_id, message_id=command_message_id)
@@ -237,7 +248,7 @@ def get_param(bot, update, command):
 
 
 def animal_help_command(bot: Bot, update: Update):
-    results = commands.get_from_guidebook(BOOK, "animals")
+    results = guidebook.get_animal_help()
     reply_to_message(bot, update, results)
 
 
@@ -248,56 +259,51 @@ def children_lessons_command(bot: Bot, update: Update):
 
 def cities_command(bot: Bot, update: Update):
     name = get_param(bot, update, "/cities")
-    if not name:
-        results = "Пожалуйста, уточните название города: /cities Name"
-    else:
-        results = commands.get_from_guidebook(BOOK, "cities", name)
+    results = guidebook.get_cities(name=name)
     reply_to_message(bot, update, results)
 
 
 def cities_all_command(bot: Bot, update: Update):
-    results = commands.get_from_guidebook(BOOK, "cities")
+    results = guidebook.get_cities_all()
     reply_to_message(bot, update, results)
 
 
 def countries_command(bot: Bot, update: Update):
     name = get_param(bot, update, "/countries")
-    if name:
-        name = VOCABULARY[name]
-    results = commands.get_from_guidebook(BOOK, "countries", name)
+    results = guidebook.get_countries(name=name)
     reply_to_message(bot, update, results)
 
 
 def dentist_command(bot: Bot, update: Update):
-    results = commands.get_from_guidebook(BOOK, "dentist")
+    results = guidebook.get_dentist()
     reply_to_message(bot, update, results)
 
 
 def deutsch_command(bot: Bot, update: Update):
-    results = commands.get_from_guidebook(BOOK, "deutsch")
+    results = guidebook.get_german()
     reply_to_message(bot, update, results)
 
 
 def evac_command(bot: Bot, update: Update):
-    results = commands.evacuation(BOOK)
+    results = guidebook.get_evacuation()
     reply_to_message(bot, update, results)
 
 
 def evac_cities_command(bot: Bot, update: Update):
     name = get_param(bot, update, "/evacuation_cities")
-    results = commands.get_from_guidebook(BOOK, "evacuation_cities", name)
+    results = guidebook.get_evacuation_cities(name=name)
     reply_to_message(bot, update, results)
 
 
 def freestuff_command(bot: Bot, update: Update):
     name = get_param(bot, update, "/freestuff")
-    results = commands.get_from_guidebook(BOOK, "freestuff", name)
+    results = guidebook.get_freestuff(name=name)
     reply_to_message(bot, update, results)
 
 
 def germany_domestic_command(bot: Bot, update: Update):
     name = get_param(bot, update, "/germany_domestic")
-    results = commands.germany_domestic(BOOK, name)
+    results = guidebook.get_germany_domestic(name=name)
     reply_to_message(bot, update, results)
 
 
@@ -308,8 +314,8 @@ def handbook(bot: Bot, update: Update):
 
 def help_command(bot: Bot, update: Update):
     """Send a message when the command /help is issued."""
-    help = commands.help()
-    reply_to_message(bot, update, help)
+    results = commands.help()
+    reply_to_message(bot, update, results)
 
 
 def hryvnia_command(bot: Bot, update: Update):
@@ -318,7 +324,7 @@ def hryvnia_command(bot: Bot, update: Update):
 
 
 def jobs_command(bot: Bot, update: Update):
-    results = commands.get_from_guidebook(BOOK, "jobs")
+    results = guidebook.get_jobs()
     reply_to_message(bot, update, results)
 
 
@@ -334,7 +340,7 @@ def legal_command(bot: Bot, update: Update):
 
 def medical_command(bot: Bot, update: Update):
     name = get_param(bot, update, "/medical")
-    results = commands.get_from_guidebook(BOOK, "medical", name)
+    results = guidebook.get_medical(name=name)
     reply_to_message(bot, update, results)
 
 
@@ -344,7 +350,7 @@ def social_help_command(bot: Bot, update: Update):
 
 
 def taxi_command(bot: Bot, update: Update):
-    results = commands.taxis(BOOK)
+    results = guidebook.get_taxis()
     reply_to_message(bot, update, results)
 
 
@@ -354,17 +360,17 @@ def translators_command(bot: Bot, update: Update):
 
 
 def travel_command(bot: Bot, update: Update):
-    results = commands.get_from_guidebook(BOOK, "travel")
+    results = guidebook.get_travel()
     reply_to_message(bot, update, results)
 
 
 def volunteer_command(bot: Bot, update: Update):
-    results = commands.get_from_guidebook(BOOK, "volunteer")
+    results = guidebook.get_volunteer()
     reply_to_message(bot, update, results)
 
 
 def show_command_list(bot: Bot):
-    commands = [
+    command_list = [
         BotCommand(
             "cities", "сhats for german cities, you need to pass the name of the city"
         ),
@@ -373,28 +379,28 @@ def show_command_list(bot: Bot):
             "сhats for german cities, you need to pass the name of the city",
         ),
         BotCommand("countries", "сhats for countries"),
+        BotCommand("children_lessons", "online lessons for children from Ukraine"),
+        BotCommand("dentist", "dentist help"),
+        BotCommand("deutsch", "german lessons"),
         BotCommand("evacuation", "general evacuation info"),
         BotCommand("evacuation_cities", "evacuation chats for ukrainian cities"),
-        BotCommand("children_lessons", "online lessons for children from Ukraine"),
-        BotCommand("kids_with_special_needs", "help for children with special needs"),
+        BotCommand("freestuff", "free stuff in berlin"),
         BotCommand("germany_domestic", "Germany-wide refugee centers"),
         BotCommand("handbook", "FAQ"),
         BotCommand("help", "bot functionality"),
         BotCommand("hryvnia", "Hryvnia exchange"),
-        BotCommand("legal", "сhat for legal help"),
-        BotCommand("taxis", "сhat for legal help"),
-        BotCommand("medical", "medical help"),
-        BotCommand("dentist", "dentist help"),
-        BotCommand("socialhelp", "social help"),
         BotCommand("jobs", "jobs in germany"),
-        BotCommand("freestuff", "free stuff in berlin"),
+        BotCommand("kids_with_special_needs", "help for children with special needs"),
+        BotCommand("legal", "сhat for legal help"),
+        BotCommand("medical", "medical help"),
+        BotCommand("socialhelp", "social help"),
+        BotCommand("taxis", "сhat for legal help"),
+        BotCommand("translators", "translators"),
+        BotCommand("travel", "travel possibilities"),
         BotCommand("vet", "animal help"),
         BotCommand("volunteer", "volunteer"),
-        BotCommand("deutsch", "german lessons"),
-        BotCommand("travel", "travel possibilities"),
-        BotCommand("translators", "translators"),
     ]
-    bot.set_my_commands(commands)
+    bot.set_my_commands(command_list)
 
 
 def add_commands(dispatcher):
@@ -404,7 +410,9 @@ def add_commands(dispatcher):
     dispatcher.add_handler(CommandHandler("help", help_command))
 
     dispatcher.add_handler(CommandHandler("children_lessons", children_lessons_command))
-    dispatcher.add_handler(CommandHandler("kids_with_special_needs", kids_with_special_needs_command))
+    dispatcher.add_handler(
+        CommandHandler("kids_with_special_needs", kids_with_special_needs_command)
+    )
 
     dispatcher.add_handler(CommandHandler("cities", cities_command))
     dispatcher.add_handler(CommandHandler("cities_all", cities_all_command))

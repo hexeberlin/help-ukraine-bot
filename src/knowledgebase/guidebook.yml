@@ -159,15 +159,11 @@ countries:
     - https://t.me/refugeesinSweden
   Switzerland:
     - https://t.me/refugeesinSwitzerland
-
-
-
 evacuation:
   Эвакуация из Украины:
     - https://www.ukrainenow.org/refuge
   Чат по эвакуации:
     - https://t.me/perevezite
-
 evacuation_cities:
   Белая Церковь:
     - https://t.me/+A4vJpMa-iqY3NzJi
@@ -244,14 +240,26 @@ medical:
     - https://www.imja.online/charity
     - https://krisenchat.de/ukraine
   Gynecologist:
-    - "Гинеколог:\nHerr Matthias Rödel (Speaks Russian) \n Hermannstr.147 \n 12051 Berlin \n 030/6222097"
+    - |
+      Гинеколог:
+      Herr Matthias Rödel (Speaks Russian)
+      Hermannstr.147
+      12051 Berlin
+      030/6222097
   Oncology:
     - https://medwatch.de/2022/03/11/информация-для-онкобольных-из-украин/
 dentist:
   Врачи:
-    - "Зубной:\nDavid Stolyar (Speaks Russian) \nWindscheidstr. 11 \n10627 Berlin-Charlottenburg \n+49 (0)30 - 32 70 17-18"
+    - |
+      David Stolyar (Speaks Russian)
+      Windscheidstr. 11
+      10627 Berlin-Charlottenburg
+      +49 (0)30 - 32 70 17-18
   Инфо:
-    - "В экстренном случае, зубные врачи могут предоставить бесплатную стоматологическую помошь. При себе необходимо иметь украиский паспорт. \n\n https://news.kzv-berlin.de/detail/nachricht/zahnmedizinische-versorgung-von-fluechtlingen-aus-der-ukraine"
+    - |
+      В экстренном случае, зубные врачи могут предоставить бесплатную стоматологическую помошь. При себе необходимо иметь украиский паспорт.
+
+      https://news.kzv-berlin.de/detail/nachricht/zahnmedizinische-versorgung-von-fluechtlingen-aus-der-ukraine"
 jobs:
   Каналы:
     - https://t.me/jobforukrainians
@@ -265,12 +273,23 @@ jobs:
     - https://www.jobs4ukraine.eu/91ce6995f87d40c1816ae05a7686a9c7
     - https://www.uatalents.com/
 freestuff:
-  clothes&food:
-    - https://gabenzaun.de/.#
-    - "Центр Гуманитарной помощи беженцам с Украины \nAnsbacher Straße 30, \n10789 Berlin, \nПн-Пт 10:00 - 18:00, Сб-Вс 10:00 - 16:00 \n+49 152 08277408"
-    - "Check In Hotel, \nMichael Brückner Str 1a, \n12439 Berlin. \nOpening times: Mo-Fr 15.00-20.00"
-    - "Holtzmarkt 25, \nHolzmarktstraße 25, \n10243 Berlin. \nDaily 14.00-20.00"
-  misc:
+  Сlothes & food:
+    - |
+      https://gabenzaun.de/.#
+    - |
+      Центр Гуманитарной помощи беженцам из Украины
+      Ansbacher Straße 30, 10789 Berlin
+      Пн-Пт 10:00 - 18:00, Сб-Вс 10:00 - 16:00
+      +49 152 08277408
+    - |
+      Check In Hotel
+      Michael Brückner Str 1a, 12439 Berlin
+      Opening times: Mo-Fr 15.00-20.00
+    - |
+      Holzmarkt 25
+      Holzmarktstraße 25, 10243 Berlin
+      Daily 14.00-20.00
+  Misc:
     - https://www.ebay-kleinanzeigen.de/s-zu-verschenken/berlin/c192l3331
     - https://t.me/joinchat/CbD5mEn20K3k-gd-ckIXBw
     - https://www.facebook.com/groups/142044769198672
@@ -296,7 +315,9 @@ volunteer:
     - "Hangar 1, Columbiadamm 10, 12101 Berlin. Please email kontakt@hangar1.de"
 deutsch:
   General:
-    - "Сейчас доступны вот такие опции, почитайте пожалуйста пост:\nhttps://t.me/berlinhelpsukrainians/60853"
+    - |
+      Сейчас есть несколько вариантов, почитайте, пожалуйста, пост:
+      https://t.me/berlinhelpsukrainians/60853
   Resources:
     - https://www.duolingo.com/
     - https://www.babbel.com/

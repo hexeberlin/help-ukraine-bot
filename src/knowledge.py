@@ -22,7 +22,7 @@ class Reply:
 
 
 replies: List[Reply] = []
-with open("knowledge.json", encoding="utf-8") as f:
+with open("src/knowledgebase/knowledge.json", encoding="utf-8") as f:
     records = json.load(f)["replies"]
     replies = [Reply(**r) for r in records]
 
