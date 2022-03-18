@@ -1,0 +1,2 @@
+GUIDEBOOK_PATH = "src/knowledgebase/guidebook.yml"
+VOCABULARY_PATH = "src/knowledgebase/vocabulary.yml"

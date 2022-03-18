@@ -1,0 +1,188 @@
+"""Getting information from knowledge base in guidebook.yaml"""
+
+from abc import ABC
+from enum import Enum
+import logging
+from typing import Any, Dict, List, Optional
+import toml
+from yaml import safe_load, YAMLError
+
+logger = logging.getLogger(__name__)
+settings: Dict[str, str] = toml.load("settings.toml")
+
+
+class NameType(str, Enum):
+    animal_help: str = "animals"
+    children_lessons: str = "Онлайн уроки для детей/Online lessons for children"
+    cities: str = "cities"
+    countries: str = "countries"
+    dentist: str = "dentist"
+    evacuation: str = "evacuation"
+    evacuation_cities: str = "evacuation_cities"
+    freestuff: str = "freestuff"
+    german: str = "deutsch"
+    germany_domestic: str = "germany_domestic"
+    jobs: str = "jobs"
+    medical: str = "medical"
+    taxis: str = "taxis"
+    travel: str = "travel"
+    volunteer: str = "volunteer"
+
+
+class Guidebook(ABC):
+    """Class for the Guidebook"""
+
+    def __init__(self):
+        self.guidebook: Dict[str, Any] = None
+        self.vocabulary: Dict[str, Any] = None
+
+    def _get_guidebook(self) -> Dict[str, Any]:
+        path = settings["GUIDEBOOK_PATH"]
+        with open(path, "r") as stream:
+            try:
+                self.guidebook = safe_load(stream)
+            except YAMLError as err:
+                logger.error(**err.__dict__)
+                raise err
+            return {k.lower(): v for k, v in self.guidebook.items()}
+
+    @staticmethod
+    def get_vocabulary() -> Dict[Any, Any]:
+        path = settings["VOCABULARY_PATH"]
+        with open(path, "r") as stream:
+            try:
+                vocabulary = safe_load(stream)
+            except YAMLError as err:
+                logger.error(**err.__dict__)
+                raise err
+            new_vocabulary = dict()
+            for k, v in vocabulary.items():
+                for i in v:
+                    new_vocabulary[i.lower()] = k.lower()
+            return new_vocabulary
+
+    @staticmethod
+    def _format_results(info: str) -> str:
+        separator: str = "=" * 30
+        return separator + "\n" + info + separator
+
+    def _convert_list_to_str(self, group_list: List[str]) -> str:
+        result: str = ""
+        for item in group_list:
+            result += item + "\n"
+        return self._format_results(result)
+
+    def _convert_dict_to_str(self, group_dict: Dict[str, Any]) -> str:
+        result: str = ""
+        for k, v in group_dict.items():
+            result += k + ":\n"
+            for value in v:
+                result += "- " + value + "\n"
+            result += "\n"
+        return self._format_results(result)
+
+    def _get_info(self, group_name: Enum, name: Optional[str] = None) -> str:
+        group = self._get_guidebook().get(group_name.name.lower())
+        if group:
+            if isinstance(group, dict):
+                group_lower = {k.lower(): v for k, v in group.items()}
+                if name:
+                    if name.lower() not in group_lower.keys():
+                        return (
+                            "К сожалению, мы пока не располагаем информацией "
+                            + f"по запросу {group_name.value}, {name}."
+                        )
+                    return self._convert_list_to_str(group_lower[name.lower()])
+                return self._convert_dict_to_str(group)
+            # if group has type list
+            return self._convert_list_to_str(group)
+        return (
+            "К сожалению, мы пока не располагаем информацией "
+            + f"по запросу {group_name.value}."
+        )
+
+    def get_animal_help(self, group_name: Enum = NameType.animal_help) -> str:
+        return self._get_info(group_name=group_name)
+
+    def get_children_lesssons(
+        self,
+        group_name: Enum = NameType.children_lessons
+    ) -> str:
+        return self._get_info(group_name=group_name)
+
+    def get_cities(
+        self,
+        group_name: Enum = NameType.cities,
+        name: str = None
+    ) -> str:
+        if not name:
+            return "Пожалуйста, уточните название города: /cities Name"
+        return self._get_info(group_name=group_name, name=name)
+
+    def get_cities_all(self, group_name: Enum = NameType.cities) -> str:
+        return self._get_info(group_name=group_name)
+
+    def get_countries(
+        self, group_name: Enum = NameType.countries, name: Optional[str] = None
+    ) -> str:
+        vocabulary = self.get_vocabulary()
+        if name in vocabulary:
+            return self._get_info(group_name=group_name,
+                                  name=vocabulary.get(name))
+        return (
+            "К сожалению, мы пока не располагаем информацией по запросу "
+            +f"{group_name.value}, {name}."
+        )
+
+    def get_dentist(self, group_name: Enum = NameType.dentist) -> str:
+        return self._get_info(group_name=group_name)
+
+    def get_german(self, group_name: Enum = NameType.german) -> str:
+        return self._get_info(group_name=group_name)
+
+    def get_evacuation(self, group_name: Enum = NameType.evacuation) -> str:
+        return self._get_info(group_name=group_name)
+
+    def get_evacuation_cities(
+        self,
+        group_name: Enum = NameType.evacuation_cities,
+        name: Optional[str] = None
+    ) -> str:
+        return self._get_info(group_name=group_name, name=name)
+
+    def get_freestuff(
+        self,
+        group_name: Enum = NameType.freestuff,
+        name: Optional[str] = None
+    ) -> str:
+        return self._get_info(group_name=group_name, name=name)
+
+    def get_germany_domestic(
+        self,
+        group_name: Enum = NameType.germany_domestic,
+        name: Optional[str] = None
+    ) -> str:
+        if not name:
+            hint = (
+                "\nПожалуйста, уточните название федеративной земли: \n"
+                "/germany_domestic Name"
+            )
+            return self._get_info(group_name, "general") + hint
+        return self._get_info(group_name, name)
+
+    def get_jobs(self, group_name: Enum = NameType.jobs) -> str:
+        return self._get_info(group_name=group_name)
+
+    def get_medical(
+        self, group_name: Enum = NameType.medical, name: Optional[str] = None
+    ) -> str:
+        return self._get_info(group_name=group_name, name=name)
+
+    def get_taxis(self, group_name: Enum = NameType.taxis) -> str:
+        return self._get_info(group_name=group_name)
+
+    def get_travel(self, group_name: Enum = NameType.travel) -> str:
+        return self._get_info(group_name=group_name)
+
+    def get_volunteer(self, group_name: Enum = NameType.volunteer) -> str:
+        return self._get_info(group_name=group_name)
