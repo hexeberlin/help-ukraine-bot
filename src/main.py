@@ -132,6 +132,13 @@ def start_timer(bot: Bot, update: Update, job_queue: JobQueue):
         logger.info("Command was already deleted %s", command_message_id)
 
 
+@restricted
+def admins_only(bot: Bot, update: Update):
+    chat_id = update.message.chat_id
+    chat = bot.get_chat(chat_id)
+    bot.con
+
+
 def reminder(bot: Bot, update: Update, job_queue: JobQueue):
     chat_id = update.message.chat_id
     logger.info("Started reminders in channel %s", chat_id)
