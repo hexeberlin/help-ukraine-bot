@@ -82,7 +82,7 @@ class Guidebook(ABC):
         return self._format_results(result)
 
     def _get_info(self, group_name: Enum, name: Optional[str] = None) -> str:
-        group = self._get_guidebook().get(group_name.name.lower())
+        group = self._get_guidebook().get(group_name.value.lower())
         if group:
             if isinstance(group, dict):
                 group_lower = {k.lower(): v for k, v in group.items()}
@@ -126,13 +126,16 @@ class Guidebook(ABC):
         self, group_name: Enum = NameType.countries, name: Optional[str] = None
     ) -> str:
         vocabulary = self.get_vocabulary()
-        if name in vocabulary:
-            return self._get_info(group_name=group_name,
-                                  name=vocabulary.get(name))
-        return (
-            "К сожалению, мы пока не располагаем информацией по запросу "
-            +f"{group_name.value}, {name}."
-        )
+        if name:
+            if name in vocabulary:
+                return self._get_info(group_name=group_name,
+                                    name=vocabulary.get(name))
+            return (
+                "К сожалению, мы пока не располагаем информацией по запросу "
+                +f"{group_name.value}, {name}."
+            )
+        else:
+            return self._get_info(group_name=group_name)
 
     def get_dentist(self, group_name: Enum = NameType.dentist) -> str:
         return self._get_info(group_name=group_name)

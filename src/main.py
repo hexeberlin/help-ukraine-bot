@@ -394,7 +394,7 @@ def show_command_list(bot: Bot):
         BotCommand("legal", "сhat for legal help"),
         BotCommand("medical", "medical help"),
         BotCommand("socialhelp", "social help"),
-        BotCommand("taxis", "сhat for legal help"),
+        BotCommand("taxis", "taxi service"),
         BotCommand("translators", "translators"),
         BotCommand("travel", "travel possibilities"),
         BotCommand("vet", "animal help"),
