@@ -223,7 +223,7 @@ evacuation_cities:
     - https://t.me/+i1Np0FJLhs4zMzli
 taxis:
   Центральное такси Берлина:
-  - |
+  - |-
     taxi phone: +49 30 202020
     https://www.taxi-berlin.de
 medical:
@@ -276,6 +276,7 @@ jobs:
 freestuff:
   Free clothes & food:
     - |
+
       https://gabenzaun.de/.#
     - |
       Центр Гуманитарной помощи беженцам из Украины
@@ -352,10 +353,8 @@ germany_domestic:
       Регистрация:
 
       Amt für Migration und Flüchtlingsangelegenheiten
-      Nostorfer Str. 1
-      19258 Nostorf/Horst
-      Telefon: 03855880
-      Fax: 038558856555
+      Nostorfer Str. 1, 19258 Nostorf/Horst
+      Telefon: 03855880, Fax: 038558856555
       amf-poststelle@laiv-mv.de
   Niedersachsen:
     - |
@@ -371,8 +370,7 @@ germany_domestic:
       Регистрация:
 
       Zentrale Anlaufstelle für Asylbewerber des Landes Sachsen-Anhalt
-      Friedrich-List-Str. 1a
-      38820 Halberstadt
+      Friedrich-List-Str. 1a 38820 Halberstadt
   Rheinland-Pfalz:
     - |
       Регистрация:
@@ -385,3 +383,49 @@ germany_domestic:
       Регистрация:
       Landeserstaufnahmeeinrichtung (LEA)
       Gersteinring 50, 44791 Bochum 0293182 6600
+humanitarian:
+  Гуманитарная помощь:
+    - |
+      Центр гуманитарной помощи LaruHelps
+      Ansbacher Str. 30, 10789 Berlin
+      будни 10-20
+      выходные 10-16
+    - |
+      Moabit hilft
+      Turmstr. 21, Haus R, 10559 Berlin
+      пн-пт 11-19
+    - |
+      Joachimsthaler Str. 25
+      10719 Berlin
+      чт, пт, сб 12-19
+    - |
+      Caritas Kleiderkammern Berlin
+    - |
+      склад Kidsmont
+      Meeraner Str. 11E, 12681 Berlin
+    - |
+      склад
+      Beusselstrasse 31, 10553 Berlin
+      2. Hinterhof rechts (во втором дворе по правой стороне)
+    - |
+      VF Logistik
+      Wallenroder Str. 7-9, 13435 Berlin
+      пн-пт 8:30-16:30
+    - |
+      Ring Zentrum
+      Frankfurter Allee 113-117, Berlin
+    - |
+      Kaminholz-Berlin
+      Altonaer Str. 85, 13581 Berlin
+    - |
+      Hauptbahnhof (Главный вокзал)
+    - |
+      Razam + Haus der Statistik
+      Otto-Braun str. 70-72, 10178, Berlin
+      Haus B,
+      пн-вскр 11-18
+    - |-
+      Berlin to Borders Charity Shop
+      Holzmarkt Strasse 19, Berlin
+      пн-вскр 14-20
+      https://www.instagram.com/p/CbE0a-XJdJX/?utm_medium=copy_link

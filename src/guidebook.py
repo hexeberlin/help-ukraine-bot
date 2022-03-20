@@ -13,7 +13,6 @@ settings: Dict[str, str] = toml.load("settings.toml")
 
 class NameType(str, Enum):
     animal_help: str = "animals"
-    children_lessons: str = "Онлайн уроки для детей/Online lessons for children"
     cities: str = "cities"
     countries: str = "countries"
     dentist: str = "dentist"
@@ -22,6 +21,7 @@ class NameType(str, Enum):
     freestuff: str = "freestuff"
     german: str = "deutsch"
     germany_domestic: str = "germany_domestic"
+    humanitarian: str = "humanitarian"
     jobs: str = "jobs"
     medical: str = "medical"
     taxis: str = "taxis"
@@ -85,7 +85,6 @@ class Guidebook(ABC):
             result += k + ":\n"
             for value in v:
                 result += "- " + value + "\n"
-            # result += "\n"
         return self._format_results(result)
 
     def _get_info(self, group_name: Enum, name: Optional[str] = None) -> str:
@@ -110,12 +109,6 @@ class Guidebook(ABC):
         )
 
     def get_animal_help(self, group_name: Enum = NameType.animal_help) -> str:
-        return self._get_info(group_name=group_name)
-
-    def get_children_lesssons(
-        self,
-        group_name: Enum = NameType.children_lessons
-    ) -> str:
         return self._get_info(group_name=group_name)
 
     def get_cities(
@@ -188,6 +181,8 @@ class Guidebook(ABC):
             +f"{group_name.value}, {name}."
         )
 
+    def get_humanitarian(self, group_name: Enum = NameType.humanitarian) -> str:
+        return self._get_info(group_name=group_name)
 
     def get_jobs(self, group_name: Enum = NameType.jobs) -> str:
         return self._get_info(group_name=group_name)

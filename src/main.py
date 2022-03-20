@@ -323,6 +323,11 @@ def hryvnia_command(bot: Bot, update: Update):
     reply_to_message(bot, update, results)
 
 
+def humanitarian_aid_command(bot: Bot, update: Update):
+    results = guidebook.get_humanitarian()
+    reply_to_message(bot, update, results)
+
+
 def jobs_command(bot: Bot, update: Update):
     results = guidebook.get_jobs()
     reply_to_message(bot, update, results)
@@ -378,8 +383,8 @@ def show_command_list(bot: Bot):
             "cities_all",
             "сhats for german cities, you need to pass the name of the city",
         ),
-        BotCommand("countries", "сhats for countries"),
         BotCommand("children_lessons", "online lessons for children from Ukraine"),
+        BotCommand("countries", "сhats for countries"),
         BotCommand("dentist", "dentist help"),
         BotCommand("deutsch", "german lessons"),
         BotCommand("evacuation", "general evacuation info"),
@@ -389,6 +394,7 @@ def show_command_list(bot: Bot):
         BotCommand("handbook", "FAQ"),
         BotCommand("help", "bot functionality"),
         BotCommand("hryvnia", "Hryvnia exchange"),
+        BotCommand("humanitarian", "Humanitarian aid"),
         BotCommand("jobs", "jobs in germany"),
         BotCommand("kids_with_special_needs", "help for children with special needs"),
         BotCommand("legal", "сhat for legal help"),
@@ -410,34 +416,30 @@ def add_commands(dispatcher):
     dispatcher.add_handler(CommandHandler("help", help_command))
 
     dispatcher.add_handler(CommandHandler("children_lessons", children_lessons_command))
-    dispatcher.add_handler(
-        CommandHandler("kids_with_special_needs", kids_with_special_needs_command)
-    )
-
     dispatcher.add_handler(CommandHandler("cities", cities_command))
     dispatcher.add_handler(CommandHandler("cities_all", cities_all_command))
     dispatcher.add_handler(CommandHandler("countries", countries_command))
-    dispatcher.add_handler(CommandHandler("germany_domestic", germany_domestic_command))
-
+    dispatcher.add_handler(CommandHandler("dentist", dentist_command))
+    dispatcher.add_handler(CommandHandler("deutsch", deutsch_command))
     dispatcher.add_handler(CommandHandler("evacuation", evac_command))
     dispatcher.add_handler(CommandHandler("evacuation_cities", evac_cities_command))
-
-    dispatcher.add_handler(CommandHandler("hryvnia", hryvnia_command))
-    dispatcher.add_handler(CommandHandler("handbook", handbook))
-    dispatcher.add_handler(CommandHandler("legal", legal_command))
-    dispatcher.add_handler(CommandHandler("taxis", taxi_command))
-
-    dispatcher.add_handler(CommandHandler("medical", medical_command))
-    dispatcher.add_handler(CommandHandler("dentist", dentist_command))
-    dispatcher.add_handler(CommandHandler("socialhelp", social_help_command))
-    dispatcher.add_handler(CommandHandler("jobs", jobs_command))
-
     dispatcher.add_handler(CommandHandler("freestuff", freestuff_command))
+    dispatcher.add_handler(CommandHandler("germany_domestic", germany_domestic_command))
+    dispatcher.add_handler(CommandHandler("handbook", handbook))
+    dispatcher.add_handler(CommandHandler("hryvnia", hryvnia_command))
+    dispatcher.add_handler(CommandHandler("humanitarian", humanitarian_aid_command))
+    dispatcher.add_handler(CommandHandler("jobs", jobs_command))
+    dispatcher.add_handler(
+        CommandHandler("kids_with_special_needs", kids_with_special_needs_command)
+    )
+    dispatcher.add_handler(CommandHandler("legal", legal_command))
+    dispatcher.add_handler(CommandHandler("medical", medical_command))
+    dispatcher.add_handler(CommandHandler("socialhelp", social_help_command))
+    dispatcher.add_handler(CommandHandler("taxis", taxi_command))
+    dispatcher.add_handler(CommandHandler("translators", translators_command))
+    dispatcher.add_handler(CommandHandler("travel", travel_command))
     dispatcher.add_handler(CommandHandler("vet", animal_help_command))
     dispatcher.add_handler(CommandHandler("volunteer", volunteer_command))
-    dispatcher.add_handler(CommandHandler("deutsch", deutsch_command))
-    dispatcher.add_handler(CommandHandler("travel", travel_command))
-    dispatcher.add_handler(CommandHandler("translators", translators_command))
 
 
 def main() -> None:
