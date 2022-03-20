@@ -42,7 +42,7 @@ class Guidebook(ABC):
             try:
                 self.guidebook = safe_load(stream)
             except YAMLError as err:
-                logger.error(**err.__dict__)
+                logger.error("Yaml error", err)
                 raise err
             return {k.lower(): v for k, v in self.guidebook.items()}
 
@@ -66,8 +66,15 @@ class Guidebook(ABC):
         separator: str = "=" * 30
         return separator + "\n" + info + separator
 
-    def _convert_list_to_str(self, group_list: List[str]) -> str:
-        result: str = ""
+    def _convert_list_to_str(
+        self,
+        group_list: List[str],
+        name: Optional[str] = None
+    ) -> str:
+        if name:
+            result = f"{name.title()}\n"
+        else:
+            result = ""
         for item in group_list:
             result += item + "\n"
         return self._format_results(result)
@@ -78,7 +85,7 @@ class Guidebook(ABC):
             result += k + ":\n"
             for value in v:
                 result += "- " + value + "\n"
-            result += "\n"
+            # result += "\n"
         return self._format_results(result)
 
     def _get_info(self, group_name: Enum, name: Optional[str] = None) -> str:
@@ -92,7 +99,8 @@ class Guidebook(ABC):
                             "К сожалению, мы пока не располагаем информацией "
                             + f"по запросу {group_name.value}, {name}."
                         )
-                    return self._convert_list_to_str(group_lower[name.lower()])
+                    return self._convert_list_to_str(group_lower[name.lower()],
+                                                     name)
                 return self._convert_dict_to_str(group)
             # if group has type list
             return self._convert_list_to_str(group)
@@ -170,8 +178,16 @@ class Guidebook(ABC):
                 "\nПожалуйста, уточните название федеративной земли: \n"
                 "/germany_domestic Name"
             )
-            return self._get_info(group_name, "general") + hint
-        return self._get_info(group_name, name)
+            return self._get_info(group_name, "Регистрация") + hint
+        vocabulary = self.get_vocabulary()
+        if name in vocabulary:
+            return self._get_info(group_name=group_name,
+                                  name=vocabulary.get(name))
+        return (
+            "К сожалению, мы пока не располагаем информацией по запросу "
+            +f"{group_name.value}, {name}."
+        )
+
 
     def get_jobs(self, group_name: Enum = NameType.jobs) -> str:
         return self._get_info(group_name=group_name)

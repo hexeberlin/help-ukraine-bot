@@ -222,10 +222,12 @@ evacuation_cities:
   Чернiгiв:
     - https://t.me/+i1Np0FJLhs4zMzli
 taxis:
-  - "taxi phone: +49 30 202020"
+  Центральное такси Берлина:
+  - |
+    taxi phone: +49 30 202020
+    https://www.taxi-berlin.de
 medical:
-  General:
-    - "Бесплатное медицинское обеспечение"
+  Бесплатное медицинское обслуживание:
     - https://www.berlin.de/ukraine/ru/pribytie/okasanie-medizinskoj/
     - https://handbookgermany.de/de/ukraine-info/ru/medizinische-versorgung.html
     - http://www.gesundheit-ein-menschenrecht.de/kontaktstellen
@@ -249,23 +251,22 @@ medical:
   Oncology:
     - https://medwatch.de/2022/03/11/информация-для-онкобольных-из-украин/
 dentist:
-  Врачи:
+  Зубные врачи:
     - |
       David Stolyar (Speaks Russian)
       Windscheidstr. 11
       10627 Berlin-Charlottenburg
       +49 (0)30 - 32 70 17-18
-  Инфо:
+  Информация:
     - |
-      В экстренном случае, зубные врачи могут предоставить бесплатную стоматологическую помошь. При себе необходимо иметь украиский паспорт.
-
-      https://news.kzv-berlin.de/detail/nachricht/zahnmedizinische-versorgung-von-fluechtlingen-aus-der-ukraine"
+      В экстренном случае зубные врачи могут предоставить бесплатную стоматологическую помошь. При себе необходимо иметь украинский паспорт.
+      https://news.kzv-berlin.de/detail/nachricht/zahnmedizinische-versorgung-von-fluechtlingen-aus-der-ukraine
 jobs:
-  Каналы:
+  Каналы с рабочими предложениями:
     - https://t.me/jobforukrainians
     - https://t.me/jobsforukraine
     - https://t.me/euvacancies_for_evacuated
-  Сайты:
+  Сайты для поиска работы:
     - https://www.uatalents.com
     - https://hireforukraine.org/
     - https://jobsforukraine.net
@@ -273,7 +274,7 @@ jobs:
     - https://www.jobs4ukraine.eu/91ce6995f87d40c1816ae05a7686a9c7
     - https://www.uatalents.com/
 freestuff:
-  Сlothes & food:
+  Free clothes & food:
     - |
       https://gabenzaun.de/.#
     - |
@@ -289,15 +290,14 @@ freestuff:
       Holzmarkt 25
       Holzmarktstraße 25, 10243 Berlin
       Daily 14.00-20.00
-  Misc:
+  Misc free stuff:
     - https://www.ebay-kleinanzeigen.de/s-zu-verschenken/berlin/c192l3331
     - https://t.me/joinchat/CbD5mEn20K3k-gd-ckIXBw
     - https://www.facebook.com/groups/142044769198672
 animals:
-  chats:
+  Информация для владельцев животных:
     - https://t.me/+xM4h-4eFwpI4Yjgy
     - https://t.me/vetbel
-  groups:
     - https://www.facebook.com/groups/2082549321779139
 volunteer:
   Donate your time in Berlin:
@@ -314,7 +314,7 @@ volunteer:
     - "Potsdam: https://www.adiuto.org/initiative/potsdam-welcome-team"
     - "Hangar 1, Columbiadamm 10, 12101 Berlin. Please email kontakt@hangar1.de"
 deutsch:
-  General:
+  Изучение немецкого языка:
     - |
       Сейчас есть несколько вариантов, почитайте, пожалуйста, пост:
       https://t.me/berlinhelpsukrainians/60853
@@ -327,7 +327,7 @@ travel:
   Trains:
     - https://www.bahn.de/info/helpukraine
 germany_domestic:
-  general:
+  Регистрация:
     - |
       Берлинский центр приёма беженцев практически переполнен.
 
@@ -338,18 +338,18 @@ germany_domestic:
       - Sachsen-Anhalt/ Саксония-Анхальт
       - Rheinland-Pfalz / Рейнланд-Пфальц
       - NRW / Северный Рейн-Вестфалия
-  hb:
+  Bremen:
     - |
-      Bremen:
+      Регистрация:
 
       Zentrale Aufnahmestelle für Asylbewerber & ausländische Flüchtlinge (ZASt)
       Alfred-Faust-Str. 15, 28277 Bremen
       Telefon: 0421 361 - 3148
       raymond.bohnenkamp@soziales.bremen.de
       zast@soziales.bremen.de
-  mv:
+  Mecklenburg-Vorpommern:
     - |
-      Mecklenburg-Vorpommern:
+      Регистрация:
 
       Amt für Migration und Flüchtlingsangelegenheiten
       Nostorfer Str. 1
@@ -357,78 +357,31 @@ germany_domestic:
       Telefon: 03855880
       Fax: 038558856555
       amf-poststelle@laiv-mv.de
-  ni:
+  Niedersachsen:
     - |
-      Niedersachsen:
+      Регистрация:
 
       Landesaufnahmebehörde Niedersachsen
       EAE Braunschweig\nBoeselagerstr. 4, 38108 Braunschweig
       Telefon:05313547-104 oder 109
       Carsten.Frambach@lab.niedersachsen.de
       Dagmar.Busse@lab.niedersachsen.de"
-  st:
+  Sachsen-Anhalt:
     - |
-      Sachsen-Anhalt:
+      Регистрация:
 
       Zentrale Anlaufstelle für Asylbewerber des Landes Sachsen-Anhalt
       Friedrich-List-Str. 1a
       38820 Halberstadt
-  rp:
+  Rheinland-Pfalz:
     - |
-      Rheinland-Pfalz:
+      Регистрация:
 
       Aufsichts- und Dienstleistungsdirektion
       Aufnahmeeinrichtung für Asylbegehrende
       Dasbachstraße 19, 54292 Trier
-  nw:
+  Nordrhein-Westfalen:
     - |
-      Nordrhein-Westfalen:
-      Landeserstaufnahmeeinrichtung (LEA)
-      Gersteinring 50, 44791 Bochum 0293182 6600
-  бремен:
-    - |
-      Bremen:
-
-      Zentrale Aufnahmestelle für Asylbewerber & ausländische Flüchtlinge (ZASt)
-      Alfred-Faust-Str. 15, 28277 Bremen
-      Telefon: 0421 361 - 3148
-      raymond.bohnenkamp@soziales.bremen.de
-      zast@soziales.bremen.de
-  мекленбург:
-    - |
-      Mecklenburg-Vorpommern:
-
-      Amt für Migration und Flüchtlingsangelegenheiten
-      Nostorfer Str. 1
-      19258 Nostorf/Horst
-      Telefon: 03855880
-      Fax: 038558856555
-      amf-poststelle@laiv-mv.de
-  нижняя_саксония:
-    - |
-      Niedersachsen:
-
-      Landesaufnahmebehörde Niedersachsen
-      EAE Braunschweig\nBoeselagerstr. 4, 38108 Braunschweig
-      Telefon:05313547-104 oder 109
-      Carsten.Frambach@lab.niedersachsen.de
-      Dagmar.Busse@lab.niedersachsen.de"
-  саксония:
-    - |
-      Sachsen-Anhalt:
-
-      Zentrale Anlaufstelle für Asylbewerber des Landes Sachsen-Anhalt
-      Friedrich-List-Str. 1a
-      38820 Halberstadt
-  рейнланд_пфальц:
-    - |
-      Rheinland-Pfalz:
-
-      Aufsichts- und Dienstleistungsdirektion
-      Aufnahmeeinrichtung für Asylbegehrende
-      Dasbachstraße 19, 54292 Trier
-  рейн_вестфалия:
-    - |
-      Nordrhein-Westfalen:
+      Регистрация:
       Landeserstaufnahmeeinrichtung (LEA)
       Gersteinring 50, 44791 Bochum 0293182 6600
