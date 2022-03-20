@@ -138,14 +138,33 @@ countries:
     - https://t.me/refugeesinUkraine
   Austria:
     - https://t.me/refugeesinAustria
+    - https://t.me/ukrainciwbelgii
   Belgium:
     - https://t.me/refugeesinBelgium
+  Denmark:
+    - https://t.me/refugeesinDenmark
   France:
     - https://t.me/refugeesinFrance
   Germany:
     - https://t.me/refugees_in_Germany
+    - https://t.me/germanyhelpsukraine
+    - https://t.me/ru_de_help
+    - https://t.me/helpUkraine_Gemany
+    - https://t.me/UKR_DE
+  Hungary:
+    - https://t.me/hungaryua
+    - https://t.me/helpinhungary
+    - https://t.me/HUvolunteerswithUA
+    - https://help.unhcr.org/hungary/uk/
+    - https://ukrainehelp.hu/
   Italy:
     - https://t.me/dodomu_italia_ucraina
+  Latvia:
+    - https://www.ukraine-latvia.com/uk
+  Moldova:
+    - https://t.me/moldovaukraina
+    - https://ua-md-help.info/
+    - https://dopomoga.gov.md/
   Netherlands:
     - https://t.me/help_ua_nl_bot
     - https://infohelpua.com/
@@ -153,12 +172,28 @@ countries:
     - https://www.amsterdam.nl/en/refugees/amsterdam-supports-ukraine/
   Poland:
     - https://t.me/refugeesinPoland
+    - https://ukrainesupport.net/uk/
+    - https://help.unhcr.org/poland/uk/
+  Portugal:
+    - https://t.me/+j3_sMgK6QG8yMmVi
+    - https://www.sef.pt/en/Pages/homepage.aspx
+  Romania:
+    - https://t.me/UkrainiansinRomania
+    - https://www.facebook.com/groups/unitipentruucraina/
+  Slovakia:
+    - https://t.me/ukrajinci_na_slovensku
+    - https://www.ukraineslovakia.sk/
+  Slovenia:
+    - https://www.facebook.com/groups/179196962897968/
   Spain:
     - https://t.me/HelpUkraineEspana
   Sweden:
     - https://t.me/refugeesinSweden
+    - https://t.me/ukrainian_in_sweden
   Switzerland:
     - https://t.me/refugeesinSwitzerland
+  Turkey:
+    - https://t.me/+-MqndJ_hUQY2Yzdk
 evacuation:
   Эвакуация из Украины:
     - https://www.ukrainenow.org/refuge
