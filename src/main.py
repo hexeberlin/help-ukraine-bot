@@ -60,6 +60,7 @@ BERLIN_HELPS_UKRAIN_CHAT_ID = [-1001589772550, -1001790676165, -735136184]
 PINNED_JOB = "pinned"
 SOCIAL_JOB = "social"
 JOBS_NAME = [PINNED_JOB, SOCIAL_JOB]
+ADMIN_ONLY_CHAT_ID = []
 
 guidebook = Guidebook()
 
@@ -135,8 +136,7 @@ def start_timer(bot: Bot, update: Update, job_queue: JobQueue):
 @restricted
 def admins_only(bot: Bot, update: Update):
     chat_id = update.message.chat_id
-    chat = bot.get_chat(chat_id)
-    bot.con
+    ADMIN_ONLY_CHAT_ID.append(chat_id)
 
 
 def reminder(bot: Bot, update: Update, job_queue: JobQueue):
@@ -271,19 +271,31 @@ def cities_command(bot: Bot, update: Update):
 
 
 def cities_all_command(bot: Bot, update: Update):
-    results = guidebook.get_cities_all()
-    reply_to_message(bot, update, results)
+    chat_id = update.message.chat_id
+    if chat_id not in ADMIN_ONLY_CHAT_ID:
+        results = guidebook.get_cities_all()
+        reply_to_message(bot, update, results)
+    else:
+        bot.delete_message(chat_id=chat_id, message_id=update.message.message_id)
 
 
 def countries_command(bot: Bot, update: Update):
-    name = get_param(bot, update, "/countries")
-    results = guidebook.get_countries(name=name)
-    reply_to_message(bot, update, results)
+    chat_id = update.message.chat_id
+    if chat_id not in ADMIN_ONLY_CHAT_ID:
+        name = get_param(bot, update, "/countries")
+        results = guidebook.get_countries(name=name)
+        reply_to_message(bot, update, results)
+    else:
+        bot.delete_message(chat_id=chat_id, message_id=update.message.message_id)
 
 
 def dentist_command(bot: Bot, update: Update):
-    results = guidebook.get_dentist()
-    reply_to_message(bot, update, results)
+    chat_id = update.message.chat_id
+    if chat_id not in ADMIN_ONLY_CHAT_ID:
+        results = guidebook.get_dentist()
+        reply_to_message(bot, update, results)
+    else:
+        bot.delete_message(chat_id=chat_id, message_id=update.message.message_id)
 
 
 def deutsch_command(bot: Bot, update: Update):
