@@ -11,6 +11,8 @@ SOCIAL_HELP_TITLE = "Социальная помощь"
 TEACHERS_TITLE = "Онлайн уроки для детей/Online lessons for children"
 TRANSLATORS_TITLE = "Переводчики/Translators"
 BEAUTY_TITLE = "Beauty"
+PSYCHOLOGICAL_HELP_TITLE = "Психологическая помощь/Psychological help"
+ACCOMODATION_TITLE = "Проживание/Stay"
 
 
 def get_from_knowledge(title):
@@ -50,9 +52,18 @@ def beauty():
     return get_from_knowledge(BEAUTY_TITLE)
 
 
+def psylogical_help():
+    return get_from_knowledge(PSYCHOLOGICAL_HELP_TITLE)
+
+
+def accomodation():
+    return get_from_knowledge(ACCOMODATION_TITLE)
+
+
 def help():
     return (
         "Привет! Используйте одну из команд:\n"
+        + "/beauty beauty сообщества \n"
         + "/cities чтобы увидеть чат помощи по городам Германии, вам нужно "
         + "написать название города: /cities name\n"
         + "/cities_all чтобы увидеть все чаты помощи по городам Германии\n"
@@ -68,10 +79,11 @@ def help():
         + "/dentist Стоматологическая помощь\n"
         + "/jobs Работа в Германии\n"
         + "/disabled информация для людей с ограниченными возможностями \n"
-        + "/beauty beauty сообщества \n"
+        + "/psylogical псиохологическая помощь \n"
         + "\n"
         + os.linesep
         + "Hi! Please use one of the following commands:\n"
+        + "/beauty beauty groups\n"
         + "/cities to display existing chat for a city in Germany, you need "
         + "to pass the name of the city: /cities name\n"
         + "/cities_all to display all existing chats for cities in Germany\n"
@@ -87,6 +99,7 @@ def help():
         + "/dentist dentist help\n"
         + "/jobs Jobs in Germany\n"
         + "/disabled information for people with disabilities\n"
-        + "/beauty beauty groups\n"
+
+        + "/psylogical psylogical рудз\n"
         + "\n"
     )
