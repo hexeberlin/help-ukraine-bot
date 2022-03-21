@@ -144,8 +144,8 @@ def start_timer(bot: Bot, update: Update, job_queue: JobQueue):
 @restricted
 def admins_only(bot: Bot, update: Update):
     chat_id = update.message.chat_id
+    ADMIN_ONLY_CHAT_IDS.append(chat_id)
     bot.delete_message(chat_id=chat_id, message_id=update.message.message_id)
-    bot.set_my_commands(None)
 
 
 def reminder(bot: Bot, update: Update, job_queue: JobQueue):
@@ -503,7 +503,7 @@ def add_commands(dispatcher):
     dispatcher.add_handler(CommandHandler("stop", stop_timer, pass_job_queue=True))
     dispatcher.add_handler(CommandHandler("help", help_command))
 
-    # dispatcher.add_handler(CommandHandler("adminsonly", admins_only))
+    dispatcher.add_handler(CommandHandler("adminsonly", admins_only))
 
     dispatcher.add_handler(CommandHandler("accomodation", accomodation_command))
     dispatcher.add_handler(CommandHandler("adaption", social_adaption_command))
