@@ -3,43 +3,129 @@ Ukraine:
   - Украина
   - UA
   - UKR
+  - Україна
 Austria:
   - Austria
   - Австрия
   - AUT
+  - Австрія
 Belgium:
   - Belgium
   - Бельгия
   - BEL
+  - Бельгія
+Denmark:
+  - Denmark
+  - Dänemark
+  - Данія
+  - Дания
 France:
   - France
   - Франция
   - FRA
+  - Франція
 Germany:
   - Germany
   - Германия
   - DEU
+  - Deutschland
+  - Німеччина
+Hungary:
+  - Hungary
+  - Венгрия
+  - Угорщина
+  - Ungarn
 Italy:
   - Italy
   - Италия
   - ITA
+  - Italien
+  - Італія
+Latvia:
+  - Latvia
+  - Латвия
+  - Латвія
+  - Lettland
+Moldova:
+  - Moldova
+  - Молдова
+  - Moldau
 Netherlands:
   - Netherlands
   - Нидерланды
   - NLD
   - Голландия
+  - Голландія
 Poland:
   - Poland
   - Польша
   - POL
+  - Польща
+Portugal:
+  - Portugal
+  - Portugalien
+  - Португалия
+  - Португалія
+Romania:
+  - Romania
+  - Rumänien
+  - Румыния
+  - Румунія
+Slovakia:
+  - Slovakia
+  - Словаччина
+  - Словакия
+  - Slowakei
+Slovenia:
+  - Slovenia
+  - Slovenien
+  - Словения
+  - Словенія
 Spain:
   - Spain
   - Испания
   - ESP
+  - Іспанія
 Sweden:
   - Sweden
   - Швеция
+  - Schweden
+  - Швеція
 Switzerland:
   - Switzerland
   - Швейцария
   - CHE
+  - Швейцарія
+Turkey:
+  - Turkey
+  - Türkei
+  - Турция
+  - Туреччина
+Bremen:
+  - Bremen
+  - Бремен
+  - HB
+Mecklenburg-Vorpommern:
+  - Mecklenburg-Vorpommern
+  - MV
+  - Мекленбург
+Niedersachsen:
+  - Niedersachsen
+  - NI
+  - Нижняя_саксония
+  - Нижняя-саксония
+Sachsen-Anhalt:
+  - Sachsen-Anhalt
+  - Саксония
+  - ST
+Rheinland-Pfalz:
+  - Rheinland-Pfalz
+  - RP
+  - Рейнланд_пфальц
+  - Рейнланд-пфальц
+Nordrhein-Westfalen:
+  - Nordrhein-Westfalen
+  - NW
+  - NRW
+  - Рейн_вестфалия
+  - рейн-вестфалия
