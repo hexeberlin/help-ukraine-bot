@@ -389,8 +389,8 @@ def beauty_command(bot: Bot, update: Update):
     reply_to_message(bot, update, results)
 
 
-def psylogical_command(bot: Bot, update: Update):
-    results = commands.psylogical_help()
+def psychological_command(bot: Bot, update: Update):
+    results = commands.psychological_help()
     reply_to_message(bot, update, results)
 
 
@@ -422,7 +422,7 @@ def show_command_list(bot: Bot):
         BotCommand("kids_with_special_needs", "help for children with special needs"),
         BotCommand("legal", "сhat for legal help"),
         BotCommand("medical", "medical help"),
-        BotCommand("psylogical", "psylogical help"),
+        BotCommand("psychological", "psychological help"),
         BotCommand("socialhelp", "social help"),
         BotCommand("taxis", "taxi service"),
         BotCommand("translators", "translators"),
@@ -462,7 +462,7 @@ def add_commands(dispatcher):
     )
     dispatcher.add_handler(CommandHandler("legal", legal_command))
     dispatcher.add_handler(CommandHandler("medical", medical_command))
-    dispatcher.add_handler(CommandHandler("psylogical", psylogical_command))
+    dispatcher.add_handler(CommandHandler("psychological", psychological_command))
     dispatcher.add_handler(CommandHandler("socialhelp", social_help_command))
     dispatcher.add_handler(CommandHandler("taxis", taxi_command))
     dispatcher.add_handler(CommandHandler("translators", translators_command))

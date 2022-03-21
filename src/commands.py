@@ -52,7 +52,7 @@ def beauty():
     return get_from_knowledge(BEAUTY_TITLE)
 
 
-def psylogical_help():
+def psychological_help():
     return get_from_knowledge(PSYCHOLOGICAL_HELP_TITLE)
 
 
