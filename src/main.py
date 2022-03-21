@@ -59,6 +59,7 @@ REMINDER_INTERVAL_INFO = 10 * 60
 PINNED_JOB = "pinned"
 SOCIAL_JOB = "social"
 JOBS_NAME = [PINNED_JOB, SOCIAL_JOB]
+ADMIN_ONLY_CHAT_IDS = [-1001723117571, -735136184]
 
 BERLIN_HELPS_UKRAIN_CHAT_ID = [-1001589772550, -1001790676165, -735136184]
 
@@ -78,6 +79,28 @@ def restricted(func):
         if user_id not in admins:
             logger.warning("Non admin attempts to access a restricted function")
             return
+
+        logger.info("Restricted function permission granted")
+        return func(bot, context, *args, **kwargs)
+
+    return wrapped
+
+
+def restricted_general(func):
+    """A decorator that limits the access to commands only for admins"""
+
+    @wraps(func)
+    def wrapped(bot: Bot, context: CallbackContext, *args, **kwargs):
+        user_id = context.effective_user.id
+        chat_id = context.effective_chat.id
+        admins = [u.user.id for u in bot.get_chat_administrators(chat_id)]
+
+        if chat_id in ADMIN_ONLY_CHAT_IDS:
+            if user_id not in admins:
+                logger.warning("Non admin attempts to access a restricted function")
+                message_id = context.message.message_id
+                bot.delete_message(chat_id=chat_id, message_id=message_id)
+                return
 
         logger.info("Restricted function permission granted")
         return func(bot, context, *args, **kwargs)
@@ -131,6 +154,20 @@ def start_timer(bot: Bot, update: Update, job_queue: JobQueue):
         bot.delete_message(chat_id=chat_id, message_id=command_message_id)
     except BadRequest:
         logger.info("Command was already deleted %s", command_message_id)
+
+
+@restricted
+def admins_only(bot: Bot, update: Update):
+    chat_id = update.message.chat_id
+    ADMIN_ONLY_CHAT_IDS.append(chat_id)
+    bot.delete_message(chat_id=chat_id, message_id=update.message.message_id)
+
+
+@restricted
+def admins_only_revert(bot: Bot, update: Update):
+    chat_id = update.message.chat_id
+    ADMIN_ONLY_CHAT_IDS.remove(chat_id)
+    bot.delete_message(chat_id=chat_id, message_id=update.message.message_id)
 
 
 def reminder(bot: Bot, update: Update, job_queue: JobQueue):
@@ -252,163 +289,189 @@ def format_knowledge_results(results: str) -> str:
     return separator + "\n" + results + "\n" +separator
 
 
+@restricted_general
 def animal_help_command(bot: Bot, update: Update):
     results = guidebook.get_animal_help()
     reply_to_message(bot, update, results)
 
 
+@restricted_general
 def children_lessons_command(bot: Bot, update: Update):
     results = format_knowledge_results(commands.teachers_for_peace())
     reply_to_message(bot, update, results)
 
 
+@restricted_general
 def cities_command(bot: Bot, update: Update):
     name = get_param(bot, update, "/cities")
     results = guidebook.get_cities(name=name)
     reply_to_message(bot, update, results)
 
 
+@restricted_general
 def cities_all_command(bot: Bot, update: Update):
     results = guidebook.get_cities_all()
     reply_to_message(bot, update, results)
 
 
+@restricted_general
 def countries_command(bot: Bot, update: Update):
     name = get_param(bot, update, "/countries")
     results = guidebook.get_countries(name=name)
     reply_to_message(bot, update, results)
 
 
+@restricted_general
 def dentist_command(bot: Bot, update: Update):
     results = guidebook.get_dentist()
     reply_to_message(bot, update, results)
 
 
+@restricted_general
 def deutsch_command(bot: Bot, update: Update):
     results = guidebook.get_german()
     reply_to_message(bot, update, results)
 
 
+@restricted_general
 def evac_command(bot: Bot, update: Update):
     results = guidebook.get_evacuation()
     reply_to_message(bot, update, results)
 
 
+@restricted_general
 def evac_cities_command(bot: Bot, update: Update):
     name = get_param(bot, update, "/evacuation_cities")
     results = guidebook.get_evacuation_cities(name=name)
     reply_to_message(bot, update, results)
 
 
+@restricted_general
 def freestuff_command(bot: Bot, update: Update):
     name = get_param(bot, update, "/freestuff")
     results = guidebook.get_freestuff(name=name)
     reply_to_message(bot, update, results)
 
 
+@restricted_general
 def germany_domestic_command(bot: Bot, update: Update):
     name = get_param(bot, update, "/germany_domestic")
     results = guidebook.get_germany_domestic(name=name)
     reply_to_message(bot, update, results)
 
 
+@restricted_general
 def handbook(bot: Bot, update: Update):
     results = format_knowledge_results(commands.handbook())
     reply_to_message(bot, update, results)
 
 
+@restricted_general
 def help_command(bot: Bot, update: Update):
     """Send a message when the command /help is issued."""
     results = format_knowledge_results(commands.help())
     reply_to_message(bot, update, results)
 
 
+@restricted_general
 def hryvnia_command(bot: Bot, update: Update):
     results = format_knowledge_results(commands.hryvnia())
     reply_to_message(bot, update, results)
 
 
+@restricted_general
 def humanitarian_aid_command(bot: Bot, update: Update):
     results = guidebook.get_humanitarian()
     reply_to_message(bot, update, results)
 
 
+@restricted_general
 def jobs_command(bot: Bot, update: Update):
     results = guidebook.get_jobs()
     reply_to_message(bot, update, results)
 
 
+@restricted_general
 def kids_with_special_needs_command(bot: Bot, update: Update):
     results = format_knowledge_results(commands.kids_with_special_needs())
     reply_to_message(bot, update, results)
 
 
+@restricted_general
 def legal_command(bot: Bot, update: Update):
     results = format_knowledge_results(commands.legal())
     reply_to_message(bot, update, results)
 
 
+@restricted_general
 def medical_command(bot: Bot, update: Update):
     name = get_param(bot, update, "/medical")
     results = guidebook.get_medical(name=name)
     reply_to_message(bot, update, results)
 
 
+@restricted_general
 def social_help_command(bot: Bot, update: Update):
     results = format_knowledge_results(commands.social_help())
     reply_to_message(bot, update, results)
 
 
+@restricted_general
 def taxi_command(bot: Bot, update: Update):
     results = guidebook.get_taxis()
     reply_to_message(bot, update, results)
 
 
+@restricted_general
 def translators_command(bot: Bot, update: Update):
     results = format_knowledge_results(commands.translators())
     reply_to_message(bot, update, results)
 
-
+@restricted_general
 def accomodation_command(bot: Bot, update: Update):
     results = format_knowledge_results(commands.accomodation())
     reply_to_message(bot, update, results)
 
 
+@restricted_general
 def travel_command(bot: Bot, update: Update):
     results = guidebook.get_travel()
     reply_to_message(bot, update, results)
 
 
+@restricted_general
 def volunteer_command(bot: Bot, update: Update):
     results = guidebook.get_volunteer()
     reply_to_message(bot, update, results)
 
 
+@restricted_general
 def disabled_command(bot: Bot, update: Update):
     results = guidebook.get_disabled()
     reply_to_message(bot, update, results)
 
 
+@restricted_general
 def beauty_command(bot: Bot, update: Update):
     results = format_knowledge_results(commands.beauty())
     reply_to_message(bot, update, results)
 
-
+@restricted_general
 def psychological_command(bot: Bot, update: Update):
     results = format_knowledge_results(commands.psychological_help())
     reply_to_message(bot, update, results)
 
-
+@restricted_general
 def social_adaption_command(bot: Bot, update: Update):
     results = format_knowledge_results(commands.social_adaption())
     reply_to_message(bot, update, results)
 
-
+@restricted_general
 def general_information_command(bot: Bot, update: Update):
     results = format_knowledge_results(commands.general_information())
     reply_to_message(bot, update, results)
 
-
+@restricted_general
 def official_information_command(bot: Bot, update: Update):
     results = format_knowledge_results(commands.official_information())
     reply_to_message(bot, update, results)
@@ -461,6 +524,9 @@ def add_commands(dispatcher):
     dispatcher.add_handler(CommandHandler("start", start_timer, pass_job_queue=True))
     dispatcher.add_handler(CommandHandler("stop", stop_timer, pass_job_queue=True))
     dispatcher.add_handler(CommandHandler("help", help_command))
+
+    dispatcher.add_handler(CommandHandler("adminsonly", admins_only))
+    dispatcher.add_handler(CommandHandler("adminsonly_revert", admins_only_revert))
 
     dispatcher.add_handler(CommandHandler("accomodation", accomodation_command))
     dispatcher.add_handler(CommandHandler("adaption", social_adaption_command))
