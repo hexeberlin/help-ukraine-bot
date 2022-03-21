@@ -393,6 +393,16 @@ def volunteer_command(bot: Bot, update: Update):
     reply_to_message(bot, update, results)
 
 
+def disabled_command(bot: Bot, update: Update):
+    results = guidebook.get_disabled()
+    reply_to_message(bot, update, results)
+
+
+def beauty_command(bot: Bot, update: Update):
+    results = commands.beauty()
+    reply_to_message(bot, update, results)
+
+
 def show_command_list(bot: Bot):
     command_list = [
         BotCommand(
@@ -424,6 +434,8 @@ def show_command_list(bot: Bot):
         BotCommand("travel", "travel possibilities"),
         BotCommand("vet", "animal help"),
         BotCommand("volunteer", "volunteer"),
+        BotCommand("disabled", "disabled people"),
+        BotCommand("beauty", "beauty"),
     ]
     bot.set_my_commands(command_list)
 
@@ -459,6 +471,8 @@ def add_commands(dispatcher):
     dispatcher.add_handler(CommandHandler("travel", travel_command))
     dispatcher.add_handler(CommandHandler("vet", animal_help_command))
     dispatcher.add_handler(CommandHandler("volunteer", volunteer_command))
+    dispatcher.add_handler(CommandHandler("disabled", disabled_command))
+    dispatcher.add_handler(CommandHandler("beauty", beauty_command))
 
     dispatcher.add_handler(CommandHandler("adminsonly", translators_command))
 

@@ -10,6 +10,7 @@ LEGAL_TITLE = "Юридическая помощь/Legal help"
 SOCIAL_HELP_TITLE = "Социальная помощь"
 TEACHERS_TITLE = "Онлайн уроки для детей/Online lessons for children"
 TRANSLATORS_TITLE = "Переводчики/Translators"
+BEAUTY_TITLE = "Beauty"
 
 
 def get_from_knowledge(title):
@@ -45,6 +46,10 @@ def translators():
     return get_from_knowledge(TRANSLATORS_TITLE)
 
 
+def beauty():
+    return get_from_knowledge(BEAUTY_TITLE)
+
+
 def help():
     return (
         "Привет! Используйте одну из команд:\n"
@@ -62,6 +67,8 @@ def help():
         + "/medical Медицинская помощь\n"
         + "/dentist Стоматологическая помощь\n"
         + "/jobs Работа в Германии\n"
+        + "/disabled информация для людей с ограниченными возможностями \n"
+        + "/beauty beauty сообщества \n"
         + "\n"
         + os.linesep
         + "Hi! Please use one of the following commands:\n"
@@ -79,5 +86,7 @@ def help():
         + "/medical medical help\n"
         + "/dentist dentist help\n"
         + "/jobs Jobs in Germany\n"
+        + "/disabled information for people with disabilities\n"
+        + "/beauty beauty groups\n"
         + "\n"
     )
