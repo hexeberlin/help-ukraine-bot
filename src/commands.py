@@ -13,6 +13,7 @@ TRANSLATORS_TITLE = "Переводчики/Translators"
 BEAUTY_TITLE = "Beauty"
 
 
+
 def get_from_knowledge(title):
     replies = knowledge.replies
     return [p for p in replies if p.title == title][0].content
