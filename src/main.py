@@ -60,7 +60,7 @@ BERLIN_HELPS_UKRAIN_CHAT_ID = [-1001589772550, -1001790676165, -735136184]
 PINNED_JOB = "pinned"
 SOCIAL_JOB = "social"
 JOBS_NAME = [PINNED_JOB, SOCIAL_JOB]
-ADMIN_ONLY_CHAT_ID = []
+ADMIN_ONLY_CHAT_ID = [-1001723117571]
 
 guidebook = Guidebook()
 
@@ -137,6 +137,7 @@ def start_timer(bot: Bot, update: Update, job_queue: JobQueue):
 def admins_only(bot: Bot, update: Update):
     chat_id = update.message.chat_id
     ADMIN_ONLY_CHAT_ID.append(chat_id)
+    bot.delete_message(chat_id=chat_id, message_id=update.message.message_id)
 
 
 def reminder(bot: Bot, update: Update, job_queue: JobQueue):
