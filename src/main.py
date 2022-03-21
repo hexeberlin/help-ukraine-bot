@@ -162,6 +162,13 @@ def admins_only(bot: Bot, update: Update):
     bot.delete_message(chat_id=chat_id, message_id=update.message.message_id)
 
 
+@restricted
+def admins_only_revert(bot: Bot, update: Update):
+    chat_id = update.message.chat_id
+    ADMIN_ONLY_CHAT_IDS.remove(chat_id)
+    bot.delete_message(chat_id=chat_id, message_id=update.message.message_id)
+
+
 def reminder(bot: Bot, update: Update, job_queue: JobQueue):
     chat_id = update.message.chat_id
     logger.info("Started reminders in channel %s", chat_id)
@@ -518,6 +525,7 @@ def add_commands(dispatcher):
     dispatcher.add_handler(CommandHandler("help", help_command))
 
     dispatcher.add_handler(CommandHandler("adminsonly", admins_only))
+    dispatcher.add_handler(CommandHandler("adminsonly_revert", admins_only_revert))
 
     dispatcher.add_handler(CommandHandler("accomodation", accomodation_command))
     dispatcher.add_handler(CommandHandler("adaption", social_adaption_command))
