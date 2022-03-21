@@ -62,6 +62,7 @@ def help():
         + "/medical Медицинская помощь\n"
         + "/dentist Стоматологическая помощь\n"
         + "/jobs Работа в Германии\n"
+        + "/disabled информация для людей с ограниченными возможностями \n"
         + "\n"
         + os.linesep
         + "Hi! Please use one of the following commands:\n"
@@ -79,5 +80,6 @@ def help():
         + "/medical medical help\n"
         + "/dentist dentist help\n"
         + "/jobs Jobs in Germany\n"
+        + "/disabled information for people with disabilities\n"
         + "\n"
     )
