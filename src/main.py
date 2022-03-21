@@ -394,9 +394,25 @@ def psychological_command(bot: Bot, update: Update):
     reply_to_message(bot, update, results)
 
 
+def social_adaption_command(bot: Bot, update: Update):
+    results = commands.social_adaption()
+    reply_to_message(bot, update, results)
+
+
+def general_information_command(bot: Bot, update: Update):
+    results = commands.general_information()
+    reply_to_message(bot, update, results)
+
+
+def official_information_command(bot: Bot, update: Update):
+    results = commands.official_information()
+    reply_to_message(bot, update, results)
+
+
 def show_command_list(bot: Bot):
     command_list = [
         BotCommand("accomodation", "поиск жилья"),
+        BotCommand("adaption", "Social adaption"),
         BotCommand("beauty", "beauty"),
         BotCommand(
             "cities", "сhats for german cities, you need to pass the name of the city"
@@ -413,6 +429,7 @@ def show_command_list(bot: Bot):
         BotCommand("evacuation", "general evacuation info"),
         BotCommand("evacuation_cities", "evacuation chats for ukrainian cities"),
         BotCommand("freestuff", "free stuff in berlin"),
+        BotCommand("general_information", "general information"),
         BotCommand("germany_domestic", "Germany-wide refugee centers"),
         BotCommand("handbook", "FAQ"),
         BotCommand("help", "bot functionality"),
@@ -422,6 +439,7 @@ def show_command_list(bot: Bot):
         BotCommand("kids_with_special_needs", "help for children with special needs"),
         BotCommand("legal", "сhat for legal help"),
         BotCommand("medical", "medical help"),
+        BotCommand("official_information", "official information"),
         BotCommand("psychological", "psychological help"),
         BotCommand("socialhelp", "social help"),
         BotCommand("taxis", "taxi service"),
@@ -440,6 +458,7 @@ def add_commands(dispatcher):
     dispatcher.add_handler(CommandHandler("help", help_command))
 
     dispatcher.add_handler(CommandHandler("accomodation", accomodation_command))
+    dispatcher.add_handler(CommandHandler("adaption", social_adaption_command))
 
     dispatcher.add_handler(CommandHandler("beauty", beauty_command))
     dispatcher.add_handler(CommandHandler("children_lessons", children_lessons_command))
@@ -452,6 +471,7 @@ def add_commands(dispatcher):
     dispatcher.add_handler(CommandHandler("evacuation", evac_command))
     dispatcher.add_handler(CommandHandler("evacuation_cities", evac_cities_command))
     dispatcher.add_handler(CommandHandler("freestuff", freestuff_command))
+    dispatcher.add_handler(CommandHandler("general_information", general_information_command))
     dispatcher.add_handler(CommandHandler("germany_domestic", germany_domestic_command))
     dispatcher.add_handler(CommandHandler("handbook", handbook))
     dispatcher.add_handler(CommandHandler("hryvnia", hryvnia_command))
@@ -462,6 +482,7 @@ def add_commands(dispatcher):
     )
     dispatcher.add_handler(CommandHandler("legal", legal_command))
     dispatcher.add_handler(CommandHandler("medical", medical_command))
+    dispatcher.add_handler(CommandHandler("official_information", official_information_command))
     dispatcher.add_handler(CommandHandler("psychological", psychological_command))
     dispatcher.add_handler(CommandHandler("socialhelp", social_help_command))
     dispatcher.add_handler(CommandHandler("taxis", taxi_command))

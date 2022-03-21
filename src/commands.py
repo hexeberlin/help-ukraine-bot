@@ -13,6 +13,9 @@ TRANSLATORS_TITLE = "Переводчики/Translators"
 BEAUTY_TITLE = "Beauty"
 PSYCHOLOGICAL_HELP_TITLE = "Психологическая помощь/Psychological help"
 ACCOMODATION_TITLE = "Проживание/Stay"
+SOCIAL_ADAPTION_TITLE = "Группа социальной адаптации/Social adaption"
+GENERAL_INFO_TITLE = "Информация"
+OFFICIAL_INFO_TITLE = "Официальная информация/Official statements"
 
 
 def get_from_knowledge(title):
@@ -58,6 +61,18 @@ def psychological_help():
 
 def accomodation():
     return get_from_knowledge(ACCOMODATION_TITLE)
+
+
+def social_adaption():
+    return get_from_knowledge(SOCIAL_ADAPTION_TITLE)
+
+
+def general_information():
+    return get_from_knowledge(GENERAL_INFO_TITLE)
+
+
+def official_information():
+    return get_from_knowledge(OFFICIAL_INFO_TITLE)
 
 
 def help():
