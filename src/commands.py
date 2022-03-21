@@ -18,7 +18,6 @@ GENERAL_INFO_TITLE = "Информация"
 OFFICIAL_INFO_TITLE = "Официальная информация/Official statements"
 
 
-
 def get_from_knowledge(title):
     replies = knowledge.replies
     return [p for p in replies if p.title == title][0].content
