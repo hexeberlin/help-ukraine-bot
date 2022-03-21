@@ -99,11 +99,6 @@ def restricted_general(func):
                 logger.warning("Non admin attempts to access a restricted function")
                 message_id = context.message.message_id
                 bot.delete_message(chat_id=chat_id, message_id=message_id)
-
-                return
-        else:
-            if user_id not in admins:
-                logger.warning("Non admin attempts to access a restricted function")
                 return
 
         logger.info("Restricted function permission granted")
