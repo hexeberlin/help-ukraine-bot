@@ -246,6 +246,10 @@ def get_param(bot, update, command):
         update.message.text.removeprefix(command).replace(bot_name, "").strip().lower()
     )
 
+def format_knowledge_results(results: str) -> str:
+    separator = "=" * 30
+    return separator + "\n" + results + "\n" +separator
+
 
 def animal_help_command(bot: Bot, update: Update):
     results = guidebook.get_animal_help()
@@ -253,7 +257,7 @@ def animal_help_command(bot: Bot, update: Update):
 
 
 def children_lessons_command(bot: Bot, update: Update):
-    results = commands.teachers_for_peace()
+    results = format_knowledge_results(commands.teachers_for_peace())
     reply_to_message(bot, update, results)
 
 
@@ -308,18 +312,18 @@ def germany_domestic_command(bot: Bot, update: Update):
 
 
 def handbook(bot: Bot, update: Update):
-    results = commands.handbook()
+    results = format_knowledge_results(commands.handbook())
     reply_to_message(bot, update, results)
 
 
 def help_command(bot: Bot, update: Update):
     """Send a message when the command /help is issued."""
-    results = commands.help()
+    results = format_knowledge_results(commands.help())
     reply_to_message(bot, update, results)
 
 
 def hryvnia_command(bot: Bot, update: Update):
-    results = commands.hryvnia()
+    results = format_knowledge_results(commands.hryvnia())
     reply_to_message(bot, update, results)
 
 
@@ -334,12 +338,12 @@ def jobs_command(bot: Bot, update: Update):
 
 
 def kids_with_special_needs_command(bot: Bot, update: Update):
-    results = commands.kids_with_special_needs()
+    results = format_knowledge_results(commands.kids_with_special_needs())
     reply_to_message(bot, update, results)
 
 
 def legal_command(bot: Bot, update: Update):
-    results = commands.legal()
+    results = format_knowledge_results(commands.legal())
     reply_to_message(bot, update, results)
 
 
@@ -350,7 +354,7 @@ def medical_command(bot: Bot, update: Update):
 
 
 def social_help_command(bot: Bot, update: Update):
-    results = commands.social_help()
+    results = format_knowledge_results(commands.social_help())
     reply_to_message(bot, update, results)
 
 
@@ -360,12 +364,12 @@ def taxi_command(bot: Bot, update: Update):
 
 
 def translators_command(bot: Bot, update: Update):
-    results = commands.translators()
+    results = format_knowledge_results(commands.translators())
     reply_to_message(bot, update, results)
 
 
 def accomodation_command(bot: Bot, update: Update):
-    results = commands.accomodation()
+    results = format_knowledge_results(commands.accomodation())
     reply_to_message(bot, update, results)
 
 
@@ -385,27 +389,27 @@ def disabled_command(bot: Bot, update: Update):
 
 
 def beauty_command(bot: Bot, update: Update):
-    results = commands.beauty()
+    results = format_knowledge_results(commands.beauty())
     reply_to_message(bot, update, results)
 
 
 def psychological_command(bot: Bot, update: Update):
-    results = commands.psychological_help()
+    results = format_knowledge_results(commands.psychological_help())
     reply_to_message(bot, update, results)
 
 
 def social_adaption_command(bot: Bot, update: Update):
-    results = commands.social_adaption()
+    results = format_knowledge_results(commands.social_adaption())
     reply_to_message(bot, update, results)
 
 
 def general_information_command(bot: Bot, update: Update):
-    results = commands.general_information()
+    results = format_knowledge_results(commands.general_information())
     reply_to_message(bot, update, results)
 
 
 def official_information_command(bot: Bot, update: Update):
-    results = commands.official_information()
+    results = format_knowledge_results(commands.official_information())
     reply_to_message(bot, update, results)
 
 

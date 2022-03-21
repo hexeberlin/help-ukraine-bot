@@ -118,7 +118,9 @@ class Guidebook(ABC):
         name: str = None
     ) -> str:
         if not name:
-            return "Пожалуйста, уточните название города: /cities Name"
+            return self._format_results(
+                "Пожалуйста, уточните название города: /cities Name\n"
+                )
         return self._get_info(group_name=group_name, name=name)
 
     def get_cities_all(self, group_name: Enum = NameType.cities) -> str:
