@@ -93,14 +93,16 @@ def restricted_general(func):
     def wrapped(bot: Bot, context: CallbackContext, *args, **kwargs):
         user_id = context.effective_user.id
         chat_id = context.effective_chat.id
-        admins = [u.user.id for u in bot.get_chat_administrators(chat_id)]
+        chat = bot.get_chat(chat_id)
+        if chat.type == "group":
+            admins = [u.user.id for u in bot.get_chat_administrators(chat_id)]
 
-        if chat_id in ADMIN_ONLY_CHAT_IDS:
-            if user_id not in admins:
-                logger.warning("Non admin attempts to access a restricted function")
-                message_id = context.message.message_id
-                bot.delete_message(chat_id=chat_id, message_id=message_id)
-                return
+            if chat_id in ADMIN_ONLY_CHAT_IDS:
+                if user_id not in admins:
+                    logger.warning("Non admin attempts to access a restricted function")
+                    message_id = context.message.message_id
+                    bot.delete_message(chat_id=chat_id, message_id=message_id)
+                    return
 
         logger.info("Restricted function permission granted")
         return func(bot, context, *args, **kwargs)
