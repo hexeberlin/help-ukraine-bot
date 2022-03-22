@@ -301,7 +301,10 @@ def animal_help_command(bot: Bot, update: Update):
     results = guidebook.get_animal_help()
     reply_to_message(bot, update, results)
 
-
+@restricted_general
+def banking_command(bot: Bot, update: Update):
+    results = format_knowledge_results(commands.banking())
+    reply_to_message(bot, update, results)
 
 @restricted_general
 def beauty_command(bot: Bot, update: Update):
@@ -489,6 +492,7 @@ def show_command_list(bot: Bot):
     command_list = [
         BotCommand("accomodation", "Search accomodation"),
         BotCommand("adaption", "Social adaption in Berlin"),
+        BotCommand("banking", "Banking information"),
         BotCommand("beauty", "Beauty"),
         BotCommand(
             "cities", "Find chats for German cities, you need to pass the name of the city"
@@ -536,10 +540,9 @@ def add_commands(dispatcher):
 
     dispatcher.add_handler(CommandHandler("adminsonly", admins_only))
     dispatcher.add_handler(CommandHandler("adminsonly_revert", admins_only_revert))
-
     dispatcher.add_handler(CommandHandler("accomodation", accomodation_command))
     dispatcher.add_handler(CommandHandler("adaption", social_adaption_command))
-
+    dispatcher.add_handler(CommandHandler("banking", banking_command))
     dispatcher.add_handler(CommandHandler("beauty", beauty_command))
     dispatcher.add_handler(CommandHandler("children_lessons", children_lessons_command))
     dispatcher.add_handler(CommandHandler("cities", cities_command))

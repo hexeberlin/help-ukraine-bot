@@ -15,12 +15,16 @@ PSYCHOLOGICAL_HELP_TITLE = "Психологическая помощь/Psycholo
 ACCOMODATION_TITLE = "Проживание/Stay"
 GENERAL_INFO_TITLE = "Информация"
 OFFICIAL_INFO_TITLE = "Официальная информация/Official statements"
+BANKING_TITLE = "Banking"
 
 
 def get_from_knowledge(title):
     replies = knowledge.replies
     return [p for p in replies if p.title == title][0].content
 
+
+def banking():
+    return get_from_knowledge(BANKING_TITLE)
 
 def handbook():
     return get_from_knowledge(HANDBOOK_TITLE)
