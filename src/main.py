@@ -322,12 +322,6 @@ def countries_command(bot: Bot, update: Update):
 
 
 @restricted_general
-def countries_all_command(bot: Bot, update: Update):
-    results = guidebook.get_countries_all()
-    reply_to_message(bot, update, results)
-
-
-@restricted_general
 def dentist_command(bot: Bot, update: Update):
     results = guidebook.get_dentist()
     reply_to_message(bot, update, results)
@@ -489,28 +483,27 @@ def show_command_list(bot: Bot):
         BotCommand("adaption", "Social adaption"),
         BotCommand("beauty", "beauty"),
         BotCommand(
-            "cities", "сhats for German cities, you need to pass the name of the city"
+            "cities", "сhats for german cities, you need to pass the name of the city"
         ),
         BotCommand(
             "cities_all",
-            "list of all chats for German cities",
+            "сhats for german cities, you need to pass the name of the city",
         ),
         BotCommand("children_lessons", "online lessons for children from Ukraine"),
-        BotCommand("countries", "сhats for countries, you need to pass the name of the country"),
-        BotCommand("countries_all", "list of all сhats for countries"),
+        BotCommand("countries", "сhats for countries"),
         BotCommand("dentist", "dentist help"),
         BotCommand("deutsch", "german lessons"),
         BotCommand("disabled", "disabled people"),
         BotCommand("evacuation", "general evacuation info"),
         BotCommand("evacuation_cities", "evacuation chats for ukrainian cities"),
-        BotCommand("freestuff", "free stuff in Berlin"),
+        BotCommand("freestuff", "free stuff in berlin"),
         BotCommand("general_information", "general information"),
         BotCommand("germany_domestic", "Germany-wide refugee centers"),
         BotCommand("handbook", "FAQ"),
         BotCommand("help", "bot functionality"),
         BotCommand("hryvnia", "Hryvnia exchange"),
         BotCommand("humanitarian", "Humanitarian aid"),
-        BotCommand("jobs", "jobs in Germany"),
+        BotCommand("jobs", "jobs in germany"),
         BotCommand("kids_with_special_needs", "help for children with special needs"),
         BotCommand("legal", "сhat for legal help"),
         BotCommand("medical", "medical help"),
@@ -543,7 +536,6 @@ def add_commands(dispatcher):
     dispatcher.add_handler(CommandHandler("cities", cities_command))
     dispatcher.add_handler(CommandHandler("cities_all", cities_all_command))
     dispatcher.add_handler(CommandHandler("countries", countries_command))
-    dispatcher.add_handler(CommandHandler("countries_all", countries_all_command))
     dispatcher.add_handler(CommandHandler("dentist", dentist_command))
     dispatcher.add_handler(CommandHandler("deutsch", deutsch_command))
     dispatcher.add_handler(CommandHandler("disabled", disabled_command))
