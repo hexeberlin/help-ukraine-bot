@@ -29,6 +29,7 @@ class NameType(str, Enum):
     travel: str = "travel"
     volunteer: str = "volunteer"
     disabled: str = "disabled"
+    social_adaptation: str = "social_adaptation"
 
 
 class Guidebook(ABC):
@@ -184,6 +185,7 @@ class Guidebook(ABC):
             "К сожалению, мы пока не располагаем информацией по запросу "
             +f"{group_name.value}, {name}."
         )
+
     def get_homesharing(self, group_name: Enum = NameType.homesharing) -> str:
         return self._get_info(group_name=group_name)
 
@@ -197,6 +199,11 @@ class Guidebook(ABC):
         self, group_name: Enum = NameType.medical, name: Optional[str] = None
     ) -> str:
         return self._get_info(group_name=group_name, name=name)
+
+    def get_social_adaptation(
+        self, group_name: Enum = NameType.social_adaptation
+    ) -> str:
+        return self._get_info(group_name=group_name)
 
     def get_taxis(self, group_name: Enum = NameType.taxis) -> str:
         return self._get_info(group_name=group_name)

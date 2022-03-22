@@ -448,7 +448,8 @@ def psychological_command(bot: Bot, update: Update):
 
 @restricted_general
 def social_adaption_command(bot: Bot, update: Update):
-    results = format_knowledge_results(commands.social_adaption())
+    # results = format_knowledge_results(commands.social_adaption())
+    results = guidebook.get_social_adaptation()
     reply_to_message(bot, update, results)
 
 
@@ -484,43 +485,43 @@ def volunteer_command(bot: Bot, update: Update):
 
 def show_command_list(bot: Bot):
     command_list = [
-        BotCommand("accomodation", "поиск жилья"),
-        BotCommand("adaption", "Social adaption"),
-        BotCommand("beauty", "beauty"),
+        BotCommand("accomodation", "Search accomodation"),
+        BotCommand("adaption", "Social adaption in Berlin"),
+        BotCommand("beauty", "Beauty"),
         BotCommand(
-            "cities", "сhats for german cities, you need to pass the name of the city"
+            "cities", "Find chats for German cities, you need to pass the name of the city"
         ),
         BotCommand(
             "cities_all",
-            "сhats for german cities, you need to pass the name of the city",
+            "List all chats for German cities",
         ),
-        BotCommand("children_lessons", "online lessons for children from Ukraine"),
-        BotCommand("countries", "сhats for countries"),
-        BotCommand("dentist", "dentist help"),
-        BotCommand("deutsch", "german lessons"),
-        BotCommand("disabled", "disabled people"),
-        BotCommand("evacuation", "general evacuation info"),
-        BotCommand("evacuation_cities", "evacuation chats for ukrainian cities"),
-        BotCommand("freestuff", "free stuff in berlin"),
-        BotCommand("general_information", "general information"),
+        BotCommand("children_lessons", "Online lessons for children from Ukraine"),
+        BotCommand("countries", "List all chats for countries"),
+        BotCommand("dentist", "Dentist help"),
+        BotCommand("deutsch", "German lessons"),
+        BotCommand("disabled", "Disabled people"),
+        BotCommand("evacuation", "General evacuation info"),
+        BotCommand("evacuation_cities", "Evacuation chats for ukrainian cities"),
+        BotCommand("freestuff", "Free stuff in berlin"),
+        BotCommand("general_information", "General information"),
         BotCommand("germany_domestic", "Germany-wide refugee centers"),
         BotCommand("handbook", "FAQ"),
-        BotCommand("help", "bot functionality"),
-        BotCommand("homesharing", "offer and find a home"),
+        BotCommand("help", "Bot functionality"),
+        BotCommand("homesharing", "Offer and find a home"),
         BotCommand("hryvnia", "Hryvnia exchange"),
         BotCommand("humanitarian", "Humanitarian aid"),
-        BotCommand("jobs", "jobs in germany"),
-        BotCommand("kids_with_special_needs", "help for children with special needs"),
-        BotCommand("legal", "сhat for legal help"),
-        BotCommand("medical", "medical help"),
-        BotCommand("official_information", "official information"),
-        BotCommand("psychological", "psychological help"),
-        BotCommand("socialhelp", "social help"),
-        BotCommand("taxis", "taxi service"),
-        BotCommand("translators", "translators"),
-        BotCommand("travel", "travel possibilities"),
-        BotCommand("vet", "animal help"),
-        BotCommand("volunteer", "volunteer"),
+        BotCommand("jobs", "Jobs in germany"),
+        BotCommand("kids_with_special_needs", "Help for children with special needs"),
+        BotCommand("legal", "Chat for legal help"),
+        BotCommand("medical", "Medical help"),
+        BotCommand("official_information", "Official information"),
+        BotCommand("psychological", "Psychological help"),
+        BotCommand("socialhelp", "Social help"),
+        BotCommand("taxis", "Taxi service"),
+        BotCommand("translators", "Translators"),
+        BotCommand("travel", "Travel possibilities"),
+        BotCommand("vet", "Animal help"),
+        BotCommand("volunteer", "Volunteer"),
     ]
     bot.set_my_commands(command_list)
 

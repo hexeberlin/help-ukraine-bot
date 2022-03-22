@@ -476,21 +476,22 @@ disabled:
   - http://mina-berlin.eu/kontakt/
 homesharing:
   Official resources for homesharing:
-    - |-
+    - |
        Люди, желающие предложить жилье беженцам, могут зарегистрироваться на сайте
        www.unterkunft-ukraine.de или
        https://airbnb.org/help-ukraine.
-       BMI (Федеральное министерство внутренних дел и родины Германии кооперирует с этими платформами.
-       Процесс, сопровождаемый организациями по оказанию помощи, обеспечивает безопасность для всех участвующих сторон.
 
-       телеграм канал для поиска жилья в Берлине:
-       https://t.me/BerlinHostUkranians
+    - |
+      телеграм канал для поиска жилья в Берлине:
+      https://t.me/BerlinHostUkranians
 
-       If you're looking for a place to stay, please fill out one of this forms:
+    - |
+      If you're looking for a place to stay, please fill out one of this forms:
        - https://wunderflats.com/page/ukraine/tenants-in-need-ua
        - https://www.unterkunft-ukraine.de/request
 
-       Or check here:
+    - |
+      Or check here:
        - https://www.immobilienscout24.de/lp/hilfe-fuer-die-ukraine.html
        - https://www.shelter4ua.com
        - https://helppeopleleaveukraine.org
@@ -499,3 +500,16 @@ homesharing:
        - https://www.host4ukraine.com
        - https://hospitality-helps.org
        - https://everybedhelps.com
+social_adaptation:
+  Safe Space и социальная адаптация в Берлине:
+    - |
+      Группа социальной адаптации:
+      https://t.me/BerlinUkraineSocialAdaptation
+    - |-
+      Panda Safe Space:
+      https://panda-platforma.berlin/ru/events/panda-safe-space-2022-04-03/
+      Щонеділі з 14:00 Панда (Knaackstr. 97, 10435 Berlin-Prenzlauer Berg)
+      перетворюється на safe space — безпечний простір для всіх, хто приїхав до
+      Берліна з України, їхніх рідних та друзів. О 14:00 проходитимуть дитячі
+      творчі майстерні. Протягом дня до 20:00 Панда буде місцем, де можна
+      знайомитись, спілкуватися або разом мовчати та відчувати себе в безпеці.
