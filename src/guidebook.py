@@ -119,7 +119,9 @@ class Guidebook(ABC):
     ) -> str:
         if not name:
             return self._format_results(
-                "Пожалуйста, уточните название города: /cities Name\n"
+                "Пожалуйста, уточните название города: /cities City. \n"
+                + "Используйте команду /cities_all, чтобы увидеть список "
+                + "всех городов.\n"
                 )
         return self._get_info(group_name=group_name, name=name)
 
@@ -129,17 +131,23 @@ class Guidebook(ABC):
     def get_countries(
         self, group_name: Enum = NameType.countries, name: Optional[str] = None
     ) -> str:
+        if not name:
+            return self._format_results(
+                "Пожалуйста, уточните название страны: /countries Country. \n"
+                + "Используйте команду /countries_all, чтобы увидеть список "
+                + "всех стран.\n"
+                )
         vocabulary = self.get_vocabulary()
-        if name:
-            if name in vocabulary:
-                return self._get_info(group_name=group_name,
-                                    name=vocabulary.get(name))
-            return (
+        if name in vocabulary:
+            return self._get_info(group_name=group_name,
+                                  name=vocabulary.get(name))
+        return (
                 "К сожалению, мы пока не располагаем информацией по запросу "
-                +f"{group_name.value}, {name}."
+                + f"{group_name.value}, {name}."
             )
-        else:
-            return self._get_info(group_name=group_name)
+
+    def get_countries_all(self, group_name: Enum = NameType.countries) -> str:
+        return self._get_info(group_name=group_name)
 
     def get_dentist(self, group_name: Enum = NameType.dentist) -> str:
         return self._get_info(group_name=group_name)
@@ -181,7 +189,7 @@ class Guidebook(ABC):
                                   name=vocabulary.get(name))
         return (
             "К сожалению, мы пока не располагаем информацией по запросу "
-            +f"{group_name.value}, {name}."
+            + f"{group_name.value}, {name}."
         )
 
     def get_humanitarian(self, group_name: Enum = NameType.humanitarian) -> str:
