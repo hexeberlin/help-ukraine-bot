@@ -27,6 +27,7 @@ class NameType(str, Enum):
     medical: str = "medical"
     taxis: str = "taxis"
     travel: str = "travel"
+    uni: str = "university"
     volunteer: str = "volunteer"
     disabled: str = "disabled"
     social_adaptation: str = "social_adaptation"
@@ -209,6 +210,9 @@ class Guidebook(ABC):
         return self._get_info(group_name=group_name)
 
     def get_travel(self, group_name: Enum = NameType.travel) -> str:
+        return self._get_info(group_name=group_name)
+
+    def get_university(self, group_name: Enum = NameType.uni) -> str:
         return self._get_info(group_name=group_name)
 
     def get_volunteer(self, group_name: Enum = NameType.volunteer) -> str:

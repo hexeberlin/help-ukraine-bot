@@ -16,6 +16,7 @@ ACCOMODATION_TITLE = "Проживание/Stay"
 GENERAL_INFO_TITLE = "Информация"
 OFFICIAL_INFO_TITLE = "Официальная информация/Official statements"
 BANKING_TITLE = "Banking"
+EDUCATION_TITLE = "Education"
 
 
 def get_from_knowledge(title):
@@ -25,6 +26,9 @@ def get_from_knowledge(title):
 
 def banking():
     return get_from_knowledge(BANKING_TITLE)
+
+def education():
+    return get_from_knowledge(EDUCATION_TITLE)
 
 def handbook():
     return get_from_knowledge(HANDBOOK_TITLE)

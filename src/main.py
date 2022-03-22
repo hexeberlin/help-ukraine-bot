@@ -355,6 +355,11 @@ def disabled_command(bot: Bot, update: Update):
     reply_to_message(bot, update, results)
 
 @restricted_general
+def education_command(bot: Bot, update: Update):
+    results = format_knowledge_results(commands.education())
+    reply_to_message(bot, update, results)
+
+@restricted_general
 def evac_command(bot: Bot, update: Update):
     results = guidebook.get_evacuation()
     reply_to_message(bot, update, results)
@@ -488,6 +493,12 @@ def volunteer_command(bot: Bot, update: Update):
     reply_to_message(bot, update, results)
 
 
+@restricted_general
+def university_command(bot: Bot, update: Update):
+    results = guidebook.get_university()
+    reply_to_message(bot, update, results)
+
+
 def show_command_list(bot: Bot):
     command_list = [
         BotCommand("accomodation", "Search accomodation"),
@@ -506,6 +517,7 @@ def show_command_list(bot: Bot):
         BotCommand("dentist", "Dentist help"),
         BotCommand("deutsch", "German lessons"),
         BotCommand("disabled", "Disabled people"),
+        BotCommand("education", "Overview of education in Germany"),
         BotCommand("evacuation", "General evacuation info"),
         BotCommand("evacuation_cities", "Evacuation chats for ukrainian cities"),
         BotCommand("freestuff", "Free stuff in berlin"),
@@ -526,6 +538,7 @@ def show_command_list(bot: Bot):
         BotCommand("taxis", "Taxi service"),
         BotCommand("translators", "Translators"),
         BotCommand("travel", "Travel possibilities"),
+        BotCommand("uni", "Universities in Germany"),
         BotCommand("vet", "Animal help"),
         BotCommand("volunteer", "Volunteer"),
     ]
@@ -551,6 +564,7 @@ def add_commands(dispatcher):
     dispatcher.add_handler(CommandHandler("dentist", dentist_command))
     dispatcher.add_handler(CommandHandler("deutsch", deutsch_command))
     dispatcher.add_handler(CommandHandler("disabled", disabled_command))
+    dispatcher.add_handler(CommandHandler("education", education_command))
     dispatcher.add_handler(CommandHandler("evacuation", evac_command))
     dispatcher.add_handler(CommandHandler("evacuation_cities", evac_cities_command))
     dispatcher.add_handler(CommandHandler("freestuff", freestuff_command))
@@ -572,6 +586,7 @@ def add_commands(dispatcher):
     dispatcher.add_handler(CommandHandler("taxis", taxi_command))
     dispatcher.add_handler(CommandHandler("translators", translators_command))
     dispatcher.add_handler(CommandHandler("travel", travel_command))
+    dispatcher.add_handler(CommandHandler("uni", university_command))
     dispatcher.add_handler(CommandHandler("vet", animal_help_command))
     dispatcher.add_handler(CommandHandler("volunteer", volunteer_command))
 
