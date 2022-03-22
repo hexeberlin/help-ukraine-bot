@@ -290,10 +290,21 @@ def format_knowledge_results(results: str) -> str:
 
 
 @restricted_general
+def accomodation_command(bot: Bot, update: Update):
+    results = format_knowledge_results(commands.accomodation())
+    reply_to_message(bot, update, results)
+
+@restricted_general
 def animal_help_command(bot: Bot, update: Update):
     results = guidebook.get_animal_help()
     reply_to_message(bot, update, results)
 
+
+
+@restricted_general
+def beauty_command(bot: Bot, update: Update):
+    results = format_knowledge_results(commands.beauty())
+    reply_to_message(bot, update, results)
 
 @restricted_general
 def children_lessons_command(bot: Bot, update: Update):
@@ -334,6 +345,11 @@ def deutsch_command(bot: Bot, update: Update):
 
 
 @restricted_general
+def disabled_command(bot: Bot, update: Update):
+    results = guidebook.get_disabled()
+    reply_to_message(bot, update, results)
+
+@restricted_general
 def evac_command(bot: Bot, update: Update):
     results = guidebook.get_evacuation()
     reply_to_message(bot, update, results)
@@ -352,6 +368,10 @@ def freestuff_command(bot: Bot, update: Update):
     results = guidebook.get_freestuff(name=name)
     reply_to_message(bot, update, results)
 
+@restricted_general
+def general_information_command(bot: Bot, update: Update):
+    results = format_knowledge_results(commands.general_information())
+    reply_to_message(bot, update, results)
 
 @restricted_general
 def germany_domestic_command(bot: Bot, update: Update):
@@ -372,6 +392,10 @@ def help_command(bot: Bot, update: Update):
     results = format_knowledge_results(commands.help())
     reply_to_message(bot, update, results)
 
+@restricted_general
+def homesharing_command(bot: Bot, update: Update):
+    results = guidebook.get_homesharing()
+    reply_to_message(bot, update, results)
 
 @restricted_general
 def hryvnia_command(bot: Bot, update: Update):
@@ -411,6 +435,24 @@ def medical_command(bot: Bot, update: Update):
 
 
 @restricted_general
+def official_information_command(bot: Bot, update: Update):
+    results = format_knowledge_results(commands.official_information())
+    reply_to_message(bot, update, results)
+
+
+@restricted_general
+def psychological_command(bot: Bot, update: Update):
+    results = format_knowledge_results(commands.psychological_help())
+    reply_to_message(bot, update, results)
+
+
+@restricted_general
+def social_adaption_command(bot: Bot, update: Update):
+    results = format_knowledge_results(commands.social_adaption())
+    reply_to_message(bot, update, results)
+
+
+@restricted_general
 def social_help_command(bot: Bot, update: Update):
     results = format_knowledge_results(commands.social_help())
     reply_to_message(bot, update, results)
@@ -427,11 +469,6 @@ def translators_command(bot: Bot, update: Update):
     results = format_knowledge_results(commands.translators())
     reply_to_message(bot, update, results)
 
-@restricted_general
-def accomodation_command(bot: Bot, update: Update):
-    results = format_knowledge_results(commands.accomodation())
-    reply_to_message(bot, update, results)
-
 
 @restricted_general
 def travel_command(bot: Bot, update: Update):
@@ -442,38 +479,6 @@ def travel_command(bot: Bot, update: Update):
 @restricted_general
 def volunteer_command(bot: Bot, update: Update):
     results = guidebook.get_volunteer()
-    reply_to_message(bot, update, results)
-
-
-@restricted_general
-def disabled_command(bot: Bot, update: Update):
-    results = guidebook.get_disabled()
-    reply_to_message(bot, update, results)
-
-
-@restricted_general
-def beauty_command(bot: Bot, update: Update):
-    results = format_knowledge_results(commands.beauty())
-    reply_to_message(bot, update, results)
-
-@restricted_general
-def psychological_command(bot: Bot, update: Update):
-    results = format_knowledge_results(commands.psychological_help())
-    reply_to_message(bot, update, results)
-
-@restricted_general
-def social_adaption_command(bot: Bot, update: Update):
-    results = format_knowledge_results(commands.social_adaption())
-    reply_to_message(bot, update, results)
-
-@restricted_general
-def general_information_command(bot: Bot, update: Update):
-    results = format_knowledge_results(commands.general_information())
-    reply_to_message(bot, update, results)
-
-@restricted_general
-def official_information_command(bot: Bot, update: Update):
-    results = format_knowledge_results(commands.official_information())
     reply_to_message(bot, update, results)
 
 
@@ -501,6 +506,7 @@ def show_command_list(bot: Bot):
         BotCommand("germany_domestic", "Germany-wide refugee centers"),
         BotCommand("handbook", "FAQ"),
         BotCommand("help", "bot functionality"),
+        BotCommand("homesharing", "offer and find a home"),
         BotCommand("hryvnia", "Hryvnia exchange"),
         BotCommand("humanitarian", "Humanitarian aid"),
         BotCommand("jobs", "jobs in germany"),
@@ -545,6 +551,7 @@ def add_commands(dispatcher):
     dispatcher.add_handler(CommandHandler("general_information", general_information_command))
     dispatcher.add_handler(CommandHandler("germany_domestic", germany_domestic_command))
     dispatcher.add_handler(CommandHandler("handbook", handbook))
+    dispatcher.add_handler(CommandHandler("homesharing", homesharing_command))
     dispatcher.add_handler(CommandHandler("hryvnia", hryvnia_command))
     dispatcher.add_handler(CommandHandler("humanitarian", humanitarian_aid_command))
     dispatcher.add_handler(CommandHandler("jobs", jobs_command))

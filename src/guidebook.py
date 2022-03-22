@@ -21,6 +21,7 @@ class NameType(str, Enum):
     freestuff: str = "freestuff"
     german: str = "deutsch"
     germany_domestic: str = "germany_domestic"
+    homesharing: str = "homesharing"
     humanitarian: str = "humanitarian"
     jobs: str = "jobs"
     medical: str = "medical"
@@ -183,6 +184,8 @@ class Guidebook(ABC):
             "К сожалению, мы пока не располагаем информацией по запросу "
             +f"{group_name.value}, {name}."
         )
+    def get_homesharing(self, group_name: Enum = NameType.homesharing) -> str:
+        return self._get_info(group_name=group_name)
 
     def get_humanitarian(self, group_name: Enum = NameType.humanitarian) -> str:
         return self._get_info(group_name=group_name)
