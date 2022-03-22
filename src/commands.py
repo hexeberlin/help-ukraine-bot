@@ -17,6 +17,7 @@ GENERAL_INFO_TITLE = "Информация"
 OFFICIAL_INFO_TITLE = "Официальная информация/Official statements"
 BANKING_TITLE = "Banking"
 EDUCATION_TITLE = "Education"
+MINORS_TITLE = "Minors"
 
 
 def get_from_knowledge(title):
@@ -45,6 +46,9 @@ def kids_with_special_needs():
 def legal():
     return get_from_knowledge(LEGAL_TITLE)
 
+
+def minors():
+    return get_from_knowledge(MINORS_TITLE)
 
 def social_help():
     return get_from_knowledge(SOCIAL_HELP_TITLE)

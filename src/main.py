@@ -445,6 +445,11 @@ def medical_command(bot: Bot, update: Update):
 
 
 @restricted_general
+def minors_command(bot: Bot, update: Update):
+    results = format_knowledge_results(commands.minors())
+    reply_to_message(bot, update, results)
+
+@restricted_general
 def official_information_command(bot: Bot, update: Update):
     results = format_knowledge_results(commands.official_information())
     reply_to_message(bot, update, results)
@@ -532,6 +537,7 @@ def show_command_list(bot: Bot):
         BotCommand("kids_with_special_needs", "Help for children with special needs"),
         BotCommand("legal", "Chat for legal help"),
         BotCommand("medical", "Medical help"),
+        BotCommand("minors", "Help for unaccompanied minors"),
         BotCommand("official_information", "Official information"),
         BotCommand("psychological", "Psychological help"),
         BotCommand("socialhelp", "Social help"),
@@ -580,6 +586,7 @@ def add_commands(dispatcher):
     )
     dispatcher.add_handler(CommandHandler("legal", legal_command))
     dispatcher.add_handler(CommandHandler("medical", medical_command))
+    dispatcher.add_handler(CommandHandler("minors", minors_command))
     dispatcher.add_handler(CommandHandler("official_information", official_information_command))
     dispatcher.add_handler(CommandHandler("psychological", psychological_command))
     dispatcher.add_handler(CommandHandler("socialhelp", social_help_command))
