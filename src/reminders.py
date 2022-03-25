@@ -1,7 +1,8 @@
-from telegram import Bot, Message, Update
+from telegram import Bot, Message, Update, InputMedia, InputMediaPhoto, ParseMode
 from telegram.ext import Job, JobQueue
 from typing import Tuple
 import logging
+import os
 
 from src import commands
 
@@ -10,7 +11,7 @@ logger = logging.getLogger(__name__)
 REMINDER_MESSAGE = "I WILL POST PINNED MESSAGE HERE"
 REMINDER_PINNED_INTERVAL = 30 * 60
 REMINDER_SOCIAL_INTERVAL = 10 * 60
-REMINDER_SAFE_ON_THE_ROAD_INTERVAL = 120 * 60
+REMINDER_SAFE_ON_THE_ROAD_INTERVAL = 1 * 60
 PINNED_JOB = "pinned"
 SOCIAL_JOB = "social"
 SAFE_ON_THE_ROAD_JOB = "safe_on_the_road"
@@ -41,7 +42,10 @@ def send_pinned_reminder(bot: Bot, job: Job):
 def send_safe_on_the_road_reminder(bot: Bot, job: Job):
     chat_id = job.context
     logger.info("Sending a safe on the road reminder to chat %s", chat_id)
-    bot.send_photo(chat_id, photo=open('resources/safe-on-the-road/ua.png', 'rb'))
+    # photo_url = 'https://www.kok-gegen-menschenhandel.de/fileadmin/user_upload/medien/Flucht_und_Menschenhandel/Ukraine_Flyer_UA_Long_Version.png'
+    # bot.sendPhoto(msg['chat']['id'], (os.path.basename(filepath), open(filepath)))
+    # path = os.path.basename('src/resources/safe-on-the-road/ua.png')
+    bot.send_photo(chat_id, (open('src/resources/safe-on-the-road/ua.png')))
 
 
 def add_job(bot: Bot, update: Update, job_queue: JobQueue, intervals, job_name, reminder):
@@ -73,7 +77,7 @@ def reminder(bot: Bot, update: Update, job_queue: JobQueue):
 
     # Start a new job if there was none previously
     if not jobs:
-        add_job(bot, update, job_queue, REMINDER_PINNED_INTERVAL, PINNED_JOB, send_pinned_reminder)
-        add_job(bot, update, job_queue, REMINDER_SOCIAL_INTERVAL, SOCIAL_JOB, send_social_reminder)
+        # add_job(bot, update, job_queue, REMINDER_PINNED_INTERVAL, PINNED_JOB, send_pinned_reminder)
+        # add_job(bot, update, job_queue, REMINDER_SOCIAL_INTERVAL, SOCIAL_JOB, send_social_reminder)
         add_job(bot, update, job_queue, REMINDER_SAFE_ON_THE_ROAD_INTERVAL, SAFE_ON_THE_ROAD_JOB,
                 send_safe_on_the_road_reminder)
