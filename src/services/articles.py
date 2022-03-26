@@ -1,7 +1,14 @@
+import logging
 from typing import List
 from pymongo.database import Database, Collection
 from models import Article
 from dataclasses import asdict
+
+
+logging.basicConfig(
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
+)
+logger = logging.getLogger(__name__)
 
 
 class DuplicateKeyError(Exception):
@@ -27,5 +34,8 @@ class Articles:
 
     def list(self) -> List[Article]:
         with self.collection.find() as cursor:
-            articles = [Article(*item) for item in cursor]
+            # for item in cursor:
+            #     logger.info(item)
+            #     logger.info(Article(**item))
+            articles = [Article(**item) for item in cursor]
             return articles
