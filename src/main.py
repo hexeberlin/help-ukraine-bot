@@ -1,6 +1,4 @@
 """put module docstring here"""
-import configparser
-from os import environ as env
 import logging
 from functools import wraps
 from typing import Tuple
@@ -29,39 +27,37 @@ from telegram.utils.helpers import effective_message_type
 import commands
 from guidebook import Guidebook
 from knowledge import search
+from mongo import connect
+from services import Articles
+from models import Article
 
-# Enable logging
+from config import (
+    APP_NAME,
+    TOKEN,
+    PORT,
+    THUMB_URL,
+    REMINDER_MESSAGE,
+    REMINDER_INTERVAL_PINNED,
+    REMINDER_INTERVAL_INFO,
+    PINNED_JOB,
+    SOCIAL_JOB,
+    JOBS_NAME,
+    ADMIN_ONLY_CHAT_IDS,
+    BERLIN_HELPS_UKRAIN_CHAT_ID,
+    MONGO_HOST,
+    MONGO_BASE,
+    MONGO_PASS,
+    MONGO_USER,
+)
+
 logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
 )
-
 logger = logging.getLogger(__name__)
 
-config = configparser.ConfigParser()
-config.read("settings.env")
-
-try:
-    APP_NAME = env["APP_NAME"]
-    TOKEN = env["TOKEN"]
-except KeyError:
-    APP_NAME = config.get("DEVELOPMENT", "APP_NAME")
-    TOKEN = config.get("DEVELOPMENT", "TOKEN")
-
-PORT = int(env.get("PORT", 5000))
-THUMB_URL = env.get(
-    "THUMB_URL",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Flag_of_Ukraine.svg/2560px-Flag_of_Ukraine.svg.png",
-)
-
-REMINDER_MESSAGE = "I WILL POST PINNED MESSAGE HERE"
-REMINDER_INTERVAL_PINNED = 30 * 60
-REMINDER_INTERVAL_INFO = 10 * 60
-PINNED_JOB = "pinned"
-SOCIAL_JOB = "social"
-JOBS_NAME = [PINNED_JOB, SOCIAL_JOB]
-ADMIN_ONLY_CHAT_IDS = [-1001723117571, -735136184]
-
-BERLIN_HELPS_UKRAIN_CHAT_ID = [-1001589772550, -1001790676165, -735136184]
+db = connect(MONGO_HOST, MONGO_USER, MONGO_PASS, MONGO_BASE)
+TEST_CHAT = "tests"
+articles_service = Articles(db, TEST_CHAT)
 
 guidebook = Guidebook()
 
@@ -286,9 +282,10 @@ def get_param(bot, update, command):
         update.message.text.removeprefix(command).replace(bot_name, "").strip().lower()
     )
 
+
 def format_knowledge_results(results: str) -> str:
     separator = "=" * 30
-    return separator + "\n" + results + "\n" +separator
+    return separator + "\n" + results + "\n" + separator
 
 
 @restricted_general
@@ -296,20 +293,24 @@ def accomodation_command(bot: Bot, update: Update):
     results = format_knowledge_results(commands.accomodation())
     reply_to_message(bot, update, results)
 
+
 @restricted_general
 def animal_help_command(bot: Bot, update: Update):
     results = guidebook.get_animal_help()
     reply_to_message(bot, update, results)
+
 
 @restricted_general
 def banking_command(bot: Bot, update: Update):
     results = format_knowledge_results(commands.banking())
     reply_to_message(bot, update, results)
 
+
 @restricted_general
 def beauty_command(bot: Bot, update: Update):
     results = format_knowledge_results(commands.beauty())
     reply_to_message(bot, update, results)
+
 
 @restricted_general
 def children_lessons_command(bot: Bot, update: Update):
@@ -354,10 +355,12 @@ def disabled_command(bot: Bot, update: Update):
     results = guidebook.get_disabled()
     reply_to_message(bot, update, results)
 
+
 @restricted_general
 def education_command(bot: Bot, update: Update):
     results = format_knowledge_results(commands.education())
     reply_to_message(bot, update, results)
+
 
 @restricted_general
 def evac_command(bot: Bot, update: Update):
@@ -378,10 +381,12 @@ def freestuff_command(bot: Bot, update: Update):
     results = guidebook.get_freestuff(name=name)
     reply_to_message(bot, update, results)
 
+
 @restricted_general
 def general_information_command(bot: Bot, update: Update):
     results = format_knowledge_results(commands.general_information())
     reply_to_message(bot, update, results)
+
 
 @restricted_general
 def germany_domestic_command(bot: Bot, update: Update):
@@ -402,10 +407,12 @@ def help_command(bot: Bot, update: Update):
     results = format_knowledge_results(commands.help())
     reply_to_message(bot, update, results)
 
+
 @restricted_general
 def homesharing_command(bot: Bot, update: Update):
     results = guidebook.get_homesharing()
     reply_to_message(bot, update, results)
+
 
 @restricted_general
 def hryvnia_command(bot: Bot, update: Update):
@@ -448,6 +455,7 @@ def medical_command(bot: Bot, update: Update):
 def minors_command(bot: Bot, update: Update):
     results = format_knowledge_results(commands.minors())
     reply_to_message(bot, update, results)
+
 
 @restricted_general
 def official_information_command(bot: Bot, update: Update):
@@ -504,6 +512,28 @@ def university_command(bot: Bot, update: Update):
     reply_to_message(bot, update, results)
 
 
+@restricted
+def add_article_command(bot: Bot, update: Update):
+    message = update.message.text.removeprefix("/add").replace(bot.name, "")
+    lines = message.splitlines()
+    if len(lines) < 3:
+        # TODO: Better help message
+        reply_to_message(bot, update, "Invalid message format")
+    else:
+        keys = lines[0].split(" ")
+        title = lines[1]
+        content = "".join(lines[2:])
+        articles_service.add(Article(None, keys, title, content))
+
+
+@restricted
+def list_articles_command(bot: Bot, update: Update):
+    articles = articles_service.list()
+    keys_title = [f"{a.keys} : {a.title}" for a in articles]
+    msg = f"Available articles:\n{keys_title}"
+    reply_to_message(bot, update, msg)
+
+
 def show_command_list(bot: Bot):
     command_list = [
         BotCommand("accomodation", "Search accomodation"),
@@ -511,7 +541,8 @@ def show_command_list(bot: Bot):
         BotCommand("banking", "Banking information"),
         BotCommand("beauty", "Beauty"),
         BotCommand(
-            "cities", "Find chats for German cities, you need to pass the name of the city"
+            "cities",
+            "Find chats for German cities, you need to pass the name of the city",
         ),
         BotCommand(
             "cities_all",
@@ -574,7 +605,9 @@ def add_commands(dispatcher):
     dispatcher.add_handler(CommandHandler("evacuation", evac_command))
     dispatcher.add_handler(CommandHandler("evacuation_cities", evac_cities_command))
     dispatcher.add_handler(CommandHandler("freestuff", freestuff_command))
-    dispatcher.add_handler(CommandHandler("general_information", general_information_command))
+    dispatcher.add_handler(
+        CommandHandler("general_information", general_information_command)
+    )
     dispatcher.add_handler(CommandHandler("germany_domestic", germany_domestic_command))
     dispatcher.add_handler(CommandHandler("handbook", handbook))
     dispatcher.add_handler(CommandHandler("homesharing", homesharing_command))
@@ -587,7 +620,9 @@ def add_commands(dispatcher):
     dispatcher.add_handler(CommandHandler("legal", legal_command))
     dispatcher.add_handler(CommandHandler("medical", medical_command))
     dispatcher.add_handler(CommandHandler("minors", minors_command))
-    dispatcher.add_handler(CommandHandler("official_information", official_information_command))
+    dispatcher.add_handler(
+        CommandHandler("official_information", official_information_command)
+    )
     dispatcher.add_handler(CommandHandler("psychological", psychological_command))
     dispatcher.add_handler(CommandHandler("socialhelp", social_help_command))
     dispatcher.add_handler(CommandHandler("taxis", taxi_command))
@@ -596,6 +631,10 @@ def add_commands(dispatcher):
     dispatcher.add_handler(CommandHandler("uni", university_command))
     dispatcher.add_handler(CommandHandler("vet", animal_help_command))
     dispatcher.add_handler(CommandHandler("volunteer", volunteer_command))
+
+    # Articles
+    dispatcher.add_handler(CommandHandler("add", add_article_command))
+    dispatcher.add_handler(CommandHandler("list", list_articles_command))
 
 
 def main() -> None:
