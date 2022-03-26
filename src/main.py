@@ -546,7 +546,7 @@ def add_article_command(bot: Bot, update: Update):
 @restricted
 def list_articles_command(bot: Bot, update: Update):
     articles = articles_service.list()
-    keys_title = "".join([f"{a.keys} : {a.title}" for a in articles])
+    keys_title = "".join([str(a) for a in articles])
     msg = f"**Available articles:**\n{keys_title}"
     reply_to_message(bot, update, msg)
 
