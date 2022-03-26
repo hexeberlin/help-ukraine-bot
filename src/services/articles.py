@@ -1,4 +1,5 @@
 import logging
+import re
 from typing import List
 from pymongo.database import Database, Collection
 from models import Article
@@ -17,9 +18,11 @@ class DuplicateKeyError(Exception):
 
 class Articles:
     collection: Collection
+    find_limit: 5
 
     def __init__(self, db: Database, collection_name: str) -> None:
         self.collection = db.get_collection(collection_name)
+        self.find_limit = 5
 
     def __validate_keys(self, keys: List[str]) -> bool:
         # TODO: Check uniqueness
@@ -43,3 +46,10 @@ class Articles:
 
     def delete(self, key: str) -> Article:
         self.collection.find_one_and_delete({"keys": key})
+
+    def find(self, text: str) -> List[Article]:
+        regx = re.compile(f"/.*{text}.*/", re.IGNORECASE)
+        with self.collection.find({"keys": text, "title": regx, "content": regx}).limit(
+            self.find_limit
+        ) as articles:
+            return list(articles)

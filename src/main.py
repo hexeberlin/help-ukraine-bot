@@ -231,21 +231,21 @@ def stop_timer(bot: Bot, update: Update, job_queue: JobQueue):
     logger.info("Stopped reminders in channel %s", chat_id)
 
 
-def find_replies(update: Update) -> None:
+def find_articles_command(update: Update) -> None:
     """Handle the inline query."""
     query = update.inline_query.query
 
-    replies = search(query)
+    articles = articles_service.find(query)
     results = [
         InlineQueryResultArticle(
-            id=r.id,
-            title=r.title,
+            id=a.id,
+            title=a.title,
             input_message_content=InputTextMessageContent(
-                r.content, parse_mode=ParseMode.MARKDOWN
+                str(a), parse_mode=ParseMode.MARKDOWN
             ),
             thumb_url=THUMB_URL,
         )
-        for r in replies
+        for a in articles
     ]
 
     update.inline_query.answer(results)
@@ -688,7 +688,7 @@ def main() -> None:
     dispatcher.add_handler(MessageHandler(Filters.all, delete_greetings))
 
     # Inlines
-    dispatcher.add_handler(InlineQueryHandler(find_replies))
+    dispatcher.add_handler(InlineQueryHandler(find_articles_command))
 
     if APP_NAME == "TESTING":
         updater.start_polling()
