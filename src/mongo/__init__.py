@@ -12,7 +12,6 @@ def connect(host: str, user: str, password: str, database: str) -> Database:
     connection_string = (
         f"mongodb+srv://{user}:{password}@{host}/?retryWrites=true&w=majority"
     )
-    logger.info(f"mongodb+srv://{user}:XXX@{host}/?retryWrites=true&w=majority")
 
     client = MongoClient(connection_string)
     return client.get_database(database)

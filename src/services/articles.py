@@ -1,6 +1,7 @@
 from typing import List
 from pymongo.database import Database, Collection
 from models import Article
+from dataclasses import asdict
 
 
 class DuplicateKeyError(Exception):
@@ -19,7 +20,8 @@ class Articles:
 
     def add(self, article: Article) -> None:
         if self.__validate_keys(article.keys):
-            self.collection.insert_one(article)
+            document = asdict(article)
+            self.collection.insert_one(document)
         else:
             raise DuplicateKeyError()
 
