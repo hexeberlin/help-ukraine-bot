@@ -538,9 +538,20 @@ def add_article_command(bot: Bot, update: Update):
     article = parse_article(update.message, "/add", bot.name)
     if article:
         articles_service.add(article)
-        reply_to_message(bot, update, "article added")
+
+        chat_id = update.message.chat_id
+        message_id = update.message.message_id
+        bot.send_message(
+            chat_id=chat_id, reply_to_message_id=message_id, text="article added"
+        )
+
     else:
-        reply_to_message(bot, update, "Invalid message format")
+        message_id = update.message.message_id
+        bot.send_message(
+            chat_id=chat_id,
+            reply_to_message_id=message_id,
+            text="Invalid message format",
+        )
 
 
 @restricted
