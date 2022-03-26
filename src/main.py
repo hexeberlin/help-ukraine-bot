@@ -529,9 +529,17 @@ def add_article_command(bot: Bot, update: Update):
 @restricted
 def list_articles_command(bot: Bot, update: Update):
     articles = articles_service.list()
-    keys_title = [f"{a.keys} : {a.title}" for a in articles]
+    keys_title = "".join([f"{a.keys} : {a.title}" for a in articles])
     msg = f"Available articles:\n{keys_title}"
     reply_to_message(bot, update, msg)
+
+
+@restricted
+def get_article_command(bot: Bot, update: Update):
+    key = get_param(bot, update, "/faq")
+    article = articles_service.get(key)
+    message = f"keys: {article.keys}\n{article.title}\n{article.content}"
+    reply_to_message(bot, update, message)
 
 
 def show_command_list(bot: Bot):
@@ -635,6 +643,7 @@ def add_commands(dispatcher):
     # Articles
     dispatcher.add_handler(CommandHandler("add", add_article_command))
     dispatcher.add_handler(CommandHandler("list", list_articles_command))
+    dispatcher.add_handler(CommandHandler("faq", get_article_command))
 
 
 def main() -> None:

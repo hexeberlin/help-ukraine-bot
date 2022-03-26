@@ -34,8 +34,9 @@ class Articles:
 
     def list(self) -> List[Article]:
         with self.collection.find() as cursor:
-            # for item in cursor:
-            #     logger.info(item)
-            #     logger.info(Article(**item))
             articles = [Article(**item) for item in cursor]
             return articles
+
+    def get(self, key: str) -> Article:
+        document = self.collection.find_one({"keys": key})
+        return Article(**document)
