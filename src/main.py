@@ -1,7 +1,7 @@
 """put module docstring here"""
 import logging
 from functools import wraps
-from typing import Tuple
+from typing import List, Optional, Tuple
 from telegram import (
     InlineQueryResultArticle,
     InputTextMessageContent,
@@ -512,25 +512,42 @@ def university_command(bot: Bot, update: Update):
     reply_to_message(bot, update, results)
 
 
-@restricted
-def add_article_command(bot: Bot, update: Update):
-    message = update.message.text.removeprefix("/add").replace(bot.name, "")
+def parse_keys(line: str) -> List[str]:
+    keys = line.split(" ")
+    non_empty_keys = list(filter(lambda x: x.strip() != "", keys))
+    return non_empty_keys
+
+
+def parse_article(message: str, command: str, bot_name: str) -> Optional[Article]:
+    message = message.text.removeprefix(command).replace(bot_name, "")
     lines = message.splitlines()
     if len(lines) < 3:
-        # TODO: Better help message
-        reply_to_message(bot, update, "Invalid message format")
+        return None
     else:
-        keys = lines[0].split(" ")
-        title = lines[1]
-        content = "".join(lines[2:])
-        articles_service.add(Article(None, keys, title, content))
+        keys = parse_keys(lines[0])
+        if len(keys) < 1:
+            return None
+        else:
+            title = lines[1]
+            content = "".join(lines[2:])
+            return Article(None, keys, title, content)
+
+
+@restricted
+def add_article_command(bot: Bot, update: Update):
+    article = parse_article(update.message, "/add", bot.name)
+    if article:
+        articles_service.add(article)
+        reply_to_message(bot, update, "article added")
+    else:
+        reply_to_message(bot, update, "Invalid message format")
 
 
 @restricted
 def list_articles_command(bot: Bot, update: Update):
     articles = articles_service.list()
     keys_title = "".join([f"{a.keys} : {a.title}" for a in articles])
-    msg = f"Available articles:\n{keys_title}"
+    msg = f"**Available articles:**\n{keys_title}"
     reply_to_message(bot, update, msg)
 
 
@@ -538,7 +555,16 @@ def list_articles_command(bot: Bot, update: Update):
 def get_article_command(bot: Bot, update: Update):
     key = get_param(bot, update, "/faq")
     article = articles_service.get(key)
-    message = f"keys: {article.keys}\n{article.title}\n{article.content}"
+    keys = "".join(article.keys)
+    message = f"**keys:** {keys}\n{article.title}\n{article.content}"
+    reply_to_message(bot, update, message)
+
+
+@restricted
+def delete_article_command(bot: Bot, update: Update):
+    key = get_param(bot, update, "/faq")
+    articles_service.delete(key)
+    message = f"key {key} deleted"
     reply_to_message(bot, update, message)
 
 
@@ -644,6 +670,7 @@ def add_commands(dispatcher):
     dispatcher.add_handler(CommandHandler("add", add_article_command))
     dispatcher.add_handler(CommandHandler("list", list_articles_command))
     dispatcher.add_handler(CommandHandler("faq", get_article_command))
+    dispatcher.add_handler(CommandHandler("delete", delete_article_command))
 
 
 def main() -> None:

@@ -40,3 +40,6 @@ class Articles:
     def get(self, key: str) -> Article:
         document = self.collection.find_one({"keys": key})
         return Article(**document)
+
+    def delete(self, key: str) -> Article:
+        self.collection.find_one_and_delete({"keys": key})
