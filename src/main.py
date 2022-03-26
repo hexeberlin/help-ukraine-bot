@@ -562,7 +562,7 @@ def get_article_command(bot: Bot, update: Update):
 
 @restricted
 def delete_article_command(bot: Bot, update: Update):
-    key = get_param(bot, update, "/faq")
+    key = get_param(bot, update, "/delete")
     articles_service.delete(key)
     message = f"key {key} deleted"
     reply_to_message(bot, update, message)
