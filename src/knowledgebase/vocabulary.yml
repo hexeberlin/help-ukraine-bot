@@ -109,6 +109,7 @@ Mecklenburg-Vorpommern:
   - Mecklenburg-Vorpommern
   - MV
   - Мекленбург
+  - Mecklenburg
 Niedersachsen:
   - Niedersachsen
   - NI
@@ -118,17 +119,20 @@ Sachsen-Anhalt:
   - Sachsen-Anhalt
   - Саксония
   - ST
+  - Sachsen
 Rheinland-Pfalz:
   - Rheinland-Pfalz
   - RP
   - Рейнланд_пфальц
   - Рейнланд-пфальц
+  - Rheinland
 Nordrhein-Westfalen:
   - Nordrhein-Westfalen
   - NW
   - NRW
   - Рейн_вестфалия
   - рейн-вестфалия
+  - Nordrhein
 Frankfurt Am Main:
   - Frankfurt Am Main
   - fam
@@ -166,3 +170,38 @@ Treptow-Köpenick:
   - Köpenick
   - Koepenick
   - Kopenick
+Düsseldorf:
+  - Düsseldorf
+  - Duesseldorf
+  - Dusseldorf
+Görlitz:
+  - Görlitz
+  - Gorlitz
+  - Goerlitz
+Köln:
+  - Köln
+  - Koln
+  - Koeln
+Lüneburg:
+  - Lüneburg
+  - Lueneburg
+  - Luneburg
+München:
+  - München
+  - Munchen
+  - Muenchen
+Nürnberg:
+  - Nürnberg
+  - Nurnberg
+  - Nuernberg
+Schleswig-Holstein:
+  - Schleswig-Holstein
+  - Schleswig
+Thüringen:
+  - Thüringen
+  - Thuringen
+  - Thueringen
+Zürich:
+  - Zürich
+  - Zurich
+  - Zuerich

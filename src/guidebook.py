@@ -135,6 +135,10 @@ class Guidebook(ABC):
             return self._format_results(
                 "Пожалуйста, уточните название города: /cities Name\n"
                 )
+        vocabulary = self.get_vocabulary()
+        if name in vocabulary:
+            return self._get_info(group_name=group_name,
+                                  name=vocabulary.get(name))
         return self._get_info(group_name=group_name, name=name)
 
     def get_cities_all(self, group_name: Enum = NameType.cities) -> str:
@@ -217,12 +221,14 @@ class Guidebook(ABC):
     ) -> str:
         return self._get_info(group_name=group_name, name=name)
 
-
     def get_meetup(
         self, group_name: Enum = NameType.meetup, name: Optional[str] = None
     ) -> str:
+        vocabulary = self.get_vocabulary()
+        if name in vocabulary:
+            return self._get_info(group_name=group_name,
+                                  name=vocabulary.get(name))
         return self._get_info(group_name=group_name, name=name)
-
 
     def get_psychological(
         self, group_name: Enum = NameType.psychological) -> str:
