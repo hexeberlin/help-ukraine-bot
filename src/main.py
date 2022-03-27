@@ -672,6 +672,7 @@ def add_commands(dispatcher):
     dispatcher.add_handler(CommandHandler("adminsonly", admins_only))
     dispatcher.add_handler(CommandHandler("adminsonly_revert", admins_only_revert))
     dispatcher.add_handler(CommandHandler("accomodation", accomodation_command))
+    dispatcher.add_handler(CommandHandler("animals", animal_help_command))
     dispatcher.add_handler(CommandHandler("adaption", social_adaption_command))
     dispatcher.add_handler(CommandHandler("banking", banking_command))
     dispatcher.add_handler(CommandHandler("beauty", beauty_command))
@@ -716,7 +717,6 @@ def add_commands(dispatcher):
     dispatcher.add_handler(CommandHandler("travel", travel_command))
     dispatcher.add_handler(CommandHandler("uni", university_command))
     dispatcher.add_handler(CommandHandler("vaccination", vaccination_command))
-    dispatcher.add_handler(CommandHandler("animals", animal_help_command))
     dispatcher.add_handler(CommandHandler("volunteer", volunteer_command))
 
     # Articles

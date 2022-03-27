@@ -120,7 +120,7 @@ class Guidebook(ABC):
         )
 
 
-    def get_accomodation(self, group_name: Enum = NameType.animal_help) -> str:
+    def get_accomodation(self, group_name: Enum = NameType.accomodation) -> str:
         return self._get_info(group_name=group_name)
 
     def get_animal_help(self, group_name: Enum = NameType.animal_help) -> str:
