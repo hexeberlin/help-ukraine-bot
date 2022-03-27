@@ -44,10 +44,10 @@ from config import (
     JOBS_NAME,
     ADMIN_ONLY_CHAT_IDS,
     BERLIN_HELPS_UKRAIN_CHAT_ID,
-    MONGO_HOST,
-    MONGO_BASE,
-    MONGO_PASS,
-    MONGO_USER,
+    # MONGO_HOST,
+    # MONGO_BASE,
+    # MONGO_PASS,
+    # MONGO_USER,
 )
 
 logging.basicConfig(
@@ -714,10 +714,10 @@ def add_commands(dispatcher):
     dispatcher.add_handler(CommandHandler("volunteer", volunteer_command))
 
     # Articles
-    dispatcher.add_handler(CommandHandler("add", add_article_command))
-    dispatcher.add_handler(CommandHandler("list", list_articles_command))
-    dispatcher.add_handler(CommandHandler("faq", get_article_command))
-    dispatcher.add_handler(CommandHandler("delete", delete_article_command))
+    # dispatcher.add_handler(CommandHandler("add", add_article_command))
+    # dispatcher.add_handler(CommandHandler("list", list_articles_command))
+    # dispatcher.add_handler(CommandHandler("faq", get_article_command))
+    # dispatcher.add_handler(CommandHandler("delete", delete_article_command))
 
 
 def main() -> None:
