@@ -398,11 +398,15 @@ def general_information_command(bot: Bot, update: Update):
 
 
 @restricted_general
-def germany_domestic_command(bot: Bot, update: Update):
-    name = get_param(bot, update, "/germany_domestic")
-    results = guidebook.get_germany_domestic(name=name)
+def germany_asyl_command(bot: Bot, update: Update):
+    name = get_param(bot, update, "/germany_asyl")
+    results = guidebook.get_germany_asyl(name=name)
     reply_to_message(bot, update, results)
 
+@restricted_general
+def germany_asyl_all_command(bot: Bot, update: Update):
+    results = guidebook.get_germany_asyl_all()
+    reply_to_message(bot, update, results)
 
 @restricted_general
 def handbook(bot: Bot, update: Update):
@@ -631,7 +635,8 @@ def show_command_list(bot: Bot):
         BotCommand("evacuation_cities", "Evacuation chats for ukrainian cities"),
         BotCommand("freestuff", "Free stuff in berlin"),
         BotCommand("general_information", "General information"),
-        BotCommand("germany_domestic", "Germany-wide refugee centers"),
+        BotCommand("germany_asyl", "Germany-wide refugee centers, you need to pass the name of the Bundesland"),
+        BotCommand("germany_asyl_all", "Germany-wide refugee centers"),
         BotCommand("handbook", "FAQ"),
         BotCommand("help", "Bot functionality"),
         BotCommand("homesharing", "Offer and find a home"),
@@ -686,7 +691,8 @@ def add_commands(dispatcher):
     dispatcher.add_handler(
         CommandHandler("general_information", general_information_command)
     )
-    dispatcher.add_handler(CommandHandler("germany_domestic", germany_domestic_command))
+    dispatcher.add_handler(CommandHandler("germany_asyl", germany_asyl_command))
+    dispatcher.add_handler(CommandHandler("germany_asyl_all", germany_asyl_all_command))
     dispatcher.add_handler(CommandHandler("handbook", handbook))
     dispatcher.add_handler(CommandHandler("homesharing", homesharing_command))
     dispatcher.add_handler(CommandHandler("hryvnia", hryvnia_command))

@@ -22,7 +22,7 @@ class NameType(str, Enum):
     evacuation_cities: str = "evacuation_cities"
     freestuff: str = "freestuff"
     german: str = "deutsch"
-    germany_domestic: str = "germany_domestic"
+    germany_asyl: str = "germany_asyl"
     homesharing: str = "homesharing"
     humanitarian: str = "humanitarian"
     jobs: str = "jobs"
@@ -183,9 +183,9 @@ class Guidebook(ABC):
     ) -> str:
         return self._get_info(group_name=group_name, name=name)
 
-    def get_germany_domestic(
+    def get_germany_asyl(
         self,
-        group_name: Enum = NameType.germany_domestic,
+        group_name: Enum = NameType.germany_asyl,
         name: Optional[str] = None
     ) -> str:
         if not name:
@@ -202,6 +202,12 @@ class Guidebook(ABC):
             "К сожалению, мы пока не располагаем информацией по запросу "
             +f"{group_name.value}, {name}."
         )
+
+    def get_germany_asyl_all(
+        self,
+        group_name: Enum = NameType.germany_asyl
+    ) -> str:
+        return self._get_info(group_name=group_name)
 
     def get_homesharing(self, group_name: Enum = NameType.homesharing) -> str:
         return self._get_info(group_name=group_name)
