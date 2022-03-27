@@ -12,10 +12,12 @@ settings: Dict[str, str] = toml.load("settings.toml")
 
 
 class NameType(str, Enum):
+    accomodation: str = "accomodation"
     animal_help: str = "animals"
     cities: str = "cities"
     countries: str = "countries"
     dentist: str = "dentist"
+    entertainment: str = "entertainment"
     evacuation: str = "evacuation"
     evacuation_cities: str = "evacuation_cities"
     freestuff: str = "freestuff"
@@ -25,12 +27,17 @@ class NameType(str, Enum):
     humanitarian: str = "humanitarian"
     jobs: str = "jobs"
     medical: str = "medical"
+    meetup: str = "meetup"
+    legal: str = "legal"
+    psychological: str = "psychological"
     taxis: str = "taxis"
     travel: str = "travel"
+    vaccination: str = "vaccination"
     uni: str = "university"
     volunteer: str = "volunteer"
     disabled: str = "disabled"
     social_adaptation: str = "social_adaptation"
+    school: str = "school"
 
 
 class Guidebook(ABC):
@@ -112,6 +119,10 @@ class Guidebook(ABC):
             + f"по запросу {group_name.value}."
         )
 
+
+    def get_accomodation(self, group_name: Enum = NameType.animal_help) -> str:
+        return self._get_info(group_name=group_name)
+
     def get_animal_help(self, group_name: Enum = NameType.animal_help) -> str:
         return self._get_info(group_name=group_name)
 
@@ -144,10 +155,16 @@ class Guidebook(ABC):
         else:
             return self._get_info(group_name=group_name)
 
+    def get_countries_all(self, group_name: Enum = NameType.countries) -> str:
+        return self._get_info(group_name=group_name)
+
     def get_dentist(self, group_name: Enum = NameType.dentist) -> str:
         return self._get_info(group_name=group_name)
 
     def get_german(self, group_name: Enum = NameType.german) -> str:
+        return self._get_info(group_name=group_name)
+
+    def get_entertainment(self, group_name: Enum = NameType.entertainment) -> str:
         return self._get_info(group_name=group_name)
 
     def get_evacuation(self, group_name: Enum = NameType.evacuation) -> str:
@@ -196,10 +213,30 @@ class Guidebook(ABC):
     def get_jobs(self, group_name: Enum = NameType.jobs) -> str:
         return self._get_info(group_name=group_name)
 
+    def get_legal(
+        self, group_name: Enum = NameType.legal) -> str:
+        return self._get_info(group_name=group_name)
+
     def get_medical(
         self, group_name: Enum = NameType.medical, name: Optional[str] = None
     ) -> str:
         return self._get_info(group_name=group_name, name=name)
+
+
+    def get_meetup(
+        self, group_name: Enum = NameType.meetup, name: Optional[str] = None
+    ) -> str:
+        return self._get_info(group_name=group_name, name=name)
+
+
+    def get_psychological(
+        self, group_name: Enum = NameType.psychological) -> str:
+        return self._get_info(group_name=group_name)
+
+    def get_school(
+        self, group_name: Enum = NameType.school
+    ) -> str:
+        return self._get_info(group_name=group_name)
 
     def get_social_adaptation(
         self, group_name: Enum = NameType.social_adaptation
@@ -213,6 +250,9 @@ class Guidebook(ABC):
         return self._get_info(group_name=group_name)
 
     def get_university(self, group_name: Enum = NameType.uni) -> str:
+        return self._get_info(group_name=group_name)
+
+    def get_vaccination(self, group_name: Enum = NameType.uni) -> str:
         return self._get_info(group_name=group_name)
 
     def get_volunteer(self, group_name: Enum = NameType.volunteer) -> str:

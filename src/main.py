@@ -290,7 +290,7 @@ def format_knowledge_results(results: str) -> str:
 
 @restricted_general
 def accomodation_command(bot: Bot, update: Update):
-    results = format_knowledge_results(commands.accomodation())
+    results = guidebook.get_accomodation()
     reply_to_message(bot, update, results)
 
 
@@ -339,6 +339,11 @@ def countries_command(bot: Bot, update: Update):
 
 
 @restricted_general
+def countries_all_command(bot: Bot, update: Update):
+    results = guidebook.get_countries_all()
+    reply_to_message(bot, update, results)
+
+@restricted_general
 def dentist_command(bot: Bot, update: Update):
     results = guidebook.get_dentist()
     reply_to_message(bot, update, results)
@@ -361,6 +366,10 @@ def education_command(bot: Bot, update: Update):
     results = format_knowledge_results(commands.education())
     reply_to_message(bot, update, results)
 
+@restricted_general
+def entertainment_command(bot: Bot, update: Update):
+    results = guidebook.get_evacuation()
+    reply_to_message(bot, update, results)
 
 @restricted_general
 def evac_command(bot: Bot, update: Update):
@@ -440,7 +449,7 @@ def kids_with_special_needs_command(bot: Bot, update: Update):
 
 @restricted_general
 def legal_command(bot: Bot, update: Update):
-    results = format_knowledge_results(commands.legal())
+    results = guidebook.get_legal()
     reply_to_message(bot, update, results)
 
 
@@ -450,6 +459,12 @@ def medical_command(bot: Bot, update: Update):
     results = guidebook.get_medical(name=name)
     reply_to_message(bot, update, results)
 
+
+@restricted_general
+def meetup_command(bot: Bot, update: Update):
+    name = get_param(bot, update, "/meetup")
+    results = guidebook.get_meetup(name=name)
+    reply_to_message(bot, update, results)
 
 @restricted_general
 def minors_command(bot: Bot, update: Update):
@@ -465,7 +480,7 @@ def official_information_command(bot: Bot, update: Update):
 
 @restricted_general
 def psychological_command(bot: Bot, update: Update):
-    results = format_knowledge_results(commands.psychological_help())
+    results = guidebook.get_psychological()
     reply_to_message(bot, update, results)
 
 
@@ -475,6 +490,11 @@ def social_adaption_command(bot: Bot, update: Update):
     results = guidebook.get_social_adaptation()
     reply_to_message(bot, update, results)
 
+
+@restricted_general
+def school_command(bot: Bot, update: Update):
+    results = guidebook.get_school()
+    reply_to_message(bot, update, results)
 
 @restricted_general
 def social_help_command(bot: Bot, update: Update):
@@ -509,6 +529,12 @@ def volunteer_command(bot: Bot, update: Update):
 @restricted_general
 def university_command(bot: Bot, update: Update):
     results = guidebook.get_university()
+    reply_to_message(bot, update, results)
+
+
+@restricted_general
+def vaccination_command(bot: Bot, update: Update):
+    results = guidebook.get_vaccination()
     reply_to_message(bot, update, results)
 
 
@@ -594,11 +620,13 @@ def show_command_list(bot: Bot):
             "List all chats for German cities",
         ),
         BotCommand("children_lessons", "Online lessons for children from Ukraine"),
-        BotCommand("countries", "List all chats for countries"),
+        BotCommand("countries", "Find chats for counties, you need to pass the name of the city"),
+        BotCommand("countries_all", "List all chats for countries"),
         BotCommand("dentist", "Dentist help"),
         BotCommand("deutsch", "German lessons"),
         BotCommand("disabled", "Disabled people"),
         BotCommand("education", "Overview of education in Germany"),
+        BotCommand("entertainment", "Free entertainment"),
         BotCommand("evacuation", "General evacuation info"),
         BotCommand("evacuation_cities", "Evacuation chats for ukrainian cities"),
         BotCommand("freestuff", "Free stuff in berlin"),
@@ -613,15 +641,18 @@ def show_command_list(bot: Bot):
         BotCommand("kids_with_special_needs", "Help for children with special needs"),
         BotCommand("legal", "Chat for legal help"),
         BotCommand("medical", "Medical help"),
+        BotCommand("meetup", "meetups in Berlin"),
         BotCommand("minors", "Help for unaccompanied minors"),
         BotCommand("official_information", "Official information"),
         BotCommand("psychological", "Psychological help"),
         BotCommand("socialhelp", "Social help"),
+        BotCommand("school", "Schools"),
         BotCommand("taxis", "Taxi service"),
         BotCommand("translators", "Translators"),
         BotCommand("travel", "Travel possibilities"),
         BotCommand("uni", "Universities in Germany"),
-        BotCommand("vet", "Animal help"),
+        BotCommand("vaccination", "vaccination information"),
+        BotCommand("animals", "Animal help"),
         BotCommand("volunteer", "Volunteer"),
     ]
     bot.set_my_commands(command_list)
@@ -643,10 +674,12 @@ def add_commands(dispatcher):
     dispatcher.add_handler(CommandHandler("cities", cities_command))
     dispatcher.add_handler(CommandHandler("cities_all", cities_all_command))
     dispatcher.add_handler(CommandHandler("countries", countries_command))
+    dispatcher.add_handler(CommandHandler("countries_all", countries_command))
     dispatcher.add_handler(CommandHandler("dentist", dentist_command))
     dispatcher.add_handler(CommandHandler("deutsch", deutsch_command))
     dispatcher.add_handler(CommandHandler("disabled", disabled_command))
     dispatcher.add_handler(CommandHandler("education", education_command))
+    dispatcher.add_handler(CommandHandler("entertainment", entertainment_command))
     dispatcher.add_handler(CommandHandler("evacuation", evac_command))
     dispatcher.add_handler(CommandHandler("evacuation_cities", evac_cities_command))
     dispatcher.add_handler(CommandHandler("freestuff", freestuff_command))
@@ -664,17 +697,20 @@ def add_commands(dispatcher):
     )
     dispatcher.add_handler(CommandHandler("legal", legal_command))
     dispatcher.add_handler(CommandHandler("medical", medical_command))
+    dispatcher.add_handler(CommandHandler("meetup", meetup_command))
     dispatcher.add_handler(CommandHandler("minors", minors_command))
     dispatcher.add_handler(
         CommandHandler("official_information", official_information_command)
     )
     dispatcher.add_handler(CommandHandler("psychological", psychological_command))
+    dispatcher.add_handler(CommandHandler("school", school_command))
     dispatcher.add_handler(CommandHandler("socialhelp", social_help_command))
     dispatcher.add_handler(CommandHandler("taxis", taxi_command))
     dispatcher.add_handler(CommandHandler("translators", translators_command))
     dispatcher.add_handler(CommandHandler("travel", travel_command))
     dispatcher.add_handler(CommandHandler("uni", university_command))
-    dispatcher.add_handler(CommandHandler("vet", animal_help_command))
+    dispatcher.add_handler(CommandHandler("vaccination", vaccination_command))
+    dispatcher.add_handler(CommandHandler("animals", animal_help_command))
     dispatcher.add_handler(CommandHandler("volunteer", volunteer_command))
 
     # Articles
