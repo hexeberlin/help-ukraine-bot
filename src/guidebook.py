@@ -191,7 +191,7 @@ class Guidebook(ABC):
         if not name:
             hint = (
                 "\nПожалуйста, уточните название федеративной земли: \n"
-                "/germany_domestic Name"
+                "/germany_asyl Name"
             )
             return self._get_info(group_name, "Регистрация") + hint
         vocabulary = self.get_vocabulary()
