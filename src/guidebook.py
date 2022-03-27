@@ -143,17 +143,12 @@ class Guidebook(ABC):
     def get_countries(
         self, group_name: Enum = NameType.countries, name: Optional[str] = None
     ) -> str:
-        vocabulary = self.get_vocabulary()
-        if name:
-            if name in vocabulary:
-                return self._get_info(group_name=group_name,
-                                    name=vocabulary.get(name))
-            return (
-                "К сожалению, мы пока не располагаем информацией по запросу "
-                +f"{group_name.value}, {name}."
-            )
-        else:
-            return self._get_info(group_name=group_name)
+        if not name:
+            return self._format_results(
+                "Пожалуйста, уточните название города: /cities Name\n"
+                )
+        return self._get_info(group_name=group_name, name=name)
+
 
     def get_countries_all(self, group_name: Enum = NameType.countries) -> str:
         return self._get_info(group_name=group_name)
@@ -252,7 +247,7 @@ class Guidebook(ABC):
     def get_university(self, group_name: Enum = NameType.uni) -> str:
         return self._get_info(group_name=group_name)
 
-    def get_vaccination(self, group_name: Enum = NameType.uni) -> str:
+    def get_vaccination(self, group_name: Enum = NameType.vaccination) -> str:
         return self._get_info(group_name=group_name)
 
     def get_volunteer(self, group_name: Enum = NameType.volunteer) -> str:

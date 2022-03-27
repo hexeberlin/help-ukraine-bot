@@ -368,7 +368,7 @@ def education_command(bot: Bot, update: Update):
 
 @restricted_general
 def entertainment_command(bot: Bot, update: Update):
-    results = guidebook.get_evacuation()
+    results = guidebook.get_entertainment()
     reply_to_message(bot, update, results)
 
 @restricted_general
@@ -674,7 +674,7 @@ def add_commands(dispatcher):
     dispatcher.add_handler(CommandHandler("cities", cities_command))
     dispatcher.add_handler(CommandHandler("cities_all", cities_all_command))
     dispatcher.add_handler(CommandHandler("countries", countries_command))
-    dispatcher.add_handler(CommandHandler("countries_all", countries_command))
+    dispatcher.add_handler(CommandHandler("countries_all", countries_all_command))
     dispatcher.add_handler(CommandHandler("dentist", dentist_command))
     dispatcher.add_handler(CommandHandler("deutsch", deutsch_command))
     dispatcher.add_handler(CommandHandler("disabled", disabled_command))
