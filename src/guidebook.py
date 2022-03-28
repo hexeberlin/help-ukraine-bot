@@ -21,6 +21,7 @@ class NameType(str, Enum):
     evacuation: str = "evacuation"
     evacuation_cities: str = "evacuation_cities"
     freestuff: str = "freestuff"
+    food: str = "food"
     german: str = "deutsch"
     germany_asyl: str = "germany_asyl"
     homesharing: str = "homesharing"
@@ -182,6 +183,13 @@ class Guidebook(ABC):
         name: Optional[str] = None
     ) -> str:
         return self._get_info(group_name=group_name, name=name)
+
+    def get_food(
+        self,
+        group_name: Enum = NameType.food
+    ) -> str:
+        return self._get_info(group_name=group_name)
+
 
     def get_germany_asyl(
         self,

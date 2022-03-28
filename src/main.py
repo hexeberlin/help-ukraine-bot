@@ -392,6 +392,12 @@ def freestuff_command(bot: Bot, update: Update):
 
 
 @restricted_general
+def food_command(bot: Bot, update: Update):
+    results = guidebook.get_food()
+    reply_to_message(bot, update, results)
+
+
+@restricted_general
 def general_information_command(bot: Bot, update: Update):
     results = format_knowledge_results(commands.general_information())
     reply_to_message(bot, update, results)
@@ -633,6 +639,7 @@ def show_command_list(bot: Bot):
         BotCommand("entertainment", "Free entertainment"),
         BotCommand("evacuation", "General evacuation info"),
         BotCommand("evacuation_cities", "Evacuation chats for ukrainian cities"),
+        BotCommand("food", "Where to get food in Berlin"),
         BotCommand("freestuff", "Free stuff in berlin"),
         BotCommand("general_information", "General information"),
         BotCommand("germany_asyl", "Germany-wide refugee centers, you need to pass the name of the Bundesland"),
@@ -689,6 +696,7 @@ def add_commands(dispatcher):
     dispatcher.add_handler(CommandHandler("evacuation", evac_command))
     dispatcher.add_handler(CommandHandler("evacuation_cities", evac_cities_command))
     dispatcher.add_handler(CommandHandler("freestuff", freestuff_command))
+    dispatcher.add_handler(CommandHandler("food", food_command))
     dispatcher.add_handler(
         CommandHandler("general_information", general_information_command)
     )

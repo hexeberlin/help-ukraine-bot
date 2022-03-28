@@ -88,6 +88,7 @@ cities:
     - https://t.me/+ACMWRk-ONEllMzEy
   München:
     - https://t.me/helpUkrainetowin
+    - https://t.me/munichdopomoga
   Nordrhein-Westfalen:
     - https://t.me/+iVakIX2oQK1jYmFi
     - https://t.me/Help_Ukraine_NRW
@@ -95,6 +96,7 @@ cities:
     - https://t.me/+sySBMibwdz9hMmIy
   Nürnberg:
     - https://t.me/help_in_Nuremberg_UA
+    - https://t.me/nurnbergDE
   Osnabrück:
     - https://t.me/ukrainer_in_osnabrueck
   Paris:
@@ -120,6 +122,8 @@ cities:
     - https://t.me/+ACMWRk-ONEllMzEy
   Stuttgart:
     - https://t.me/helpforukraine22
+  Trier:
+    - https://t.me/trier_ukraine
   Thüringen:
     - https://t.me/thuringia_stands_with_ukraine
     - https://t.me/th_helps_ukraine
@@ -682,24 +686,24 @@ vaccination:
     - |
       IKEA Lichtenberg
       Landsberger Allee 364, 10365 Berlin
-      Понедельник-Пятница 13:00-18:00, Суббота 10:00-18:00 / Monday-Friday 1pm-6pm, Saturday 10am-6pm
+      Понедельник-Пятница 13:00-18:00, Суббота 10:00-18:00 
       Только дети (5-11 лет) / Kids only (5-11yo)
-  Что вам нужно взять с собой? / What do you need to have on hand?:
-    - паспорт/passport, ID card
-    - свидетельство о рождении для ребенка / загран для ребенка/birth certificate for kids / pass for kids
-    - Вам НЕ НУЖНЫ регистрация/прописка или страховка!!!/You DON’T NEED registration in Berlin or health insurance!!!
-  Какие документы вам нужно будет заполнить? / Which papers you’ll have to fill out?:
-    - Анамнез/Anamnese
-    - Согласие на вакцинацию/Declaration of consent
+  Что вам нужно взять с собой?:
+    - паспорт
+    - свидетельство о рождении для ребенка / загран для ребенка
+    - Вам НЕ НУЖНЫ регистрация/прописка или страховка!!!
+  Какие документы вам нужно будет заполнить?:
+    - Анамнез
+    - Согласие на вакцинацию
     - |
-      Документы на русском, английском и других языках вы найдете тут/Papers in Russian, English and other language you may find here:
+      Документы на русском, английском и других языках вы найдете тут:
       https://www.rki.de/DE/Content/Infekt/Impfen/Materialien/COVID-19-Aufklaerungsbogen-Tab.html
-      Вам НЕ ОБЯЗАТЕЛЬНО их распечатывать, в центре вакцинации вам все дадут / You DON’T NEED to print it out, you’ll get all the papers at the vaccination station.
-      В центрах вакцинации есть русскоязычные сотрудники/врачи и переводчики. Не бойтесь, вас одних не оставят./There are Russian speaking staff and doctors, and translators at the vaccination centres. Don’t be afraid, you won’t be left alone.
-  Какие правила о прививках? / What are the vaccination regulations?:
+      Вам НЕ ОБЯЗАТЕЛЬНО их распечатывать, в центре вакцинации вам все дадут.
+      В центрах вакцинации есть русскоязычные сотрудники/врачи и переводчики. Не бойтесь, вас одних не оставят
+  Какие правила о прививках?:
     - |
       Если вы вакцинированы Модерной или АстраЗенекой в Украине и у вас есть сертификат, то вы считаетесь привитыми в Германии. 
-      Если с последней прививки прошло больше 3 месяцев, то вы можете сделать бустерную вакцину. / If you were vaccinated with Moderna or AstraZeneca in Ukraine and you have a certificate, you are recognised as vaccinated in Germany. If your second shot was 3+ months ago, you can get a booster shot.
+      Если с последней прививки прошло больше 3 месяцев, то вы можете сделать бустерную вакцину.
 legal:
   Юридическая помощь/консультации:
     - https://www.rlc-berlin.org
@@ -758,3 +762,29 @@ meetup:
     - https://t.me/UABezirkNeukoelln
   Treptow-Köpenick:
     - https://t.me/UABezirkTreptow
+food:
+  Места, где в Берлине можно забрать бесплатно еду:
+    - |
+      ЧТО ЭТО И КАК: В Берлине действует движение фудшеринг — то есть спасение еды из кафе, отелей, магазинов в конце дня. Это хорошая не просроченная еда. Для того чтобы получить пока не надо говорить по немецки, не нужно при себе иметь никаких документов.
+      Важно! Вход только в маске, при себе иметь одноразовые перчатки (хлеб обычно хранится в огромных ящиках), чтобы соблюдать гигиену. Ну и сумки для продуктов.
+      По этой ссылке можно посмотреть актуальное наличие продуктов.
+      https://foodsharing.de/?page=fairteiler&bid=47
+      Ниже адреса и время работы.
+    - Burgemeisterstraße 17 in 12103 Berlin.
+    - |
+      U Bahn Ullsteinstrasse U-6 Время работы: 9.00-22.00. Звонок на  Heine, 1 этаж, по ступенькам вниз и направо. 
+      Там большой холодильник с продуктами и с ним большие ящики с булочками и хлебом.
+    - |
+      Wandlitzstraße 13, 10318 Berlin
+      ПН — закрыто, ВТ-ЧТ 9:00-17:00, ПТ 9:00-14:00
+    - | 
+      Straße am Schoelerpark 37, 10715 Berlin
+      ПН-ПТ 12:00-18:00, СБ 12:00-15:00
+    - |
+      Schütte-Lanz-Straße 41, 12209 Berlin
+      ПН-ПТ 12:00-18:00
+    - Nassauische Straße 66, am Hohenzollernplatz.  10717 Berlin
+    - Bahnhofstraße 32. 12307 Berlin
+    - Feurigstraße 28. 10827 Berlin
+  Где можно дешево поесть:
+    - https://uahelp.wiki/14ed85a221184bfe9b8d88c208833782
