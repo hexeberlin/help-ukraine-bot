@@ -44,10 +44,10 @@ from config import (
     JOBS_NAME,
     ADMIN_ONLY_CHAT_IDS,
     BERLIN_HELPS_UKRAIN_CHAT_ID,
-    # MONGO_HOST,
-    # MONGO_BASE,
-    # MONGO_PASS,
-    # MONGO_USER,
+    MONGO_HOST,
+    MONGO_BASE,
+    MONGO_PASS,
+    MONGO_USER,
 )
 
 logging.basicConfig(
@@ -55,9 +55,9 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-# db = connect(MONGO_HOST, MONGO_USER, MONGO_PASS, MONGO_BASE)
-# TEST_CHAT = "tests"
-# articles_service = Articles(db, TEST_CHAT)
+db = connect(MONGO_HOST, MONGO_USER, MONGO_PASS, MONGO_BASE)
+TEST_CHAT = "tests"
+articles_service = Articles(db, TEST_CHAT)
 
 guidebook = Guidebook()
 
@@ -554,66 +554,66 @@ def parse_keys(line: str) -> List[str]:
     return non_empty_keys
 
 
-# def parse_article(message: str, command: str, bot_name: str) -> Optional[Article]:
-#     message = message.text.removeprefix(command).replace(bot_name, "")
-#     lines = message.splitlines()
-#     if len(lines) < 3:
-#         return None
-#     else:
-#         keys = parse_keys(lines[0])
-#         if len(keys) < 1:
-#             return None
-#         else:
-#             title = lines[1]
-#             content = "".join(lines[2:])
-#             return Article(None, keys, title, content)
+def parse_article(message: str, command: str, bot_name: str) -> Optional[Article]:
+    message = message.text.removeprefix(command).replace(bot_name, "")
+    lines = message.splitlines()
+    if len(lines) < 3:
+        return None
+    else:
+        keys = parse_keys(lines[0])
+        if len(keys) < 1:
+            return None
+        else:
+            title = lines[1]
+            content = "".join(lines[2:])
+            return Article(keys, title, content)
 
 
-# @restricted
-# def add_article_command(bot: Bot, update: Update):
-#     article = parse_article(update.message, "/add", bot.name)
-#     if article:
-#         articles_service.add(article)
-#
-#         chat_id = update.message.chat_id
-#         message_id = update.message.message_id
-#         bot.send_message(
-#             chat_id=chat_id, reply_to_message_id=message_id, text="article added"
-#         )
-#
-#     else:
-#         message_id = update.message.message_id
-#         bot.send_message(
-#             chat_id=chat_id,
-#             reply_to_message_id=message_id,
-#             text="Invalid message format",
-#         )
-#
-#
-# @restricted
-# def list_articles_command(bot: Bot, update: Update):
-#     articles = articles_service.list()
-#     keys_title = "".join([str(a) for a in articles])
-#     msg = f"**Available articles:**\n{keys_title}"
-#     reply_to_message(bot, update, msg)
-#
-#
-# @restricted
-# def get_article_command(bot: Bot, update: Update):
-#     key = get_param(bot, update, "/faq")
-#     article = articles_service.get(key)
-#     keys = "".join(article.keys)
-#     message = f"**keys:** {keys}\n{article.title}\n{article.content}"
-#     reply_to_message(bot, update, message)
-#
-#
-# @restricted
-# def delete_article_command(bot: Bot, update: Update):
-#     key = get_param(bot, update, "/delete")
-#     articles_service.delete(key)
-#     message = f"key {key} deleted"
-#     reply_to_message(bot, update, message)
-#
+@restricted
+def add_article_command(bot: Bot, update: Update):
+    article = parse_article(update.message, "/add", bot.name)
+    if article:
+        articles_service.add(article)
+
+        chat_id = update.message.chat_id
+        message_id = update.message.message_id
+        bot.send_message(
+            chat_id=chat_id, reply_to_message_id=message_id, text="article added"
+        )
+
+    else:
+        message_id = update.message.message_id
+        bot.send_message(
+            chat_id=chat_id,
+            reply_to_message_id=message_id,
+            text="Invalid message format",
+        )
+
+
+@restricted
+def list_articles_command(bot: Bot, update: Update):
+    articles = articles_service.list()
+    keys_title = "".join([str(a) for a in articles])
+    msg = f"**Available articles:**\n{keys_title}"
+    reply_to_message(bot, update, msg)
+
+
+@restricted
+def get_article_command(bot: Bot, update: Update):
+    key = get_param(bot, update, "/faq")
+    article = articles_service.get(key)
+    keys = "".join(article.keys)
+    message = f"**keys:** {keys}\n{article.title}\n{article.content}"
+    reply_to_message(bot, update, message)
+
+
+@restricted
+def delete_article_command(bot: Bot, update: Update):
+    key = get_param(bot, update, "/delete")
+    articles_service.delete(key)
+    message = f"key {key} deleted"
+    reply_to_message(bot, update, message)
+
 
 def show_command_list(bot: Bot):
     command_list = [
@@ -728,10 +728,10 @@ def add_commands(dispatcher):
     dispatcher.add_handler(CommandHandler("volunteer", volunteer_command))
 
     # Articles
-    # dispatcher.add_handler(CommandHandler("add", add_article_command))
-    # dispatcher.add_handler(CommandHandler("list", list_articles_command))
-    # dispatcher.add_handler(CommandHandler("faq", get_article_command))
-    # dispatcher.add_handler(CommandHandler("delete", delete_article_command))
+    dispatcher.add_handler(CommandHandler("add", add_article_command))
+    dispatcher.add_handler(CommandHandler("list", list_articles_command))
+    dispatcher.add_handler(CommandHandler("faq", get_article_command))
+    dispatcher.add_handler(CommandHandler("delete", delete_article_command))
 
 
 def main() -> None:
