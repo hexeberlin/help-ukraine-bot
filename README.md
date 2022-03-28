@@ -10,6 +10,10 @@ TOKEN=very_secret_token
 Bot should have admin rights
 
 ##Release Notes 
+### 20220328:
+- add `/food` command
+- update `/cities` chat
+
 ### 20220327:
 - add new commands: `/countries_all`, `/entertainment, `/meetup`, `/school`, `/vaccination` , `/germany_asyl_all`.
 - command `/countries `now has the same behaviour as command `/cities`.
