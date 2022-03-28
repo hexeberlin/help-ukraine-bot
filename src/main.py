@@ -254,7 +254,6 @@ def find_articles_command(update: Update) -> None:
 def reply_to_message(bot, update, reply, disable_web_page_preview=True):
     message = update.message
     chat_id = message.chat_id
-    command_message_id = message.message_id
 
     if message.reply_to_message is None:
         bot.send_message(
@@ -270,6 +269,13 @@ def reply_to_message(bot, update, reply, disable_web_page_preview=True):
             text=reply,
             disable_web_page_preview=disable_web_page_preview,
         )
+    # delete_command(bot, update)
+
+
+def delete_command(bot: Bot, update: Update):
+    message = update.message
+    chat_id = message.chat_id
+    command_message_id = message.message_id
     try:
         bot.delete_message(chat_id=chat_id, message_id=command_message_id)
     except BadRequest:
@@ -290,6 +296,7 @@ def format_knowledge_results(results: str) -> str:
 
 @restricted_general
 def accomodation_command(bot: Bot, update: Update):
+    delete_command(bot, update)
     results = guidebook.get_accomodation()
     reply_to_message(bot, update, results)
 
@@ -343,6 +350,7 @@ def countries_all_command(bot: Bot, update: Update):
     results = guidebook.get_countries_all()
     reply_to_message(bot, update, results)
 
+
 @restricted_general
 def dentist_command(bot: Bot, update: Update):
     results = guidebook.get_dentist()
@@ -366,10 +374,12 @@ def education_command(bot: Bot, update: Update):
     results = format_knowledge_results(commands.education())
     reply_to_message(bot, update, results)
 
+
 @restricted_general
 def entertainment_command(bot: Bot, update: Update):
     results = guidebook.get_entertainment()
     reply_to_message(bot, update, results)
+
 
 @restricted_general
 def evac_command(bot: Bot, update: Update):
@@ -409,10 +419,12 @@ def germany_asyl_command(bot: Bot, update: Update):
     results = guidebook.get_germany_asyl(name=name)
     reply_to_message(bot, update, results)
 
+
 @restricted_general
 def germany_asyl_all_command(bot: Bot, update: Update):
     results = guidebook.get_germany_asyl_all()
     reply_to_message(bot, update, results)
+
 
 @restricted_general
 def handbook(bot: Bot, update: Update):
@@ -476,6 +488,7 @@ def meetup_command(bot: Bot, update: Update):
     results = guidebook.get_meetup(name=name)
     reply_to_message(bot, update, results)
 
+
 @restricted_general
 def minors_command(bot: Bot, update: Update):
     results = format_knowledge_results(commands.minors())
@@ -505,6 +518,7 @@ def social_adaption_command(bot: Bot, update: Update):
 def school_command(bot: Bot, update: Update):
     results = guidebook.get_school()
     reply_to_message(bot, update, results)
+
 
 @restricted_general
 def social_help_command(bot: Bot, update: Update):
@@ -574,20 +588,9 @@ def add_article_command(bot: Bot, update: Update):
     article = parse_article(update.message, "/add", bot.name)
     if article:
         articles_service.add(article)
-
-        chat_id = update.message.chat_id
-        message_id = update.message.message_id
-        bot.send_message(
-            chat_id=chat_id, reply_to_message_id=message_id, text="article added"
-        )
-
+        reply_to_message(bot, update, "article added")
     else:
-        message_id = update.message.message_id
-        bot.send_message(
-            chat_id=chat_id,
-            reply_to_message_id=message_id,
-            text="Invalid message format",
-        )
+        reply_to_message(bot, update, "Invalid message format")
 
 
 @restricted
