@@ -520,7 +520,7 @@ def taxi_command(bot: Bot, update: Update):
 
 @restricted_general
 def translators_command(bot: Bot, update: Update):
-    results = format_knowledge_results(commands.translators())
+    results = guidebook.get_translators()
     reply_to_message(bot, update, results)
 
 
