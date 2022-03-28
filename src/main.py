@@ -530,7 +530,7 @@ def parse_article(message: str, command: str, bot_name: str) -> Optional[Article
         else:
             title = lines[1]
             content = "".join(lines[2:])
-            return Article(None, keys, title, content)
+            return Article(keys, title, content)
 
 
 @restricted
