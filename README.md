@@ -13,6 +13,8 @@ Bot should have admin rights
 ### 20220328:
 - add `/food` command
 - update `/cities` chat
+- update `/jobs`
+- update `translators`
 
 ### 20220327:
 - add new commands: `/countries_all`, `/entertainment, `/meetup`, `/school`, `/vaccination` , `/germany_asyl_all`.
