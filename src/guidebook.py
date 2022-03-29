@@ -137,7 +137,7 @@ class Guidebook(ABC):
 
     def send_results(self, bot: Bot, update: Update, group_name: str, name: str = None):
         delete_command(bot, update)
-        results = self._get_info(group_name=NameType[group_name], name=name)
+        results = self._get_info(group_name=group_name, name=name)
         reply_to_message(bot, update, results)
 
     def get_results(self, group_name: str, name: str = None) -> str:
