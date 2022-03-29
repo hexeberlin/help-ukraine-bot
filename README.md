@@ -10,6 +10,9 @@ TOKEN=very_secret_token
 Bot should have admin rights
 
 ##Release Notes 
+### 20220329:
+- delete commands before parsing results
+- update `/jobs` command
 ### 20220328:
 - add `/food` command
 - update `/cities` chat
