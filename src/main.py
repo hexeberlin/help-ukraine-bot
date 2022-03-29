@@ -269,7 +269,7 @@ def reply_to_message(bot, update, reply, disable_web_page_preview=True):
             text=reply,
             disable_web_page_preview=disable_web_page_preview,
         )
-    # delete_command(bot, update)
+    delete_command(bot, update)
 
 
 def delete_command(bot: Bot, update: Update):
@@ -303,24 +303,28 @@ def accomodation_command(bot: Bot, update: Update):
 
 @restricted_general
 def animal_help_command(bot: Bot, update: Update):
+    delete_command(bot, update)
     results = guidebook.get_animal_help()
     reply_to_message(bot, update, results)
 
 
 @restricted_general
 def banking_command(bot: Bot, update: Update):
+    delete_command(bot, update)
     results = format_knowledge_results(commands.banking())
     reply_to_message(bot, update, results)
 
 
 @restricted_general
 def beauty_command(bot: Bot, update: Update):
+    delete_command(bot, update)
     results = format_knowledge_results(commands.beauty())
     reply_to_message(bot, update, results)
 
 
 @restricted_general
 def children_lessons_command(bot: Bot, update: Update):
+    delete_command(bot, update)
     results = format_knowledge_results(commands.teachers_for_peace())
     reply_to_message(bot, update, results)
 
@@ -328,12 +332,14 @@ def children_lessons_command(bot: Bot, update: Update):
 @restricted_general
 def cities_command(bot: Bot, update: Update):
     name = get_param(bot, update, "/cities")
+    delete_command(bot, update)
     results = guidebook.get_cities(name=name)
     reply_to_message(bot, update, results)
 
 
 @restricted_general
 def cities_all_command(bot: Bot, update: Update):
+    delete_command(bot, update)
     results = guidebook.get_cities_all()
     reply_to_message(bot, update, results)
 
@@ -341,18 +347,21 @@ def cities_all_command(bot: Bot, update: Update):
 @restricted_general
 def countries_command(bot: Bot, update: Update):
     name = get_param(bot, update, "/countries")
+    delete_command(bot, update)
     results = guidebook.get_countries(name=name)
     reply_to_message(bot, update, results)
 
 
 @restricted_general
 def countries_all_command(bot: Bot, update: Update):
+    delete_command(bot, update)
     results = guidebook.get_countries_all()
     reply_to_message(bot, update, results)
 
 
 @restricted_general
 def dentist_command(bot: Bot, update: Update):
+    delete_command(bot, update)
     results = guidebook.get_dentist()
     reply_to_message(bot, update, results)
 
@@ -365,6 +374,7 @@ def deutsch_command(bot: Bot, update: Update):
 
 @restricted_general
 def disabled_command(bot: Bot, update: Update):
+    delete_command(bot, update)
     results = guidebook.get_disabled()
     reply_to_message(bot, update, results)
 
@@ -377,12 +387,14 @@ def education_command(bot: Bot, update: Update):
 
 @restricted_general
 def entertainment_command(bot: Bot, update: Update):
+    delete_command(bot, update)
     results = guidebook.get_entertainment()
     reply_to_message(bot, update, results)
 
 
 @restricted_general
 def evac_command(bot: Bot, update: Update):
+    delete_command(bot, update)
     results = guidebook.get_evacuation()
     reply_to_message(bot, update, results)
 
@@ -390,6 +402,7 @@ def evac_command(bot: Bot, update: Update):
 @restricted_general
 def evac_cities_command(bot: Bot, update: Update):
     name = get_param(bot, update, "/evacuation_cities")
+    delete_command(bot, update)
     results = guidebook.get_evacuation_cities(name=name)
     reply_to_message(bot, update, results)
 
@@ -397,18 +410,21 @@ def evac_cities_command(bot: Bot, update: Update):
 @restricted_general
 def freestuff_command(bot: Bot, update: Update):
     name = get_param(bot, update, "/freestuff")
+    delete_command(bot, update)
     results = guidebook.get_freestuff(name=name)
     reply_to_message(bot, update, results)
 
 
 @restricted_general
 def food_command(bot: Bot, update: Update):
+    delete_command(bot, update)
     results = guidebook.get_food()
     reply_to_message(bot, update, results)
 
 
 @restricted_general
 def general_information_command(bot: Bot, update: Update):
+    delete_command(bot, update)
     results = format_knowledge_results(commands.general_information())
     reply_to_message(bot, update, results)
 
@@ -416,61 +432,70 @@ def general_information_command(bot: Bot, update: Update):
 @restricted_general
 def germany_asyl_command(bot: Bot, update: Update):
     name = get_param(bot, update, "/germany_asyl")
+    delete_command(bot, update)
     results = guidebook.get_germany_asyl(name=name)
     reply_to_message(bot, update, results)
 
 
 @restricted_general
 def germany_asyl_all_command(bot: Bot, update: Update):
+    delete_command(bot, update)
     results = guidebook.get_germany_asyl_all()
     reply_to_message(bot, update, results)
 
 
 @restricted_general
 def handbook(bot: Bot, update: Update):
+    delete_command(bot, update)
     results = format_knowledge_results(commands.handbook())
     reply_to_message(bot, update, results)
 
 
 @restricted_general
 def help_command(bot: Bot, update: Update):
-    """Send a message when the command /help is issued."""
+    delete_command(bot, update)
     results = format_knowledge_results(commands.help())
     reply_to_message(bot, update, results)
 
 
 @restricted_general
 def homesharing_command(bot: Bot, update: Update):
+    delete_command(bot, update)
     results = guidebook.get_homesharing()
     reply_to_message(bot, update, results)
 
 
 @restricted_general
 def hryvnia_command(bot: Bot, update: Update):
+    delete_command(bot, update)
     results = format_knowledge_results(commands.hryvnia())
     reply_to_message(bot, update, results)
 
 
 @restricted_general
 def humanitarian_aid_command(bot: Bot, update: Update):
+    delete_command(bot, update)
     results = guidebook.get_humanitarian()
     reply_to_message(bot, update, results)
 
 
 @restricted_general
 def jobs_command(bot: Bot, update: Update):
+    delete_command(bot, update)
     results = guidebook.get_jobs()
     reply_to_message(bot, update, results)
 
 
 @restricted_general
 def kids_with_special_needs_command(bot: Bot, update: Update):
+    delete_command(bot, update)
     results = format_knowledge_results(commands.kids_with_special_needs())
     reply_to_message(bot, update, results)
 
 
 @restricted_general
 def legal_command(bot: Bot, update: Update):
+    delete_command(bot, update)
     results = guidebook.get_legal()
     reply_to_message(bot, update, results)
 
@@ -478,6 +503,7 @@ def legal_command(bot: Bot, update: Update):
 @restricted_general
 def medical_command(bot: Bot, update: Update):
     name = get_param(bot, update, "/medical")
+    delete_command(bot, update)
     results = guidebook.get_medical(name=name)
     reply_to_message(bot, update, results)
 
@@ -485,79 +511,91 @@ def medical_command(bot: Bot, update: Update):
 @restricted_general
 def meetup_command(bot: Bot, update: Update):
     name = get_param(bot, update, "/meetup")
+    delete_command(bot, update)
     results = guidebook.get_meetup(name=name)
     reply_to_message(bot, update, results)
 
 
 @restricted_general
 def minors_command(bot: Bot, update: Update):
+    delete_command(bot, update)
     results = format_knowledge_results(commands.minors())
     reply_to_message(bot, update, results)
 
 
 @restricted_general
 def official_information_command(bot: Bot, update: Update):
+    delete_command(bot, update)
     results = format_knowledge_results(commands.official_information())
     reply_to_message(bot, update, results)
 
 
 @restricted_general
 def psychological_command(bot: Bot, update: Update):
+    delete_command(bot, update)
     results = guidebook.get_psychological()
     reply_to_message(bot, update, results)
 
 
 @restricted_general
 def social_adaption_command(bot: Bot, update: Update):
-    # results = format_knowledge_results(commands.social_adaption())
+    delete_command(bot, update)
     results = guidebook.get_social_adaptation()
     reply_to_message(bot, update, results)
 
 
 @restricted_general
 def school_command(bot: Bot, update: Update):
+    delete_command(bot, update)
     results = guidebook.get_school()
     reply_to_message(bot, update, results)
 
 
 @restricted_general
 def social_help_command(bot: Bot, update: Update):
+    delete_command(bot, update)
     results = format_knowledge_results(commands.social_help())
     reply_to_message(bot, update, results)
 
 
 @restricted_general
 def taxi_command(bot: Bot, update: Update):
+    delete_command(bot, update)
     results = guidebook.get_taxis()
     reply_to_message(bot, update, results)
 
 
 @restricted_general
 def translators_command(bot: Bot, update: Update):
+    delete_command(bot, update)
     results = format_knowledge_results(commands.translators())
     reply_to_message(bot, update, results)
 
 
 @restricted_general
 def travel_command(bot: Bot, update: Update):
+    delete_command(bot, update)
     results = guidebook.get_travel()
     reply_to_message(bot, update, results)
 
 
 @restricted_general
 def volunteer_command(bot: Bot, update: Update):
+    delete_command(bot, update)
     results = guidebook.get_volunteer()
     reply_to_message(bot, update, results)
 
 
 @restricted_general
 def university_command(bot: Bot, update: Update):
+    delete_command(bot, update)
     results = guidebook.get_university()
     reply_to_message(bot, update, results)
 
 
 @restricted_general
 def vaccination_command(bot: Bot, update: Update):
+    delete_command(bot, update)
     results = guidebook.get_vaccination()
     reply_to_message(bot, update, results)
 
