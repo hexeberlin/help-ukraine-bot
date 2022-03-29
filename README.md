@@ -7,12 +7,13 @@ APP_NAME=TESTING
 TOKEN=very_secret_token
 ```
 
-Bot should have admin rights
+**In Chat Group Bot should have ADMIN rights**
 
 ##Release Notes 
 ### 20220329:
 - delete commands before parsing results
 - update `/jobs` command
+- refactoring
 ### 20220328:
 - add `/food` command
 - update `/cities` chat

@@ -268,9 +268,9 @@ evacuation_cities:
     - https://t.me/+i1Np0FJLhs4zMzli
 taxis:
   Центральное такси Берлина:
-  - |-
-    taxi phone: +49 30 202020
-    https://www.taxi-berlin.de
+    - |-
+      taxi phone: +49 30 202020
+      https://www.taxi-berlin.de
   Apps:
     - Uber
     - Freenow
@@ -412,12 +412,12 @@ freestuff:
       Архе/Ковчег (Die Arche)
       Tangermünder Straße 7, 12627 Berlin
   Miscellaneous free stuff:
-      - |-
-        Куплю/продам: https://www.ebay-kleinanzeigen.de/s-zu-verschenken/berlin/c192l3331
-      - |-
-        чат в телеграме: https://t.me/joinchat/CbD5mEn20K3k-gd-ckIXBw
-      - |
-        группа в Facebook: https://www.facebook.com/groups/142044769198672\
+    - |-
+      Куплю/продам: https://www.ebay-kleinanzeigen.de/s-zu-verschenken/berlin/c192l3331
+    - |-
+      чат в телеграме: https://t.me/joinchat/CbD5mEn20K3k-gd-ckIXBw
+    - |
+      группа в Facebook: https://www.facebook.com/groups/142044769198672\
   Группы в Facebook:
     - Отдам Даром.Берлин
     - Free Your Stuff
@@ -602,34 +602,11 @@ humanitarian:
       чт 16-20
 disabled:
   Help for disabled people:
-  - https://www.familienratgeber.de/beratung-hilfe/weitere-hilfen/fluechtlinge-behinderung.php
-  - https://www.interaktiv-berlin.de/
-  - http://mina-berlin.eu/kontakt/
-homesharing:
-  Official resources for homesharing:
-    - |
-       Люди, желающие предложить жилье беженцам, могут зарегистрироваться на сайте
-       www.unterkunft-ukraine.de или
-       https://airbnb.org/help-ukraine.
-
-    - |
-      телеграм канал для поиска жилья в Берлине:
-      https://t.me/BerlinHostUkranians
-
-    - |-
-      If you're looking for a place to stay, please fill out one of this forms:
-      https://wunderflats.com/page/ukraine/tenants-in-need-ua
-      https://www.unterkunft-ukraine.de/request
-
-      Or check here:
-      https://www.immobilienscout24.de/lp/hilfe-fuer-die-ukraine.html
-      https://www.shelter4ua.com
-      https://helppeopleleaveukraine.org
-      https://warmes-bett.de
-      https://icanhelp.host
-      https://www.host4ukraine.com
-      https://hospitality-helps.org
-      https://everybedhelps.com
+    - https://www.familienratgeber.de/beratung-hilfe/weitere-hilfen/fluechtlinge-behinderung.php
+    - https://www.interaktiv-berlin.de/
+    - http://mina-berlin.eu/kontakt/
+  Помощь для детей с особыми потребностями:
+    - https://linktr.ee/diesputniks
 social_adaptation:
   Safe Space и социальная адаптация в Берлине:
     - |
@@ -747,6 +724,10 @@ accomodation:
     - https://everybedhelps.com
     - https://www.immobilienscout24.de/lp/hilfe-fuer-die-ukraine.html (тут есть платные и бесплатные предложения по жилью)
     - https://aidnow.app/ru (тут есть разные предложения помощи, в том числе по жилью)
+    - https://helppeopleleaveukraine.org
+    - https://hospitality-helps.org
+  Tелеграм канал для поиска жилья в Берлине:
+    https://t.me/BerlinHostUkranians
 school:
   Самое важное о школьном образовании в Германии:
     - https://handbookgermany.de/ru/learn/school.html
@@ -794,7 +775,7 @@ food:
     - |
       Wandlitzstraße 13, 10318 Berlin
       ПН — закрыто, ВТ-ЧТ 9:00-17:00, ПТ 9:00-14:00
-    - | 
+    - |
       Straße am Schoelerpark 37, 10715 Berlin
       ПН-ПТ 12:00-18:00, СБ 12:00-15:00
     - |
@@ -812,3 +793,69 @@ translators:
     - Нем/Укр +49 89 954 625 83 1
     - Нем/Рус +49 89 954 625 83 2
     - Нем/Англ +49 89 954 625 83 3
+education:
+  Общая информация об образовании в Германии:
+    - https://handbookgermany.de/ru/learn.html
+  Онлайн уроки для детей:
+    - https://t.me/+ltsKWvkl6CU1MTEy
+official statements:
+  Официальная информация:
+    - https://www.berlin.de/ukraine/uk/pributtja/
+    - https://www.bmi.bund.de/SharedDocs/faqs/DE/themen/ministerium/ukrain-war-ukr/faq-list-ukrain-war.html
+    - https://berlin-hilft.com/2022/03/04/ukraine-infos-zu-registrierung-und-leistungsbeantragung-in-berlin/#U
+    - https://handbookgermany.de/de/ukraine-info/ua.html
+    - https://www.proasyl.de/wp-content/uploads/Ratsbeschluss_Russisch.pdf
+    - https://www.berlin.de/ukraine/uk/pributtja/ (Arrivals)
+    - https://bit.ly/help-for-ukrainians
+    - http://nowar.help"
+minors:
+  Несовершеннолетние без сопровождения:
+  - https://www.bamf.de/EN/Themen/AsylFluechtlingsschutz/UnbegleiteteMinderjaehrige/unbegleiteteminderjaehrige-node.html;jsessionid=EAD08C551E911B7A572005B4360CFC1D.intranet371
+  - https://handbookgermany.de/ru/rights-laws/asylum/under-18.html
+banking:
+  Открытие счета в немецеом банке:
+    - |
+      Некоторые европейские банки уже упростили процедуру открытия банковского счёта для беженцев из Украины.
+      Банк Revolut помогает быстро и легко получить доступ к платёжным услугам. 
+      Бесплатное открытие счёта, карточка приходит по адресу, указанному при регистрации. 
+      Как открыть счёт: https://www.epravda.com.ua/rus/news/2022/03/14/683987/
+    - |
+      В банке Deutsche Bank можно открыть счёт без прописки. 
+      Доступная информация на английском: https://docs.google.com/document/d/12LZvY_-4Su3HXVcIR0Uk7Gxb3AjsNTXEgsXjlVD8_vM/edit
+beauty:
+  Попробуйте обратиться в чат beauty-сообщества:
+    - https://t.me/+DiKDV_wCNk81YTQy
+social_help:
+  Ответы на часто задаваемые вопросы:
+    - https://www.berlin.de/ukraine/ru/tschasto-sadawaemye-woprosy/
+  Горячая линия сената для информации о предложениях помощи в размещении, регистрации, визах и правах на проживание:
+    - (030) 9012 7127  (пн - вск, 7:00 - 18:00)
+  В пятницу 18.03.2022 открылась запись в LEA. Заполните анкету, сохраните pdf и ждите email с приглашением (может занять несколько дней):
+    - https://www.berlin.de/ukraine/ru/pribytie/onlajn-chodatajstwo-o-rasreschenii-na-wremennoe-prebywanie/
+handbook:
+  Методичка:
+    - Пожалуйста, прочитайте методичку в закреплённом сообщении.
+  А также следующие ответы на часто задаваемые вопросы:
+    - https://www.bmas.de/DE/Europa-und-die-Welt/Europa/Ukraine/FAQ-RU/faq-art-ru.html?fbclid=PAAaYWMQ9JkJu2v2ZXsw7kNxINax-apNjPGnvbE8aGKgAkkYusSdF2FcG9-Cs_aem_AV0zfDghN0ZvWG7CkXu1wo2Eh74LUU6YiukiPaIH4QIcMHWGm3buRF9CBLqAWcgDJPieNw6HSlie8I0vRpzswIMtO1UsRnIg3uPf1yrd__dMc-CmRyLTTWy5AmGCKyb1GVw
+general_information:
+  For Ukrainians\nFollow this channel for important updates:
+    - https://t.me/germanyhelpsukraine
+  Handbook:
+    - https://handbookgermany.de/de/ukraine-info/ua.html
+hryvnia:
+  Обмен гривен:
+    - |
+    - На данный момент нигде в Германии нельзя обменять гривны. 
+      Мы советуем класть гривны на карточку в Украине. Украинской карточкой можно расплачиваться и снимать деньги в Европе.
+    - |
+      В Австрии ее покупает Райффайзен-банк и Erste bank
+      В Венгрии и Молдове - OTP Bank
+      В Румынии - Banca Comercială Română
+      В Словакии - Tatra
+      В Польше - PKO Bank Polski.
+telegram_translation:
+  Автоматическая опция перевода чатов в телеграме/Переклад повідомлень Telegram:
+  - |
+    Щоб активувати опцію перекладу: налаштування -> мова
+    Щоб перекласти: натисніть на повідомлення та виберіть 'перекласти'
+

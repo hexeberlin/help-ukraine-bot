@@ -43,10 +43,11 @@ from config import (
     MONGO_PASS,
     MONGO_USER,
 )
-from guidebook import Guidebook
+from guidebook import Guidebook, NameType
 from models import Article
 from mongo import connect
 from services import Articles
+from src.common import delete_command, reply_to_message
 
 logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
@@ -108,7 +109,7 @@ def send_social_reminder(bot: Bot, job: Job):
     """send_reminder"""
     chat_id = job.context
     logger.info("Sending a social reminder to chat %s", chat_id)
-    results = commands.social_help()
+    results = guidebook.get_results(group_name=NameType.social_help, name=None)
     bot.send_message(chat_id=chat_id, text=results, disable_web_page_preview=True)
 
 
@@ -249,38 +250,6 @@ def find_articles_command(update: Update) -> None:
     update.inline_query.answer(results)
 
 
-def reply_to_message(bot, update, reply, disable_web_page_preview=True):
-    message = update.message
-    chat_id = message.chat_id
-    command_message_id = message.message_id
-
-    if message.reply_to_message is None:
-        bot.send_message(
-            chat_id=chat_id,
-            text=reply,
-            disable_web_page_preview=disable_web_page_preview,
-        )
-    else:
-        parent_message_id = message.reply_to_message.message_id
-        bot.send_message(
-            chat_id=chat_id,
-            reply_to_message_id=parent_message_id,
-            text=reply,
-            disable_web_page_preview=disable_web_page_preview,
-        )
-    delete_command(bot, update)
-
-
-def delete_command(bot: Bot, update: Update):
-    message = update.message
-    chat_id = message.chat_id
-    command_message_id = message.message_id
-    try:
-        bot.delete_message(chat_id=chat_id, message_id=command_message_id)
-    except BadRequest:
-        logger.info("Command was already deleted %s", command_message_id)
-
-
 def get_param(bot, update, command):
     bot_name = bot.name
     return (
@@ -293,42 +262,26 @@ def format_knowledge_results(results: str) -> str:
     return separator + "\n" + results + "\n" + separator
 
 
-@restricted_general
 def accomodation_command(bot: Bot, update: Update):
-    delete_command(bot, update)
-    results = guidebook.get_accomodation()
-    reply_to_message(bot, update, results)
+    guidebook.send_results(bot, update, group_name=NameType.accomodation, name=None)
 
 
-@restricted_general
 def animal_help_command(bot: Bot, update: Update):
-    delete_command(bot, update)
-    results = guidebook.get_animal_help()
-    reply_to_message(bot, update, results)
+    guidebook.send_results(bot, update, group_name=NameType.animal_help, name=None)
 
 
-@restricted_general
 def banking_command(bot: Bot, update: Update):
-    delete_command(bot, update)
-    results = format_knowledge_results(commands.banking())
-    reply_to_message(bot, update, results)
+    guidebook.send_results(bot, update, group_name=NameType.banking, name=None)
 
 
-@restricted_general
 def beauty_command(bot: Bot, update: Update):
-    delete_command(bot, update)
-    results = format_knowledge_results(commands.beauty())
-    reply_to_message(bot, update, results)
+    guidebook.send_results(bot, update, group_name=NameType.beauty, name=None)
 
 
-@restricted_general
 def children_lessons_command(bot: Bot, update: Update):
-    delete_command(bot, update)
-    results = format_knowledge_results(commands.teachers_for_peace())
-    reply_to_message(bot, update, results)
+    guidebook.send_results(bot, update, group_name=NameType.education, name="Онлайн уроки для детей")
 
 
-@restricted_general
 def cities_command(bot: Bot, update: Update):
     name = get_param(bot, update, "/cities")
     delete_command(bot, update)
@@ -336,14 +289,10 @@ def cities_command(bot: Bot, update: Update):
     reply_to_message(bot, update, results)
 
 
-@restricted_general
 def cities_all_command(bot: Bot, update: Update):
-    delete_command(bot, update)
-    results = guidebook.get_cities_all()
-    reply_to_message(bot, update, results)
+    guidebook.send_results(bot, update, group_name=NameType.cities, name=None)
 
 
-@restricted_general
 def countries_command(bot: Bot, update: Update):
     name = get_param(bot, update, "/countries")
     delete_command(bot, update)
@@ -351,86 +300,56 @@ def countries_command(bot: Bot, update: Update):
     reply_to_message(bot, update, results)
 
 
-@restricted_general
 def countries_all_command(bot: Bot, update: Update):
-    delete_command(bot, update)
-    results = guidebook.get_countries_all()
-    reply_to_message(bot, update, results)
+    guidebook.send_results(bot, update, group_name=NameType.countries, name=None)
 
 
-@restricted_general
 def dentist_command(bot: Bot, update: Update):
-    delete_command(bot, update)
-    results = guidebook.get_dentist()
-    reply_to_message(bot, update, results)
+    guidebook.send_results(bot, update, group_name=NameType.dentist, name=None)
 
 
-@restricted_general
 def deutsch_command(bot: Bot, update: Update):
-    delete_command(bot, update)
-    results = guidebook.get_german()
-    reply_to_message(bot, update, results)
+    guidebook.send_results(bot, update, group_name=NameType.german, name=None)
 
 
-@restricted_general
 def disabled_command(bot: Bot, update: Update):
-    delete_command(bot, update)
-    results = guidebook.get_disabled()
-    reply_to_message(bot, update, results)
+    guidebook.send_results(bot, update, group_name=NameType.disabled, name=None)
 
 
-@restricted_general
 def education_command(bot: Bot, update: Update):
-    delete_command(bot, update)
-    results = format_knowledge_results(commands.education())
-    reply_to_message(bot, update, results)
+    guidebook.send_results(bot, update, group_name=NameType.education, name=None)
 
 
-@restricted_general
 def entertainment_command(bot: Bot, update: Update):
-    delete_command(bot, update)
-    results = guidebook.get_entertainment()
-    reply_to_message(bot, update, results)
+    guidebook.send_results(bot, update, group_name=NameType.entertainment, name=None)
 
 
-@restricted_general
 def evac_command(bot: Bot, update: Update):
-    delete_command(bot, update)
-    results = guidebook.get_evacuation()
-    reply_to_message(bot, update, results)
+    guidebook.send_results(bot, update, group_name=NameType.evacuation, name=None)
 
 
-@restricted_general
 def evac_cities_command(bot: Bot, update: Update):
     name = get_param(bot, update, "/evacuation_cities")
-    delete_command(bot, update)
-    results = guidebook.get_evacuation_cities(name=name)
-    reply_to_message(bot, update, results)
+    guidebook.send_results(bot, update, group_name=NameType.evacuation_cities, name=name)
 
 
-@restricted_general
 def freestuff_command(bot: Bot, update: Update):
     name = get_param(bot, update, "/freestuff")
-    delete_command(bot, update)
-    results = guidebook.get_freestuff(name=name)
-    reply_to_message(bot, update, results)
+    guidebook.send_results(bot, update, group_name=NameType.freestuff, name=name)
 
 
-@restricted_general
 def food_command(bot: Bot, update: Update):
-    delete_command(bot, update)
-    results = guidebook.get_food()
-    reply_to_message(bot, update, results)
+    guidebook.send_results(bot, update, group_name=NameType.food, name=None)
 
 
-@restricted_general
+def official_information_command(bot: Bot, update: Update):
+    guidebook.send_results(bot, update, group_name=NameType.statements, name=None)
+
+
 def general_information_command(bot: Bot, update: Update):
-    delete_command(bot, update)
-    results = format_knowledge_results(commands.general_information())
-    reply_to_message(bot, update, results)
+    guidebook.send_results(bot, update, group_name=NameType.general_information, name=None)
 
 
-@restricted_general
 def germany_asyl_command(bot: Bot, update: Update):
     name = get_param(bot, update, "/germany_asyl")
     delete_command(bot, update)
@@ -438,78 +357,49 @@ def germany_asyl_command(bot: Bot, update: Update):
     reply_to_message(bot, update, results)
 
 
-@restricted_general
 def germany_asyl_all_command(bot: Bot, update: Update):
-    delete_command(bot, update)
-    results = guidebook.get_germany_asyl_all()
-    reply_to_message(bot, update, results)
+    guidebook.send_results(bot, update, group_name=NameType.germany_asyl, name=None)
 
 
-@restricted_general
 def handbook(bot: Bot, update: Update):
-    delete_command(bot, update)
-    results = format_knowledge_results(commands.handbook())
-    reply_to_message(bot, update, results)
+    guidebook.send_results(bot, update, group_name=NameType.handbook, name=None)
 
 
-@restricted_general
 def help_command(bot: Bot, update: Update):
     delete_command(bot, update)
     results = format_knowledge_results(commands.help())
     reply_to_message(bot, update, results)
 
 
-@restricted_general
 def homesharing_command(bot: Bot, update: Update):
-    delete_command(bot, update)
-    results = guidebook.get_homesharing()
-    reply_to_message(bot, update, results)
+    guidebook.send_results(bot, update, group_name=NameType.homesharing, name=None)
 
 
-@restricted_general
 def hryvnia_command(bot: Bot, update: Update):
-    delete_command(bot, update)
-    results = format_knowledge_results(commands.hryvnia())
-    reply_to_message(bot, update, results)
+    guidebook.send_results(bot, update, group_name=NameType.hryvnia, name=None)
 
 
-@restricted_general
 def humanitarian_aid_command(bot: Bot, update: Update):
-    delete_command(bot, update)
-    results = guidebook.get_humanitarian()
-    reply_to_message(bot, update, results)
+    guidebook.send_results(bot, update, group_name=NameType.humanitarian, name=None)
 
 
-@restricted_general
 def jobs_command(bot: Bot, update: Update):
-    delete_command(bot, update)
-    results = guidebook.get_jobs()
-    reply_to_message(bot, update, results)
+    guidebook.send_results(bot, update, group_name=NameType.jobs, name=None)
 
 
-@restricted_general
 def kids_with_special_needs_command(bot: Bot, update: Update):
-    delete_command(bot, update)
-    results = format_knowledge_results(commands.kids_with_special_needs())
-    reply_to_message(bot, update, results)
+    guidebook.send_results(bot, update, group_name=NameType.disabled, name="Помощь для детей с особыми потребностями")
 
 
-@restricted_general
 def legal_command(bot: Bot, update: Update):
-    delete_command(bot, update)
-    results = guidebook.get_legal()
-    reply_to_message(bot, update, results)
+    guidebook.send_results(bot, update, group_name=NameType.legal, name=None)
 
 
-@restricted_general
 def medical_command(bot: Bot, update: Update):
     name = get_param(bot, update, "/medical")
-    delete_command(bot, update)
-    results = guidebook.get_medical(name=name)
-    reply_to_message(bot, update, results)
+    guidebook.send_results(bot, update, group_name=NameType.medical, name=name)
 
 
-@restricted_general
 def meetup_command(bot: Bot, update: Update):
     name = get_param(bot, update, "/meetup")
     delete_command(bot, update)
@@ -517,88 +407,52 @@ def meetup_command(bot: Bot, update: Update):
     reply_to_message(bot, update, results)
 
 
-@restricted_general
 def minors_command(bot: Bot, update: Update):
-    delete_command(bot, update)
-    results = format_knowledge_results(commands.minors())
-    reply_to_message(bot, update, results)
+    guidebook.send_results(bot, update, group_name=NameType.minors, name=None)
 
 
-@restricted_general
-def official_information_command(bot: Bot, update: Update):
-    delete_command(bot, update)
-    results = format_knowledge_results(commands.official_information())
-    reply_to_message(bot, update, results)
-
-
-@restricted_general
 def psychological_command(bot: Bot, update: Update):
-    delete_command(bot, update)
-    results = guidebook.get_psychological()
-    reply_to_message(bot, update, results)
+    guidebook.send_results(bot, update, group_name=NameType.psychological, name=None)
 
 
-@restricted_general
 def social_adaption_command(bot: Bot, update: Update):
-    delete_command(bot, update)
-    results = guidebook.get_social_adaptation()
-    reply_to_message(bot, update, results)
+    guidebook.send_results(bot, update, group_name=NameType.social_adaptation, name=None)
 
 
-@restricted_general
 def school_command(bot: Bot, update: Update):
-    delete_command(bot, update)
-    results = guidebook.get_school()
-    reply_to_message(bot, update, results)
+    guidebook.send_results(bot, update, group_name=NameType.school, name=None)
 
 
-@restricted_general
 def social_help_command(bot: Bot, update: Update):
-    delete_command(bot, update)
-    results = format_knowledge_results(commands.social_help())
-    reply_to_message(bot, update, results)
+    guidebook.send_results(bot, update, group_name=NameType.social_help, name=None)
 
 
-@restricted_general
+def telegram_translation_command(bot: Bot, update: Update):
+    guidebook.send_results(bot, update, group_name=NameType.telegram_translation, name=None)
+
+
 def taxi_command(bot: Bot, update: Update):
-    delete_command(bot, update)
-    results = guidebook.get_taxis()
-    reply_to_message(bot, update, results)
+    guidebook.send_results(bot, update, group_name=NameType.taxis, name=None)
 
 
-@restricted_general
 def translators_command(bot: Bot, update: Update):
-    delete_command(bot, update)
-    results = guidebook.get_translators()
-    reply_to_message(bot, update, results)
+    guidebook.send_results(bot, update, group_name=NameType.translators, name=None)
 
 
-@restricted_general
 def travel_command(bot: Bot, update: Update):
-    delete_command(bot, update)
-    results = guidebook.get_travel()
-    reply_to_message(bot, update, results)
+    guidebook.send_results(bot, update, group_name=NameType.travel, name=None)
 
 
-@restricted_general
 def volunteer_command(bot: Bot, update: Update):
-    delete_command(bot, update)
-    results = guidebook.get_volunteer()
-    reply_to_message(bot, update, results)
+    guidebook.send_results(bot, update, group_name=NameType.volunteer, name=None)
 
 
-@restricted_general
 def university_command(bot: Bot, update: Update):
-    delete_command(bot, update)
-    results = guidebook.get_university()
-    reply_to_message(bot, update, results)
+    guidebook.send_results(bot, update, group_name=NameType.uni, name=None)
 
 
-@restricted_general
 def vaccination_command(bot: Bot, update: Update):
-    delete_command(bot, update)
-    results = guidebook.get_vaccination()
-    reply_to_message(bot, update, results)
+    guidebook.send_results(bot, update, group_name=NameType.vaccination, name=None)
 
 
 def parse_keys(line: str) -> List[str]:
@@ -661,6 +515,7 @@ def show_command_list(bot: Bot):
     command_list = [
         BotCommand("accomodation", "Search accomodation"),
         BotCommand("adaption", "Social adaption in Berlin"),
+        BotCommand("animals", "Animal help"),
         BotCommand("banking", "Banking information"),
         BotCommand("beauty", "Beauty"),
         BotCommand(
@@ -688,7 +543,6 @@ def show_command_list(bot: Bot):
         BotCommand("germany_asyl_all", "Germany-wide refugee centers"),
         BotCommand("handbook", "FAQ"),
         BotCommand("help", "Bot functionality"),
-        BotCommand("homesharing", "Offer and find a home"),
         BotCommand("hryvnia", "Hryvnia exchange"),
         BotCommand("humanitarian", "Humanitarian aid"),
         BotCommand("jobs", "Jobs in germany"),
@@ -701,12 +555,12 @@ def show_command_list(bot: Bot):
         BotCommand("psychological", "Psychological help"),
         BotCommand("socialhelp", "Social help"),
         BotCommand("school", "Schools"),
+        BotCommand("telegram_translation", "Telegram Translation"),
         BotCommand("taxis", "Taxi service"),
         BotCommand("translators", "Translators"),
         BotCommand("travel", "Travel possibilities"),
         BotCommand("uni", "Universities in Germany"),
         BotCommand("vaccination", "vaccination information"),
-        BotCommand("animals", "Animal help"),
         BotCommand("volunteer", "Volunteer"),
     ]
     bot.set_my_commands(command_list)
@@ -764,6 +618,7 @@ def add_commands(dispatcher):
     dispatcher.add_handler(CommandHandler("socialhelp", social_help_command))
     dispatcher.add_handler(CommandHandler("taxis", taxi_command))
     dispatcher.add_handler(CommandHandler("translators", translators_command))
+    dispatcher.add_handler(CommandHandler("telegram_translation", telegram_translation_command))
     dispatcher.add_handler(CommandHandler("travel", travel_command))
     dispatcher.add_handler(CommandHandler("uni", university_command))
     dispatcher.add_handler(CommandHandler("vaccination", vaccination_command))
