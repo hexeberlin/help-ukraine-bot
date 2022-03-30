@@ -16,3 +16,4 @@ toml==0.10.2
 tornado==6.1
 urllib3==1.26.8
 pymongo==4.0.2
+dnspython=2.2.1

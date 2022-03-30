@@ -366,7 +366,8 @@ jobs:
     - https://t.me/jobsforukraine
     - https://t.me/euvacancies_for_evacuated
     - чат по Берлину - https://t.me/+H0uwXxRuyaY2M2Ji
-
+  чат помощи фрилансерам:
+    - https://t.me/tipsforukrainianfreelancers
   Сайты вакансий для украинцев:
     - https://jobsforukraine.heyjobs.co/ua-de
     - https://www.uatalents.com
@@ -470,11 +471,20 @@ deutsch:
   Resources:
     - https://www.duolingo.com/
     - https://www.babbel.com/
-travel:
+transport:
   Buses:
-    - https://corporate.flixbus.com/flixbus-supports-ukraine/
+    - |
+      Для новоприбывших автобусы Flixbus предоставляют бесплатный билет:
+      https://corporate.flixbus.com/flixbus-supports-ukraine/
   Trains:
-    - https://www.bahn.de/info/helpukraine
+    - |
+      Только что прибывшие могут также получить бесплатный билет на поезд "Help Ukraine" в кассе Deutsche Bahn для проезда в пункт назначения
+      https://www.bahn.de/info/helpukraine
+  Public transport:
+    - |
+      Весь общественный городской транспорт (автобусы, трамваи, U-Bahn и S-Bahn) в данный момент можно использовать бесплатно,
+      для этого достаточно показать украинский паспорт. Срок действия акции пока не уточняется.(https://www.vbb.de/presse/freie-fahrt-im-vbb-fuer-gefluechtete-aus-der-ukraine/)
+
 germany_asyl:
   Регистрация:
     - |
@@ -784,6 +794,11 @@ food:
     - Nassauische Straße 66, am Hohenzollernplatz.  10717 Berlin
     - Bahnhofstraße 32. 12307 Berlin
     - Feurigstraße 28. 10827 Berlin
+  В Берлине действует благотворительная организация Tafel. Найдите ближайший к вам пункт выдачи продуктов в этом списке:
+    - |
+      https://www.berliner-tafel.de/laib-und-seele/die-praxis/kunden/ausgabestellen
+      За продукты нужно будет заплатить символический взнос в 1-2 евро.
+      Возьмите с собой паспорт, маску, сумку.
   Где можно дешево поесть:
     - https://uahelp.wiki/14ed85a221184bfe9b8d88c208833782
 translators:
@@ -858,4 +873,19 @@ telegram_translation:
   - |
     Щоб активувати опцію перекладу: налаштування -> мова
     Щоб перекласти: натисніть на повідомлення та виберіть 'перекласти'
-
+photo:
+  - |
+    Jet-Foto am Alex предлагает беженцам сделать бесплатно фото на документы: 
+    вторник и четверг с 12:00 до 18:00
+    Адрес: Dircksenstraße 89, 10178 Berlin
+simcards:
+    - |
+      Telekom:
+      www.telekom.de/Hilfe/Ukraine
+      Winterfeldtstr. 21, 10781 Berlin (at „hub:raum“)
+      Пн-Пт: 10:00-18:00
+      Сб: 10:00-16:00
+    - |
+      Vodafone:
+      Berlin Hauptbahnhof, Washingtonplatz
+      Каждый день: 12:00-20:00

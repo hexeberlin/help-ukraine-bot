@@ -415,12 +415,20 @@ def psychological_command(bot: Bot, update: Update):
     guidebook.send_results(bot, update, group_name=NameType.psychological, name=None)
 
 
+def photo_command(bot: Bot, update: Update):
+    guidebook.send_results(bot, update, group_name=NameType.photo, name=None)
+
+
 def social_adaption_command(bot: Bot, update: Update):
     guidebook.send_results(bot, update, group_name=NameType.social_adaptation, name=None)
 
 
 def school_command(bot: Bot, update: Update):
     guidebook.send_results(bot, update, group_name=NameType.school, name=None)
+
+
+def simcards_command(bot: Bot, update: Update):
+    guidebook.send_results(bot, update, group_name=NameType.simcards, name=None)
 
 
 def social_help_command(bot: Bot, update: Update):
@@ -439,8 +447,8 @@ def translators_command(bot: Bot, update: Update):
     guidebook.send_results(bot, update, group_name=NameType.translators, name=None)
 
 
-def travel_command(bot: Bot, update: Update):
-    guidebook.send_results(bot, update, group_name=NameType.travel, name=None)
+def transport_command(bot: Bot, update: Update):
+    guidebook.send_results(bot, update, group_name=NameType.transport, name=None)
 
 
 def volunteer_command(bot: Bot, update: Update):
@@ -552,13 +560,15 @@ def show_command_list(bot: Bot):
         BotCommand("meetup", "meetups in Berlin"),
         BotCommand("minors", "Help for unaccompanied minors"),
         BotCommand("official_information", "Official information"),
+        BotCommand("photo", "photo"),
         BotCommand("psychological", "Psychological help"),
+        BotCommand("simcards", "simcards"),
         BotCommand("socialhelp", "Social help"),
         BotCommand("school", "Schools"),
         BotCommand("telegram_translation", "Telegram Translation"),
         BotCommand("taxis", "Taxi service"),
         BotCommand("translators", "Translators"),
-        BotCommand("travel", "Travel possibilities"),
+        BotCommand("transport", "transport"),
         BotCommand("uni", "Universities in Germany"),
         BotCommand("vaccination", "vaccination information"),
         BotCommand("volunteer", "Volunteer"),
@@ -613,13 +623,15 @@ def add_commands(dispatcher):
     dispatcher.add_handler(
         CommandHandler("official_information", official_information_command)
     )
+    dispatcher.add_handler(CommandHandler("photo", photo_command))
     dispatcher.add_handler(CommandHandler("psychological", psychological_command))
     dispatcher.add_handler(CommandHandler("school", school_command))
+    dispatcher.add_handler(CommandHandler("simcards", simcards_command))
     dispatcher.add_handler(CommandHandler("socialhelp", social_help_command))
     dispatcher.add_handler(CommandHandler("taxis", taxi_command))
     dispatcher.add_handler(CommandHandler("translators", translators_command))
     dispatcher.add_handler(CommandHandler("telegram_translation", telegram_translation_command))
-    dispatcher.add_handler(CommandHandler("travel", travel_command))
+    dispatcher.add_handler(CommandHandler("transport", transport_command))
     dispatcher.add_handler(CommandHandler("uni", university_command))
     dispatcher.add_handler(CommandHandler("vaccination", vaccination_command))
     dispatcher.add_handler(CommandHandler("volunteer", volunteer_command))

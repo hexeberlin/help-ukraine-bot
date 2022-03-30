@@ -10,6 +10,9 @@ TOKEN=very_secret_token
 **In Chat Group Bot should have ADMIN rights**
 
 ##Release Notes 
+### 20220330:
+- add commands: `/simcards`, `/photo`, `/transport`
+- update commands: `/jobs`, `/food`
 ### 20220329:
 - delete commands before parsing results
 - update `/jobs` command
