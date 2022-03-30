@@ -5,6 +5,10 @@ Add this lines to your `settings.env` file and replace the token with your bot t
 [DEVELOPMENT]
 APP_NAME=TESTING
 TOKEN=very_secret_token
+MONGO_HOST=host
+MONGO_USER=user
+MONGO_PASS=very_secrte_password
+MONGO_BASE=base
 ```
 
 **In Chat Group Bot should have ADMIN rights**
