@@ -1,15 +1,30 @@
 import logging
+from functools import wraps
+from typing import List, Optional
 
 from telegram import Bot, Update
 from telegram.error import BadRequest
+from telegram.ext import CallbackContext
+
+from src.config import ADMIN_ONLY_CHAT_IDS
+from src.guidebook import Guidebook
+from src.models import Article
 
 logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
 )
 logger = logging.getLogger(__name__)
 
+guidebook = Guidebook()
 
-def delete_command(bot: Bot, update: Update):
+
+def send_results(bot: Bot, update: Update, group_name: str, name: str = None):
+    delete_command(bot, update)
+    results = guidebook._get_info(group_name=group_name, name=name)
+    reply_to_message(bot, update, results)
+
+
+def delete_command(bot: Bot, update: Update) -> None:
     message = update.message
     chat_id = message.chat_id
     command_message_id = message.message_id
@@ -19,7 +34,7 @@ def delete_command(bot: Bot, update: Update):
         logger.info("Command was already deleted %s", command_message_id)
 
 
-def reply_to_message(bot, update, reply, disable_web_page_preview=True):
+def reply_to_message(bot, update, reply, disable_web_page_preview=True) -> None:
     message = update.message
     chat_id = message.chat_id
 
@@ -38,4 +53,81 @@ def reply_to_message(bot, update, reply, disable_web_page_preview=True):
             disable_web_page_preview=disable_web_page_preview,
         )
     delete_command(bot, update)
+
+
+# Permissions
+def restricted(func):
+    """A decorator that limits the access to commands only for admins"""
+
+    @wraps(func)
+    def wrapped(bot: Bot, context: CallbackContext, *args, **kwargs):
+        user_id = context.effective_user.id
+        chat_id = context.effective_chat.id
+        admins = [u.user.id for u in bot.get_chat_administrators(chat_id)]
+
+        if user_id not in admins:
+            logger.warning("Non admin attempts to access a restricted function")
+            return
+
+        logger.info("Restricted function permission granted")
+        return func(bot, context, *args, **kwargs)
+
+    return wrapped
+
+
+def restricted_general(func):
+    """A decorator that limits the access to commands only for admins"""
+
+    @wraps(func)
+    def wrapped(bot: Bot, context: CallbackContext, *args, **kwargs):
+        user_id = context.effective_user.id
+        chat_id = context.effective_chat.id
+        chat = bot.get_chat(chat_id)
+        if chat.type == "group":
+            admins = [u.user.id for u in bot.get_chat_administrators(chat_id)]
+
+            if chat_id in ADMIN_ONLY_CHAT_IDS:
+                if user_id not in admins:
+                    logger.warning("Non admin attempts to access a restricted function")
+                    message_id = context.message.message_id
+                    bot.delete_message(chat_id=chat_id, message_id=message_id)
+                    return
+
+        logger.info("Restricted function permission granted")
+        return func(bot, context, *args, **kwargs)
+
+    return wrapped
+
+
+def get_param(bot, update, command):
+    bot_name = bot.name
+    return (
+        update.message.text.removeprefix(command).replace(bot_name, "").strip().lower()
+    )
+
+
+def parse_keys(line: str) -> List[str]:
+    keys = line.split(" ")
+    non_empty_keys = list(filter(lambda x: x.strip() != "", keys))
+    return non_empty_keys
+
+
+def parse_article(message: str, command: str, bot_name: str) -> Optional[Article]:
+    message = message.text.removeprefix(command).replace(bot_name, "")
+    lines = message.splitlines()
+    if len(lines) < 3:
+        return None
+    else:
+        keys = parse_keys(lines[0])
+        if len(keys) < 1:
+            return None
+        else:
+            title = lines[1]
+            content = "".join(lines[2:])
+            return Article(keys, title, content)
+
+def format_knowledge_results(results: str) -> str:
+    separator = "=" * 30
+    return separator + "\n" + results + "\n" + separator
+
 

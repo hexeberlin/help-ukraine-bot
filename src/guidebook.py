@@ -6,10 +6,7 @@ from enum import Enum
 from typing import Any, Dict, List, Optional
 
 import toml
-from telegram import Bot, Update
 from yaml import safe_load, YAMLError
-
-from src.common import delete_command, reply_to_message
 
 logger = logging.getLogger(__name__)
 settings: Dict[str, str] = toml.load("settings.toml")
@@ -137,10 +134,6 @@ class Guidebook(ABC):
                 + f"по запросу {group_name.value}."
         )
 
-    def send_results(self, bot: Bot, update: Update, group_name: str, name: str = None):
-        delete_command(bot, update)
-        results = self._get_info(group_name=group_name, name=name)
-        reply_to_message(bot, update, results)
 
     def get_results(self, group_name: str, name: str = None) -> str:
         return self._get_info(group_name=NameType[group_name], name=name)
