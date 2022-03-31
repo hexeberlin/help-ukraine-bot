@@ -519,7 +519,7 @@ def delete_article_command(bot: Bot, update: Update):
     reply_to_message(bot, update, message)
 
 
-def show_command_list(bot: Bot):
+def get_command_list() -> List[BotCommand]:
     command_list = [
         BotCommand("accomodation", "Search accomodation"),
         BotCommand("adaption", "Social adaption in Berlin"),
@@ -573,7 +573,8 @@ def show_command_list(bot: Bot):
         BotCommand("vaccination", "vaccination information"),
         BotCommand("volunteer", "Volunteer"),
     ]
-    bot.set_my_commands(command_list)
+    command_list.sort(key=lambda x: x.command)
+    return command_list
 
 
 def add_commands(dispatcher):
@@ -652,7 +653,8 @@ def main() -> None:
     dispatcher = updater.dispatcher
 
     add_commands(dispatcher)
-    show_command_list(updater.bot)
+    command_list = get_command_list()
+    updater.bot.set_my_commands(command_list)
 
     # Messages
     dispatcher.add_handler(MessageHandler(Filters.all, delete_greetings))
