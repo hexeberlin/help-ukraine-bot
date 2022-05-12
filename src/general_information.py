@@ -53,6 +53,11 @@ def germany_asyl_all_command(bot: Bot, update: Update):
 def telegram_translation_command(bot: Bot, update: Update):
     send_results(bot, update, group_name=NameType.telegram_translation, name=None)
 
+
+def moving_command(bot: Bot, update: Update):
+    send_results(bot, update, group_name=NameType.moving, name=None)
+
+
 def register_commands(dispatcher: Dispatcher) -> List[BotCommand]:
     dispatcher.add_handler(CommandHandler("general_information", general_information_command))
     dispatcher.add_handler(CommandHandler("germany_asyl", germany_asyl_command))
@@ -65,6 +70,7 @@ def register_commands(dispatcher: Dispatcher) -> List[BotCommand]:
     dispatcher.add_handler(CommandHandler("translators", translators_command))
     dispatcher.add_handler(CommandHandler("transport", transport_command))
     dispatcher.add_handler(CommandHandler("telegram_translation", telegram_translation_command))
+    dispatcher.add_handler(CommandHandler("moving", moving_command))
 
 
     return [
@@ -79,5 +85,6 @@ def register_commands(dispatcher: Dispatcher) -> List[BotCommand]:
         BotCommand("translators", "Translators"),
         BotCommand("transport", "transport"),
         BotCommand("telegram_translation", "Telegram Translation"),
+        BotCommand("moving", "Moving from first registration"),
 
     ]

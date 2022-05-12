@@ -30,6 +30,8 @@ cities:
     - https://t.me/SolidarityUkraineBremen
     - http://bremenwithukraine.com/
     - https://t.me/+XRsorLrY4iRjYTgy
+  Castrop-Rauxel:
+    - https://t.me/Ukraine_CAS
   Chemnitz:
     - https://t.me/pomosh_Germany_Chemnitz_Ukraine
   Dortmund:
@@ -58,6 +60,8 @@ cities:
     - https://t.me/+Bm1Uk3JJ4FJkMDFi
   Heilbronn:
     - https://t.me/+zc9HnLCyckMzMGRi
+  Helmstedt:
+    - https://t.me/helmstedtukraine
   Hessen:
     - https://t.me/+HTYW-_jDZVtkZDJi
   Jena:
@@ -108,7 +112,8 @@ cities:
     - https://t.me/ukrainerheinlandpfalz
     - https://t.me/+G1BeTeo1-Qc4MDUy
   Rostock:
-    - https://t.me/HilfstransporteRostockUkraine
+    - https://t.me/rostockukr
+    - https://t.me/Rostock_Ukraine
   Saarland:
     - https://t.me/ukrainesaarland
     - https://t.me/+2L_IOBE5fspmOWM6
@@ -138,9 +143,9 @@ cities:
     - https://t.me/thuringia_stands_with_ukraine
   Wuppertal:
     - https://t.me/ukrainehilfewuppertal
+    - https://t.me/Ukrainer_in_Wuppertal
   Zurich:
     - https://t.me/zh_helps_ukraine
-
 countries:
   Ukraine:
     - https://t.me/refugeesinUkraine
@@ -214,28 +219,12 @@ evacuation_cities:
     - https://t.me/+A4vJpMa-iqY3NzJi
   Бердичів:
     - https://t.me/+g1vCeKfEve5lNTM6
-  Винница:
-    - https://t.me/+LeEGgnB7RwcxYWI0
-  Днепр:
-    - https://t.me/+LpQlRQvCas1jNmI0
-  Донецкая область (Покровский район):
-    - https://t.me/pokrovsk_don
-  Житомир:
-    - https://t.me/+QD2EEIJqf_xhYjQ8
-  Запорожье:
-    - https://t.me/+ynRJn88RxgswYmU0
   Луганская область:
     - https://t.me/luhanskevaquation
-  Иваново-франковск:
-    - https://t.me/+nzeP_stFB3I1MjU0
   Киев:
     - https://t.me/+68JG-qKNvm9kNjZi
   Кировоград:
     - https://t.me/+z5TkEVbqiatkOGE0
-  Кривий Ріг:
-    - https://t.me/+SguKJv2dQGRkM2Zk
-  Луцк:
-    - https://t.me/+R49w2c4seXw5MzJk
   Львов:
     - https://t.me/+UNdwIrUYEBgwOWE8
   Николаев:
@@ -254,77 +243,53 @@ evacuation_cities:
     - https://t.me/+-oVnhuNnwpU1ZWVk
   Тернопіль:
     - https://t.me/+HK4nfvMpAeM1MWZk
-  ужгород:
-    - https://t.me/+5WlQQHIKJ4NjMGNk
   Харьков:
     - https://t.me/+vSsvEw-pfNA4NDdi
   Хмельницкий:
     - https://t.me/+qORus3EoBnEzZmNk
   Черкассы:
     - https://t.me/EvacuationCherkasy
-  Черновцы:
-    - https://t.me/evacuationChernovtsy
   Чернiгiв:
     - https://t.me/+i1Np0FJLhs4zMzli
+  Черновцы:
+    - https://t.me/evacuationChernovtsy
 taxis:
   Центральное такси Берлина:
-    - |-
+    - |
       taxi phone: +49 30 202020
       https://www.taxi-berlin.de
   Apps:
     - Uber
     - Freenow
 medical:
-  Бесплатное медицинское обслуживание:
+  Информация о бесплатном медицинском обслуживании:
     - https://www.berlin.de/ukraine/ru/pribytie/okasanie-medizinskoj/
     - https://handbookgermany.de/de/ukraine-info/ru/medizinische-versorgung.html
-    - http://www.gesundheit-ein-menschenrecht.de/kontaktstellen
-    - https://www.kvberlin.de/fuer-patienten/ukraine?fbclid=IwAR3OV_-vw6rw14wOAKcpEK5HucFTia3Ugt0sy1KipI9qsjB56Uochqm3PSo
-    - https://www.malteser.de/menschen-ohne-krankenversicherung.html
-    - https://www.berlin-aidshilfe.de/
     - https://www.kvberlin.de/fuer-patienten/ukraine
-  Если у вас уже есть страховка, пользуйтесь сервисом:
-    - https://www.doctolib.de/ для записи к врачам (там можно посмотреть на каком языке говорит врач).
-    - https://www.jameda.de/berlin/aerzte/gruppe/ (поиск враче, можно смотреть на каком языке говорит врач)
+  Информация о медицинской помощи не только в Германии:
+    - https://www.nowar.help/ru/medical-support
+  Если у вас уже есть страховка, воспользуйтесь одним из сервисов для записи:
+    - https://www.doctolib.de/
+    - https://www.jameda.de/berlin/aerzte/gruppe/
   Удаленные врачебные консультации:
     - https://doctors4ua.com
+    - https://likari.net.ua
     - https://viveohealth.com/free-online-doctor-consultation-for-ukraine
-    - https://docs.google.com/spreadsheets/d/1hmuBUETnCCbkDn_ELdsd4Skzw30wLLVZE0fr_A3Fh24/edit#gid=0 (Включая удаленную помощь при родах)
-  COVID:
-    - https://medibuero.de
+    - https://shorties.io/remote-doctors-ukraine
   Возможность получить медицинскую помощь в разных землях Германии:
     - http://www.gesundheit-ein-menschenrecht.de/kontaktstellen
-  Информация о медицинской помощи _не только в Германии:
-    - https://www.nowar.help/ru/medical-support
   Лекарства для людей без медицинской страховки:
     - https://www.malteser.de/menschen-ohne-krankenversicherung.html
     - https://www.aekb.de/service-kontakt/hilfreiche-informationen-links/hilfsorganisationen-und-angebote-zur-medizinischen-versorgung-in-berlin
   Поиск аптеки экстренной помощи:
     - https://www.aponet.de/apotheke/notdienstsuche/13357%2BBerlin/%20/5
-  Помощь для людей с ВИЧ:
-    - https://www.berlin-aidshilfe.de/
   Поиск больниц по Германии:
     - https://www.deutsches-krankenhaus-verzeichnis.de/app/suche/landkarte
-  Беременные / Pregnant:
-    - https://chat.whatsapp.com/GPDPtkjiMlf1HnSIttlKtS
-    - https://www.berlin.de/ba-friedrichshain-kreuzberg/politik-und-verwaltung/aemter/gesundheitsamt/zentrum-fuer-sexuelle-gesundheit-und-familienplanung/russ_flyer-zentrum-fk-15x15.pdf
-    - https://www.justanswer.de/sip/gynaekologie (Online Chat)
-    - https://www.fpz-berlin.de/Wir-bieten-ab-dem-14-Maerz-eine-kostenfreie-gynaekologische-Versorgung-psychologische-und-soziale-Beratung-fuer-gefluechtete-Frauen-und-Maedchen-aus-der-Ukraine-an-998391.html (бесплатное гинекологическое консультирование, психологическое и социальное консультирование для женщин и девочек-беженцев из Украины)
-  Гинеколог / Gynecologist:
-    - |
-      Herr Matthias Rödel (Speaks Russian)
-      Hermannstr.147
-      12051 Berlin
-      030/6222097
-  Психологическая помощь / Psychological:
-    - https://www.imja.online/charity
-    - https://krisenchat.de/ukraine
-    - https://t.me/+Wmup7PyOcg81ZmYy
-    - https://eight-griffin-795.notion.site/Mental-health-support-cfac8af6064e4dcbbc3cff2bd05040c7
+  Помощь для людей с ВИЧ:
+    - https://www.berlin-aidshilfe.de/
   Онкология / Oncology:
-    - https://medwatch.de/2022/03/11/информация-для-онкобольных-из-украин/
-  Клиники Германии, специализирующиеся на разных видах болезни:
-    - https://msp-ger.ru/oncology-in-germany/
+    - "Информация: https://medwatch.de/2022/03/11/информация-для-онкобольных-из-украин/"
+    - "Клиники Германии, специализирующиеся на разных видах болезни: https://msp-ger.ru/oncology-in-germany/"
 dentist:
   Зубные врачи:
     - |
@@ -468,6 +433,17 @@ deutsch:
       https://giz.berlin/news/sprachkurse-anmeldung-fuer-die-ukrainerinnen.htm
     - |
       Немецкий с Кристиной: https://t.me/+106hrEPfC-A1ZmIy
+    - |
+      https://masimovasif.net/бесплатные-способы-изучить-немецкий/
+    - |
+      Ролики на DW на любой уровень: 
+      https://www.dw.com/de/deutschkurse/s-2068
+    - |
+      Ролики Easy German c английскими субтитрами: 
+      https://www.youtube.com/channel/UCbxb2fqe9oNgglAoYqsYOtQ
+    - |
+      Richtig Deutsch sprechen: 
+      https://www.youtube.com/channel/UCA3gSLdR0rWjvj7UcFWaGlQ
   Resources:
     - https://www.duolingo.com/
     - https://www.babbel.com/
@@ -555,10 +531,6 @@ humanitarian:
       Turmstr. 21, Haus R, 10559 Berlin
       пн-пт 11-19
     - |
-      Joachimsthaler Str. 25
-      10719 Berlin
-      чт, пт, сб 12-19
-    - |
       Caritas Kleiderkammern Berlin
       https://www.caritas-berlin.de/spendenundhelfen/spenden/kleiderkammern/caritas-kleiderkammer-berlin
     - |
@@ -577,13 +549,6 @@ humanitarian:
     - |
       Kaminholz-Berlin
       Altonaer Str. 85, 13581 Berlin
-    - |
-      Razam + Haus der Statistik
-      Otto-Braun str. 70-72, 10178, Berlin
-      Haus B,
-      пн-вскр 11-20
-      пн-вскр 14-17 горячая еда
-      (не выдают средства гигиены, подгузники, еду, лекарства)
     - |
       Berlin to Borders Charity Shop
       Holzmarkt Strasse 19, Berlin
@@ -604,7 +569,7 @@ humanitarian:
     - |
       Aroser Allee 60 13407 Berlin
       пн-пт 8.00-14.30
-    - |-
+    - |
       Umsonstladen (Kubiz Raoul Wallenberg)
       Bernkasteler Straße 78, 13088 Berlin
       пн, вт 10-14
@@ -615,6 +580,8 @@ disabled:
     - https://www.familienratgeber.de/beratung-hilfe/weitere-hilfen/fluechtlinge-behinderung.php
     - https://www.interaktiv-berlin.de/
     - http://mina-berlin.eu/kontakt/
+    - https://www.berlin.de/ukraine/ru/pribytie/informazija-dlja-beshenzew-s-inwalidnostjju-1194628.ru.php
+    - https://handbookgermany.de/ru/rights-laws/special-needs.html
   Помощь для детей с особыми потребностями:
     - https://linktr.ee/diesputniks
 social_adaptation:
@@ -715,19 +682,16 @@ legal:
   чат юридической помощи:
     - https://t.me/ukrasylumrefugee
 accomodation:
-  Если вы ищете, где остановиться, заполните, пожалуйста, эти формы (if you're looking for a place to stay, please fill out one of these forms):
+  Если вы ищете, где остановиться, заполните, пожалуйста, эти формы:
     - https://wunderflats.com/page/ukraine/tenants-in-need-ua
     - https://www.unterkunft-ukraine.de/request
-  🏠Где сейчас можно найти бесплатное жильё:
+  🏠 Где сейчас можно найти бесплатное жильё:
     - https://icanhelp.host/
     - https://warmes-bett.de/
     - https://www.unterkunft-ukraine.de/
     - https://mapahelp.me/
     - https://www.host4ukraine.com/
-    - https://wunderflats.com/page/ukraine/tenants-in-need-ua
     - https://www.shelter4ua.com/
-    - https://www.fluechtlinge-willkommen-in-duesseldorf.de/ukraineukrajina/
-    - Düseldorf servicepointamt54@duesseldorf.de
     - https://www.ukrainenow.org
     - https://prykhystok.gov.ua
     - https://www.yevropi.com/
@@ -736,8 +700,6 @@ accomodation:
     - https://aidnow.app/ru (тут есть разные предложения помощи, в том числе по жилью)
     - https://helppeopleleaveukraine.org
     - https://hospitality-helps.org
-  Tелеграм канал для поиска жилья в Берлине:
-    - https://t.me/BerlinHostUkranians
 school:
   Самое важное о школьном образовании в Германии:
     - https://handbookgermany.de/ru/learn/school.html
@@ -803,7 +765,7 @@ food:
     - https://uahelp.wiki/14ed85a221184bfe9b8d88c208833782
 translators:
   Чат переводчиков:
-    - https://t:me/translators_team_ua
+    - https://t.me/translators_team_ua
   Бесплатные телефонные линии для переводов:
     - Нем/Укр +49 89 954 625 83 1
     - Нем/Рус +49 89 954 625 83 2
@@ -889,3 +851,24 @@ simcards:
       Vodafone:
       Berlin Hauptbahnhof, Washingtonplatz
       Каждый день: 12:00-20:00
+pregnant:
+  Помощь для беременных:
+    - |
+      Чат помощи: 
+      https://chat.whatsapp.com/GPDPtkjiMlf1HnSIttlKtS
+  Центр сексуального здоворья и планирования семьи:
+    - https://www.berlin.de/ba-friedrichshain-kreuzberg/politik-und-verwaltung/aemter/gesundheitsamt/zentrum-fuer-sexuelle-gesundheit-und-familienplanung/ (внизу есть флаер на русском языке)
+  Чат с гинекологом:
+    - https://www.justanswer.de/sip/gynaekologie
+  Бесплатное гинекологическое, психологическое и социальное консультирование для женщин и девочек-беженцев из Украины:
+    - https://shorties.io/balance-ukraine
+moving:
+  - |
+    Официальная информация об обязанности информирования при переезде из места первичной регистрации.
+    (от работников социаламтов Шарлоттенбурга и Темпельхофа)
+
+    Заявление в социаламт, а именно анкета в формулярах на последней странице, является также запросом на защиту по §24 в LAF.  Эта информация из социаламтов отправляется в LAF, то есть по сути это и есть запрос, но ещё без биометрических данных (отпечатки пальцев и т.д.).
+    Если заявитель не приходит на термин, не отвечает, то следующая оплата не производится. Человек снимается с дотации, но не снимается с учёта.
+    ВАЖНО! 
+    При переезде в другой город или другую землю, нужно снова зарегистрироваться и обязательно сообщить о прежней регистрации для уведомления LAF, иначе могут возникнуть проблемы, связанные с двойной регистрацией.
+    При переезде из одного района Берлина в другой ответственность переносится из социаламта первичной регистрации в социаламт нового района, где нужно снова зарегистрироваться. У социаламтов единая база данных, и операторы видят всю информацию.
