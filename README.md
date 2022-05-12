@@ -15,7 +15,7 @@ deploy test branch
 ```
 heroku git:remote -a telegram-bot-help-in-berlin-te 
 git remote rename heroku help-ukrain-bot-test 
-git push help-ukrain-bot-test test-deploy:main
+git push help-ukrain-bot-test test-deploy:master
 ```
 
 deploy main branch 
