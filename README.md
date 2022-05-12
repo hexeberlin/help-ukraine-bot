@@ -14,6 +14,20 @@ MONGO_BASE=base
 **In Chat Group Bot should have ADMIN rights**
 
 ##Release Notes 
+### 20220512
+- add command `/moving`, `/pregnant`
+- update cities chats:
+  - add Castrop-Rauxel 
+  - add Helmstedt 
+  - update Rostock 
+  - update Wuppertal 
+- update evacuation_cities command 
+- update `/medical` command
+- update `/deutsch` command
+- update `/humanitarian`
+- update `/disabled` command
+- update `/accomodation` command
+- fix translators "Чат переводчиков"
 ### 20220330:
 - add commands: `/simcards`, `/photo`, `/transport`
 - update commands: `/jobs`, `/food`
