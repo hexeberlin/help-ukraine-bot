@@ -11,6 +11,17 @@ MONGO_PASS=very_secrte_password
 MONGO_BASE=base
 ```
 
+deploy test branch
+```
+git push heroku test-deploy:main
+```
+
+deploy main branch 
+```
+
+
+```
+
 **In Chat Group Bot should have ADMIN rights**
 
 ##Release Notes 
