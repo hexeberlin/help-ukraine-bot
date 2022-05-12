@@ -13,13 +13,16 @@ MONGO_BASE=base
 
 deploy test branch
 ```
-git push heroku test-deploy:main
+heroku git:remote -a telegram-bot-help-in-berlin-te 
+git remote rename heroku help-ukrain-bot-test 
+git push help-ukrain-bot-test test-deploy:main
 ```
 
 deploy main branch 
 ```
-
-
+heroku git:remote -a telegram-bot-help-in-berlin
+git remote rename heroku help-ukrain-bot-prod
+git push help-ukrain-bot-prod master
 ```
 
 **In Chat Group Bot should have ADMIN rights**
