@@ -83,7 +83,7 @@ def add_commands(dispatcher) -> None:
     dispatcher.add_handler(CommandHandler("entertainment", entertainment_command))
     dispatcher.add_handler(CommandHandler("evacuation", evac_command))
     dispatcher.add_handler(CommandHandler("evacuation_cities", evac_cities_command))
-    dispatcher.add_handler(CommandHandler("freestuff", freestuff_command))
+    dispatcher.add_handler(CommandHandler("free_stuff", free_stuff_command))
     dispatcher.add_handler(CommandHandler("food", food_command))
     dispatcher.add_handler(CommandHandler("jobs", jobs_command))
 
@@ -126,7 +126,7 @@ def get_command_list() -> List[BotCommand]:
         BotCommand("evacuation", "General evacuation info"),
         BotCommand("evacuation_cities", "Evacuation chats for ukrainian cities"),
         BotCommand("food", "Where to get food in Berlin"),
-        BotCommand("freestuff", "Free stuff in berlin"),
+        BotCommand("free_stuff", "Free stuff in berlin"),
         BotCommand("help", "Bot functionality"),
         BotCommand("jobs", "Jobs in germany"),
         BotCommand("meetup", "meetups in Berlin"),
@@ -205,9 +205,9 @@ def evac_cities_command(bot: Bot, update: Update):
     send_results(bot, update, group_name=NameType.evacuation_cities, name=name)
 
 
-def freestuff_command(bot: Bot, update: Update):
-    name = get_param(bot, update, "/freestuff")
-    send_results(bot, update, group_name=NameType.freestuff, name=name)
+def free_stuff_command(bot: Bot, update: Update):
+    name = get_param(bot, update, "/free_stuff")
+    send_results(bot, update, group_name=NameType.free_stuff, name=name)
 
 
 def food_command(bot: Bot, update: Update):
