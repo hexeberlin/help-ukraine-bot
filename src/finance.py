@@ -15,11 +15,17 @@ def hryvnia_command(bot: Bot, update: Update):
     send_results(bot, update, group_name=NameType.hryvnia, name=None)
 
 
+def schufa_command(bot: Bot, update: Update):
+    send_results(bot, update, group_name=NameType.schufa, name=None)
+
+
 def register_commands(dispatcher: Dispatcher) -> List[BotCommand]:
     dispatcher.add_handler(CommandHandler("banking", banking_command))
     dispatcher.add_handler(CommandHandler("hryvnia", hryvnia_command))
+    dispatcher.add_handler(CommandHandler("schufa", schufa_command))
 
     return [
         BotCommand("banking", "Banking information"),
         BotCommand("hryvnia", "Hryvnia exchange"),
+        BotCommand("schufa", "How to get Schufa"),
     ]

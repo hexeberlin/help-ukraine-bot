@@ -870,6 +870,16 @@ wbs:
   Вся информация на сайте:
     - https://service.berlin.de/dienstleistung/120671/
 
+    - https://service.berlin.de/dienstleistung/120671/
+
+schufa:
+  - |
+    Schufa - документ, подтверждающий Вашу кредитную историю.
+
+    Заказать можно здесь: https://www.meineschufa.de/de/datenkopie
+    Вариант слева (SCHUFA-Datenkopie) бесплатный, но может занять до 4 недель.
+    Вариант справа (SCHUFA-BonitätsAuskunft) платный, но быстрее.
+
 no_ads:
   - |
     Напоминаем что наша группа не доска объявлений.
