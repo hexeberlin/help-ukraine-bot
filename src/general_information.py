@@ -74,6 +74,10 @@ def no_ads_command(bot: Bot, update: Update):
     send_results(bot, update, group_name=NameType.no_ads, name=None)
 
 
+def beschwerde_command(bot: Bot, update: Update):
+    send_results(bot, update, group_name=NameType.beschwerde, name=None)
+
+
 def register_commands(dispatcher: Dispatcher) -> List[BotCommand]:
     dispatcher.add_handler(CommandHandler("general_information", general_information_command))
     dispatcher.add_handler(CommandHandler("germany_asyl", germany_asyl_command))
@@ -91,6 +95,7 @@ def register_commands(dispatcher: Dispatcher) -> List[BotCommand]:
     dispatcher.add_handler(CommandHandler("rundfunk", rundfunk_command))
     dispatcher.add_handler(CommandHandler("wbs", wbs_command))
     dispatcher.add_handler(CommandHandler("no_ads", no_ads_command))
+    dispatcher.add_handler(CommandHandler("beschwerde", beschwerde_command))
 
     return [
         BotCommand("general_information", "General information"),
@@ -108,5 +113,6 @@ def register_commands(dispatcher: Dispatcher) -> List[BotCommand]:
         BotCommand("euro_9", "9 Euro Ticket"),
         BotCommand("rundfunk", "Avoidance of TV and Radio fees"),
         BotCommand("wbs", "WBS - Wohnberechtigungsschein"),
+        BotCommand("beschwerde", "Where to file complains"),
         BotCommand("no_ads", "Do not post advertisement in this group"),
     ]
