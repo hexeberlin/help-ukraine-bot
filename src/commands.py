@@ -85,7 +85,6 @@ def add_commands(dispatcher) -> None:
     dispatcher.add_handler(CommandHandler("evacuation_cities", evac_cities_command))
     dispatcher.add_handler(CommandHandler("freestuff", freestuff_command))
     dispatcher.add_handler(CommandHandler("food", food_command))
-    dispatcher.add_handler(CommandHandler("humanitarian", humanitarian_aid_command))
     dispatcher.add_handler(CommandHandler("jobs", jobs_command))
 
     dispatcher.add_handler(CommandHandler("meetup", meetup_command))
@@ -128,9 +127,7 @@ def get_command_list() -> List[BotCommand]:
         BotCommand("evacuation_cities", "Evacuation chats for ukrainian cities"),
         BotCommand("food", "Where to get food in Berlin"),
         BotCommand("freestuff", "Free stuff in berlin"),
-
         BotCommand("help", "Bot functionality"),
-        BotCommand("humanitarian", "Humanitarian aid"),
         BotCommand("jobs", "Jobs in germany"),
         BotCommand("meetup", "meetups in Berlin"),
         BotCommand("photo", "photo"),
@@ -221,10 +218,6 @@ def help_command(bot: Bot, update: Update):
     delete_command(bot, update)
     results = format_knowledge_results(help())
     reply_to_message(bot, update, results)
-
-
-def humanitarian_aid_command(bot: Bot, update: Update):
-    send_results(bot, update, group_name=NameType.humanitarian, name=None)
 
 
 def jobs_command(bot: Bot, update: Update):

@@ -523,64 +523,7 @@ germany_asyl:
       Регистрация:
       Landeserstaufnahmeeinrichtung (LEA)
       Gersteinring 50, 44791 Bochum 0293182 6600
-humanitarian:
-  Где можно получить гуманитарную помощь в Берлине:
-    - |
-      Центр гуманитарной помощи LaruHelps
-      https://t.me/+F8od-3zGYAk3OGVi
-      Ansbacher Str. 30, 10789 Berlin
-      будни 10-20
-      выходные 10-16
-    - |
-      Moabit hilft
-      https://www.moabit-hilft.com/kontakt/
-      Turmstr. 21, Haus R, 10559 Berlin
-      пн-пт 11-19
-    - |
-      Caritas Kleiderkammern Berlin
-      https://www.caritas-berlin.de/spendenundhelfen/spenden/kleiderkammern/caritas-kleiderkammer-berlin
-    - |
-      склад Kidsmont
-      https://help-ukraine.com.ua/Hilfebereich-f-r-Ukrainer
-      Meeraner Str. 11E, 12681 Berlin
-    - |
-      склад
-      https://help-ukraine.com.ua/Hilfebereich-f-r-Ukrainer
-      Beusselstrasse 31, 10553 Berlin
-      2. Hinterhof rechts (во втором дворе по правой стороне)
-    - |
-      VF Logistik
-      Wallenroder Str. 7-9, 13435 Berlin
-      пн-пт 8:30-16:30
-    - |
-      Kaminholz-Berlin
-      Altonaer Str. 85, 13581 Berlin
-    - |
-      Berlin to Borders Charity Shop
-      Holzmarkt Strasse 19, Berlin
-      пн-вскр 14-20
-      https://www.instagram.com/p/CbE0a-XJdJX/?utm_medium=copy_link
-    - |
-      Архе/Ковчег (Die Arche)
-      Tangermünder Straße 7, 12627 Berlin
-      пн-пт 9:30-11:30 бесплатный завтрак
-    - |
-      Kubus gGmbH
-      Teupitzer Straße 39 12059 Berlin
-      пн-пт 8.00-14.30
-    - |
-      Kubus gGmbH
-      Porschestraße 22-24 12107 Berlin
-      пн-пт 8.00-14.30
-    - |
-      Aroser Allee 60 13407 Berlin
-      пн-пт 8.00-14.30
-    - |
-      Umsonstladen (Kubiz Raoul Wallenberg)
-      Bernkasteler Straße 78, 13088 Berlin
-      пн, вт 10-14
-      ср 10-18
-      чт 16-20
+
 disabled:
   Help for disabled people:
     - https://www.familienratgeber.de/beratung-hilfe/weitere-hilfen/fluechtlinge-behinderung.php
