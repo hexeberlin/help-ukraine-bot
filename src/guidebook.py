@@ -56,6 +56,7 @@ class NameType(str, Enum):
     euro_9: str = "euro_9"
     rundfunk: str = "rundfunk"
     wbs: str = "wbs"
+    no_ads: str = "no_ads"
 
 
 class Guidebook(ABC):
