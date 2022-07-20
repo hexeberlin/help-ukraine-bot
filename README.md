@@ -28,6 +28,16 @@ git push help-ukrain-bot-prod master
 **In Chat Group Bot should have ADMIN rights**
 
 ##Release Notes 
+### 20220720
+- add commands `/kindergeld`, `/beschwerde`, `/no_ads`, `/schufa`, `/wbs`, `/rundfunk`, `/euro_9`
+- update `/food`, `/kids-with-special-needs`, `/transport`, `/minors`, `/entertainment`, `/beauty`, `/general_information`, `/freestuff`, `/children_lessons`, `/hryvnia`, `/translators`, `/jobs`, `/psychological`
+- rename `/freestuff` to `/free_stuff`
+- remove `/humanitarian`
+- update cities chats:
+  - add Halle (Saale)
+  - add Frankfurt Oder
+  - update Köln
+
 ### 20220512
 - add command `/moving`, `/pregnant`
 - update cities chats:
