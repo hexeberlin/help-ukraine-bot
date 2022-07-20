@@ -59,6 +59,7 @@ class NameType(str, Enum):
     schufa: str = "schufa"
     no_ads: str = "no_ads"
     beschwerde: str = "beschwerde"
+    kindergeld: str = "kindergeld"
 
 
 class Guidebook(ABC):
