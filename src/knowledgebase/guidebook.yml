@@ -358,15 +358,18 @@ jobs:
 
 free_stuff:
   Чаты обмена вещами:
-    - https://t.me/+ymwcEacT_7wwODky
-    - https://t.me/joinchat/CbD5mEn20K3k-gd-ckIXBw
+    - |
+      https://t.me/+ymwcEacT_7wwODky
+      https://t.me/joinchat/CbD5mEn20K3k-gd-ckIXBw
   Отдам даром на доске объявлений:
-    - https://www.ebay-kleinanzeigen.de/s-zu-verschenken/berlin/c192l3331
+    - |
+      https://www.ebay-kleinanzeigen.de/s-zu-verschenken/berlin/c192l3331
   Группы в Facebook:
     - Отдам Даром.Берлин https://www.facebook.com/groups/520952631414941/
     - Free Your Stuff Berlin https://www.facebook.com/groups/586599084814353/ https://www.facebook.com/groups/freeyourstuff/ https://www.facebook.com/groups/142044769198672
     - Free Your Stuff KIDS https://www.facebook.com/groups/1576719629238589/
-    - Українська шафа в Берліні https://www.facebook.com/groups/447623338975317/
+    - |
+      Українська шафа в Берліні https://www.facebook.com/groups/447623338975317/
   Благотворительные центры:
     - |
       Gabenzaun https://gabenzaun.de/
@@ -423,36 +426,31 @@ volunteer:
     - "LAF/AKUZ: https://www.adiuto.org/berlin/akuz"
     - "Potsdam: https://www.adiuto.org/initiative/potsdam-welcome-team"
     - "Hangar 1, Columbiadamm 10, 12101 Berlin. Please email kontakt@hangar1.de"
+
 deutsch:
-  Изучение немецкого языка:
-    - |
-      Сейчас есть несколько вариантов, почитайте, пожалуйста, пост:
-      https://t.me/berlinhelpsukrainians/60853
-    - |
-      Бесплатные курсы немецкого в Берлине:
-      https://www.berlin.de/vhs/kurse/deutsch-integration/kurse-fuer-gefluechtete/
-    - |
-      Список всех VHS (народных университетов) Берлина, предоставляющих бесплатные курсы немецкого
-      https://www.berlin.de/vhs/kurse/deutsch-integration/beratung/
-    - |
-      Курсы немецкого в Берлине:
-      https://giz.berlin/news/sprachkurse-anmeldung-fuer-die-ukrainerinnen.htm
-    - |
-      Немецкий с Кристиной: https://t.me/+106hrEPfC-A1ZmIy
+  Информация об изучении немецкого языка:
+    - наш пост https://t.me/berlinhelpsukrainians/60853
     - |
       https://masimovasif.net/бесплатные-способы-изучить-немецкий/
+  Бесплатные курсы немецкого в Берлине:
+    - https://www.berlin.de/vhs/kurse/deutsch-integration/kurse-fuer-gefluechtete/
+    - https://giz.berlin/news/sprachkurse-anmeldung-fuer-die-ukrainerinnen.htm
+    - https://www.berlin.de/vhs/kurse/deutsch-integration/beratung/
     - |
-      Ролики на DW на любой уровень: 
-      https://www.dw.com/de/deutschkurse/s-2068
+      Бесплатные курсы в TU (онлайн, на русском языке, вт. 20:00)
+      https://tu-berlin.zoom.us/j/67182902382?pwd=ZTZPNzkwMzcwTWYrVElLOU9mcnRqQT09
+      Meeting ID 671 8290 2382
+      Code 298308
+  Полезные ресурсы:
+    - Немецкий с Кристиной https://t.me/deutschmitchristina
+    - Ролики на DW на любой уровень https://www.dw.com/de/deutschkurse/s-2068
+    - Ролики Easy German c английскими субтитрами https://www.youtube.com/channel/UCbxb2fqe9oNgglAoYqsYOtQ
     - |
-      Ролики Easy German c английскими субтитрами: 
-      https://www.youtube.com/channel/UCbxb2fqe9oNgglAoYqsYOtQ
-    - |
-      Richtig Deutsch sprechen: 
-      https://www.youtube.com/channel/UCA3gSLdR0rWjvj7UcFWaGlQ
-  Resources:
+      Richtig Deutsch sprechen https://www.youtube.com/channel/UCA3gSLdR0rWjvj7UcFWaGlQ
+  Онлайн курсы с приложениями:
     - https://www.duolingo.com/
     - https://www.babbel.com/
+
 transport:
   Buses:
     - |
