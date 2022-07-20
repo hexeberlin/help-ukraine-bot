@@ -15,7 +15,7 @@ settings: Dict[str, str] = toml.load("settings.toml")
 class NameType(str, Enum):
     banking: str = "banking"
     beauty: str = "beauty"
-    accomodation: str = "accomodation"
+    accommodation: str = "accommodation"
     animal_help: str = "animals"
     cities: str = "cities"
     countries: str = "countries"
