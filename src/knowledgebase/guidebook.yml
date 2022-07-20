@@ -452,18 +452,14 @@ deutsch:
     - https://www.babbel.com/
 
 transport:
-  Buses:
+  Автобусы:
     - |
-      Для новоприбывших автобусы Flixbus предоставляют бесплатный билет:
-      https://corporate.flixbus.com/flixbus-supports-ukraine/
-  Trains:
+      "Для новоприбывших автобусы Flixbus предоставляют бесплатный билет из городов Przemyśl, Rzeszów, Suceava и Tulcea (источник: https://corporate.flixbus.com/flixbus-supports-ukraine/)"
+  Поезда:
     - |
-      Только что прибывшие могут также получить бесплатный билет на поезд "Help Ukraine" в кассе Deutsche Bahn для проезда в пункт назначения
-      https://www.bahn.de/info/helpukraine
-  Public transport:
-    - |
-      Весь общественный городской транспорт (автобусы, трамваи, U-Bahn и S-Bahn) в данный момент можно использовать бесплатно,
-      для этого достаточно показать украинский паспорт. Срок действия акции пока не уточняется.(https://www.vbb.de/presse/freie-fahrt-im-vbb-fuer-gefluechtete-aus-der-ukraine/)
+      "Только что прибывшие могут также получить бесплатный билет на поезд 'Help Ukraine' в кассе Deutsche Bahn для проезда в пункт назначения (больше информации: https://www.bahn.de/info/helpukraine#ru)"
+  Общественный транспорт:
+    - "Для пользования транспортом необходимо купить билет, либо месячный проездной. Подробности: /9euro@HelpInBerlinBot"
 
 germany_asyl:
   Регистрация:
