@@ -847,3 +847,20 @@ euro_9:
   География и виды транспорта:
     - Проездной действителен на поездки по всей Германии в общественном местном и региональном транспорте 2-го класса. Это значит, что можно пользоваться всеми местными автобусами, трамваями, метро (U-Bahn), электричками (S-Bahn), региональными поездами (RE, RB), а также паромами в некоторых городах/регионах (ограниченное предложение).
     - Проездной не распространяется на ICE, IC, EC, такси, а также частные автобусные (Flixbus) и железнодорожные компании (Flixtrain).
+rundfunk:
+  Инструкция по заполнению освобождения от налога на радио и ТВ:
+    - |
+      Если вы уже получили от Jobcenter бланк "Bescheinigung über Leistungsbezug zur Vorlage beim Beitragsservice von ARD, ZDF und Deutschlandradio", нужно отослать этот бланк в Rundfunkbeitrag, оформив задним числом Befreiung (освобождение от уплаты налога) на их сайте: https://www.rundfunkbeitrag.de/buergerinnen_und_buerger/formulare/befreiung_oder_ermaessigung_beantragen/index_ger.html
+  Пошаговая инструкция:
+      - 1. Кликаем на "Befreiung/Ermäßigung beantragen".
+      - 2. Кликаем на „aus sozialen Gründen".
+      - 3. Кликаем на „ALG II (Hartz IV)".
+      - 4. На первый вопрос "Sie sind bereits mit einer Wohnung angemeldet?" (зарегистрировали ли вы уже эту квартиру на этом сайте) отвечаем "nein".
+      - 5. На вопрос "Anmeldung zu" ставим ту дату, с которой у вас начинается договор на квартиру. Внимание - эта дата должна совпадать с той датой, которая стоит на бланке от Jobcenter. Именно с этой даты у вас и начинается освобождение от налога на радио и ТВ.
+      - 6. Далее заполняем формуляр на имя того человека, который указан в бланке от Jobcenter.
+      - 7. Кликаем на "Antrag erstellen" и потом на „drucken“.
+      - |
+        8. Откроется PDF документ, если нет, сохраняем полученный PDF документ на своем устройстве. Его нужно распечать, подписать и отослать вместе с "Bescheinigung über Leistungsbezug zur Vorlage beim Beitragsservice von ARD, ZDF und Deutschlandradio" по адресу:
+        ARD ZDF Deutschlandradio
+        Beitragsservice
+        50656 Köln
