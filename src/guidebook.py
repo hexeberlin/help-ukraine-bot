@@ -53,6 +53,7 @@ class NameType(str, Enum):
     pregnant: str = "pregnant"
     social_adaptation: str = "social_adaptation"
     school: str = "school"
+    euro_9: str = "euro_9"
 
 
 class Guidebook(ABC):
