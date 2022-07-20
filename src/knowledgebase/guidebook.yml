@@ -737,8 +737,12 @@ official statements:
     - http://nowar.help"
 minors:
   Несовершеннолетние без сопровождения:
-  - https://www.bamf.de/EN/Themen/AsylFluechtlingsschutz/UnbegleiteteMinderjaehrige/unbegleiteteminderjaehrige-node.html;jsessionid=EAD08C551E911B7A572005B4360CFC1D.intranet371
-  - https://handbookgermany.de/ru/rights-laws/asylum/under-18.html
+    - |
+      Официальная информация:
+      https://www.berlin.de/ukraine/ru/pribytie/deti-i-podrostki/
+      
+      https://www.bamf.de/EN/Themen/AsylFluechtlingsschutz/UnbegleiteteMinderjaehrige/unbegleiteteminderjaehrige-node.html
+    - "Ответы на часто задаваемые вопросы: https://handbookgermany.de/ru/rights-laws/asylum/under-18.html"
 banking:
   Открытие счета в немецеом банке:
     - |
