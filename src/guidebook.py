@@ -31,7 +31,6 @@ class NameType(str, Enum):
     germany_asyl: str = "germany_asyl"
     hryvnia: str = "hryvnia"
     handbook: str = "handbook"
-    homesharing: str = "homesharing"
     jobs: str = "jobs"
     medical: str = "medical"
     meetup: str = "meetup"
