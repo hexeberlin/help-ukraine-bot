@@ -24,7 +24,7 @@ class NameType(str, Enum):
     entertainment: str = "entertainment"
     evacuation: str = "evacuation"
     evacuation_cities: str = "evacuation_cities"
-    freestuff: str = "freestuff"
+    free_stuff: str = "free_stuff"
     food: str = "food"
     general_information: str = "general_information"
     german: str = "deutsch"
