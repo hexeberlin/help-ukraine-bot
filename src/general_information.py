@@ -62,6 +62,10 @@ def euro_9_command(bot: Bot, update: Update):
     send_results(bot, update, group_name=NameType.euro_9, name=None)
 
 
+def rundfunk_command(bot: Bot, update: Update):
+    send_results(bot, update, group_name=NameType.rundfunk, name=None)
+
+
 def register_commands(dispatcher: Dispatcher) -> List[BotCommand]:
     dispatcher.add_handler(CommandHandler("general_information", general_information_command))
     dispatcher.add_handler(CommandHandler("germany_asyl", germany_asyl_command))
@@ -76,6 +80,7 @@ def register_commands(dispatcher: Dispatcher) -> List[BotCommand]:
     dispatcher.add_handler(CommandHandler("telegram_translation", telegram_translation_command))
     dispatcher.add_handler(CommandHandler("moving", moving_command))
     dispatcher.add_handler(CommandHandler("euro_9", euro_9_command))
+    dispatcher.add_handler(CommandHandler("rundfunk", rundfunk_command))
 
     return [
         BotCommand("general_information", "General information"),
@@ -91,4 +96,5 @@ def register_commands(dispatcher: Dispatcher) -> List[BotCommand]:
         BotCommand("telegram_translation", "Telegram Translation"),
         BotCommand("moving", "Moving from first registration"),
         BotCommand("euro_9", "9 Euro Ticket"),
+        BotCommand("rundfunk", "Avoidance of TV and Radio fees"),
     ]

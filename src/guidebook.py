@@ -54,6 +54,7 @@ class NameType(str, Enum):
     social_adaptation: str = "social_adaptation"
     school: str = "school"
     euro_9: str = "euro_9"
+    rundfunk: str = "rundfunk"
 
 
 class Guidebook(ABC):
@@ -134,7 +135,6 @@ class Guidebook(ABC):
                 "К сожалению, мы пока не располагаем информацией "
                 + f"по запросу {group_name.value}."
         )
-
 
     def get_results(self, group_name: str, name: str = None) -> str:
         return self._get_info(group_name=NameType[group_name], name=name)
