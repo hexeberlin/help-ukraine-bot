@@ -19,7 +19,6 @@ class NameType(str, Enum):
     animal_help: str = "animals"
     cities: str = "cities"
     countries: str = "countries"
-    dentist: str = "dentist"
     education: str = "education"
     entertainment: str = "entertainment"
     evacuation: str = "evacuation"

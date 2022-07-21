@@ -271,41 +271,39 @@ medical:
     - https://www.berlin.de/ukraine/ru/pribytie/okasanie-medizinskoj/
     - https://handbookgermany.de/de/ukraine-info/ru/medizinische-versorgung.html
     - https://www.kvberlin.de/fuer-patienten/ukraine
-  Информация о медицинской помощи не только в Германии:
-    - https://www.nowar.help/ru/medical-support
-  Если у вас уже есть страховка, воспользуйтесь одним из сервисов для записи:
-    - https://www.doctolib.de/
-    - https://www.jameda.de/berlin/aerzte/gruppe/
+    - |
+      https://www.nowar.help/ru/medical-support
+  Где искать врачей:
+    - |
+      На сайтах
+      https://www.doctolib.de/
+      https://www.jameda.de/
+      https://www.sanego.de/
+      Можно искать врачей по специальности, городу и языку.
+      Augenarzt = Офтальмолог
+      Frauenarzt = Гинеколог
+      Hausarzt или Allgemeinarzt = Терапевт
+      Zahnarzt = Дантист
   Удаленные врачебные консультации:
     - https://doctors4ua.com
     - https://likari.net.ua
     - https://viveohealth.com/free-online-doctor-consultation-for-ukraine
-    - https://shorties.io/remote-doctors-ukraine
-  Возможность получить медицинскую помощь в разных землях Германии:
-    - http://www.gesundheit-ein-menschenrecht.de/kontaktstellen
+    - |
+      https://shorties.io/remote-doctors-ukraine
   Лекарства для людей без медицинской страховки:
     - https://www.malteser.de/menschen-ohne-krankenversicherung.html
     - https://www.aekb.de/service-kontakt/hilfreiche-informationen-links/hilfsorganisationen-und-angebote-zur-medizinischen-versorgung-in-berlin
   Поиск аптеки экстренной помощи:
-    - https://www.aponet.de/apotheke/notdienstsuche/13357%2BBerlin/%20/5
+    - https://www.aponet.de/apotheke/notdienstsuche
   Поиск больниц по Германии:
     - https://www.deutsches-krankenhaus-verzeichnis.de/app/suche/landkarte
   Помощь для людей с ВИЧ:
     - https://www.berlin-aidshilfe.de/
-  Онкология / Oncology:
+  Онкология:
     - "Информация: https://medwatch.de/2022/03/11/информация-для-онкобольных-из-украин/"
     - "Клиники Германии, специализирующиеся на разных видах болезни: https://msp-ger.ru/oncology-in-germany/"
-dentist:
   Зубные врачи:
-    - |
-      David Stolyar (Speaks Russian)
-      Windscheidstr. 11
-      10627 Berlin-Charlottenburg
-      +49 (0)30 - 32 70 17-18
-    - https://t.me/berlinhelpsukrainians/87179
-  Информация:
-    - |
-      В экстренном случае зубные врачи могут предоставить бесплатную стоматологическую помошь. При себе необходимо иметь украинский паспорт.
+    - В экстренном случае зубные врачи могут предоставить бесплатную стоматологическую помошь. При себе необходимо иметь украинский паспорт.
       https://news.kzv-berlin.de/detail/nachricht/zahnmedizinische-versorgung-von-fluechtlingen-aus-der-ukraine
 
 psychological:

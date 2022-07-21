@@ -7,10 +7,6 @@ from src.common import get_param, send_results
 from src.guidebook import NameType
 
 
-def dentist_command(bot: Bot, update: Update):
-    send_results(bot, update, group_name=NameType.dentist, name=None)
-
-
 def medical_command(bot: Bot, update: Update):
     name = get_param(bot, update, "/medical")
     send_results(bot, update, group_name=NameType.medical, name=name)
@@ -36,7 +32,6 @@ def register_commands(dispatcher: Dispatcher) -> List[BotCommand]:
     dispatcher.add_handler(
         CommandHandler("kids_with_special_needs", kids_with_special_needs_command)
     )
-    dispatcher.add_handler(CommandHandler("dentist", dentist_command))
     dispatcher.add_handler(CommandHandler("medical", medical_command))
     dispatcher.add_handler(CommandHandler("psychological", psychological_command))
     dispatcher.add_handler(CommandHandler("disabled", disabled_command))
@@ -44,7 +39,6 @@ def register_commands(dispatcher: Dispatcher) -> List[BotCommand]:
 
     return [BotCommand("medical", "Medical help"),
             BotCommand("psychological", "Psychological help"),
-            BotCommand("dentist", "Dentist help"),
             BotCommand("kids_with_special_needs", "Help for children with special needs"),
             BotCommand("disabled", "Disabled people"),
             BotCommand("pregnant", "Pregnant"),
