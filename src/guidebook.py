@@ -30,7 +30,6 @@ class NameType(str, Enum):
     free_stuff: str = "free_stuff"
     general_information: str = "general_information"
     german: str = "deutsch"
-    germany_asyl: str = "germany_asyl"
     handbook: str = "handbook"
     hryvnia: str = "hryvnia"
     jobs: str = "jobs"
@@ -166,26 +165,6 @@ class Guidebook(ABC):
                 "Пожалуйста, уточните название страны: /cities Name\n"
             )
         return self._get_info(group_name=group_name, name=name)
-
-    def get_germany_asyl(
-            self,
-            group_name: Enum = NameType.germany_asyl,
-            name: Optional[str] = None
-    ) -> str:
-        if not name:
-            hint = (
-                "\nПожалуйста, уточните название федеративной земли: \n"
-                "/germany_asyl Name"
-            )
-            return self._get_info(group_name, "Регистрация") + hint
-        vocabulary = self.get_vocabulary()
-        if name in vocabulary:
-            return self._get_info(group_name=group_name,
-                                  name=vocabulary.get(name))
-        return (
-                "К сожалению, мы пока не располагаем информацией по запросу "
-                + f"{group_name.value}, {name}."
-        )
 
     def get_meetup(
             self, group_name: Enum = NameType.meetup, name: Optional[str] = None

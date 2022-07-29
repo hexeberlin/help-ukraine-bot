@@ -39,17 +39,6 @@ def general_information_command(bot: Bot, update: Update):
     send_results(bot, update, group_name=NameType.general_information, name=None)
 
 
-def germany_asyl_command(bot: Bot, update: Update):
-    name = get_param(bot, update, "/germany_asyl")
-    delete_command(bot, update)
-    results = guidebook.get_germany_asyl(name=name)
-    reply_to_message(bot, update, results)
-
-
-def germany_asyl_all_command(bot: Bot, update: Update):
-    send_results(bot, update, group_name=NameType.germany_asyl, name=None)
-
-
 def telegram_translation_command(bot: Bot, update: Update):
     send_results(bot, update, group_name=NameType.telegram_translation, name=None)
 
@@ -84,8 +73,6 @@ def kindergeld_command(bot: Bot, update: Update):
 
 def register_commands(dispatcher: Dispatcher) -> List[BotCommand]:
     dispatcher.add_handler(CommandHandler("general_information", general_information_command))
-    dispatcher.add_handler(CommandHandler("germany_asyl", germany_asyl_command))
-    dispatcher.add_handler(CommandHandler("germany_asyl_all", germany_asyl_all_command))
     dispatcher.add_handler(CommandHandler("handbook", handbook))
     dispatcher.add_handler(CommandHandler("legal", legal_command))
     dispatcher.add_handler(CommandHandler("minors", minors_command))
@@ -104,8 +91,6 @@ def register_commands(dispatcher: Dispatcher) -> List[BotCommand]:
 
     return [
         BotCommand("general_information", "General information"),
-        BotCommand("germany_asyl", "Germany-wide refugee centers, you need to pass the name of the Bundesland"),
-        BotCommand("germany_asyl_all", "Germany-wide refugee centers"),
         BotCommand("handbook", "FAQ"), BotCommand("legal", "Chat for legal help"),
         BotCommand("legal", "Chat for legal help"),
         BotCommand("minors", "Help for unaccompanied minors"),
