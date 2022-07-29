@@ -34,6 +34,7 @@ class NameType(str, Enum):
     hryvnia: str = "hryvnia"
     jobs: str = "jobs"
     kindergeld: str = "kindergeld"
+    leave: str = "leave"
     legal: str = "legal"
     medical: str = "medical"
     meetup: str = "meetup"
