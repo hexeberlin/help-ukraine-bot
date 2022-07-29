@@ -3,7 +3,7 @@ from typing import List
 from telegram import Bot, Update, BotCommand
 from telegram.ext import Dispatcher, CommandHandler
 
-from src.common import guidebook, reply_to_message, get_param, delete_command, send_results
+from src.common import send_results
 from src.guidebook import NameType
 
 
@@ -71,39 +71,45 @@ def kindergeld_command(bot: Bot, update: Update):
     send_results(bot, update, group_name=NameType.kindergeld, name=None)
 
 
+def leave_command(bot: Bot, update: Update):
+    send_results(bot, update, group_name=NameType.leave, name=None)
+
+
 def register_commands(dispatcher: Dispatcher) -> List[BotCommand]:
+    dispatcher.add_handler(CommandHandler("beschwerde", beschwerde_command))
+    dispatcher.add_handler(CommandHandler("euro_9", euro_9_command))
     dispatcher.add_handler(CommandHandler("general_information", general_information_command))
     dispatcher.add_handler(CommandHandler("handbook", handbook))
+    dispatcher.add_handler(CommandHandler("kindergeld", kindergeld_command))
+    dispatcher.add_handler(CommandHandler("leave", leave_command))
     dispatcher.add_handler(CommandHandler("legal", legal_command))
     dispatcher.add_handler(CommandHandler("minors", minors_command))
+    dispatcher.add_handler(CommandHandler("moving", moving_command))
+    dispatcher.add_handler(CommandHandler("no_ads", no_ads_command))
     dispatcher.add_handler(CommandHandler("official_information", official_information_command))
+    dispatcher.add_handler(CommandHandler("rundfunk", rundfunk_command))
     dispatcher.add_handler(CommandHandler("socialhelp", social_help_command))
     dispatcher.add_handler(CommandHandler("translators", translators_command))
     dispatcher.add_handler(CommandHandler("transport", transport_command))
     dispatcher.add_handler(CommandHandler("telegram_translation", telegram_translation_command))
-    dispatcher.add_handler(CommandHandler("moving", moving_command))
-    dispatcher.add_handler(CommandHandler("euro_9", euro_9_command))
-    dispatcher.add_handler(CommandHandler("rundfunk", rundfunk_command))
     dispatcher.add_handler(CommandHandler("wbs", wbs_command))
-    dispatcher.add_handler(CommandHandler("no_ads", no_ads_command))
-    dispatcher.add_handler(CommandHandler("beschwerde", beschwerde_command))
-    dispatcher.add_handler(CommandHandler("kindergeld", kindergeld_command))
 
     return [
+        BotCommand("beschwerde", "Where to file complains"),
+        BotCommand("euro_9", "9 Euro Ticket"),
         BotCommand("general_information", "General information"),
         BotCommand("handbook", "FAQ"), BotCommand("legal", "Chat for legal help"),
+        BotCommand("kindergeld", "How to apply for children money (Kindergeld)"),
         BotCommand("legal", "Chat for legal help"),
+        BotCommand("leave", "How to inform JobCenter about leaving"),
         BotCommand("minors", "Help for unaccompanied minors"),
+        BotCommand("moving", "Moving from first registration"),
+        BotCommand("no_ads", "Do not post advertisement in this group"),
         BotCommand("official_information", "Official information"),
+        BotCommand("rundfunk", "Avoidance of TV and Radio fees"),
         BotCommand("socialhelp", "Social help"),
         BotCommand("translators", "Translators"),
         BotCommand("transport", "transport"),
         BotCommand("telegram_translation", "Telegram Translation"),
-        BotCommand("moving", "Moving from first registration"),
-        BotCommand("euro_9", "9 Euro Ticket"),
-        BotCommand("rundfunk", "Avoidance of TV and Radio fees"),
         BotCommand("wbs", "WBS - Wohnberechtigungsschein"),
-        BotCommand("beschwerde", "Where to file complains"),
-        BotCommand("no_ads", "Do not post advertisement in this group"),
-        BotCommand("kindergeld", "How to apply for children money (Kindergeld)"),
     ]
