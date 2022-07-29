@@ -707,16 +707,15 @@ schufa:
     Вариант слева (SCHUFA-Datenkopie) бесплатный, но может занять до 4 недель.
     Вариант справа (SCHUFA-BonitätsAuskunft) платный, но быстрее.
 simcards:
+  Для украинцев доступны специальные льготные тарифы у следующих компаний:
     - |
       Telekom:
       www.telekom.de/Hilfe/Ukraine
-      Winterfeldtstr. 21, 10781 Berlin (at „hub:raum“)
-      Пн-Пт: 10:00-18:00
-      Сб: 10:00-16:00
+      информация на украинском: https://www.telekom.de/hilfe/prepaid-ukraine-ua
     - |
       Vodafone:
-      Berlin Hauptbahnhof, Washingtonplatz
-      Каждый день: 12:00-20:00
+      https://www.vodafone.de/privat/service/ukraine.html
+      информация на украинском: https://www.vodafone.de/media/downloads/pdf/V6_Ukr.pdf
 social_adaptation:
   Safe Space и социальная адаптация в Берлине:
     - |
