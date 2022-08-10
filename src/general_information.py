@@ -98,7 +98,7 @@ def register_commands(dispatcher: Dispatcher) -> List[BotCommand]:
         BotCommand("beschwerde", "Where to file complains"),
         BotCommand("euro_9", "9 Euro Ticket"),
         BotCommand("general_information", "General information"),
-        BotCommand("handbook", "FAQ"), BotCommand("legal", "Chat for legal help"),
+        BotCommand("handbook", "FAQ"),
         BotCommand("kindergeld", "How to apply for children money (Kindergeld)"),
         BotCommand("legal", "Chat for legal help"),
         BotCommand("leave", "How to inform JobCenter about leaving"),
