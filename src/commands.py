@@ -73,6 +73,7 @@ def add_commands(dispatcher) -> None:
     dispatcher.add_handler(CommandHandler("adminsonly", admins_only))
     dispatcher.add_handler(CommandHandler("adminsonly_revert", admins_only_revert))
     dispatcher.add_handler(CommandHandler("accommodation", accommodation_command))
+    dispatcher.add_handler(CommandHandler("apartments", apartments_command))
     dispatcher.add_handler(CommandHandler("animals", animal_help_command))
     dispatcher.add_handler(CommandHandler("adaption", social_adaption_command))
     dispatcher.add_handler(CommandHandler("beauty", beauty_command))
@@ -106,6 +107,7 @@ def add_commands(dispatcher) -> None:
 def get_command_list() -> List[BotCommand]:
     command_list = [
         BotCommand("accommodation", "Поиск временного жилья"),
+        BotCommand("apartments", "Поиск постоянного жилья"),
         BotCommand("adaption", "Социальная адаптация в Берлине"),
         BotCommand("animals", "Помощь домашним животным"),
         BotCommand("beauty", "Beauty сообщества"),
@@ -261,6 +263,10 @@ def accommodation_command(bot: Bot, update: Update):
 
 def animal_help_command(bot: Bot, update: Update):
     send_results(bot, update, group_name=NameType.animal_help, name=None)
+
+
+def apartments_command(bot: Bot, update: Update):
+    send_results(bot, update, group_name=NameType.apartments, name=None)
 
 
 def beauty_command(bot: Bot, update: Update):
