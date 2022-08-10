@@ -25,7 +25,7 @@ def register_commands(dispatcher: Dispatcher) -> List[BotCommand]:
     dispatcher.add_handler(CommandHandler("schufa", schufa_command))
 
     return [
-        BotCommand("banking", "Banking information"),
-        BotCommand("hryvnia", "Hryvnia exchange"),
-        BotCommand("schufa", "How to get Schufa"),
+        BotCommand("banking", "Где открыть банковский счёт"),
+        BotCommand("hryvnia", "Обменять гривны"),
+        BotCommand("schufa", "Как получить справку Schufa"),
     ]
