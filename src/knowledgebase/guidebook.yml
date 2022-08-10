@@ -33,6 +33,16 @@ animals:
   Бесплатный корм, принадлежности для животных и мед обслуживание:
     - https://tiertafel.org
     - https://www.facebook.com/1485166941719678/posts/3243751249194563/
+apartments:
+  Где искать квартиру:
+    - https://www.immobilienscout24.de/
+    - https://www.immonet.de/
+    - https://www.immowelt.de/
+    - https://www.wg-gesucht.de/
+    - https://www.ebay-kleinanzeigen.de/s-wohnung-mieten/berlin/c203l3331
+    - https://wunderflats.com/
+    - https://unit36.de/
+    - https://www.livinginberlin.de/angebote/mieten/
 banking:
   Некоторые европейские банки уже упростили процедуру открытия банковского счёта для беженцев из Украины:
     - |
@@ -779,15 +789,23 @@ translators:
     - https://t.me/translators_team_ua
     - https://t.me/berlintranslators
     - https://bit.ly/lingvolunteers
-    - https://t.me/+PNjftLVzm_djZWI6
+    - |
+      https://t.me/+PNjftLVzm_djZWI6
   Сайты:
     - https://translation4ukraine.de/
-    - help-ua.org
+    - |
+      help-ua.org
   Бесплатные телефонные линии для переводов:
     - https://www.ukraine-dolmetscher.de/
     - Нем/Укр +49 89 954 625 83 1
     - Нем/Рус +49 89 954 625 83 2
-    - Нем/Англ +49 89 954 625 83 3
+    - |
+      Нем/Англ +49 89 954 625 83 3
+  Поиск присяжных переводчиков по языкам и городам:
+    - |
+      https://www.justiz-dolmetscher.de/Recherche/de/Suchen
+      Dolmetscher - устный переводчик
+      Übersetzer - переводчик (документов)
 transport:
   Автобусы:
     - |
