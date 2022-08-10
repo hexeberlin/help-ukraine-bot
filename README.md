@@ -28,6 +28,12 @@ git push help-ukrain-bot-prod master
 **In Chat Group Bot should have ADMIN rights**
 
 ##Release Notes
+### 20220810
+- add commands `/apartments`, `/berlinpass`
+- update `/countries`, `/cities`
+- remove unused lines
+- change description to russian
+
 ### 20220729
 - add command `/leave`
 - update `/socialhelp`, `/handbook`, `euro_9`, `/entertainment`, `/beschwerde`, `/beauty`, `/banking`, `/legal`, `/simcards`, `/vaccination`
