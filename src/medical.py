@@ -37,9 +37,9 @@ def register_commands(dispatcher: Dispatcher) -> List[BotCommand]:
     dispatcher.add_handler(CommandHandler("disabled", disabled_command))
     dispatcher.add_handler(CommandHandler("pregnant", pregnant_command))
 
-    return [BotCommand("medical", "Medical help"),
-            BotCommand("psychological", "Psychological help"),
-            BotCommand("kids_with_special_needs", "Help for children with special needs"),
-            BotCommand("disabled", "Disabled people"),
-            BotCommand("pregnant", "Pregnant"),
+    return [BotCommand("medical", "Медицинская помощь"),
+            BotCommand("psychological", "Психологическая помощь"),
+            BotCommand("kids_with_special_needs", "Помощь для детей с особыми потребностями"),
+            BotCommand("disabled", "Помощь для людей с особыми потребностями"),
+            BotCommand("pregnant", "Помощь для беременных"),
             ]
