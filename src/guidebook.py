@@ -49,6 +49,7 @@ class NameType(str, Enum):
     rundfunk: str = "rundfunk"
     school: str = "school"
     schufa: str = "schufa"
+    search: str = "search"
     simcards: str = "simcards"
     social_adaptation: str = "social_adaptation"
     social_help: str = "social_help"

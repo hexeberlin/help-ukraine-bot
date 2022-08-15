@@ -87,11 +87,10 @@ def add_commands(dispatcher) -> None:
     dispatcher.add_handler(CommandHandler("free_stuff", free_stuff_command))
     dispatcher.add_handler(CommandHandler("food", food_command))
     dispatcher.add_handler(CommandHandler("jobs", jobs_command))
-
     dispatcher.add_handler(CommandHandler("meetup", meetup_command))
-
     dispatcher.add_handler(CommandHandler("photo", photo_command))
     dispatcher.add_handler(CommandHandler("school", school_command))
+    dispatcher.add_handler(CommandHandler("search", search_command))
     dispatcher.add_handler(CommandHandler("simcards", simcards_command))
     dispatcher.add_handler(CommandHandler("taxis", taxi_command))
     dispatcher.add_handler(CommandHandler("vaccination", vaccination_command))
@@ -132,6 +131,7 @@ def get_command_list() -> List[BotCommand]:
         BotCommand("photo", "Где сделать фото"),
         BotCommand("simcards", "Где получить СИМ карту"),
         BotCommand("school", "Школы"),
+        BotCommand("search", "Как пользоваться поиском"),
         BotCommand("taxis", "Такси"),
         BotCommand("vaccination", "Вакцинация"),
         BotCommand("volunteer", "Волонтёрство"),
@@ -278,6 +278,11 @@ def cities_command(bot: Bot, update: Update):
     delete_command(bot, update)
     results = guidebook.get_cities(name=name)
     reply_to_message(bot, update, results)
+
+
+def search_command(bot: Bot, update: Update):
+    send_results(bot, update, group_name=NameType.search, name=None)
+
 
 @restricted
 def start_timer(bot: Bot, update: Update, job_queue: JobQueue):
