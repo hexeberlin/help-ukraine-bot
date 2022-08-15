@@ -25,6 +25,7 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+
 def help():
     return (
             "Привет! 🤖 "
@@ -374,6 +375,7 @@ def stop_timer(bot: Bot, update: Update, job_queue: JobQueue):
 
     logger.info("Stopped reminders in channel %s", chat_id)
 
+
 def send_pinned_reminder(bot: Bot, job: Job):
     """send_reminder"""
     chat_id = job.context
@@ -385,6 +387,7 @@ def send_pinned_reminder(bot: Bot, job: Job):
         bot.forward_message(chat_id, chat_id, msg.message_id)
     else:
         bot.send_message(chat_id=chat_id, text=REMINDER_MESSAGE)
+
 
 def send_social_reminder(bot: Bot, job: Job):
     """send_reminder"""
@@ -412,6 +415,7 @@ def find_articles_command(update: Update) -> None:
     ]
 
     update.inline_query.answer(results)
+
 
 def delete_greetings(bot: Bot, update: Update) -> None:
     """Echo the user message."""

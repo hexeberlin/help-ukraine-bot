@@ -126,6 +126,7 @@ def parse_article(message: str, command: str, bot_name: str) -> Optional[Article
             content = "".join(lines[2:])
             return Article(keys, title, content)
 
+
 def format_knowledge_results(results: str) -> str:
     separator = "=" * 30
     return separator + "\n" + results + "\n" + separator
