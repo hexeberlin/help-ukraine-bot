@@ -1,6 +1,8 @@
 # Help Ukraine Bot
 
-Add this lines to your `settings.env` file and replace the token with your bot token for local development.
+## Local development
+
+To run the bot add this lines to your `settings.env` file and replace the token with your bot token for local development.
 
 ```env
 [DEVELOPMENT]
@@ -11,6 +13,11 @@ MONGO_USER=user
 MONGO_PASS=very_secrte_password
 MONGO_BASE=base
 ```
+
+
+## Deploy
+
+The bot gets deployed to heroku automatically.
 
 To deploy the test branch
 
