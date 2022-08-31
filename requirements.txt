@@ -10,7 +10,6 @@ pycparser==2.21
 pymongo==4.0.2
 python-telegram-bot==12.7
 PyYAML==6.0
-requests==2.26.0
 schedule==1.1.0
 toml==0.10.2
 tornado==6.1
