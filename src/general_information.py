@@ -47,10 +47,6 @@ def moving_command(bot: Bot, update: Update):
     send_results(bot, update, group_name=NameType.moving, name=None)
 
 
-def euro_9_command(bot: Bot, update: Update):
-    send_results(bot, update, group_name=NameType.euro_9, name=None)
-
-
 def rundfunk_command(bot: Bot, update: Update):
     send_results(bot, update, group_name=NameType.rundfunk, name=None)
 
@@ -82,7 +78,6 @@ def leave_command(bot: Bot, update: Update):
 def register_commands(dispatcher: Dispatcher) -> List[BotCommand]:
     dispatcher.add_handler(CommandHandler("berlinpass", berlinpass_command))
     dispatcher.add_handler(CommandHandler("beschwerde", beschwerde_command))
-    dispatcher.add_handler(CommandHandler("euro_9", euro_9_command))
     dispatcher.add_handler(CommandHandler("general_information", general_information_command))
     dispatcher.add_handler(CommandHandler("handbook", handbook))
     dispatcher.add_handler(CommandHandler("kindergeld", kindergeld_command))
@@ -102,7 +97,6 @@ def register_commands(dispatcher: Dispatcher) -> List[BotCommand]:
     return [
         BotCommand("berlinpass", "Как получить BerlinPass"),
         BotCommand("beschwerde", "Куда обратиться с жалобой"),
-        BotCommand("euro_9", "Проездной за 9 евро"),
         BotCommand("general_information", "Официальная информация"),
         BotCommand("handbook", "Часто задаваемые вопросы"),
         BotCommand("kindergeld", "Как получить детское пособие (Kindergeld)"),

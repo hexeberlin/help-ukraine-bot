@@ -24,7 +24,6 @@ class NameType(str, Enum):
     countries: str = "countries"
     education: str = "education"
     entertainment: str = "entertainment"
-    euro_9: str = "euro_9"
     evacuation: str = "evacuation"
     evacuation_cities: str = "evacuation_cities"
     food: str = "food"
