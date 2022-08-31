@@ -1,17 +1,47 @@
+import json
 import logging
 import os
 from typing import List, Tuple
 
 from schedule import Job
-from telegram import BotCommand, Bot, Update, Message, InlineQueryResultArticle, ParseMode, InputTextMessageContent
+from telegram import (
+    BotCommand,
+    Bot,
+    Update,
+    Message,
+    InlineQueryResultArticle,
+    ParseMode,
+    InputTextMessageContent,
+)
 from telegram.error import BadRequest
 from telegram.ext import CommandHandler, JobQueue
 from telegram.utils.helpers import effective_message_type
 
-from src.common import restricted, parse_article, reply_to_message, get_param, guidebook, delete_command, \
-    format_knowledge_results, send_results
-from src.config import REMINDER_INTERVAL_INFO, SOCIAL_JOB, REMINDER_INTERVAL_PINNED, PINNED_JOB, REMINDER_MESSAGE, \
-    BERLIN_HELPS_UKRAIN_CHAT_ID, ADMIN_ONLY_CHAT_IDS, THUMB_URL, MONGO_HOST, MONGO_USER, MONGO_PASS, MONGO_BASE
+from src.common import (
+    restricted,
+    parse_article,
+    reply_to_message,
+    get_param,
+    guidebook,
+    delete_command,
+    format_knowledge_results,
+    send_results,
+)
+from src.config import (
+    REMINDER_INTERVAL_INFO,
+    SOCIAL_JOB,
+    REMINDER_INTERVAL_PINNED,
+    PINNED_JOB,
+    REMINDER_MESSAGE,
+    BERLIN_HELPS_UKRAIN_CHAT_ID,
+    ADMIN_ONLY_CHAT_IDS,
+    THUMB_URL,
+    MONGO_HOST,
+    MONGO_USER,
+    MONGO_PASS,
+    MONGO_BASE,
+)
+from src.statistics import StatisticsCommandHandler, statistics_database
 from src.guidebook import NameType
 from src.mongo import connect
 from src.services import Articles
@@ -28,80 +58,99 @@ logger = logging.getLogger(__name__)
 
 def help():
     return (
-            "Привет! 🤖 "
-            + os.linesep
-            + "Я бот для помощи беженцам из Украины 🇺🇦 в Германии. "
-            + os.linesep
-            + "Большинство моих знаний относятся к Берлину, но есть и общая "
-            + "полезная информация. Чтобы увидеть список поддерживаемых команд, "
-            + "введите символ '/'. "
-            + "\n\n"
-            + "Если добавите меня в свой чат, не забудьте дать мне права "
-            + "админа, пожалуйста, чтобы я мог удалять ненужные сообщения с "
-            + "вызванными командами."
-            + "\n\n\n"
-            + "Вітання! 🤖 "
-            + os.linesep
-            + "Я бот для допомоги біженцям з України 🇺🇦 в Німеччині."
-            + os.linesep
-            + "Більшість моїх знань стосуються Берліну, але є й загальна "
-            + "корисна інформація. Щоб побачити список команд, що підтримуються, "
-            + "введіть символ '/'. "
-            + "\n\n"
-            + "Якщо додасте мене до свого чату, будь ласка, не забудьте надати "
-            + "мені права адміна, щоб я зміг видаляти непотрібні повідомлення із "
-            + "викликаними командами."
-            + "\n\n\n"
-            + "Hi! 🤖"
-            + os.linesep
-            + "I'm the bot helping refugees from Ukraine 🇺🇦 in Germany. "
-            + os.linesep
-            + "Most of my knowledge concentrates around Berlin, but I have some "
-            + "general useful information too. Type '/' to see the list of my "
-            + "available commands."
-            + "\n\n"
-            + "If you add me to your chat, don't forget to give me the admin "
-            + "rights, so that I can delete log messages and keep your chat clean."
+        "Привет! 🤖 "
+        + os.linesep
+        + "Я бот для помощи беженцам из Украины 🇺🇦 в Германии. "
+        + os.linesep
+        + "Большинство моих знаний относятся к Берлину, но есть и общая "
+        + "полезная информация. Чтобы увидеть список поддерживаемых команд, "
+        + "введите символ '/'. "
+        + "\n\n"
+        + "Если добавите меня в свой чат, не забудьте дать мне права "
+        + "админа, пожалуйста, чтобы я мог удалять ненужные сообщения с "
+        + "вызванными командами."
+        + "\n\n\n"
+        + "Вітання! 🤖 "
+        + os.linesep
+        + "Я бот для допомоги біженцям з України 🇺🇦 в Німеччині."
+        + os.linesep
+        + "Більшість моїх знань стосуються Берліну, але є й загальна "
+        + "корисна інформація. Щоб побачити список команд, що підтримуються, "
+        + "введіть символ '/'. "
+        + "\n\n"
+        + "Якщо додасте мене до свого чату, будь ласка, не забудьте надати "
+        + "мені права адміна, щоб я зміг видаляти непотрібні повідомлення із "
+        + "викликаними командами."
+        + "\n\n\n"
+        + "Hi! 🤖"
+        + os.linesep
+        + "I'm the bot helping refugees from Ukraine 🇺🇦 in Germany. "
+        + os.linesep
+        + "Most of my knowledge concentrates around Berlin, but I have some "
+        + "general useful information too. Type '/' to see the list of my "
+        + "available commands."
+        + "\n\n"
+        + "If you add me to your chat, don't forget to give me the admin "
+        + "rights, so that I can delete log messages and keep your chat clean."
     )
 
 
 def add_commands(dispatcher) -> None:
     # Commands
-    dispatcher.add_handler(CommandHandler("start", start_timer, pass_job_queue=True))
-    dispatcher.add_handler(CommandHandler("stop", stop_timer, pass_job_queue=True))
-    dispatcher.add_handler(CommandHandler("help", help_command))
+    dispatcher.add_handler(
+        StatisticsCommandHandler("start", start_timer, pass_job_queue=True)
+    )
+    dispatcher.add_handler(
+        StatisticsCommandHandler("stop", stop_timer, pass_job_queue=True)
+    )
+    dispatcher.add_handler(StatisticsCommandHandler("help", help_command))
 
-    dispatcher.add_handler(CommandHandler("adminsonly", admins_only))
-    dispatcher.add_handler(CommandHandler("adminsonly_revert", admins_only_revert))
-    dispatcher.add_handler(CommandHandler("accommodation", accommodation_command))
-    dispatcher.add_handler(CommandHandler("apartments", apartments_command))
-    dispatcher.add_handler(CommandHandler("animals", animal_help_command))
-    dispatcher.add_handler(CommandHandler("adaption", social_adaption_command))
-    dispatcher.add_handler(CommandHandler("beauty", beauty_command))
-    dispatcher.add_handler(CommandHandler("cities", cities_command))
-    dispatcher.add_handler(CommandHandler("cities_all", cities_all_command))
-    dispatcher.add_handler(CommandHandler("countries", countries_command))
-    dispatcher.add_handler(CommandHandler("countries_all", countries_all_command))
-    dispatcher.add_handler(CommandHandler("entertainment", entertainment_command))
-    dispatcher.add_handler(CommandHandler("evacuation", evac_command))
-    dispatcher.add_handler(CommandHandler("evacuation_cities", evac_cities_command))
-    dispatcher.add_handler(CommandHandler("free_stuff", free_stuff_command))
-    dispatcher.add_handler(CommandHandler("food", food_command))
-    dispatcher.add_handler(CommandHandler("jobs", jobs_command))
-    dispatcher.add_handler(CommandHandler("meetup", meetup_command))
-    dispatcher.add_handler(CommandHandler("photo", photo_command))
-    dispatcher.add_handler(CommandHandler("school", school_command))
-    dispatcher.add_handler(CommandHandler("search", search_command))
-    dispatcher.add_handler(CommandHandler("simcards", simcards_command))
-    dispatcher.add_handler(CommandHandler("taxis", taxi_command))
-    dispatcher.add_handler(CommandHandler("vaccination", vaccination_command))
-    dispatcher.add_handler(CommandHandler("volunteer", volunteer_command))
+    dispatcher.add_handler(StatisticsCommandHandler("adminsonly", admins_only))
+    dispatcher.add_handler(
+        StatisticsCommandHandler("adminsonly_revert", admins_only_revert)
+    )
+    dispatcher.add_handler(
+        StatisticsCommandHandler("accommodation", accommodation_command)
+    )
+    dispatcher.add_handler(StatisticsCommandHandler("apartments", apartments_command))
+    dispatcher.add_handler(StatisticsCommandHandler("animals", animal_help_command))
+    dispatcher.add_handler(
+        StatisticsCommandHandler("adaption", social_adaption_command)
+    )
+    dispatcher.add_handler(StatisticsCommandHandler("beauty", beauty_command))
+    dispatcher.add_handler(StatisticsCommandHandler("cities", cities_command))
+    dispatcher.add_handler(StatisticsCommandHandler("cities_all", cities_all_command))
+    dispatcher.add_handler(StatisticsCommandHandler("countries", countries_command))
+    dispatcher.add_handler(
+        StatisticsCommandHandler("countries_all", countries_all_command)
+    )
+    dispatcher.add_handler(
+        StatisticsCommandHandler("entertainment", entertainment_command)
+    )
+    dispatcher.add_handler(StatisticsCommandHandler("evacuation", evac_command))
+    dispatcher.add_handler(
+        StatisticsCommandHandler("evacuation_cities", evac_cities_command)
+    )
+    dispatcher.add_handler(StatisticsCommandHandler("free_stuff", free_stuff_command))
+    dispatcher.add_handler(StatisticsCommandHandler("food", food_command))
+    dispatcher.add_handler(StatisticsCommandHandler("jobs", jobs_command))
+    dispatcher.add_handler(StatisticsCommandHandler("meetup", meetup_command))
+    dispatcher.add_handler(StatisticsCommandHandler("photo", photo_command))
+    dispatcher.add_handler(StatisticsCommandHandler("school", school_command))
+    dispatcher.add_handler(StatisticsCommandHandler("search", search_command))
+    dispatcher.add_handler(StatisticsCommandHandler("simcards", simcards_command))
+    dispatcher.add_handler(StatisticsCommandHandler("taxis", taxi_command))
+    dispatcher.add_handler(StatisticsCommandHandler("vaccination", vaccination_command))
+    dispatcher.add_handler(StatisticsCommandHandler("volunteer", volunteer_command))
 
     # Articles
-    dispatcher.add_handler(CommandHandler("add", add_article_command))
-    dispatcher.add_handler(CommandHandler("list", list_articles_command))
-    dispatcher.add_handler(CommandHandler("faq", get_article_command))
-    dispatcher.add_handler(CommandHandler("delete", delete_article_command))
+    dispatcher.add_handler(StatisticsCommandHandler("add", add_article_command))
+    dispatcher.add_handler(StatisticsCommandHandler("list", list_articles_command))
+    dispatcher.add_handler(StatisticsCommandHandler("faq", get_article_command))
+    dispatcher.add_handler(StatisticsCommandHandler("delete", delete_article_command))
+
+    # Statistics
+    dispatcher.add_handler(StatisticsCommandHandler("stats", statistics_command))
 
 
 def get_command_list() -> List[BotCommand]:
@@ -139,6 +188,12 @@ def get_command_list() -> List[BotCommand]:
     ]
     command_list.sort(key=lambda x: x.command)
     return command_list
+
+
+@restricted
+def statistics_command(bot: Bot, update: Update):
+    report = json.dumps(statistics_database, indent=2)
+    reply_to_message(bot, update, report)
 
 
 @restricted
@@ -428,7 +483,3 @@ def delete_greetings(bot: Bot, update: Update) -> None:
             "left_chat_member",
         ]:
             bot.delete_message(chat_id=message.chat_id, message_id=message.message_id)
-
-
-
-
