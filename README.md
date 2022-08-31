@@ -28,6 +28,10 @@ git push help-ukrain-bot-prod master
 **In Chat Group Bot should have ADMIN rights**
 
 ##Release Notes
+### 20220831
+- update `/transport`, `/animals`
+- remove `/euro_9`
+
 ### 20220815
 - update `/photo`, `/leave`
 - remove `/banking`
