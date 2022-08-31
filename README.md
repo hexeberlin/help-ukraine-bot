@@ -1,7 +1,8 @@
+# Help Ukraine Bot
 
 Add this lines to your `settings.env` file and replace the token with your bot token for local development.
 
-```
+```env
 [DEVELOPMENT]
 APP_NAME=TESTING
 TOKEN=very_secret_token
@@ -11,47 +12,56 @@ MONGO_PASS=very_secrte_password
 MONGO_BASE=base
 ```
 
-deploy test branch
-```
+To deploy the test branch
+
+```shellscript
 heroku git:remote -a telegram-bot-help-in-berlin-te 
 git remote rename heroku help-ukrain-bot-test 
 git push help-ukrain-bot-test test-deploy:master
 ```
 
-deploy main branch 
-```
+To deploy the main branch 
+
+```shellscript
 heroku git:remote -a telegram-bot-help-in-berlin
 git remote rename heroku help-ukrain-bot-prod
 git push help-ukrain-bot-prod master
 ```
 
-**In Chat Group Bot should have ADMIN rights**
+IMPORTANT: **In Chat Group Bot should have ADMIN rights**
 
-##Release Notes
+## Release Notes
+
 ### 20220831
+
 - update `/transport`, `/animals`
 - remove `/euro_9`
 
 ### 20220815
+
 - update `/photo`, `/leave`
 - remove `/banking`
 - add `/job_center_calc`, `/search`
 
 ### 20220812
+
 - update `/berlinpass`, `/photo`
 
 ### 20220810
+
 - add commands `/apartments`, `/berlinpass`
 - update `/countries`, `/cities`
 - remove unused lines
 - change description to russian
 
 ### 20220729
+
 - add command `/leave`
 - update `/socialhelp`, `/handbook`, `euro_9`, `/entertainment`, `/beschwerde`, `/beauty`, `/banking`, `/legal`, `/simcards`, `/vaccination`
 - remove `/german_asyl`
 
 ### 20220720
+
 - add commands `/kindergeld`, `/beschwerde`, `/no_ads`, `/schufa`, `/wbs`, `/rundfunk`, `/euro_9`
 - update `/food`, `/kids-with-special-needs`, `/transport`, `/minors`, `/entertainment`, `/beauty`, `/general_information`, `/freestuff`, `/children_lessons`, `/hryvnia`, `/translators`, `/jobs`, `/psychological`
 - rename `/freestuff` to `/free_stuff`
@@ -62,6 +72,7 @@ git push help-ukrain-bot-prod master
   - update Köln
 
 ### 20220512
+
 - add command `/moving`, `/pregnant`
 - update cities chats:
   - add Castrop-Rauxel 
@@ -75,20 +86,27 @@ git push help-ukrain-bot-prod master
 - update `/disabled` command
 - update `/accomodation` command
 - fix translators "Чат переводчиков"
-### 20220330:
+
+### 20220330
+
 - add commands: `/simcards`, `/photo`, `/transport`
 - update commands: `/jobs`, `/food`
-### 20220329:
+
+### 20220329
+
 - delete commands before parsing results
 - update `/jobs` command
 - refactoring
-### 20220328:
+
+### 20220328
+
 - add `/food` command
 - update `/cities` chat
 - update `/jobs`
 - update `translators`
 
-### 20220327:
+### 20220327
+
 - add new commands: `/countries_all`, `/entertainment, `/meetup`, `/school`, `/vaccination` , `/germany_asyl_all`.
 - command `/countries `now has the same behaviour as command `/cities`.
 - commands `/countries`, `/cities`, `/meetup` and `/germany_asyl` can work with parameters. If a name has german umlauts (*ä*, *ö*, *ü*), you can use *ä*, *ö*, *ü* OR *ä*->*a*, *ö*->*o*, *ü*->*u* OR *ä*->*ae*, *ö*-*oe*, *ü*-*ue*. For example, you can search for **Köln** as *Köln*, *Koln* or *Koeln*. Also you can now search **Frankfurt am Main** as *fam*.
