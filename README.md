@@ -28,6 +28,9 @@ git push help-ukrain-bot-prod master
 **In Chat Group Bot should have ADMIN rights**
 
 ##Release Notes
+### 20221012
+- update `/job_center_calc`, `/jobs`, `/psychological`, `/rundfunk`
+
 ### 20220915
 - update `/hryvnia`, `/medical`, `/cities`
 
