@@ -91,18 +91,16 @@ beschwerde:
     Общий контакт: info@bubs.berlin
     Контакт для подачи жалоб: beschwerde@bubs.berlin
 cities:
-  Altmark:
-    - https://t.me/+slxkkb7eY9w0Y2Qy
   Augsburg:
     - https://t.me/augsburghilftukraine
   Bad-Hersfeld:
-    - https://chat.whatsapp.com/LWfBEa5FHHc46dk6S35wNj
+    - https://t.me/Ukrainer_in_bad_hersfeld
   Baden-Württemberg:
     - https://t.me/+n8doQy7ubEBmZGE6
   Bayern:
     - https://t.me/+95kDURdyTlE2YjFi
   Berlin:
-    - https://t.me/+pY4AEUY_0jZhMzQ0
+    - https://t.me/berlinhelpsukrainians
     - https://t.me/ukrainehelpberlin
     - https://t.me/+IteYrWFkvcs5Njli
     - https://t.me/accomodationsunday
@@ -116,11 +114,10 @@ cities:
     - https://t.me/BS_UA_HELP
     - https://t.me/UkrHelp_Braunschweig
   Bremen:
+    - http://bremenwithukraine.com/
     - https://t.me/ukrainebremen
     - https://t.me/suport_ukraine_in_bremen
-    - https://t.me/Bremenhelpsukraine
     - https://t.me/SolidarityUkraineBremen
-    - http://bremenwithukraine.com/
     - https://t.me/+XRsorLrY4iRjYTgy
   Castrop-Rauxel:
     - https://t.me/Ukraine_CAS
@@ -136,10 +133,10 @@ cities:
     - https://t.me/duesseldorf_ukraina
   Essen:
     - https://t.me/ukr_de_essen
-  Erfurt:
-    - https://t.me/thuringia_stands_with_ukraine
   Frankfurt am Main:
-    - https://t.me/+BcQ_210Ex4cwYjEy
+    - https://t.me/helpinfrankfurt
+    - https://t.me/HelpingUkrainiansFrankfurtamMain
+    - https://t.me/+cKmqUpJZ9DE4MzMy
   Frankfurt Oder:
     - https://t.me/Ukraine_Frankfurt_Oder
   Freiburg:
@@ -160,8 +157,6 @@ cities:
     - https://t.me/helmstedtukraine
   Hessen:
     - https://t.me/+HTYW-_jDZVtkZDJi
-  Jena:
-    - https://t.me/thuringia_stands_with_ukraine
   Karlsruhe:
     - https://t.me/+AONMSwz2i405MDQ6
     - https://t.me/ukraine_karlsruhe
@@ -169,22 +164,16 @@ cities:
     - https://t.me/karlsruhespendenfuerukraine
   Kassel:
     - https://t.me/KasselUkrainehilfen
-    - https://t.me/KSHELPUKRIANE
   Köln:
     - https://t.me/BestFriendsUk
     - https://t.me/cologne_help
   Leipzig:
     - https://t.me/ukrainerinleipzig
     - https://t.me/accomodation_leipzig_ukraine
-    - https://t.me/ukrainerinleipzigACCOMODATION
-  Lüneburg:
-    - https://t.me/+slxkkb7eY9w0Y2Qy
-  Magdeburg:
-    - https://t.me/magdeburg_ukraine
   Mainz:
     - https://t.me/ukraine_helfen_mainz
   Mannheim:
-    - https://t.me/UkrHlfMA
+    - https://t.me/Mannheim_Ukraine
   Mecklenburg-Vorpommern:
     - https://t.me/+ACMWRk-ONEllMzEy
   München:
@@ -200,19 +189,14 @@ cities:
     - https://t.me/nurnbergDE
   Osnabrück:
     - https://t.me/ukrainer_in_osnabrueck
-  Paris:
-    - https://t.me/ukrainienenfrance
   Potsdam:
     - https://t.me/potsdamhelpsukrainians
     - https://t.me/+U076iU76y5I0OTli
   Rheinland-Pfalz:
-    - https://t.me/ukrainerheinlandpfalz
     - https://t.me/+G1BeTeo1-Qc4MDUy
   Rostock:
-    - https://t.me/rostockukr
     - https://t.me/Rostock_Ukraine
   Saarland:
-    - https://t.me/ukrainesaarland
     - https://t.me/+2L_IOBE5fspmOWM6
   Sachsen:
     - https://t.me/+evMXd6nO5T1mMDIy
@@ -220,28 +204,16 @@ cities:
     - https://t.me/+IWXBYfN9765mODZi
   Schleswig-Holstein:
     - https://t.me/+IhWtHU4b5HsyNGIy
-  Schwerin:
-    - https://t.me/+ACMWRk-ONEllMzEy
   Stuttgart:
     - https://t.me/helpforukraine22
   Trier:
     - https://t.me/trier_ukraine
   Thüringen:
-    - https://t.me/thuringia_stands_with_ukraine
     - https://t.me/th_helps_ukraine
     - https://t.me/+9R0NgYYt91kwNmUy
-  Uelzen:
-    - https://t.me/+slxkkb7eY9w0Y2Qy
   Ulm:
     - https://t.me/gruppe_ukraine_ulm_neu_ulm
-  Vienna:
-    - https://t.me/warhelpeuplaces
-  Wendland:
-    - https://t.me/+slxkkb7eY9w0Y2Qy
-  Weimar:
-    - https://t.me/thuringia_stands_with_ukraine
   Wuppertal:
-    - https://t.me/ukrainehilfewuppertal
     - https://t.me/Ukrainer_in_Wuppertal
   Zurich:
     - https://t.me/zh_helps_ukraine
@@ -257,6 +229,7 @@ countries:
     - https://t.me/refugeesinDenmark
   France:
     - https://t.me/refugeesinFrance
+    - https://t.me/ukrainienenfrance
   Germany:
     - https://t.me/refugees_in_Germany
     - https://t.me/germanyhelpsukraine
@@ -265,8 +238,6 @@ countries:
     - https://t.me/UKR_DE
   Hungary:
     - https://t.me/hungaryua
-    - https://t.me/helpinhungary
-    - https://t.me/HUvolunteerswithUA
     - https://help.unhcr.org/hungary/uk/
     - https://ukrainehelp.hu/
   Italy:
@@ -302,7 +273,6 @@ countries:
   Spain:
     - https://t.me/helpukrainespain
   Sweden:
-    - https://t.me/refugeesinSweden
     - https://t.me/ukrainian_in_sweden
   Switzerland:
     - https://t.me/refugeesinSwitzerland
