@@ -90,6 +90,7 @@ def add_commands(dispatcher) -> None:
     dispatcher.add_handler(CommandHandler("jobs", jobs_command))
     dispatcher.add_handler(CommandHandler("meetup", meetup_command))
     dispatcher.add_handler(CommandHandler("photo", photo_command))
+    dispatcher.add_handler(CommandHandler("return_to_ukraine", return_to_ukraine_command))
     dispatcher.add_handler(CommandHandler("school", school_command))
     dispatcher.add_handler(CommandHandler("search", search_command))
     dispatcher.add_handler(CommandHandler("simcards", simcards_command))
@@ -130,6 +131,7 @@ def get_command_list() -> List[BotCommand]:
         BotCommand("jobs", "Работа в Германии"),
         BotCommand("meetup", "Чаты по райнонам Берлина"),
         BotCommand("photo", "Где сделать фото"),
+        BotCommand("return_to_ukraine", "Алгоритм действий при возвращении в Украину"),
         BotCommand("simcards", "Где получить СИМ карту"),
         BotCommand("school", "Школы"),
         BotCommand("search", "Как пользоваться поиском"),
@@ -232,6 +234,10 @@ def meetup_command(bot: Bot, update: Update):
 
 def photo_command(bot: Bot, update: Update):
     send_results(bot, update, group_name=NameType.photo, name=None)
+
+
+def return_to_ukraine_command(bot: Bot, update: Update):
+    send_results(bot, update, group_name=NameType.return_to_ukraine, name=None)
 
 
 def social_adaption_command(bot: Bot, update: Update):
