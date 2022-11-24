@@ -785,14 +785,9 @@ search:
     4. Если у Вас трудности с переводом немецкого слова, обозначающим какой-то конкретный предмет, например «Zwiebelmett»: забейте «Zwiebelmett» в поиск и переключитесь на поиск картинок — Вам покажут миллион картинок с цвибельметтом.
 simcards:
   Для украинцев доступны специальные льготные тарифы у следующих компаний:
-    - |
-      Telekom:
-      www.telekom.de/Hilfe/Ukraine
-      информация на украинском: https://www.telekom.de/hilfe/prepaid-ukraine-ua
-    - |
-      Vodafone:
-      https://www.vodafone.de/privat/service/ukraine.html
-      информация на украинском: https://www.vodafone.de/media/downloads/pdf/V6_Ukr.pdf
+    - Vodafone (https://www.vodafone.de/media/downloads/pdf/V7_Ukr.pdf) и Telekom (https://www.telekom.de/hilfe/prepaid-ukraine-ua) предлагают специальные тарифы за 10€/4 недели (10 Гб, 300 минут в Украину). Оформить сим-карту можно в любом филиале оператора, из документов нужен только паспорт.
+    - Если нужен безлимитный интернет, можно воспользоваться тарифом от Freenet за 0,99€/день (https://www.freenet-funk.de).
+    - Если есть украинская сим-карта или смартфон поддерживает eSIM, можно подключить роуминг и пользоваться своим домашним тарифом, находясь в Германии.
 social_adaptation:
   Safe Space и социальная адаптация в Берлине:
     - |
@@ -823,12 +818,6 @@ translators:
     - https://t.me/translators_team_ua
     - https://t.me/berlintranslators
     - https://bit.ly/lingvolunteers
-  Бесплатные телефонные линии для переводов:
-    - https://www.ukraine-dolmetscher.de/
-    - Нем/Укр +49 89 954 625 83 1
-    - Нем/Рус +49 89 954 625 83 2
-    - |
-      Нем/Англ +49 89 954 625 83 3
   Поиск присяжных переводчиков по языкам и городам:
     - |
       https://www.justiz-dolmetscher.de/Recherche/de/Suchen
