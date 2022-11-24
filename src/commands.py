@@ -94,7 +94,6 @@ def add_commands(dispatcher) -> None:
     dispatcher.add_handler(CommandHandler("school", school_command))
     dispatcher.add_handler(CommandHandler("search", search_command))
     dispatcher.add_handler(CommandHandler("simcards", simcards_command))
-    dispatcher.add_handler(CommandHandler("taxis", taxi_command))
     dispatcher.add_handler(CommandHandler("vaccination", vaccination_command))
     dispatcher.add_handler(CommandHandler("volunteer", volunteer_command))
 
@@ -135,7 +134,6 @@ def get_command_list() -> List[BotCommand]:
         BotCommand("simcards", "Где получить СИМ карту"),
         BotCommand("school", "Школы"),
         BotCommand("search", "Как пользоваться поиском"),
-        BotCommand("taxis", "Такси"),
         BotCommand("vaccination", "Вакцинация"),
         BotCommand("volunteer", "Волонтёрство"),
     ]
@@ -250,10 +248,6 @@ def school_command(bot: Bot, update: Update):
 
 def simcards_command(bot: Bot, update: Update):
     send_results(bot, update, group_name=NameType.simcards, name=None)
-
-
-def taxi_command(bot: Bot, update: Update):
-    send_results(bot, update, group_name=NameType.taxis, name=None)
 
 
 def volunteer_command(bot: Bot, update: Update):
