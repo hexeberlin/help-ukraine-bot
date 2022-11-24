@@ -26,6 +26,13 @@ git push help-ukrain-bot-prod master
 **In Chat Group Bot should have ADMIN rights**
 
 ##Release Notes
+### 20221124
+- update `/volunteer`, `/transport`, `/simcards`, `/jobs`, `/legal`, `/pregnant`, `/uni`, `/psychological`, `/beauty`
+- remove duplicates from `/animals`, `/accomodation`
+- remove commands `/taxis`, `/moving`
+- combine both commands for disabled
+- mention author of `/return_to_ukraine`
+
 ### 20221101
 - update `/cities_all`, `/countries_all`, `/animals`, `/berlinpass`, `/medical`
 - add `/return_to_ukraine`
