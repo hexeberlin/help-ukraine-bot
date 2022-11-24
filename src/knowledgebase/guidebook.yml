@@ -894,13 +894,7 @@ volunteer:
     - https://t.me/arrivalcenter
     - http://volunteer-planner.org/
   Donate things in Berlin:
-    - "Hbf: https://www.adiuto.org/berlin/hbf"
-    - "Zob: https://www.adiuto.org/berlin/zob"
-    - "Südkreuz: https://www.adiuto.org/berlin/suedkreuz"
-    - "Ostbahnhof: https://www.adiuto.org/berlin/ostbahnhof"
-    - "LAF/AKUZ: https://www.adiuto.org/berlin/akuz"
-    - "Potsdam: https://www.adiuto.org/initiative/potsdam-welcome-team"
-    - "Hangar 1, Columbiadamm 10, 12101 Berlin. Please email kontakt@hangar1.de"
+    - https://adiuto.org/tasks?query=berlin
 wbs:
   Что это такое:
     - |
