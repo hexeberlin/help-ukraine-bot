@@ -39,7 +39,6 @@ class NameType(str, Enum):
     medical: str = "medical"
     meetup: str = "meetup"
     minors: str = "minors"
-    moving: str = "moving"
     no_ads: str = "no_ads"
     photo: str = "photo"
     pregnant: str = "pregnant"

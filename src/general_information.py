@@ -43,10 +43,6 @@ def telegram_translation_command(bot: Bot, update: Update):
     send_results(bot, update, group_name=NameType.telegram_translation, name=None)
 
 
-def moving_command(bot: Bot, update: Update):
-    send_results(bot, update, group_name=NameType.moving, name=None)
-
-
 def rundfunk_command(bot: Bot, update: Update):
     send_results(bot, update, group_name=NameType.rundfunk, name=None)
 
@@ -84,7 +80,6 @@ def register_commands(dispatcher: Dispatcher) -> List[BotCommand]:
     dispatcher.add_handler(CommandHandler("leave", leave_command))
     dispatcher.add_handler(CommandHandler("legal", legal_command))
     dispatcher.add_handler(CommandHandler("minors", minors_command))
-    dispatcher.add_handler(CommandHandler("moving", moving_command))
     dispatcher.add_handler(CommandHandler("no_ads", no_ads_command))
     dispatcher.add_handler(CommandHandler("official_information", official_information_command))
     dispatcher.add_handler(CommandHandler("rundfunk", rundfunk_command))
@@ -103,7 +98,6 @@ def register_commands(dispatcher: Dispatcher) -> List[BotCommand]:
         BotCommand("legal", "Юридическая помощь"),
         BotCommand("leave", "Как сообщить JobCenter о временном отсутсвии"),
         BotCommand("minors", "Помощь для несовершеннолетних без сопровождения"),
-        BotCommand("moving", "Сменить место первой регистрации"),
         BotCommand("no_ads", "Доски обьявлений и тематические чаты"),
         BotCommand("rundfunk", "Освобожение от налога на радио и ТВ"),
         BotCommand("socialhelp", "Социальная помощь"),
