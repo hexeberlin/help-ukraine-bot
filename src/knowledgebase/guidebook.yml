@@ -684,6 +684,8 @@ psychological:
     - https://t.me/UA_MentalHelpBot
     - https://t.me/WordsHelpingBot
     - https://t.me/mental_help_ua_bot
+  Снижение стресса с помощью майндфулнес:
+    - abishevzhassulan.com/learn
 
 return_to_ukraine:
   - |
@@ -833,13 +835,18 @@ translators:
 transport:
     - |
       Месячный проездной билет для владельцев BerlinPass или получателей пособий:
-      Berlin Ticket S (sozial) -  27,50 €
+      Berlin Ticket S (sozial) - 9 € (01.01.23 до 31.03.23), потом опять 27,50 €
       https://sbahn.berlin/tickets/alle-tickets/wochen-monats-abo-jahrestickets/berlin-ticket-s/
 
       Действует только в зоне АВ.
-      ‼️На билет пишется номер BerlinPass ИЛИ номер из распечатки о пособии (джобцентр BG-Nr./ социаламт S0135........)
-      ‼️Без BerlinPass носить с собой удостоверение личности с фото + первую страницу справки о пособии
-
+      ‼️На билет пишется номер VBB-Kundenkarte Berlin S
+      ‼️Только до 31.03.23 - можно вписывать BerlinPass ИЛИ номер из распечатки о пособии (джобцентр BG-Nr./ социаламт S0135........)
+      ‼️Без Kundenkarte или BerlinPass носить с собой удостоверение личности с фото + первую страницу справки о пособии
+      
+      Получить VBB-Kundenkarte Berlin S можно только онлайн, используя QR код полученный из джобцентр/социальфмт.
+      Сайт оформления: https://www.vbb-kundenkarte-berlin-ticket-s.de/
+      Подробности здесь: https://www.berlin.de/sen/soziales/soziale-sicherung/bn-berlin-ticket-s/
+  
       С этим билетом МОЖНО взять с собой БЕСПЛАТНО
       ✅ Детей до 6 лет
       ✅ собаку
@@ -856,7 +863,7 @@ transport:
       - в офисах и жёлтых автоматах BVG
       - в газетных киосках и магазинчиках, имеющих наклейку BVG или Tickets
     - |
-      Информация о билете за 29 евро для всех тут: https://t.me/berlinhelpsukrainians/369831
+      Информация о билете за 29 евро для всех тут: https://t.me/berlinhelpsukrainians/369831. Билет за 29 евро в месяц действует по зоне АБ, доступен до 31.03.23
     - |
       Обычный проездной билет:
       Monatskarte (VBB Umweltkarte)
