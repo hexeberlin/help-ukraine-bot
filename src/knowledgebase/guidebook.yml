@@ -471,7 +471,6 @@ jobs:
     - https://t.me/jobsforukraine
     - https://t.me/euvacancies_for_evacuated
     - https://t.me/workforuade
-    - https://www.stepstone.de/
   Чат помощи фрилансерам:
     - https://t.me/tipsforukrainianfreelancers
   Сайты вакансий для украинцев:
@@ -483,11 +482,12 @@ jobs:
   Общие сайты вакансий:
     - https://www.linkedin.com/
     - https://www.indeed.com/hire
+    - https://www.stepstone.de/
+    - https://www.heyjobs.co/de-de/jobs
     - https://www.tbd.community/de
     - https://goodjobs.eu/
     - https://angel.co/
     - https://berlinstartupjobs.com/
-    - https://www.heyjobs.co/de-de/jobs
 job_center_calc:
   - |
     Расчёт JobCenter на примере зарплаты в 520 € (Basis):
