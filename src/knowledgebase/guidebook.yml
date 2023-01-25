@@ -28,14 +28,27 @@ animals:
     - https://tiertafel.org
 apartments:
   Где искать квартиру:
-    - https://www.immobilienscout24.de/
-    - https://www.immonet.de/
-    - https://www.immowelt.de/
-    - https://www.wg-gesucht.de/
-    - https://www.ebay-kleinanzeigen.de/s-wohnung-mieten/berlin/c203l3331
-    - https://wunderflats.com/
-    - https://unit36.de/
-    - https://www.livinginberlin.de/angebote/mieten/
+    - |
+      Сайты по поиску квартир:
+      https://www.immobilienscout24.de/
+      https://www.immonet.de/
+      https://www.immowelt.de/
+      https://www.wg-gesucht.de/
+      https://www.ebay-kleinanzeigen.de/s-wohnung-mieten/berlin/c203l3331
+      https://wunderflats.com/
+      https://unit36.de/
+      https://www.livinginberlin.de/angebote/mieten/
+    - |
+      И сайты всех фирм-застройщиков:
+      https://www.gewobag.de/
+      https://www.howoge.de/
+      https://www.gesobau.de
+      https://www.deutsche-wohnen.com
+      https://www.degewo.de/
+      https://www.stadtundland.de/
+      https://www.vonovia.de/
+      https://www.covivio.immo/ 
+      https://www.stadtentwicklung.berlin.de/wohnen/wohnungsbaugesellschaften.shtml
 beauty:
   Попробуйте обратиться в чаты beauty-сообществ:
     - https://t.me/beauty_master_Germany
