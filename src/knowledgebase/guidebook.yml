@@ -569,6 +569,9 @@ medical:
     - https://www.kvberlin.de/fuer-patienten/ukraine
     - |
       https://www.nowar.help/ru/medical-support
+  При проблемах со страховкой:
+    - |
+      Консультация Berliner Stadtmission https://www.berliner-stadtmission.de/clearingstelle/sprachen#c1501
   Где искать врачей:
     - |
       На сайтах
@@ -589,18 +592,24 @@ medical:
       https://shorties.io/remote-doctors-ukraine
   Лекарства для людей без медицинской страховки:
     - https://www.malteser.de/menschen-ohne-krankenversicherung.html
-    - https://www.aekb.de/service-kontakt/hilfreiche-informationen-links/hilfsorganisationen-und-angebote-zur-medizinischen-versorgung-in-berlin
+    - |
+      https://www.aekb.de/service-kontakt/hilfreiche-informationen-links/hilfsorganisationen-und-angebote-zur-medizinischen-versorgung-in-berlin
   Поиск аптеки экстренной помощи:
-    - https://www.aponet.de/apotheke/notdienstsuche
+    - |
+      https://www.aponet.de/apotheke/notdienstsuche
   Поиск больниц по Германии:
-    - https://www.deutsches-krankenhaus-verzeichnis.de/app/suche/landkarte
+    - |
+      https://www.deutsches-krankenhaus-verzeichnis.de/app/suche/landkarte
   Помощь для людей с ВИЧ:
-    - https://www.berlin-aidshilfe.de/
+    - |
+      https://www.berlin-aidshilfe.de/
   Онкология:
     - "Информация: https://medwatch.de/2022/03/11/информация-для-онкобольных-из-украин/"
-    - "Клиники Германии, специализирующиеся на разных видах болезни: https://msp-ger.ru/oncology-in-germany/"
+    - |
+      Клиники Германии, специализирующиеся на разных видах болезни: https://msp-ger.ru/oncology-in-germany/
   Зубные врачи:
-    - В экстренном случае зубные врачи могут предоставить бесплатную стоматологическую помошь. При себе необходимо иметь украинский паспорт.
+    - |
+      В экстренном случае зубные врачи могут предоставить бесплатную стоматологическую помошь. При себе необходимо иметь украинский паспорт.
       https://news.kzv-berlin.de/detail/nachricht/zahnmedizinische-versorgung-von-fluechtlingen-aus-der-ukraine
 meetup:
   Mitte:
