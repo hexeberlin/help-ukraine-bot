@@ -26,6 +26,9 @@ git push help-ukrain-bot-prod master
 **In Chat Group Bot should have ADMIN rights**
 
 ##Release Notes
+### 20230125
+- update `/transport`, `/apartments`, `/medical`, `/jobs`, `/psychological`
+
 ### 20221229
 - update `/transport`, `/beauty`, `/no_ads`, `/jobs`, `/psychological`
 - add Wiesbaden to `/cities`
