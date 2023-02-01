@@ -40,6 +40,7 @@ class NameType(str, Enum):
     meetup: str = "meetup"
     minors: str = "minors"
     no_ads: str = "no_ads"
+    passport: str = "passport"
     photo: str = "photo"
     pregnant: str = "pregnant"
     psychological: str = "psychological"
