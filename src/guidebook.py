@@ -121,7 +121,7 @@ class Guidebook(ABC):
                 result += "- " + value + "\n"
         return self._format_results(result)
 
-    def _get_info(self, group_name: Enum, name: Optional[str] = None) -> str:
+    def _get_info(self, group_name: str, name: Optional[str] = None) -> str:
         group = self._get_guidebook().get(group_name.value.lower())
         if group:
             if isinstance(group, dict):

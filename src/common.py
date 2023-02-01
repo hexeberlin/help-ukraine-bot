@@ -20,7 +20,8 @@ guidebook = Guidebook()
 
 def send_results(bot: Bot, update: Update, group_name: str, name: str = None):
     delete_command(bot, update)
-    results = guidebook._get_info(group_name=group_name, name=name)
+    new_line = '\n'
+    results = f"/{group_name}{new_line}{guidebook._get_info(group_name=group_name, name=name)}"
     reply_to_message(bot, update, results)
 
 
