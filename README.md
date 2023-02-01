@@ -26,6 +26,11 @@ git push help-ukrain-bot-prod master
 **In Chat Group Bot should have ADMIN rights**
 
 ##Release Notes
+### 20230201
+- update `/vaccination`, `/jobs`
+- add new `/passport`
+- print command name before response
+
 ### 20230125
 - update `/transport`, `/apartments`, `/medical`, `/jobs`, `/psychological`
 
