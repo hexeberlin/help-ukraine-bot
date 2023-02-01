@@ -7,54 +7,6 @@ from src.common import send_results
 from src.guidebook import NameType
 
 
-def translators_command(bot: Bot, update: Update):
-    send_results(bot, update, group_name=NameType.translators, name=None)
-
-
-def transport_command(bot: Bot, update: Update):
-    send_results(bot, update, group_name=NameType.transport, name=None)
-
-
-def social_help_command(bot: Bot, update: Update):
-    send_results(bot, update, group_name=NameType.social_help, name=None)
-
-
-def minors_command(bot: Bot, update: Update):
-    send_results(bot, update, group_name=NameType.minors, name=None)
-
-
-def official_information_command(bot: Bot, update: Update):
-    send_results(bot, update, group_name=NameType.statements, name=None)
-
-
-def legal_command(bot: Bot, update: Update):
-    send_results(bot, update, group_name=NameType.legal, name=None)
-
-
-def handbook(bot: Bot, update: Update):
-    send_results(bot, update, group_name=NameType.handbook, name=None)
-
-
-def general_information_command(bot: Bot, update: Update):
-    send_results(bot, update, group_name=NameType.general_information, name=None)
-
-
-def telegram_translation_command(bot: Bot, update: Update):
-    send_results(bot, update, group_name=NameType.telegram_translation, name=None)
-
-
-def rundfunk_command(bot: Bot, update: Update):
-    send_results(bot, update, group_name=NameType.rundfunk, name=None)
-
-
-def wbs_command(bot: Bot, update: Update):
-    send_results(bot, update, group_name=NameType.wbs, name=None)
-
-
-def no_ads_command(bot: Bot, update: Update):
-    send_results(bot, update, group_name=NameType.no_ads, name=None)
-
-
 def berlinpass_command(bot: Bot, update: Update):
     send_results(bot, update, group_name=NameType.berlinpass, name=None)
 
@@ -63,12 +15,64 @@ def beschwerde_command(bot: Bot, update: Update):
     send_results(bot, update, group_name=NameType.beschwerde, name=None)
 
 
+def general_information_command(bot: Bot, update: Update):
+    send_results(bot, update, group_name=NameType.general_information, name=None)
+
+
+def handbook(bot: Bot, update: Update):
+    send_results(bot, update, group_name=NameType.handbook, name=None)
+
+
 def kindergeld_command(bot: Bot, update: Update):
     send_results(bot, update, group_name=NameType.kindergeld, name=None)
 
 
+def legal_command(bot: Bot, update: Update):
+    send_results(bot, update, group_name=NameType.legal, name=None)
+
+
 def leave_command(bot: Bot, update: Update):
     send_results(bot, update, group_name=NameType.leave, name=None)
+
+
+def minors_command(bot: Bot, update: Update):
+    send_results(bot, update, group_name=NameType.minors, name=None)
+
+
+def no_ads_command(bot: Bot, update: Update):
+    send_results(bot, update, group_name=NameType.no_ads, name=None)
+
+
+def official_information_command(bot: Bot, update: Update):
+    send_results(bot, update, group_name=NameType.statements, name=None)
+
+
+def passport_command(bot: Bot, update: Update):
+    send_results(bot, update, group_name=NameType.passport, name=None)
+
+
+def rundfunk_command(bot: Bot, update: Update):
+    send_results(bot, update, group_name=NameType.rundfunk, name=None)
+
+
+def social_help_command(bot: Bot, update: Update):
+    send_results(bot, update, group_name=NameType.social_help, name=None)
+
+
+def telegram_translation_command(bot: Bot, update: Update):
+    send_results(bot, update, group_name=NameType.telegram_translation, name=None)
+
+
+def translators_command(bot: Bot, update: Update):
+    send_results(bot, update, group_name=NameType.translators, name=None)
+
+
+def transport_command(bot: Bot, update: Update):
+    send_results(bot, update, group_name=NameType.transport, name=None)
+
+
+def wbs_command(bot: Bot, update: Update):
+    send_results(bot, update, group_name=NameType.wbs, name=None)
 
 
 def register_commands(dispatcher: Dispatcher) -> List[BotCommand]:
@@ -82,6 +86,7 @@ def register_commands(dispatcher: Dispatcher) -> List[BotCommand]:
     dispatcher.add_handler(CommandHandler("minors", minors_command))
     dispatcher.add_handler(CommandHandler("no_ads", no_ads_command))
     dispatcher.add_handler(CommandHandler("official_information", official_information_command))
+    dispatcher.add_handler(CommandHandler("passport", passport_command))
     dispatcher.add_handler(CommandHandler("rundfunk", rundfunk_command))
     dispatcher.add_handler(CommandHandler("socialhelp", social_help_command))
     dispatcher.add_handler(CommandHandler("translators", translators_command))
@@ -99,6 +104,7 @@ def register_commands(dispatcher: Dispatcher) -> List[BotCommand]:
         BotCommand("leave", "Как сообщить JobCenter о временном отсутсвии"),
         BotCommand("minors", "Помощь для несовершеннолетних без сопровождения"),
         BotCommand("no_ads", "Доски обьявлений и тематические чаты"),
+        BotCommand("passport", "Получение украинского паспорта в Польше"),
         BotCommand("rundfunk", "Освобожение от налога на радио и ТВ"),
         BotCommand("socialhelp", "Социальная помощь"),
         BotCommand("translators", "Помощь переводчиков"),
