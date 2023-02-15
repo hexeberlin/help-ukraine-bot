@@ -15,11 +15,17 @@ def job_center_calc_command(bot: Bot, update: Update):
     send_results(bot, update, group_name=NameType.job_center_calc, name=None)
 
 
+def furniture_command(bot: Bot, update: Update):
+    send_results(bot, update, group_name=NameType.furniture, name=None)
+
+
 def register_commands(dispatcher: Dispatcher) -> List[BotCommand]:
     dispatcher.add_handler(CommandHandler("job_center_calc", job_center_calc_command))
+    dispatcher.add_handler(CommandHandler("furniture", furniture_command))
     dispatcher.add_handler(CommandHandler("schufa", schufa_command))
 
     return [
         BotCommand("job_center_calc", "Расчёт пособия от JobCenter при наличии зарплаты"),
+        BotCommand("furniture", "Оформление заявки на мебель и бытовые приборы"),
         BotCommand("schufa", "Как получить справку Schufa"),
     ]
