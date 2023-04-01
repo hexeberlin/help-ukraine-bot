@@ -889,17 +889,22 @@ telegram_translation:
     Щоб активувати опцію перекладу: налаштування -> мова
     Щоб перекласти: натисніть на повідомлення та виберіть 'перекласти'
 translators:
-  Чаты переводчиков:
-    - https://t.me/translators_team_ua
-    - https://t.me/berlintranslators
-    - https://bit.ly/lingvolunteers
-  MoovaBot помогает связаться людям, нуждающимся в помощи в устном общении на немецком, с переводчиками-волонтёрами:
-    - https://t.me/moovaBot
-  Поиск присяжных переводчиков по языкам и городам:
+  Поиск переводчиков по языкам и городам:
+    - https://suche.bdue.de/ 
+      Выставляете нужные Вам языки, место расположения (много переводов делают удалённо - например, Вы им сканы, они Вам бумажной почтой переводы)
     - |
       https://www.justiz-dolmetscher.de/Recherche/de/Suchen
       Dolmetscher - устный переводчик
       Übersetzer - переводчик (документов)
+  Чаты переводчиков:
+    - https://bit.ly/lingvolunteers — LINGVO волонтеры
+    - https://bit.ly/lingvoaudio — AUDIO LINGVO волонтеры, переводчики по громкой связи
+    - https://t.me/translators_team_ua — Translators_Team
+    - https://t.me/linguaHElP — LinguaHELP, чат переводчиков и славистов для беженцев из Украины
+    - |
+      https://t.me/berlintranslators - чат с информацией о переводах и переводчиках
+  MoovaBot помогает связаться людям, нуждающимся в помощи в устном общении на немецком, с переводчиками-волонтёрами:
+    - https://t.me/moovaBot
 transport:
     - |
       Месячный социальный проездной билет Berlin Ticket S для получателей пособий - 9€: 
