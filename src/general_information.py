@@ -7,10 +7,6 @@ from src.common import send_results
 from src.guidebook import NameType
 
 
-def berlinpass_command(bot: Bot, update: Update):
-    send_results(bot, update, group_name=NameType.berlinpass, name=None)
-
-
 def beschwerde_command(bot: Bot, update: Update):
     send_results(bot, update, group_name=NameType.beschwerde, name=None)
 
@@ -76,7 +72,6 @@ def wbs_command(bot: Bot, update: Update):
 
 
 def register_commands(dispatcher: Dispatcher) -> List[BotCommand]:
-    dispatcher.add_handler(CommandHandler("berlinpass", berlinpass_command))
     dispatcher.add_handler(CommandHandler("beschwerde", beschwerde_command))
     dispatcher.add_handler(CommandHandler("general_information", general_information_command))
     dispatcher.add_handler(CommandHandler("handbook", handbook))
@@ -95,7 +90,6 @@ def register_commands(dispatcher: Dispatcher) -> List[BotCommand]:
     dispatcher.add_handler(CommandHandler("wbs", wbs_command))
 
     return [
-        BotCommand("berlinpass", "Как получить BerlinPass"),
         BotCommand("beschwerde", "Куда обратиться с жалобой"),
         BotCommand("general_information", "Официальная информация"),
         BotCommand("handbook", "Часто задаваемые вопросы"),
