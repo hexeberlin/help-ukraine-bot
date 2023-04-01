@@ -44,6 +44,7 @@ class NameType(str, Enum):
     photo: str = "photo"
     pregnant: str = "pregnant"
     psychological: str = "psychological"
+    qrcode: str = "qrcode"
     return_to_ukraine: str = "return_to_ukraine"
     rundfunk: str = "rundfunk"
     school: str = "school"
