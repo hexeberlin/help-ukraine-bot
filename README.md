@@ -26,6 +26,10 @@ git push help-ukrain-bot-prod master
 **In Chat Group Bot should have ADMIN rights**
 
 ##Release Notes
+### 20230401
+- update `/translators`, `/transport`, `/accomodation`, `/entertainment`
+- add new `/qrcode`, remove `/berlinpass`
+
 ### 20230215
 - update `/translators`, `/transport`, `/simcards`, `/passport`
 - add new `/furniture`
