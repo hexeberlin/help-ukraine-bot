@@ -17,7 +17,6 @@ class NameType(str, Enum):
     animal_help: str = "animals"
     apartments: str = "apartments"
     beauty: str = "beauty"
-    berlinpass: str = "berlinpass"
     beschwerde: str = "beschwerde"
     cities: str = "cities"
     disabled: str = "disabled"
