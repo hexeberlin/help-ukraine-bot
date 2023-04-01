@@ -47,6 +47,10 @@ def passport_command(bot: Bot, update: Update):
     send_results(bot, update, group_name=NameType.passport, name=None)
 
 
+def qrcode_command(bot: Bot, update: Update):
+    send_results(bot, update, group_name=NameType.qrcode, name=None)
+
+
 def rundfunk_command(bot: Bot, update: Update):
     send_results(bot, update, group_name=NameType.rundfunk, name=None)
 
@@ -82,6 +86,7 @@ def register_commands(dispatcher: Dispatcher) -> List[BotCommand]:
     dispatcher.add_handler(CommandHandler("no_ads", no_ads_command))
     dispatcher.add_handler(CommandHandler("official_information", official_information_command))
     dispatcher.add_handler(CommandHandler("passport", passport_command))
+    dispatcher.add_handler(CommandHandler("qrcode", qrcode_command))
     dispatcher.add_handler(CommandHandler("rundfunk", rundfunk_command))
     dispatcher.add_handler(CommandHandler("socialhelp", social_help_command))
     dispatcher.add_handler(CommandHandler("translators", translators_command))
@@ -99,6 +104,7 @@ def register_commands(dispatcher: Dispatcher) -> List[BotCommand]:
         BotCommand("minors", "Помощь для несовершеннолетних без сопровождения"),
         BotCommand("no_ads", "Доски обьявлений и тематические чаты"),
         BotCommand("passport", "Получение украинского паспорта в Польше"),
+        BotCommand("qrcode", "Информация о получении QR-Code"),
         BotCommand("rundfunk", "Освобожение от налога на радио и ТВ"),
         BotCommand("socialhelp", "Социальная помощь"),
         BotCommand("translators", "Помощь переводчиков"),
