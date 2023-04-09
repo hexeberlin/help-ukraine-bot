@@ -1,4 +1,4 @@
-"""put module docstring here"""
+"""main module running the bot"""
 
 from telegram.ext import (
     Updater,
@@ -20,11 +20,8 @@ from config import (
 
 
 def main() -> None:
-    """Start the bot."""
-    # Create the Updater and pass it your bot's token.
+    """Start the bot"""
     updater = Updater(TOKEN)
-
-    # Get the dispatcher to register handlers
     dispatcher = updater.dispatcher
 
     commands.add_commands(dispatcher)
@@ -34,7 +31,13 @@ def main() -> None:
     general_information_commands = general_information.register_commands(dispatcher)
     medical_commands = medical.register_commands(dispatcher)
 
-    command_list = education_commands + finance_commands + general_information_commands + medical_commands + commands.get_command_list()
+    command_list = (
+            education_commands
+            + finance_commands +
+            general_information_commands +
+            medical_commands +
+            commands.get_command_list()
+    )
     command_list.sort(key=lambda x: x.command)
 
     updater.bot.set_my_commands(command_list)
