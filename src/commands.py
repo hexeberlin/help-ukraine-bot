@@ -1,3 +1,5 @@
+"""Module containing the bot commands."""
+
 import logging
 import os
 from typing import List, Tuple
@@ -11,7 +13,7 @@ from telegram.utils.helpers import effective_message_type
 from src.common import restricted, parse_article, reply_to_message, get_param, guidebook, delete_command, \
     format_knowledge_results, send_results
 from src.config import REMINDER_INTERVAL_INFO, SOCIAL_JOB, REMINDER_INTERVAL_PINNED, PINNED_JOB, REMINDER_MESSAGE, \
-    BERLIN_HELPS_UKRAIN_CHAT_ID, ADMIN_ONLY_CHAT_IDS, THUMB_URL, MONGO_HOST, MONGO_USER, MONGO_PASS, MONGO_BASE
+    BERLIN_HELPS_UKRAINE_CHAT_ID, ADMIN_ONLY_CHAT_IDS, THUMB_URL, MONGO_HOST, MONGO_USER, MONGO_PASS, MONGO_BASE
 from src.guidebook import NameType
 from src.mongo import connect
 from src.services import Articles
@@ -26,7 +28,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
-def help():
+def help_text():
     return (
             "Привет! 🤖 "
             + os.linesep
@@ -54,13 +56,13 @@ def help():
             + "\n\n\n"
             + "Hi! 🤖"
             + os.linesep
-            + "I'm the bot helping refugees from Ukraine 🇺🇦 in Germany. "
+            + "I'm a bot helping refugees from Ukraine 🇺🇦 in Germany. "
             + os.linesep
-            + "Most of my knowledge concentrates around Berlin, but I have some "
+            + "Most of my knowledge focuses on Berlin, but I have some "
             + "general useful information too. Type '/' to see the list of my "
             + "available commands."
             + "\n\n"
-            + "If you add me to your chat, don't forget to give me the admin "
+            + "If you add me to your chat, don't forget to grant me admin "
             + "rights, so that I can delete log messages and keep your chat clean."
     )
 
@@ -215,7 +217,7 @@ def food_command(bot: Bot, update: Update):
 
 def help_command(bot: Bot, update: Update):
     delete_command(bot, update)
-    results = format_knowledge_results(help())
+    results = format_knowledge_results(help_text())
     reply_to_message(bot, update, results)
 
 
@@ -291,7 +293,7 @@ def start_timer(bot: Bot, update: Update, job_queue: JobQueue):
     message = update.message
     chat_id = message.chat_id
     command_message_id = message.message_id
-    if chat_id in BERLIN_HELPS_UKRAIN_CHAT_ID:
+    if chat_id in BERLIN_HELPS_UKRAINE_CHAT_ID:
         reminder(bot, update, job_queue)
     try:
         bot.delete_message(chat_id=chat_id, message_id=command_message_id)
@@ -428,7 +430,3 @@ def delete_greetings(bot: Bot, update: Update) -> None:
             "left_chat_member",
         ]:
             bot.delete_message(chat_id=message.chat_id, message_id=message.message_id)
-
-
-
-
