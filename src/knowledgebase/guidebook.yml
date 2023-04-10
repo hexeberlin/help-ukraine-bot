@@ -25,6 +25,29 @@ animals:
       http://www.tierarzt-bolz.de
   Бесплатный корм, принадлежности для животных и мед. обслуживание:
     - https://tiertafel.org
+apartment_approval:
+  - |
+    Процесс одобрения квартиры Jobcenter:
+    
+    1. Вам прийдёт от управляющей компании Angebot или Exposé персонально для Вас (проверять спам - иногда приходит туда), который надо переслать в Jobcenter по электронной почте или в личном кабинете со следующим текстом:
+    
+    Liebes Jobcenter-Team,
+    anbei ist das Angebot einer Wohnung für unsere Familie.
+    Wir benötigen Ihre Zusage dringend noch heute, sonst ist die Wohnung weg.
+    Ich willige hiermit ein, dass Sie mir auf diese E-Mail auch per E-Mail antworten.
+    Vielen lieben Dank im Voraus!
+    Liebe Grüße,
+    Xxxxxx
+
+    2. Jobcenter пришлет Вам подтверждение на аренду квартиры, которое надо переслать в управляющую компанию.
+    3. Управляющая компания пришлет Вам контракт.
+    4. Вы его внимательно читаете и подписываете.
+    5. Один экземпляр отдаете в управляющую компанию, один оставляете себе.
+    6. Копию контракта отправляете в Jobcenter с просьбой начать платить Вашу аренду и выплатить кауцион.
+    7. Назначаете термин с Hausmeister на приемку-передачу квартиры (попросите термин как можно скорее).
+    8. Получаете протокол приемки-передачи.
+    9. Записываете размеры окон.
+    10. Отправляете протокол и размеры окон в Jobcenter с просьбой денег на мебель/бытовые приборы (процедура здесь: /furniture).
 apartments:
   Где искать квартиру:
     - |

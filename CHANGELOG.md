@@ -4,6 +4,7 @@
 - add `.pylintrc`
 - update `/education`, `/general_information`, `/cities`, `/passport`
 - remove `/handbook`, `/adaptation`
+- add new `/apartment_approval`
 
 ### 20230401
 - update `/translators`, `/transport`, `/accomodation`, `/entertainment`

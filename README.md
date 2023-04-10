@@ -22,7 +22,7 @@ The bot gets deployed to heroku automatically.
 To deploy the test branch:
 ```shell
 heroku git:remote -a telegram-bot-help-in-berlin-te 
-git push help-ukrain-bot-test test-deploy:master
+git push help-ukrain-bot-test test-deploy:master --force
 ```
 
 To deploy the main branch:
