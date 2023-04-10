@@ -1,6 +1,9 @@
-### 20230408
+### 20230410
 - create `CHANGELOG.md`
-- Update `README.md`
+- update `README.md`
+- add `.pylintrc`
+- update `/education`, `/general_information`, `/cities`, `/passport`
+- remove `/handbook`
 
 ### 20230401
 - update `/translators`, `/transport`, `/accomodation`, `/entertainment`
