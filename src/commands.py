@@ -78,7 +78,6 @@ def add_commands(dispatcher) -> None:
     dispatcher.add_handler(CommandHandler("accommodation", accommodation_command))
     dispatcher.add_handler(CommandHandler("apartments", apartments_command))
     dispatcher.add_handler(CommandHandler("animals", animal_help_command))
-    dispatcher.add_handler(CommandHandler("adaption", social_adaption_command))
     dispatcher.add_handler(CommandHandler("beauty", beauty_command))
     dispatcher.add_handler(CommandHandler("cities", cities_command))
     dispatcher.add_handler(CommandHandler("cities_all", cities_all_command))
@@ -110,7 +109,6 @@ def get_command_list() -> List[BotCommand]:
     command_list = [
         BotCommand("accommodation", "Поиск временного жилья"),
         BotCommand("apartments", "Поиск постоянного жилья"),
-        BotCommand("adaption", "Социальная адаптация в Берлине"),
         BotCommand("animals", "Помощь домашним животным"),
         BotCommand("beauty", "Beauty сообщества"),
         BotCommand(
@@ -238,10 +236,6 @@ def photo_command(bot: Bot, update: Update):
 
 def return_to_ukraine_command(bot: Bot, update: Update):
     send_results(bot, update, group_name=NameType.return_to_ukraine, name=None)
-
-
-def social_adaption_command(bot: Bot, update: Update):
-    send_results(bot, update, group_name=NameType.social_adaptation, name=None)
 
 
 def school_command(bot: Bot, update: Update):
