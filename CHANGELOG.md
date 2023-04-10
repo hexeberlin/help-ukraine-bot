@@ -3,7 +3,7 @@
 - update `README.md`
 - add `.pylintrc`
 - update `/education`, `/general_information`, `/cities`, `/passport`
-- remove `/handbook`
+- remove `/handbook`, `/adaptation`
 
 ### 20230401
 - update `/translators`, `/transport`, `/accomodation`, `/entertainment`
