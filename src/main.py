@@ -33,10 +33,10 @@ def main() -> None:
 
     command_list = (
             education_commands
-            + finance_commands +
-            general_information_commands +
-            medical_commands +
-            commands.get_command_list()
+            + finance_commands
+            + general_information_commands
+            + medical_commands
+            + commands.get_command_list()
     )
     command_list.sort(key=lambda x: x.command)
 

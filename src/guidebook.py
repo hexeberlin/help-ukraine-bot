@@ -67,8 +67,8 @@ class Guidebook(ABC):
     """Class for the Guidebook"""
 
     def __init__(self):
-        self.guidebook: Dict[str, Any] = None
-        self.vocabulary: Dict[str, Any] = None
+        self.guidebook: Dict[str, Any] = {}
+        self.vocabulary: Dict[str, Any] = {}
 
     def _get_guidebook(self) -> Dict[str, Any]:
         path = settings["GUIDEBOOK_PATH"]
@@ -121,8 +121,8 @@ class Guidebook(ABC):
                 result += "- " + value + "\n"
         return self._format_results(result)
 
-    def _get_info(self, group_name: str, name: Optional[str] = None) -> str:
-        group = self._get_guidebook().get(group_name.value.lower())
+    def get_info(self, group_name: str, name: Optional[str] = None) -> str:
+        group = self._get_guidebook().get(group_name.lower())
         if group:
             if isinstance(group, dict):
                 group_lower = {k.lower(): v for k, v in group.items()}
@@ -130,20 +130,20 @@ class Guidebook(ABC):
                     if name.lower() not in group_lower.keys():
                         return (
                                 "К сожалению, мы пока не располагаем информацией "
-                                + f"по запросу {group_name.value}, {name}."
+                                + f"по запросу {group_name}, {name}."
                         )
                     return self._convert_list_to_str(group_lower[name.lower()],
                                                      name)
                 return self._convert_dict_to_str(group)
-            # if group has type list
-            return self._convert_list_to_str(group)
+            if isinstance(group, List):
+                return self._convert_list_to_str(group)
         return (
                 "К сожалению, мы пока не располагаем информацией "
-                + f"по запросу {group_name.value}."
+                + f"по запросу {group_name}."
         )
 
     def get_results(self, group_name: str, name: str = None) -> str:
-        return self._get_info(group_name=NameType[group_name], name=name)
+        return self.get_info(group_name=NameType[group_name], name=name)
 
     def get_cities(
             self,
@@ -156,24 +156,24 @@ class Guidebook(ABC):
             )
         vocabulary = self.get_vocabulary()
         if name in vocabulary:
-            return self._get_info(group_name=group_name,
-                                  name=vocabulary.get(name))
-        return self._get_info(group_name=group_name, name=name)
+            return self.get_info(group_name=group_name.value,
+                                 name=vocabulary.get(name))
+        return self.get_info(group_name=group_name.value, name=name)
 
     def get_countries(
             self, group_name: Enum = NameType.countries, name: Optional[str] = None
     ) -> str:
         if not name:
             return self._format_results(
-                "Пожалуйста, уточните название страны: /cities Name\n"
+                "Пожалуйста, уточните название страны: /countries Name\n"
             )
-        return self._get_info(group_name=group_name, name=name)
+        return self.get_info(group_name=group_name.value, name=name)
 
     def get_meetup(
             self, group_name: Enum = NameType.meetup, name: Optional[str] = None
     ) -> str:
         vocabulary = self.get_vocabulary()
         if name in vocabulary:
-            return self._get_info(group_name=group_name,
-                                  name=vocabulary.get(name))
-        return self._get_info(group_name=group_name, name=name)
+            return self.get_info(group_name=group_name.value,
+                                 name=vocabulary.get(name))
+        return self.get_info(group_name=group_name.value, name=name)
