@@ -88,7 +88,7 @@ def parse_keys(line: str) -> List[str]:
 
 
 def parse_article(message: str, command: str, bot_name: str) -> Optional[Article]:
-    message = message.text.removeprefix(command).replace(bot_name, "")
+    message = message.removeprefix(command).replace(bot_name, "")
     lines = message.splitlines()
     if len(lines) < 3:
         return None
