@@ -15,10 +15,6 @@ def general_information_command(bot: Bot, update: Update):
     send_results(bot, update, group_name=NameType.general_information, name=None)
 
 
-def handbook(bot: Bot, update: Update):
-    send_results(bot, update, group_name=NameType.handbook, name=None)
-
-
 def kindergeld_command(bot: Bot, update: Update):
     send_results(bot, update, group_name=NameType.kindergeld, name=None)
 
@@ -78,7 +74,6 @@ def wbs_command(bot: Bot, update: Update):
 def register_commands(dispatcher: Dispatcher) -> List[BotCommand]:
     dispatcher.add_handler(CommandHandler("beschwerde", beschwerde_command))
     dispatcher.add_handler(CommandHandler("general_information", general_information_command))
-    dispatcher.add_handler(CommandHandler("handbook", handbook))
     dispatcher.add_handler(CommandHandler("kindergeld", kindergeld_command))
     dispatcher.add_handler(CommandHandler("leave", leave_command))
     dispatcher.add_handler(CommandHandler("legal", legal_command))
@@ -97,7 +92,6 @@ def register_commands(dispatcher: Dispatcher) -> List[BotCommand]:
     return [
         BotCommand("beschwerde", "Куда обратиться с жалобой"),
         BotCommand("general_information", "Официальная информация"),
-        BotCommand("handbook", "Часто задаваемые вопросы"),
         BotCommand("kindergeld", "Как получить детское пособие (Kindergeld)"),
         BotCommand("legal", "Юридическая помощь"),
         BotCommand("leave", "Как сообщить JobCenter о временном отсутсвии"),

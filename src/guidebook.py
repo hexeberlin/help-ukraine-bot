@@ -30,7 +30,6 @@ class NameType(str, Enum):
     furniture: str = "furniture"
     general_information: str = "general_information"
     german: str = "deutsch"
-    handbook: str = "handbook"
     job_center_calc: str = "job_center_calc"
     jobs: str = "jobs"
     kindergeld: str = "kindergeld"
