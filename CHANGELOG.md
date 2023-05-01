@@ -1,3 +1,7 @@
+### 20230501
+- update `/wbs`, `/passport`, `/furniture`
+- remove `/meetup`
+
 ### 20230410
 - create `CHANGELOG.md`
 - update `README.md`
@@ -109,7 +113,7 @@
 - update `translators`
 
 ### 20220327:
-- add new commands: `/countries_all`, `/entertainment, `/meetup`, `/school`, `/vaccination` , `/germany_asyl_all`.
+- add new commands: `/countries_all`, `/entertainment`, `/meetup`, `/school`, `/vaccination` , `/germany_asyl_all`.
 - command `/countries `now has the same behaviour as command `/cities`.
 - commands `/countries`, `/cities`, `/meetup` and `/germany_asyl` can work with parameters. If a name has german umlauts (*ä*, *ö*, *ü*), you can use *ä*, *ö*, *ü* OR *ä*->*a*, *ö*->*o*, *ü*->*u* OR *ä*->*ae*, *ö*-*oe*, *ü*-*ue*. For example, you can search for **Köln** as *Köln*, *Koln* or *Koeln*. Also you can now search **Frankfurt am Main** as *fam*.
 - updated commands with new information: `/accomodation`, `/cities`, `/counties`, `/taxis`, `/medical`, `/psychological`, `/dentist` , `/humanitarian`.
