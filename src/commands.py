@@ -87,7 +87,6 @@ def add_commands(dispatcher) -> None:
     dispatcher.add_handler(CommandHandler("free_stuff", free_stuff_command))
     dispatcher.add_handler(CommandHandler("food", food_command))
     dispatcher.add_handler(CommandHandler("jobs", jobs_command))
-    dispatcher.add_handler(CommandHandler("meetup", meetup_command))
     dispatcher.add_handler(CommandHandler("photo", photo_command))
     dispatcher.add_handler(CommandHandler("return_to_ukraine", return_to_ukraine_command))
     dispatcher.add_handler(CommandHandler("school", school_command))
@@ -124,7 +123,6 @@ def get_command_list() -> List[BotCommand]:
         BotCommand("free_stuff", "Гуманитарная помощь в Берлине"),
         BotCommand("help", "Что умеет этот бот?"),
         BotCommand("jobs", "Работа в Германии"),
-        BotCommand("meetup", "Чаты по райнонам Берлина"),
         BotCommand("photo", "Где сделать фото"),
         BotCommand("return_to_ukraine", "Алгоритм действий при возвращении в Украину"),
         BotCommand("simcards", "Где получить СИМ карту"),
@@ -217,13 +215,6 @@ def help_command(bot: Bot, update: Update):
 
 def jobs_command(bot: Bot, update: Update):
     send_results(bot, update, group_name=NameType.jobs, name=None)
-
-
-def meetup_command(bot: Bot, update: Update):
-    name = get_param(bot, update, "/meetup")
-    delete_command(bot, update)
-    results = guidebook.get_meetup(name=name)
-    reply_to_message(bot, update, results)
 
 
 def photo_command(bot: Bot, update: Update):
