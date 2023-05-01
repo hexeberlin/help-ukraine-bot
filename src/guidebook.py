@@ -37,7 +37,6 @@ class NameType(str, Enum):
     leave: str = "leave"
     legal: str = "legal"
     medical: str = "medical"
-    meetup: str = "meetup"
     minors: str = "minors"
     no_ads: str = "no_ads"
     passport: str = "passport"
@@ -167,13 +166,4 @@ class Guidebook(ABC):
             return self._format_results(
                 "Пожалуйста, уточните название страны: /countries Name\n"
             )
-        return self.get_info(group_name=group_name.value, name=name)
-
-    def get_meetup(
-            self, group_name: Enum = NameType.meetup, name: Optional[str] = None
-    ) -> str:
-        vocabulary = self.get_vocabulary()
-        if name in vocabulary:
-            return self.get_info(group_name=group_name.value,
-                                 name=vocabulary.get(name))
         return self.get_info(group_name=group_name.value, name=name)
