@@ -11,6 +11,10 @@ def beschwerde_command(bot: Bot, update: Update):
     send_results(bot, update, group_name=NameType.beschwerde, name=None)
 
 
+def deutschlandticket_command(bot: Bot, update: Update):
+    send_results(bot, update, group_name=NameType.deutschlandticket, name=None)
+
+
 def general_information_command(bot: Bot, update: Update):
     send_results(bot, update, group_name=NameType.general_information, name=None)
 
@@ -73,6 +77,7 @@ def wbs_command(bot: Bot, update: Update):
 
 def register_commands(dispatcher: Dispatcher) -> List[BotCommand]:
     dispatcher.add_handler(CommandHandler("beschwerde", beschwerde_command))
+    dispatcher.add_handler(CommandHandler("deutschlandticket", deutschlandticket_command))
     dispatcher.add_handler(CommandHandler("general_information", general_information_command))
     dispatcher.add_handler(CommandHandler("kindergeld", kindergeld_command))
     dispatcher.add_handler(CommandHandler("leave", leave_command))
@@ -91,6 +96,7 @@ def register_commands(dispatcher: Dispatcher) -> List[BotCommand]:
 
     return [
         BotCommand("beschwerde", "Куда обратиться с жалобой"),
+        BotCommand("deutschlandticket", "DeutschlandTicket"),
         BotCommand("general_information", "Официальная информация"),
         BotCommand("kindergeld", "Как получить детское пособие (Kindergeld)"),
         BotCommand("legal", "Юридическая помощь"),
