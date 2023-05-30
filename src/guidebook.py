@@ -20,6 +20,7 @@ class NameType(str, Enum):
     beauty: str = "beauty"
     beschwerde: str = "beschwerde"
     cities: str = "cities"
+    deutschlandticket: str = "deutschlandticket"
     disabled: str = "disabled"
     countries: str = "countries"
     education: str = "education"
