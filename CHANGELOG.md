@@ -1,3 +1,7 @@
+### 20230530
+- update `/transport`, `/return_to_ukraine`
+- add `/deutschlandticket`
+
 ### 20230501
 - update `/wbs`, `/passport`, `/furniture`
 - remove `/meetup`
