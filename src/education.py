@@ -15,6 +15,10 @@ def deutsch_command(bot: Bot, update: Update):
     send_results(bot, update, group_name=NameType.german, name=None)
 
 
+def diplom_command(bot: Bot, update: Update):
+    send_results(bot, update, group_name=NameType.diplom, name=None)
+
+
 def education_command(bot: Bot, update: Update):
     send_results(bot, update, group_name=NameType.education, name=None)
 
@@ -26,12 +30,14 @@ def university_command(bot: Bot, update: Update):
 def register_commands(dispatcher: Dispatcher) -> List[BotCommand]:
     dispatcher.add_handler(CommandHandler("children_lessons", children_lessons_command))
     dispatcher.add_handler(CommandHandler("deutsch", deutsch_command))
+    dispatcher.add_handler(CommandHandler("diplom", diplom_command))
     dispatcher.add_handler(CommandHandler("education", education_command))
     dispatcher.add_handler(CommandHandler("uni", university_command))
 
     return [
         BotCommand("children_lessons", "Онлайн уроки для детей"),
         BotCommand("deutsch", "Уроки немецкого языка"),
+        BotCommand("diplom", "Информация о признании дипломов"),
         BotCommand("education", "Всё об образовании в Германии"),
         BotCommand("uni", "Университеты в Германии"),
     ]

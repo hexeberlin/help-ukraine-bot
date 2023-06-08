@@ -22,6 +22,7 @@ class NameType(str, Enum):
     cities: str = "cities"
     countries: str = "countries"
     deutschlandticket: str = "deutschlandticket"
+    diplom: str = "diplom"
     education: str = "education"
     entertainment: str = "entertainment"
     evacuation: str = "evacuation"
