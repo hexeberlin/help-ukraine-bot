@@ -1,3 +1,8 @@
+### 20230608
+- update `/transport`, `/deutsch`
+- update `/disabled` and rename to `/handicap`
+- add `/diplom`
+
 ### 20230530
 - update `/transport`, `/return_to_ukraine`
 - add `/deutschlandticket`
