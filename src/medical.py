@@ -16,8 +16,8 @@ def psychological_command(bot: Bot, update: Update):
     send_results(bot, update, group_name=NameType.psychological, name=None)
 
 
-def disabled_command(bot: Bot, update: Update):
-    send_results(bot, update, group_name=NameType.disabled, name=None)
+def handicap_command(bot: Bot, update: Update):
+    send_results(bot, update, group_name=NameType.handicap, name=None)
 
 
 def pregnant_command(bot: Bot, update: Update):
@@ -27,11 +27,11 @@ def pregnant_command(bot: Bot, update: Update):
 def register_commands(dispatcher: Dispatcher) -> List[BotCommand]:
     dispatcher.add_handler(CommandHandler("medical", medical_command))
     dispatcher.add_handler(CommandHandler("psychological", psychological_command))
-    dispatcher.add_handler(CommandHandler("disabled", disabled_command))
+    dispatcher.add_handler(CommandHandler("handicap", handicap_command))
     dispatcher.add_handler(CommandHandler("pregnant", pregnant_command))
 
     return [BotCommand("medical", "Медицинская помощь"),
             BotCommand("psychological", "Психологическая помощь"),
-            BotCommand("disabled", "Помощь для людей с особыми потребностями"),
+            BotCommand("handicap", "Помощь для людей с особыми потребностями"),
             BotCommand("pregnant", "Помощь для беременных"),
             ]
