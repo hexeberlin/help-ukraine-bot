@@ -47,6 +47,10 @@ def passport_command(bot: Bot, update: Update):
     send_results(bot, update, group_name=NameType.passport, name=None)
 
 
+def lost_passport_command(bot: Bot, update: Update):
+    send_results(bot, update, group_name=NameType.lost_passport, name=None)
+
+
 def qrcode_command(bot: Bot, update: Update):
     send_results(bot, update, group_name=NameType.qrcode, name=None)
 

@@ -42,6 +42,7 @@ class NameType(str, Enum):
     minors: str = "minors"
     no_ads: str = "no_ads"
     passport: str = "passport"
+    lost_passport: str = "lost_passport"
     photo: str = "photo"
     pregnant: str = "pregnant"
     psychological: str = "psychological"
