@@ -1,5 +1,5 @@
 ### 20230611
-- add `/lost_pass`
+- add `/lost_passport`
 
 ### 20230608
 - update `/transport`, `/deutsch`
