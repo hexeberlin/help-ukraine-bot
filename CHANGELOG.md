@@ -1,4 +1,9 @@
 ### 20230611
+- update `/legal`
+- update and rename `/uni` to `/university`
+- update Readme
+
+### 20230611
 - add `/lost_passport`
 
 ### 20230608
