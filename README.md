@@ -1,5 +1,9 @@
 # Help Ukraine Bot
+
+![build status](https://github.com/hexeberlin/help-ukraine-bot/actions/workflows/build.yml/badge.svg)
+
 Telegram bot containing the answers to the FAQs for Ukrainian refugees in Berlin.
+
 Support us: https://ko-fi.com/berlinhelpsukrainians
 
 ## Local development
