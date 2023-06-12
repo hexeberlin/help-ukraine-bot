@@ -61,7 +61,7 @@ class NameType(str, Enum):
     transport: str = "transport"
     vaccination: str = "vaccination"
     volunteer: str = "volunteer"
-    uni: str = "university"
+    university: str = "university"
     wbs: str = "wbs"
 
 
