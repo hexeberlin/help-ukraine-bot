@@ -12,7 +12,7 @@ APP_NAME=TESTING
 TOKEN=very_secret_token
 MONGO_HOST=host
 MONGO_USER=user
-MONGO_PASS=very_secrte_password
+MONGO_PASS=very_secret_password
 MONGO_BASE=base
 ```
 
@@ -22,14 +22,21 @@ The bot gets deployed to heroku automatically.
 To deploy the test branch:
 ```shell
 heroku git:remote -a telegram-bot-help-in-berlin-te 
-git push help-ukrain-bot-test test-deploy:master --force
+git push heroku test-deploy:master --force
 ```
 
 To deploy the main branch:
 ```shell
 heroku git:remote -a telegram-bot-help-in-berlin
-git push help-ukrain-bot-prod master
+git push heroku master
 ```
+
+Some details of deployment per Git push: the command `heroku git:remote -a ...`
+creates a [remote](https://git-scm.com/docs/git-remote) named `heroku` in your
+local git repository. This remote can be inspected using `git remote -v`. When
+performing `git push heroku master`, we're pushing the current local state of
+the `master` branch to that `heroku` remote. Upon this push, Heroku triggers
+the re-deployment of the dyno.
 
 ### IMPORTANT
 When used in a chat, the bot should have ADMIN rights.
