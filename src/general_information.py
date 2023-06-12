@@ -90,6 +90,7 @@ def register_commands(dispatcher: Dispatcher) -> List[BotCommand]:
     dispatcher.add_handler(CommandHandler("no_ads", no_ads_command))
     dispatcher.add_handler(CommandHandler("official_information", official_information_command))
     dispatcher.add_handler(CommandHandler("passport", passport_command))
+    dispatcher.add_handler(CommandHandler("lost_passport", lost_passport_command))
     dispatcher.add_handler(CommandHandler("qrcode", qrcode_command))
     dispatcher.add_handler(CommandHandler("rundfunk", rundfunk_command))
     dispatcher.add_handler(CommandHandler("socialhelp", social_help_command))
@@ -108,6 +109,7 @@ def register_commands(dispatcher: Dispatcher) -> List[BotCommand]:
         BotCommand("minors", "Помощь для несовершеннолетних без сопровождения"),
         BotCommand("no_ads", "Доски обьявлений и тематические чаты"),
         BotCommand("passport", "Получение украинского паспорта в Польше"),
+        BotCommand("lost_passport", "Что делать при утере паспорта"),
         BotCommand("qrcode", "Информация о получении QR-Code"),
         BotCommand("rundfunk", "Освобожение от налога на радио и ТВ"),
         BotCommand("socialhelp", "Социальная помощь"),
