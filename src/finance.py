@@ -9,7 +9,7 @@ from src.guidebook import NameType
 
 def schufa_command(bot: Bot, update: Update):
     send_results(bot, update, group_name=NameType.schufa, name=None)
-    
+
 
 def job_center_calc_command(bot: Bot, update: Update):
     send_results(bot, update, group_name=NameType.job_center_calc, name=None)

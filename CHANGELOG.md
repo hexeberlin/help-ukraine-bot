@@ -1,3 +1,6 @@
+### 20230611
+- add `/lost_passport`
+
 ### 20230608
 - update `/transport`, `/deutsch`
 - update `/disabled` and rename to `/handicap`
