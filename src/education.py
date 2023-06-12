@@ -32,12 +32,12 @@ def register_commands(dispatcher: Dispatcher) -> List[BotCommand]:
     dispatcher.add_handler(CommandHandler("deutsch", deutsch_command))
     dispatcher.add_handler(CommandHandler("diplom", diplom_command))
     dispatcher.add_handler(CommandHandler("education", education_command))
-    dispatcher.add_handler(CommandHandler("uni", university_command))
+    dispatcher.add_handler(CommandHandler("univeristy", university_command))
 
     return [
         BotCommand("children_lessons", "Онлайн уроки для детей"),
         BotCommand("deutsch", "Уроки немецкого языка"),
         BotCommand("diplom", "Информация о признании дипломов"),
         BotCommand("education", "Всё об образовании в Германии"),
-        BotCommand("uni", "Университеты в Германии"),
+        BotCommand("university", "Университеты в Германии"),
     ]
