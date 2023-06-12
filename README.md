@@ -17,7 +17,13 @@ MONGO_BASE=base
 ```
 
 ## Deploy
-The bot gets deployed to heroku automatically.
+Main branch is automatically deployed to heroku when a PR is merged.
+
+To deploy the main branch manually:
+```shell
+heroku git:remote -a telegram-bot-help-in-berlin
+git push heroku master
+```
 
 To deploy the test branch:
 ```shell
@@ -25,11 +31,7 @@ heroku git:remote -a telegram-bot-help-in-berlin-te
 git push heroku test-deploy:master --force
 ```
 
-To deploy the main branch:
-```shell
-heroku git:remote -a telegram-bot-help-in-berlin
-git push heroku master
-```
+Test bot is available in this telegram group: https://t.me/+pgshscn8iYM3M2Ey
 
 Some details of deployment per Git push: the command `heroku git:remote -a ...`
 creates a [remote](https://git-scm.com/docs/git-remote) named `heroku` in your
