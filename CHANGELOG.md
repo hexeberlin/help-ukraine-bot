@@ -1,4 +1,8 @@
-### 20230611
+### 20230613
+- fix `/university`
+- update `/medical`
+
+### 20230612
 - update `/legal`
 - update and rename `/uni` to `/university`
 - update Readme
