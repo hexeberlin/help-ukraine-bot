@@ -24,7 +24,7 @@ def education_command(bot: Bot, update: Update):
 
 
 def university_command(bot: Bot, update: Update):
-    send_results(bot, update, group_name=NameType.uni, name=None)
+    send_results(bot, update, group_name=NameType.university, name=None)
 
 
 def register_commands(dispatcher: Dispatcher) -> List[BotCommand]:
@@ -32,7 +32,7 @@ def register_commands(dispatcher: Dispatcher) -> List[BotCommand]:
     dispatcher.add_handler(CommandHandler("deutsch", deutsch_command))
     dispatcher.add_handler(CommandHandler("diplom", diplom_command))
     dispatcher.add_handler(CommandHandler("education", education_command))
-    dispatcher.add_handler(CommandHandler("univeristy", university_command))
+    dispatcher.add_handler(CommandHandler("university", university_command))
 
     return [
         BotCommand("children_lessons", "Онлайн уроки для детей"),
