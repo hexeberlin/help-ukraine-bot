@@ -2,7 +2,7 @@ import logging
 import re
 from typing import List
 from pymongo.database import Database, Collection
-from models import Article
+from src.models import Article
 from dataclasses import asdict
 
 
