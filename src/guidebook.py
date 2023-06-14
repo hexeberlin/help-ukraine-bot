@@ -78,7 +78,7 @@ class Guidebook(ABC):
             try:
                 self.guidebook = safe_load(stream)
             except YAMLError as err:
-                logger.error("Yaml error", err)
+                logger.error(f"Yaml error {err}")
                 raise err
             return {k.lower(): v for k, v in self.guidebook.items()}
 

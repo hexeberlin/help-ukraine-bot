@@ -6,13 +6,13 @@ from telegram.ext import (
     InlineQueryHandler,
     Filters,
 )
-import apartments
-import commands
-import education
-import finance
-import general_information
-import medical
-from config import (
+from src import apartments
+from src import commands
+from src import education
+from src import finance
+from src import general_information
+from src import medical
+from src.config import (
     APP_NAME,
     TOKEN,
     PORT,
