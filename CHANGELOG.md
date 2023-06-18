@@ -1,3 +1,6 @@
+### 20230618
+- update `/no_ads`
+
 ### 20230613
 - fix `/university`
 - update `/medical`
