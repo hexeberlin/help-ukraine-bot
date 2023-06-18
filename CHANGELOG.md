@@ -1,5 +1,6 @@
 ### 20230618
 - update `/no_ads`
+- update `/translators`
 
 ### 20230613
 - fix `/university`
