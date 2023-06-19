@@ -1,1035 +1,1129 @@
 accommodation:
-  🏠 Где сейчас можно найти бесплатное жильё:
-    - https://uk.airbnb.org/help-ukraine
-    - https://wunderflats.com/page/ukraine/tenants-in-need-ua
-    - https://icanhelp.host
-    - https://mapahelp.me
-    - https://www.host4ukraine.com
-    - https://www.ukrainenow.org/looking-for-help-abroad
-    - https://prykhystok.gov.ua
-    - https://www.immobilienscout24.de/lp/hilfe-fuer-die-ukraine.html (тут есть платные и бесплатные предложения по жилью)
-    - https://aidnow.app/ru (тут есть разные предложения помощи, в том числе по жилью)
+  description: Поиск временного жилья
+  contents:
+    🏠 Где сейчас можно найти бесплатное жильё:
+      - https://uk.airbnb.org/help-ukraine
+      - https://wunderflats.com/page/ukraine/tenants-in-need-ua
+      - https://icanhelp.host
+      - https://mapahelp.me
+      - https://www.host4ukraine.com
+      - https://www.ukrainenow.org/looking-for-help-abroad
+      - https://prykhystok.gov.ua
+      - https://www.immobilienscout24.de/lp/hilfe-fuer-die-ukraine.html (тут есть платные и бесплатные предложения по жилью)
+      - https://aidnow.app/ru (тут есть разные предложения помощи, в том числе по жилью)
 animals:
-  Официальная информация для прибывших с животными:
-    - |
-      https://www.berlin.de/ukraine/ru/pribytie/informazija-dlja-ukrainskich-beshenzew-s-shiwotnymi-1183491.ru.php
-  Полезные ссылки:
-    - https://help.tasso.net/uk/
-    - https://linktr.ee/support_ukrainian_pets
-    - https://t.me/+xM4h-4eFwpI4Yjgy (чат в телеграм)
-    - |
-      https://www.facebook.com/groups/2082549321779139 (группа в фб)
-  Бесплатная помощь животным беженцев:
-    - https://hundedoc-berlin.de
-    - |
-      http://www.tierarzt-bolz.de
-  Бесплатный корм, принадлежности для животных и мед. обслуживание:
-    - https://tiertafel.org
+  description: Помощь домашним животным
+  contents:
+    Официальная информация для прибывших с животными:
+      - |
+        https://www.berlin.de/ukraine/ru/pribytie/informazija-dlja-ukrainskich-beshenzew-s-shiwotnymi-1183491.ru.php
+    Полезные ссылки:
+      - https://help.tasso.net/uk/
+      - https://linktr.ee/support_ukrainian_pets
+      - https://t.me/+xM4h-4eFwpI4Yjgy (чат в телеграм)
+      - |
+        https://www.facebook.com/groups/2082549321779139 (группа в фб)
+    Бесплатная помощь животным беженцев:
+      - https://hundedoc-berlin.de
+      - |
+        http://www.tierarzt-bolz.de
+    Бесплатный корм, принадлежности для животных и мед. обслуживание:
+      - https://tiertafel.org
 apartment_approval:
-  - |
-    Процесс одобрения квартиры Jobcenter:
-    
-    1. Вам прийдёт от управляющей компании Angebot или Exposé персонально для Вас (проверять спам - иногда приходит туда), который надо переслать в Jobcenter по электронной почте или в личном кабинете со следующим текстом:
-    
-    Liebes Jobcenter-Team,
-    anbei ist das Angebot einer Wohnung für unsere Familie.
-    Wir benötigen Ihre Zusage dringend noch heute, sonst ist die Wohnung weg.
-    Ich willige hiermit ein, dass Sie mir auf diese E-Mail auch per E-Mail antworten.
-    Vielen lieben Dank im Voraus!
-    Liebe Grüße,
-    Xxxxxx
+  description: Процесс одобрения квартиры Jobcenter
+  contents:
+    - |
+      Процесс одобрения квартиры Jobcenter:
 
-    2. Jobcenter пришлет Вам подтверждение на аренду квартиры, которое надо переслать в управляющую компанию.
-    3. Управляющая компания пришлет Вам контракт.
-    4. Вы его внимательно читаете и подписываете.
-    5. Один экземпляр отдаете в управляющую компанию, один оставляете себе.
-    6. Копию контракта отправляете в Jobcenter с просьбой начать платить Вашу аренду и выплатить кауцион.
-    7. Назначаете термин с Hausmeister на приемку-передачу квартиры (попросите термин как можно скорее).
-    8. Получаете протокол приемки-передачи.
-    9. Записываете размеры окон.
-    10. Отправляете протокол и размеры окон в Jobcenter с просьбой денег на мебель/бытовые приборы (процедура здесь: /furniture).
+      1. Вам прийдёт от управляющей компании Angebot или Exposé персонально для Вас (проверять спам - иногда приходит туда), который надо переслать в Jobcenter по электронной почте или в личном кабинете со следующим текстом:
+
+      Liebes Jobcenter-Team,
+      anbei ist das Angebot einer Wohnung für unsere Familie.
+      Wir benötigen Ihre Zusage dringend noch heute, sonst ist die Wohnung weg.
+      Ich willige hiermit ein, dass Sie mir auf diese E-Mail auch per E-Mail antworten.
+      Vielen lieben Dank im Voraus!
+      Liebe Grüße,
+      Xxxxxx
+
+      2. Jobcenter пришлет Вам подтверждение на аренду квартиры, которое надо переслать в управляющую компанию.
+      3. Управляющая компания пришлет Вам контракт.
+      4. Вы его внимательно читаете и подписываете.
+      5. Один экземпляр отдаете в управляющую компанию, один оставляете себе.
+      6. Копию контракта отправляете в Jobcenter с просьбой начать платить Вашу аренду и выплатить кауцион.
+      7. Назначаете термин с Hausmeister на приемку-передачу квартиры (попросите термин как можно скорее).
+      8. Получаете протокол приемки-передачи.
+      9. Записываете размеры окон.
+      10. Отправляете протокол и размеры окон в Jobcenter с просьбой денег на мебель/бытовые приборы (процедура здесь: /furniture).
 apartments:
-  Где искать квартиру:
-    - |
-      Сайты по поиску квартир:
-      https://www.immobilienscout24.de/
-      https://www.immonet.de/
-      https://www.immowelt.de/
-      https://www.wg-gesucht.de/
-      https://www.ebay-kleinanzeigen.de/s-wohnung-mieten/berlin/c203l3331
-      https://wunderflats.com/
-      https://unit36.de/
-      https://www.livinginberlin.de/angebote/mieten/
-    - |
-      И сайты всех фирм-застройщиков:
-      https://www.gewobag.de/
-      https://www.howoge.de/
-      https://www.gesobau.de
-      https://www.deutsche-wohnen.com
-      https://www.degewo.de/
-      https://www.stadtundland.de/
-      https://www.vonovia.de/
-      https://www.covivio.immo/ 
-      https://www.stadtentwicklung.berlin.de/wohnen/wohnungsbaugesellschaften.shtml
+  description: Поиск постоянного жилья
+  contents:
+    Где искать квартиру:
+      - |
+        Сайты по поиску квартир:
+        https://www.immobilienscout24.de/
+        https://www.immonet.de/
+        https://www.immowelt.de/
+        https://www.wg-gesucht.de/
+        https://www.ebay-kleinanzeigen.de/s-wohnung-mieten/berlin/c203l3331
+        https://wunderflats.com/
+        https://unit36.de/
+        https://www.livinginberlin.de/angebote/mieten/
+      - |
+        И сайты всех фирм-застройщиков:
+        https://www.gewobag.de/
+        https://www.howoge.de/
+        https://www.gesobau.de
+        https://www.deutsche-wohnen.com
+        https://www.degewo.de/
+        https://www.stadtundland.de/
+        https://www.vonovia.de/
+        https://www.covivio.immo/
+        https://www.stadtentwicklung.berlin.de/wohnen/wohnungsbaugesellschaften.shtml
 beauty:
-  Попробуйте обратиться в чаты beauty-сообществ:
-    - https://t.me/beauty_master_Germany
-    - https://t.me/beauty_berlin_ua
-    - https://t.me/Beauty_Masters_from_Ukraine
-    - https://t.me/+hLE6UEtJZiwwYzMy
+  description: Beauty сообщества
+  contents:
+    Попробуйте обратиться в чаты beauty-сообществ:
+      - https://t.me/beauty_master_Germany
+      - https://t.me/beauty_berlin_ua
+      - https://t.me/Beauty_Masters_from_Ukraine
+      - https://t.me/+hLE6UEtJZiwwYzMy
 beschwerde:
-  Попробуйте обратиться за помощью сюда:
-  - |
-    Независимое берлинское бюро по рассмотрению жалоб: https://www.bubs.berlin/
-    
-    Целью этого проекта является улучшение жилищных условий беженцев, проживающих в приютах в Берлине.
-    Одна из основных фишек - помощь и консультации по бюрократическим вопросам.
+  description: Куда обратиться с жалобой
+  contents:
+    Попробуйте обратиться за помощью сюда:
+      - |
+          Независимое берлинское бюро по рассмотрению жалоб: https://www.bubs.berlin/
 
-    Berliner unabhängige Beschwerdestelle
-    Donaustraße 78
-    12043 Berlin
-    Тел. +49 30 816901 – 2570
-    Пн-Пт 9:00 - 17:00
+          Целью этого проекта является улучшение жилищных условий беженцев, проживающих в приютах в Берлине.
+          Одна из основных фишек - помощь и консультации по бюрократическим вопросам.
 
-    Общий контакт: info@bubs.berlin
-    Контакт для подачи жалоб: beschwerde@bubs.berlin
+          Berliner unabhängige Beschwerdestelle
+          Donaustraße 78
+          12043 Berlin
+          Тел. +49 30 816901 – 2570
+          Пн-Пт 9:00 - 17:00
+
+          Общий контакт: info@bubs.berlin
+          Контакт для подачи жалоб: beschwerde@bubs.berlin
 cities:
-  Augsburg:
-    - https://t.me/augsburghilftukraine
-  Bad-Hersfeld:
-    - https://t.me/Ukrainer_in_bad_hersfeld
-  Baden-Württemberg:
-    - https://t.me/+n8doQy7ubEBmZGE6
-  Bayern:
-    - https://t.me/+95kDURdyTlE2YjFi
-  Berlin:
-    - https://t.me/berlinhelpsukrainians
-    - https://t.me/ukrainehelpberlin
-    - https://t.me/+IteYrWFkvcs5Njli
-    - https://t.me/accomodationsunday
-  Bielefeld:
-    - https://t.me/bielefeldhelps
-  Bochum:
-    - https://t.me/ukraine_bochum_support
-  Brandenburg:
-    - https://t.me/+2aZQNYb1hns3Mzli
-  Braunschweig:
-    - https://t.me/BS_UA_HELP
-  Bremen:
-    - https://t.me/ukrainebremen
-    - https://t.me/suport_ukraine_in_bremen
-    - https://t.me/SolidarityUkraineBremen
-    - https://t.me/+XRsorLrY4iRjYTgy
-  Castrop-Rauxel:
-    - https://t.me/Ukraine_CAS
-  Chemnitz:
-    - https://t.me/pomosh_Germany_Chemnitz_Ukraine
-  Dortmund:
-    - https://t.me/ukraine_dortmund
-  Dresden:
-    - https://t.me/help_ukraine_dresden
-  Duisburg:
-    - https://t.me/duisburgukraine
-  Düsseldorf:
-    - https://t.me/duesseldorf_ukraina
-  Essen:
-    - https://t.me/ukr_de_essen
-  Frankfurt am Main:
-    - https://t.me/HelpingUkrainiansFrankfurtamMain
-    - https://t.me/+cKmqUpJZ9DE4MzMy
-  Frankfurt Oder:
-    - https://t.me/Ukraine_Frankfurt_Oder
-  Freiburg:
-    - https://t.me/freiburghilft
-  Görlitz:
-    - https://t.me/Goerlitz_helps_Ukraine
-  Halle (Saale):
-    - https://t.me/halle_help_ukraine
-  Hamburg:
-    - https://t.me/hamburg_hilft
-    - https://t.me/+5XuTo4a1gmw3YTcy
-  Hannover:
-    - https://t.me/+m5HzIyVixn5iZGQy
-    - https://t.me/+Bm1Uk3JJ4FJkMDFi
-  Heilbronn:
-    - https://t.me/+zc9HnLCyckMzMGRi
-  Helmstedt:
-    - https://t.me/helmstedtukraine
-  Hessen:
-    - https://t.me/+HTYW-_jDZVtkZDJi
-  Karlsruhe:
-    - https://t.me/ukraine_karlsruhe
-    - https://t.me/ua_ka_help
-    - https://t.me/karlsruhespendenfuerukraine
-  Kassel:
-    - https://t.me/KasselUkrainehilfen
-  Köln:
-    - https://t.me/BestFriendsUk
-    - https://t.me/cologne_help
-  Leipzig:
-    - https://t.me/ukrainerinleipzig
-    - https://t.me/accomodation_leipzig_ukraine
-  Mainz:
-    - https://t.me/ukraine_helfen_mainz
-  Mannheim:
-    - https://t.me/Mannheim_Ukraine
-  Mecklenburg-Vorpommern:
-    - https://t.me/+ACMWRk-ONEllMzEy
-  München:
-    - https://t.me/munichdopomoga
-  Nordrhein-Westfalen:
-    - https://t.me/+iVakIX2oQK1jYmFi
-    - https://t.me/Help_Ukraine_NRW
-  Niedersachsen:
-    - https://t.me/+sySBMibwdz9hMmIy
-  Nürnberg:
-    - https://t.me/help_in_Nuremberg_UA
-    - https://t.me/nurnbergDE
-  Osnabrück:
-    - https://t.me/ukrainer_in_osnabrueck
-  Potsdam:
-    - https://t.me/potsdamhelpsukrainians
-    - https://t.me/Ukraine2022Potsdam
-  Rheinland-Pfalz:
-    - https://t.me/+G1BeTeo1-Qc4MDUy
-  Rostock:
-    - https://t.me/Rostock_Ukraine
-  Saarland:
-    - https://t.me/+2L_IOBE5fspmOWM6
-  Sachsen:
-    - https://t.me/+evMXd6nO5T1mMDIy
-  Sachsen-Anhalt:
-    - https://t.me/+IWXBYfN9765mODZi
-  Schleswig-Holstein:
-    - https://t.me/+IhWtHU4b5HsyNGIy
-  Stuttgart:
-    - https://t.me/helpforukraine22
-  Trier:
-    - https://t.me/trier_ukraine
-  Thüringen:
-    - https://t.me/th_helps_ukraine
-    - https://t.me/+9R0NgYYt91kwNmUy
-  Ulm:
-    - https://t.me/gruppe_ukraine_ulm_neu_ulm
-  Wiesbaden:
-    - https://t.me/Wiesbaden_UA
-    - https://t.me/Wiesbaden_germany
-  Wuppertal:
-    - https://t.me/Ukrainer_in_Wuppertal
-  Zurich:
-    - https://t.me/zh_helps_ukraine
+  description: Куда обратиться с жалобой
+  contents:
+    Augsburg:
+      - https://t.me/augsburghilftukraine
+    Bad-Hersfeld:
+      - https://t.me/Ukrainer_in_bad_hersfeld
+    Baden-Württemberg:
+      - https://t.me/+n8doQy7ubEBmZGE6
+    Bayern:
+      - https://t.me/+95kDURdyTlE2YjFi
+    Berlin:
+      - https://t.me/berlinhelpsukrainians
+      - https://t.me/ukrainehelpberlin
+      - https://t.me/+IteYrWFkvcs5Njli
+      - https://t.me/accomodationsunday
+    Bielefeld:
+      - https://t.me/bielefeldhelps
+    Bochum:
+      - https://t.me/ukraine_bochum_support
+    Brandenburg:
+      - https://t.me/+2aZQNYb1hns3Mzli
+    Braunschweig:
+      - https://t.me/BS_UA_HELP
+    Bremen:
+      - https://t.me/ukrainebremen
+      - https://t.me/suport_ukraine_in_bremen
+      - https://t.me/SolidarityUkraineBremen
+      - https://t.me/+XRsorLrY4iRjYTgy
+    Castrop-Rauxel:
+      - https://t.me/Ukraine_CAS
+    Chemnitz:
+      - https://t.me/pomosh_Germany_Chemnitz_Ukraine
+    Dortmund:
+      - https://t.me/ukraine_dortmund
+    Dresden:
+      - https://t.me/help_ukraine_dresden
+    Duisburg:
+      - https://t.me/duisburgukraine
+    Düsseldorf:
+      - https://t.me/duesseldorf_ukraina
+    Essen:
+      - https://t.me/ukr_de_essen
+    Frankfurt am Main:
+      - https://t.me/HelpingUkrainiansFrankfurtamMain
+      - https://t.me/+cKmqUpJZ9DE4MzMy
+    Frankfurt Oder:
+      - https://t.me/Ukraine_Frankfurt_Oder
+    Freiburg:
+      - https://t.me/freiburghilft
+    Görlitz:
+      - https://t.me/Goerlitz_helps_Ukraine
+    Halle (Saale):
+      - https://t.me/halle_help_ukraine
+    Hamburg:
+      - https://t.me/hamburg_hilft
+      - https://t.me/+5XuTo4a1gmw3YTcy
+    Hannover:
+      - https://t.me/+m5HzIyVixn5iZGQy
+      - https://t.me/+Bm1Uk3JJ4FJkMDFi
+    Heilbronn:
+      - https://t.me/+zc9HnLCyckMzMGRi
+    Helmstedt:
+      - https://t.me/helmstedtukraine
+    Hessen:
+      - https://t.me/+HTYW-_jDZVtkZDJi
+    Karlsruhe:
+      - https://t.me/ukraine_karlsruhe
+      - https://t.me/ua_ka_help
+      - https://t.me/karlsruhespendenfuerukraine
+    Kassel:
+      - https://t.me/KasselUkrainehilfen
+    Köln:
+      - https://t.me/BestFriendsUk
+      - https://t.me/cologne_help
+    Leipzig:
+      - https://t.me/ukrainerinleipzig
+      - https://t.me/accomodation_leipzig_ukraine
+    Mainz:
+      - https://t.me/ukraine_helfen_mainz
+    Mannheim:
+      - https://t.me/Mannheim_Ukraine
+    Mecklenburg-Vorpommern:
+      - https://t.me/+ACMWRk-ONEllMzEy
+    München:
+      - https://t.me/munichdopomoga
+    Nordrhein-Westfalen:
+      - https://t.me/+iVakIX2oQK1jYmFi
+      - https://t.me/Help_Ukraine_NRW
+    Niedersachsen:
+      - https://t.me/+sySBMibwdz9hMmIy
+    Nürnberg:
+      - https://t.me/help_in_Nuremberg_UA
+      - https://t.me/nurnbergDE
+    Osnabrück:
+      - https://t.me/ukrainer_in_osnabrueck
+    Potsdam:
+      - https://t.me/potsdamhelpsukrainians
+      - https://t.me/Ukraine2022Potsdam
+    Rheinland-Pfalz:
+      - https://t.me/+G1BeTeo1-Qc4MDUy
+    Rostock:
+      - https://t.me/Rostock_Ukraine
+    Saarland:
+      - https://t.me/+2L_IOBE5fspmOWM6
+    Sachsen:
+      - https://t.me/+evMXd6nO5T1mMDIy
+    Sachsen-Anhalt:
+      - https://t.me/+IWXBYfN9765mODZi
+    Schleswig-Holstein:
+      - https://t.me/+IhWtHU4b5HsyNGIy
+    Stuttgart:
+      - https://t.me/helpforukraine22
+    Trier:
+      - https://t.me/trier_ukraine
+    Thüringen:
+      - https://t.me/th_helps_ukraine
+      - https://t.me/+9R0NgYYt91kwNmUy
+    Ulm:
+      - https://t.me/gruppe_ukraine_ulm_neu_ulm
+    Wiesbaden:
+      - https://t.me/Wiesbaden_UA
+      - https://t.me/Wiesbaden_germany
+    Wuppertal:
+      - https://t.me/Ukrainer_in_Wuppertal
+    Zurich:
+      - https://t.me/zh_helps_ukraine
 countries:
-  Ukraine:
-    - https://t.me/refugeesinUkraine
-  Austria:
-    - https://t.me/refugeesinAustria
-  Belgium:
-    - https://t.me/refugeesinBelgium
-    - https://t.me/ukrainciwbelgii
-  Denmark:
-    - https://t.me/refugeesinDenmark
-  France:
-    - https://t.me/refugeesinFrance
-    - https://t.me/ukrainienenfrance
-  Germany:
-    - https://t.me/refugees_in_Germany
-    - https://t.me/germanyhelpsukraine
-    - https://t.me/ru_de_help
-    - https://t.me/helpUkraine_Gemany
-    - https://t.me/UKR_DE
-  Hungary:
-    - https://t.me/hungaryua
-    - https://help.unhcr.org/hungary/uk/
-    - https://ukrainehelp.hu/
-  Italy:
-    - https://t.me/dodomu_italia_ucraina
-  Latvia:
-    - https://www.ukraine-latvia.com/uk
-  Moldova:
-    - https://t.me/moldovaukraina
-    - https://ua-md-help.info/
-    - https://dopomoga.gov.md/
-  Netherlands:
-    - https://t.me/help_ua_nl_bot
-    - https://infohelpua.com/
-    - https://m.facebook.com/OekrainersInNederland/
-    - https://www.amsterdam.nl/en/refugees/amsterdam-supports-ukraine/
-  Norway:
-    - https://t.me/norway_ukraine
-  Poland:
-    - https://t.me/refugeesinPoland
-    - https://ukrainesupport.net/uk/
-    - https://help.unhcr.org/poland/uk/
-  Portugal:
-    - https://t.me/Ukraine_Portugal
-    - https://www.sef.pt/en/Pages/homepage.aspx
-  Romania:
-    - https://t.me/UkrainiansinRomania
-    - https://www.facebook.com/groups/unitipentruucraina/
-  Slovakia:
-    - https://t.me/ukrajinci_na_slovensku
-    - https://www.ukraineslovakia.sk/
-  Slovenia:
-    - https://www.facebook.com/groups/179196962897968/
-  Spain:
-    - https://t.me/helpukrainespain
-  Sweden:
-    - https://t.me/ukrainian_in_sweden
-  Switzerland:
-    - https://t.me/refugeesinSwitzerland
-  Turkey:
-    - https://t.me/turkeytoua
+  description: Чаты по странам (введите /countries СТРАНА)
+  contents:
+    Ukraine:
+      - https://t.me/refugeesinUkraine
+    Austria:
+      - https://t.me/refugeesinAustria
+    Belgium:
+      - https://t.me/refugeesinBelgium
+      - https://t.me/ukrainciwbelgii
+    Denmark:
+      - https://t.me/refugeesinDenmark
+    France:
+      - https://t.me/refugeesinFrance
+      - https://t.me/ukrainienenfrance
+    Germany:
+      - https://t.me/refugees_in_Germany
+      - https://t.me/germanyhelpsukraine
+      - https://t.me/ru_de_help
+      - https://t.me/helpUkraine_Gemany
+      - https://t.me/UKR_DE
+    Hungary:
+      - https://t.me/hungaryua
+      - https://help.unhcr.org/hungary/uk/
+      - https://ukrainehelp.hu/
+    Italy:
+      - https://t.me/dodomu_italia_ucraina
+    Latvia:
+      - https://www.ukraine-latvia.com/uk
+    Moldova:
+      - https://t.me/moldovaukraina
+      - https://ua-md-help.info/
+      - https://dopomoga.gov.md/
+    Netherlands:
+      - https://t.me/help_ua_nl_bot
+      - https://infohelpua.com/
+      - https://m.facebook.com/OekrainersInNederland/
+      - https://www.amsterdam.nl/en/refugees/amsterdam-supports-ukraine/
+    Norway:
+      - https://t.me/norway_ukraine
+    Poland:
+      - https://t.me/refugeesinPoland
+      - https://ukrainesupport.net/uk/
+      - https://help.unhcr.org/poland/uk/
+    Portugal:
+      - https://t.me/Ukraine_Portugal
+      - https://www.sef.pt/en/Pages/homepage.aspx
+    Romania:
+      - https://t.me/UkrainiansinRomania
+      - https://www.facebook.com/groups/unitipentruucraina/
+    Slovakia:
+      - https://t.me/ukrajinci_na_slovensku
+      - https://www.ukraineslovakia.sk/
+    Slovenia:
+      - https://www.facebook.com/groups/179196962897968/
+    Spain:
+      - https://t.me/helpukrainespain
+    Sweden:
+      - https://t.me/ukrainian_in_sweden
+    Switzerland:
+      - https://t.me/refugeesinSwitzerland
+    Turkey:
+      - https://t.me/turkeytoua
 deutsch:
-  Информация об изучении немецкого языка:
-    - наш пост https://t.me/berlinhelpsukrainians/60853
-    - |
-      https://masimovasif.net/бесплатные-способы-изучить-немецкий/
-  Бесплатные онлайн курсы с приложениями:
-    - https://ua.babbel.com
-    - https://register.speexx.com/supportukraine/en
-    - |
-      https://www.duolingo.com/
-  Бесплатные курсы немецкого в Берлине:
-    - https://www.berlin.de/vhs/kurse/deutsch-integration/kurse-fuer-gefluechtete/
-    - https://giz.berlin/news/sprachkurse-anmeldung-fuer-die-ukrainerinnen.htm
-    - https://www.berlin.de/vhs/kurse/deutsch-integration/beratung/
-    - |
-      Бесплатные курсы в TU (онлайн, на русском языке, вт. 20:00)
-      https://tu-berlin.zoom.us/j/67182902382?pwd=ZTZPNzkwMzcwTWYrVElLOU9mcnRqQT09
-      Meeting ID 671 8290 2382
-      Code 298308
-  Полезные ресурсы:
-    - Немецкий с Кристиной https://t.me/deutschmitchristina
-    - Ролики на DW на любой уровень https://www.dw.com/de/deutschkurse/s-2068
-    - Ролики Easy German c английскими субтитрами https://www.youtube.com/channel/UCbxb2fqe9oNgglAoYqsYOtQ
-    - Richtig Deutsch sprechen https://www.youtube.com/channel/UCA3gSLdR0rWjvj7UcFWaGlQ
+  description: Уроки немецкого языка
+  contents:
+    Информация об изучении немецкого языка:
+      - наш пост https://t.me/berlinhelpsukrainians/60853
+      - |
+        https://masimovasif.net/бесплатные-способы-изучить-немецкий/
+    Бесплатные онлайн курсы с приложениями:
+      - https://ua.babbel.com
+      - https://register.speexx.com/supportukraine/en
+      - |
+        https://www.duolingo.com/
+    Бесплатные курсы немецкого в Берлине:
+      - https://www.berlin.de/vhs/kurse/deutsch-integration/kurse-fuer-gefluechtete/
+      - https://giz.berlin/news/sprachkurse-anmeldung-fuer-die-ukrainerinnen.htm
+      - https://www.berlin.de/vhs/kurse/deutsch-integration/beratung/
+      - |
+        Бесплатные курсы в TU (онлайн, на русском языке, вт. 20:00)
+        https://tu-berlin.zoom.us/j/67182902382?pwd=ZTZPNzkwMzcwTWYrVElLOU9mcnRqQT09
+        Meeting ID 671 8290 2382
+        Code 298308
+    Полезные ресурсы:
+      - Немецкий с Кристиной https://t.me/deutschmitchristina
+      - Ролики на DW на любой уровень https://www.dw.com/de/deutschkurse/s-2068
+      - Ролики Easy German c английскими субтитрами https://www.youtube.com/channel/UCbxb2fqe9oNgglAoYqsYOtQ
+      - Richtig Deutsch sprechen https://www.youtube.com/channel/UCA3gSLdR0rWjvj7UcFWaGlQ
 deutschlandticket:
-  - |
-    🎟️ Билет за 49€ доступен только в виде абонемента. Оформить его можно онлайн на сайте/приложении DB или BVG, а также оффлайн, заполнив заявку на кассах DB или BVG. DB предлагает билет только в виде QR-кода, BVG дополнительно предлагает опцию в виде чип-карты. Для оформления абонемента требуется IBAN (банковский счёт).
+  description: Информация по Deutschlandticket за 49 евро
+  contents:
+    - |
+      🎟️ Билет за 49€ доступен только в виде абонемента. Оформить его можно онлайн на сайте/приложении DB или BVG, а также оффлайн, заполнив заявку на кассах DB или BVG. DB предлагает билет только в виде QR-кода, BVG дополнительно предлагает опцию в виде чип-карты. Для оформления абонемента требуется IBAN (банковский счёт).
 
-    🗺️ Билет действует практически на все региональные поезда (RB-, RE-, S-Bahn) и городской транспорт (автобусы, трамваи, U-Bahn). Билет НЕ действует на скоростные поезда (IC, EC, ICE, FlixTrain), междугородние автобусы и такси. Более подробную информацию про исключения можно найти здесь: https://www.bahn.de/faq/deutschlandticket-verkehrsmittel-deutschland
-    Или проложить маршрут на сайте, выбрав „mit Deutschland-Ticket“: https://bahnapp.online/
-    В приложении DB Navigator есть опция прокладывать маршрут только на RE, но к сожалению, он не учитывает исключения описанные выше 👆 
+      🗺️ Билет действует практически на все региональные поезда (RB-, RE-, S-Bahn) и городской транспорт (автобусы, трамваи, U-Bahn). Билет НЕ действует на скоростные поезда (IC, EC, ICE, FlixTrain), междугородние автобусы и такси. Более подробную информацию про исключения можно найти здесь: https://www.bahn.de/faq/deutschlandticket-verkehrsmittel-deutschland
+      Или проложить маршрут на сайте, выбрав „mit Deutschland-Ticket“: https://bahnapp.online/
+      В приложении DB Navigator есть опция прокладывать маршрут только на RE, но к сожалению, он не учитывает исключения описанные выше 👆
 
-    ❌ Отменить подписку можно до 10-го числа каждого месяца в личном кабинете того оператора, у которого Вы приобрели абонемент (DB, BVG, и т.д.)
+      ❌ Отменить подписку можно до 10-го числа каждого месяца в личном кабинете того оператора, у которого Вы приобрели абонемент (DB, BVG, и т.д.)
 
-    👶 Бесплатно можно перевозить детей до шести лет
-    🚳 Для велосипедов и домашних животных требуется обычный билет согласно региональным правилам (в Берлине и Бранденбурге разрешено бесплатно брать с собой собаку)
-    🪪 Абонемент за 49 € именной, поэтому передавать его нельзя. Без удостоверения личности считается недействительным :)
+      👶 Бесплатно можно перевозить детей до шести лет
+      🚳 Для велосипедов и домашних животных требуется обычный билет согласно региональным правилам (в Берлине и Бранденбурге разрешено бесплатно брать с собой собаку)
+      🪪 Абонемент за 49 € именной, поэтому передавать его нельзя. Без удостоверения личности считается недействительным :)
 
-    ℹ️ FAQ: https://www.bahn.de/faq/pk/angebot/regionale-angebote/deutschland-ticket
+      ℹ️ FAQ: https://www.bahn.de/faq/pk/angebot/regionale-angebote/deutschland-ticket
 diplom:
-  Информация о признании дипломов:
-    - https://uahelp.wiki/38bad55886d848948b096962abefe7c4
-    - https://uahelp.wiki/229a6ad9002e42e5a35fbbe55bc19572
-    - https://aub-berlin.de/fuer-erwachsene/hotline-anerkennung-berufliche-qualifikationen-aus-dem-ausland
-    - https://www.anerkennung-in-deutschland.de/html/ru/index.php
+  description: Информация о признании дипломов
+  contents:
+    Информация о признании дипломов:
+      - https://uahelp.wiki/38bad55886d848948b096962abefe7c4
+      - https://uahelp.wiki/229a6ad9002e42e5a35fbbe55bc19572
+      - https://aub-berlin.de/fuer-erwachsene/hotline-anerkennung-berufliche-qualifikationen-aus-dem-ausland
+      - https://www.anerkennung-in-deutschland.de/html/ru/index.php
 education:
-  Образование в Германии:
-    - Общая информация - https://handbookgermany.de/ru/learn.html
-    - |
-      Бесплатная горячая линия помощи в признании квалификации (диплом): 030 315 10 900 (пн-чт. 10-15)
-      Ссылка на источник: https://www.berlin.de/lb/intmig/themen/ausbildung-und-arbeit/mehrsprachige-beratungshotline-fachkraefte/
-  Онлайн уроки для детей:
-    - https://t.me/teachersforpeace_ua (уроки)
-    - https://t.me/ukhtyshka (игры, загадки, аудиокниги, головоломки)
+  description: Образование в Германии
+  contents:
+    Образование в Германии:
+      - Общая информация - https://handbookgermany.de/ru/learn.html
+      - |
+        Бесплатная горячая линия помощи в признании квалификации (диплом): 030 315 10 900 (пн-чт. 10-15)
+        Ссылка на источник: https://www.berlin.de/lb/intmig/themen/ausbildung-und-arbeit/mehrsprachige-beratungshotline-fachkraefte/
+    Онлайн уроки для детей:
+      - https://t.me/teachersforpeace_ua (уроки)
+      - https://t.me/ukhtyshka (игры, загадки, аудиокниги, головоломки)
 entertainment:
-  - |
-    Беженцы имеют право посетить некоторые музеи Берлина бесплатно: 
-    https://www.smb.museum/bildung-vermittlung/gruppen-reiseveranstalter/angebote-fuer-gefluechtete/
+  description: Развлечения: бесплатные и со скидками
+  contents:
+    - |
+      Беженцы имеют право посетить некоторые музеи Берлина бесплатно:
+      https://www.smb.museum/bildung-vermittlung/gruppen-reiseveranstalter/angebote-fuer-gefluechtete/
 
-    С детьми интересно сходить в музей естествознания, там есть динозавры 🦕 https://www.museumfuernaturkunde.berlin/, и в технический музей https://technikmuseum.berlin.
+      С детьми интересно сходить в музей естествознания, там есть динозавры 🦕 https://www.museumfuernaturkunde.berlin/, и в технический музей https://technikmuseum.berlin.
 
-    Бесплатные мероприятия для украинских детей в Берлине: https://kinderberlin.com/
+      Бесплатные мероприятия для украинских детей в Берлине: https://kinderberlin.com/
 
-    Пешая прогулка по Берлину:
-    https://www.neweuropetours.eu/sandemans-tours/berlin/free-tour-of-berlin/
+      Пешая прогулка по Берлину:
+      https://www.neweuropetours.eu/sandemans-tours/berlin/free-tour-of-berlin/
 
-    Бесплатная ферма для детей в Берлине: 
-    http://www.kinderbauernhof-pinke-panke.de/
-    
-    Клуб для детей из Украины:
-    https://karussell-ev.de/ru/kinderclub-fuer-ukrainische-kinder/
-    
-    Детский центр для украинских детей и мам, все бесплатно:
-    Телеграм канал: https://t.me/nanoskidsclub
-    Сайт: https://www.nanos-kidsclub.de/
+      Бесплатная ферма для детей в Берлине:
+      http://www.kinderbauernhof-pinke-panke.de/
+
+      Клуб для детей из Украины:
+      https://karussell-ev.de/ru/kinderclub-fuer-ukrainische-kinder/
+
+      Детский центр для украинских детей и мам, все бесплатно:
+      Телеграм канал: https://t.me/nanoskidsclub
+      Сайт: https://www.nanos-kidsclub.de/
 evacuation:
-  Эвакуация из Украины:
-    - https://www.ukrainenow.org/refuge
-  Чат по эвакуации:
-    - https://t.me/perevezite
+  description: Эвакуация из Украины
+  contents:
+    Эвакуация из Украины:
+      - https://www.ukrainenow.org/refuge
+    Чат по эвакуации:
+      - https://t.me/perevezite
 evacuation_cities:
-  Белая Церковь:
-    - https://t.me/+A4vJpMa-iqY3NzJi
-  Бердичів:
-    - https://t.me/+g1vCeKfEve5lNTM6
-  Луганская область:
-    - https://t.me/luhanskevaquation
-  Киев:
-    - https://t.me/+68JG-qKNvm9kNjZi
-  Кировоград:
-    - https://t.me/+z5TkEVbqiatkOGE0
-  Львов:
-    - https://t.me/+UNdwIrUYEBgwOWE8
-  Николаев:
-    - https://t.me/+isy_Cw5MrptmZjlk
-  Одесса:
-    - https://t.me/+Dg2rSrkmuN03NGFk
-  Павлоград:
-    - https://t.me/pavlogradevak
-  Полтава:
-    - https://t.me/+AGqMw2Sl4ABjMmI0
-  Познань:
-    - https://t.me/+XiWfyDBY7WExNDI0
-  Ровно:
-    - https://t.me/+hwq625pYpfUzOWI8
-  Сумы:
-    - https://t.me/+-oVnhuNnwpU1ZWVk
-  Тернопіль:
-    - https://t.me/+HK4nfvMpAeM1MWZk
-  Харьков:
-    - https://t.me/+vSsvEw-pfNA4NDdi
-  Хмельницкий:
-    - https://t.me/+qORus3EoBnEzZmNk
-  Черкассы:
-    - https://t.me/EvacuationCherkasy
-  Чернiгiв:
-    - https://t.me/+i1Np0FJLhs4zMzli
-  Черновцы:
-    - https://t.me/evacuationChernovtsy
+  description: Чаты по эвакуации по городам
+  contents:
+    Белая Церковь:
+      - https://t.me/+A4vJpMa-iqY3NzJi
+    Бердичів:
+      - https://t.me/+g1vCeKfEve5lNTM6
+    Луганская область:
+      - https://t.me/luhanskevaquation
+    Киев:
+      - https://t.me/+68JG-qKNvm9kNjZi
+    Кировоград:
+      - https://t.me/+z5TkEVbqiatkOGE0
+    Львов:
+      - https://t.me/+UNdwIrUYEBgwOWE8
+    Николаев:
+      - https://t.me/+isy_Cw5MrptmZjlk
+    Одесса:
+      - https://t.me/+Dg2rSrkmuN03NGFk
+    Павлоград:
+      - https://t.me/pavlogradevak
+    Полтава:
+      - https://t.me/+AGqMw2Sl4ABjMmI0
+    Познань:
+      - https://t.me/+XiWfyDBY7WExNDI0
+    Ровно:
+      - https://t.me/+hwq625pYpfUzOWI8
+    Сумы:
+      - https://t.me/+-oVnhuNnwpU1ZWVk
+    Тернопіль:
+      - https://t.me/+HK4nfvMpAeM1MWZk
+    Харьков:
+      - https://t.me/+vSsvEw-pfNA4NDdi
+    Хмельницкий:
+      - https://t.me/+qORus3EoBnEzZmNk
+    Черкассы:
+      - https://t.me/EvacuationCherkasy
+    Чернiгiв:
+      - https://t.me/+i1Np0FJLhs4zMzli
+    Черновцы:
+      - https://t.me/evacuationChernovtsy
 food:
-  В Берлине действует благотворительная организация Tafel:
-  - |
-    Найдите ближайший к вам пункт выдачи продуктов в этом списке:
-    https://www.berliner-tafel.de/laib-und-seele/die-praxis/kunden/ausgabestellen
-    За продукты нужно будет заплатить символический взнос в 1-2 евро.
-    Возьмите с собой паспорт, маску, сумку.
+  description: Бесплатная еда в Берлине
+  contents:
+    В Берлине действует благотворительная организация Tafel:
+    - |
+      Найдите ближайший к вам пункт выдачи продуктов в этом списке:
+      https://www.berliner-tafel.de/laib-und-seele/die-praxis/kunden/ausgabestellen
+      За продукты нужно будет заплатить символический взнос в 1-2 евро.
+      Возьмите с собой паспорт, маску, сумку.
 
-  - |
-    В Берлине действует движение фудшеринг — то есть спасение еды из кафе, отелей, магазинов в конце дня. Это хорошая, не просроченная еда.
-    Важно! Вход только в маске, при себе иметь одноразовые перчатки (хлеб обычно хранится в огромных ящиках), чтобы соблюдать гигиену, сумки для продуктов.
-    По этой ссылке можно посмотреть актуальное наличие продуктов: https://foodsharing.de/karte
+    - |
+      В Берлине действует движение фудшеринг — то есть спасение еды из кафе, отелей, магазинов в конце дня. Это хорошая, не просроченная еда.
+      Важно! Вход только в маске, при себе иметь одноразовые перчатки (хлеб обычно хранится в огромных ящиках), чтобы соблюдать гигиену, сумки для продуктов.
+      По этой ссылке можно посмотреть актуальное наличие продуктов: https://foodsharing.de/karte
 
-  Где можно дешево поесть:
-    - https://uahelp.wiki/14ed85a221184bfe9b8d88c208833782
+    Где можно дешево поесть:
+      - https://uahelp.wiki/14ed85a221184bfe9b8d88c208833782
 free_stuff:
-  Чат обмена вещами:
-    - |
-      https://t.me/joinchat/CbD5mEn20K3k-gd-ckIXBw
-  Отдам даром на доске объявлений:
-    - |
-      https://www.ebay-kleinanzeigen.de/s-zu-verschenken/berlin/c192l3331
-  Группы в Facebook:
-    - Отдам Даром.Берлин https://www.facebook.com/groups/520952631414941/
-    - Free Your Stuff Berlin https://www.facebook.com/groups/586599084814353/ https://www.facebook.com/groups/freeyourstuff/ https://www.facebook.com/groups/142044769198672
-    - Free Your Stuff KIDS https://www.facebook.com/groups/1576719629238589/
-    - |
-      Українська шафа в Берліні https://www.facebook.com/groups/447623338975317/
-  Благотворительные центры:
-    - |
-      Gabenzaun https://gabenzaun.de/
-    - |
-      Moabit hilft 
-      Turmstr. 21, Haus R, 10559 Berlin
-      пн-пт 11-19
-      https://www.moabit-hilft.com/kontakt/
-    - |
-      Архе/Ковчег (Die Arche) (детские вещи)
-      Tangermünder Straße 7, 12627 Berlin
-      пн-пт 9-17
-    - |
-      Caritas Kleiderkammern
-      https://www.caritas-berlin.de/spendenundhelfen/spenden/kleiderkammern/caritas-kleiderkammer-berlin
-    - |
-      склад Kidsmont
-      Meeraner Str. 11E, 12681 Berlin
-      https://help-ukraine.com.ua/Hilfebereich-f-r-Ukrainer
-    - |
-      Umsonstladen (Kubiz Raoul Wallenberg)
-      Bernkasteler Straße 78, 13088 Berlin
-      пн-вт 10-14, ср 10-18, чт 16-20
+  description: Гуманитарная помощь в Берлине
+  contents:
+    Чат обмена вещами:
+      - |
+        https://t.me/joinchat/CbD5mEn20K3k-gd-ckIXBw
+    Отдам даром на доске объявлений:
+      - |
+        https://www.ebay-kleinanzeigen.de/s-zu-verschenken/berlin/c192l3331
+    Группы в Facebook:
+      - Отдам Даром.Берлин https://www.facebook.com/groups/520952631414941/
+      - Free Your Stuff Berlin https://www.facebook.com/groups/586599084814353/ https://www.facebook.com/groups/freeyourstuff/ https://www.facebook.com/groups/142044769198672
+      - Free Your Stuff KIDS https://www.facebook.com/groups/1576719629238589/
+      - |
+        Українська шафа в Берліні https://www.facebook.com/groups/447623338975317/
+    Благотворительные центры:
+      - |
+        Gabenzaun https://gabenzaun.de/
+      - |
+        Moabit hilft
+        Turmstr. 21, Haus R, 10559 Berlin
+        пн-пт 11-19
+        https://www.moabit-hilft.com/kontakt/
+      - |
+        Архе/Ковчег (Die Arche) (детские вещи)
+        Tangermünder Straße 7, 12627 Berlin
+        пн-пт 9-17
+      - |
+        Caritas Kleiderkammern
+        https://www.caritas-berlin.de/spendenundhelfen/spenden/kleiderkammern/caritas-kleiderkammer-berlin
+      - |
+        склад Kidsmont
+        Meeraner Str. 11E, 12681 Berlin
+        https://help-ukraine.com.ua/Hilfebereich-f-r-Ukrainer
+      - |
+        Umsonstladen (Kubiz Raoul Wallenberg)
+        Bernkasteler Straße 78, 13088 Berlin
+        пн-вт 10-14, ср 10-18, чт 16-20
 furniture:
-    - | 
-      Оформление заявки на мебель и бытовые приборы
-      
-      В Jobcenter необходимо предоставить:
-      - Договор аренды (подписанный обоими сторонами)
-      - Протокол приёмки-передачи квартиры (некоторые Jobcenter выдают деньги без него, но это больше исключение, чем правило)
-      - Размеры окон
-      
-      Заявление на мебель/приборы:
-      Guten Tag,
-      hiermit beantrage ich Beihilfe wegen einer Erstausstattung für die Wohnung gemäß § 24 SGB Il.
-      Leider können wir den Betrag nicht selber aufbringen.
-      Die Liste der benötigten Einrichtungszustände/Haushaltsgeräte mit der Bitte um Genehmigung ist anbei.
-      Der Mietvertrag und das Übergabeprotokoll sind anbei. Fenstergrösse: xxxx
-      Mit freundlichen Grüßen
-      Xxxx
-      
-      Полный список (2 файла), что и по какой цене выделяют на обустройство квартиры:
-      📄 https://www.berlin.de/sen/soziales/service/berliner-sozialrecht/kategorie/rundschreiben/2017_06-658136.php
-      📄 https://www.berlin.de/sen/soziales/service/berliner-sozialrecht/kategorie/rundschreiben/2017_06_anlage1-659044.php
+  description: Оформление заявки на мебел и бытовые приборы первой необходимости
+  contents:
+      - |
+        Оформление заявки на мебель и бытовые приборы первой необходимости
 
-      Если в семье есть школьники, то можно дополнительно запросить выплату на ноутбук и принтер (в заявлении ссылайтесь на решение суда: Sozialgericht Köln Urteil v. 11.08.2020, Az.: S 15 AS 456/2019).
+        В Jobcenter необходимо предоставить:
+        - Договор аренды (подписанный обоими сторонами)
+        - Протокол приёмки-передачи квартиры (некоторые Jobcenter выдают деньги без него, но это больше исключение, чем правило)
+        - Размеры окон
 
-      Необходимо сохранять все чеки о покупке. Если покупка, например, на ebay Kleinanzeige - брать расписку (или квитанцию Quittung) у продавца о получении денег за товар.
+        Заявление на мебель/приборы:
+        Guten Tag,
+        hiermit beantrage ich Beihilfe wegen einer Erstausstattung für die Wohnung gemäß § 24 SGB Il.
+        Leider können wir den Betrag nicht selber aufbringen.
+        Die Liste der benötigten Einrichtungszustände/Haushaltsgeräte mit der Bitte um Genehmigung ist anbei.
+        Der Mietvertrag und das Übergabeprotokoll sind anbei. Fenstergrösse: xxxx
+        Mit freundlichen Grüßen
+        Xxxx
+
+        Полный список (2 файла), что и по какой цене выделяют на обустройство квартиры:
+        📄 https://www.berlin.de/sen/soziales/service/berliner-sozialrecht/kategorie/rundschreiben/2017_06-658136.php
+        📄 https://www.berlin.de/sen/soziales/service/berliner-sozialrecht/kategorie/rundschreiben/2017_06_anlage1-659044.php
+
+        Если в семье есть школьники, то можно дополнительно запросить выплату на ноутбук и принтер (в заявлении ссылайтесь на решение суда: Sozialgericht Köln Urteil v. 11.08.2020, Az.: S 15 AS 456/2019).
+
+        Необходимо сохранять все чеки о покупке. Если покупка, например, на ebay Kleinanzeige - брать расписку (или квитанцию Quittung) у продавца о получении денег за товар.
 general_information:
-  По вопросам:
-    - регистрации,
-    - получения 24го параграфа,
-    - медицинских услуг и страховки,
-    - выплат социальной помощи,
-    - и многого другого
-  читайте официальную информацию:
-    - по-украински https://www.berlin.de/ukraine/uk/
-    - по-русски https://www.berlin.de/ukraine/ru/
-  А также:
-    - https://handbookgermany.de/uk/
-    - https://uahelp.wiki/
-handicap:
-  Помощь для взрослых:
-    - Чат в телеграм - https://t.me/+P4KcHm2zl55mYmQ6
-    - https://handbookgermany.de/ru/rights-laws/special-needs.html
-    - https://www.familienratgeber.de/beratung-hilfe/weitere-hilfen/fluechtlinge-behinderung.php
-    - http://mina-berlin.eu/beratungsangebot-fuer-menschen-mit-fluchterfahrung-und-behinderung-aus-der-ukraine/
-    - https://www.berlin.de/ukraine/ru/pribytie/informazija-dlja-beshenzew-s-inwalidnostjju-1194628.ru.php
-    - https://www.hi-deutschland-projekte.de/crossroads/flucht-aus-der-ukraine/
-    - |
-      https://www.interaktiv-berlin.de/ru/beratungsprojekt/Ознакомление-с-системами-Здравоохранения-Социальной-помощи-и-Образования-в-Германииagbh/
-  Помощь для детей:
-    - https://linktr.ee/diesputniks
-    - Чат для родителей https://t.me/+P4KcHm2zl55mYmQ6
+  description: Общая информация
+  contents:
+    По вопросам:
+      - регистрации,
+      - получения 24го параграфа,
+      - медицинских услуг и страховки,
+      - выплат социальной помощи,
+      - и многого другого
+    читайте официальную информацию:
+      - по-украински https://www.berlin.de/ukraine/uk/
+      - по-русски https://www.berlin.de/ukraine/ru/
+    А также:
+      - https://handbookgermany.de/uk/
+      - https://uahelp.wiki/
+  handicap:
+    Помощь для взрослых:
+      - Чат в телеграм - https://t.me/+P4KcHm2zl55mYmQ6
+      - https://handbookgermany.de/ru/rights-laws/special-needs.html
+      - https://www.familienratgeber.de/beratung-hilfe/weitere-hilfen/fluechtlinge-behinderung.php
+      - http://mina-berlin.eu/beratungsangebot-fuer-menschen-mit-fluchterfahrung-und-behinderung-aus-der-ukraine/
+      - https://www.berlin.de/ukraine/ru/pribytie/informazija-dlja-beshenzew-s-inwalidnostjju-1194628.ru.php
+      - https://www.hi-deutschland-projekte.de/crossroads/flucht-aus-der-ukraine/
+      - |
+        https://www.interaktiv-berlin.de/ru/beratungsprojekt/Ознакомление-с-системами-Здравоохранения-Социальной-помощи-и-Образования-в-Германииagbh/
+    Помощь для детей:
+      - https://linktr.ee/diesputniks
+      - Чат для родителей https://t.me/+P4KcHm2zl55mYmQ6
 jobs:
-  Внимание:
-    - Все вакансии в Германии бесплатные и зарплата должна указываться в БРУТТО, т.е. до выплаты налогов и т.д.
-  Bundesagentur für Arbeit:
-    - Запишитесь на приём в федеральное агенство занятости https://www.arbeitsagentur.de/en/job-board.
-      Тут Вам смогут помочь в поиске работы и сориентировать по направлению.
-  Работа Берлин / Бранденбург:
-    - https://t.me/ukraine_berlin_jobs
-    - https://t.me/Ukraine_job_Berlin
-    - https://t.me/jobberlin
-    - https://t.me/work_ukr_berlin
-  Работа по всей Германии:
-    - https://t.me/ukrainegermanywork
-    - https://t.me/arbeit_doska_deutschland
-    - https://t.me/workersplatform
-    - https://t.me/WORKandHOUS_DE
-    - https://t.me/jobsforukraine
-    - https://t.me/euvacancies_for_evacuated
-    - https://t.me/workforuade
-  Чат помощи фрилансерам:
-    - https://t.me/tipsforukrainianfreelancers
-  Сайты вакансий для украинцев:
-    - https://jobsforukraine.heyjobs.co/ua-de
-    - https://www.uatalents.com
-    - https://www.jobaidukraine.com/
-    - https://www.naym.me/
-    - https://www.appjobs.com/berlin
-  Общие сайты вакансий:
-    - https://www.linkedin.com/
-    - https://www.indeed.com/hire
-    - https://www.stepstone.de/
-    - https://www.heyjobs.co/de-de/jobs
-    - https://www.tbd.community/de
-    - https://goodjobs.eu/
-    - https://angel.co/
-    - https://berlinstartupjobs.com/
+  description: Работа в Германии
+  contents:
+    Внимание:
+      - Все вакансии в Германии бесплатные и зарплата должна указываться в БРУТТО, т.е. до выплаты налогов и т.д.
+    Bundesagentur für Arbeit:
+      - Запишитесь на приём в федеральное агенство занятости https://www.arbeitsagentur.de/en/job-board.
+        Тут Вам смогут помочь в поиске работы и сориентировать по направлению.
+    Работа Берлин / Бранденбург:
+      - https://t.me/ukraine_berlin_jobs
+      - https://t.me/Ukraine_job_Berlin
+      - https://t.me/jobberlin
+      - https://t.me/work_ukr_berlin
+    Работа по всей Германии:
+      - https://t.me/ukrainegermanywork
+      - https://t.me/arbeit_doska_deutschland
+      - https://t.me/workersplatform
+      - https://t.me/WORKandHOUS_DE
+      - https://t.me/jobsforukraine
+      - https://t.me/euvacancies_for_evacuated
+      - https://t.me/workforuade
+    Чат помощи фрилансерам:
+      - https://t.me/tipsforukrainianfreelancers
+    Сайты вакансий для украинцев:
+      - https://jobsforukraine.heyjobs.co/ua-de
+      - https://www.uatalents.com
+      - https://www.jobaidukraine.com/
+      - https://www.naym.me/
+      - https://www.appjobs.com/berlin
+    Общие сайты вакансий:
+      - https://www.linkedin.com/
+      - https://www.indeed.com/hire
+      - https://www.stepstone.de/
+      - https://www.heyjobs.co/de-de/jobs
+      - https://www.tbd.community/de
+      - https://goodjobs.eu/
+      - https://angel.co/
+      - https://berlinstartupjobs.com/
 job_center_calc:
-  - |
-    Расчёт JobCenter на примере зарплаты в 520 € (Basis):
-    - Из зарплаты в 520€ не учитывается 100 евро (Freibetrag)
-    - Из оставшейся суммы не учитывается ещё 20%
-    
-    То есть, JobCenter считает, что Вы получаете не 520 €, а 520 - 100 = 420, 420 - 20% = 336.
-    Вот на эти 336 € меньше Вам и платит JobCenter.
-    В сумме, оплата JobCenter и Ваш базис 520 € получается на 184 € больше, чем просто выплаты от JobCenter.
-  
-    Если Ваш месячный доход выше 520 €:
-    - Первые 100 € не считаются
-    - Из остатка до 1000 € не считаются еще 20% от суммы
-    - Если остаток больше 1000 €, то еще 10% не учитываются
-    
-    Например, если JobCenter платит общую сумму в месяц (пособие + квартира) 1200 €, а по вышеуказанному расчету получается сумма больше или такая же, то Вам перестают выплачивать пособие.
-    Если сумма меньше, то Вам положена доплата до той суммы, которую бы Вы получали не работая.
+  description: Расчёт пособия от JobCenter при наличии зарплаты
+  contents:
+    - |
+      Расчёт JobCenter на примере зарплаты в 520 € (Basis):
+      - Из зарплаты в 520€ не учитывается 100 евро (Freibetrag)
+      - Из оставшейся суммы не учитывается ещё 20%
+
+      То есть, JobCenter считает, что Вы получаете не 520 €, а 520 - 100 = 420, 420 - 20% = 336.
+      Вот на эти 336 € меньше Вам и платит JobCenter.
+      В сумме, оплата JobCenter и Ваш базис 520 € получается на 184 € больше, чем просто выплаты от JobCenter.
+
+      Если Ваш месячный доход выше 520 €:
+      - Первые 100 € не считаются
+      - Из остатка до 1000 € не считаются еще 20% от суммы
+      - Если остаток больше 1000 €, то еще 10% не учитываются
+
+      Например, если JobCenter платит общую сумму в месяц (пособие + квартира) 1200 €, а по вышеуказанному расчету получается сумма больше или такая же, то Вам перестают выплачивать пособие.
+      Если сумма меньше, то Вам положена доплата до той суммы, которую бы Вы получали не работая.
 kindergeld:
-  - |
-    Как оформить детские деньги (Kindergeld) в Берлине:
+  description: Как получить пособие на детей Kindergeld
+  contents:
+    - |
+      Как оформить детские деньги (Kindergeld) в Берлине:
 
-    С 01.06.22 детские деньги даются также НЕРАБОТАЮЩИМ беженцам из Украины.
-    Вся информация и формуляры на 3х языках на сайте: 
-    https://www.arbeitsagentur.de/ru/familie-und-kinder/ru-ukraine-kindergeld
-    Формуляры для скачивания на нем/укр/рус языках внизу сайта.
+      С 01.06.22 детские деньги даются также НЕРАБОТАЮЩИМ беженцам из Украины.
+      Вся информация и формуляры на 3х языках на сайте:
+      https://www.arbeitsagentur.de/ru/familie-und-kinder/ru-ukraine-kindergeld
+      Формуляры для скачивания на нем/укр/рус языках внизу сайта.
 
-    Необходимые документы:
-    - Копии паспортов (или др. удост. личности) и ВНЖ заявителя и ребенка
-    - Копии прописки заявителя и ребенка
-    - Справка о посещении ребенком школы, проф.обучения или садика (если имеется)
+      Необходимые документы:
+      - Копии паспортов (или др. удост. личности) и ВНЖ заявителя и ребенка
+      - Копии прописки заявителя и ребенка
+      - Справка о посещении ребенком школы, проф.обучения или садика (если имеется)
 
-    Заявление + приложение Anlage Kind на каждого ребёнка + копии документов отправлять по почте или на Email (лучше в PDF-формате)
-    Почтовый адрес: 
-    Familienkasse Berlin-Brandenburg
-    14465 Potsdam
-    *Конверт может быть объемным, сдавайте прямо на почту,чтобы правильно оплатить. Можно заказным (per Einschreiben), с квитанцией, стоит дороже.
-    Email: familienkasse-berlin-brandenburg@arbeitsagentur.de
+      Заявление + приложение Anlage Kind на каждого ребёнка + копии документов отправлять по почте или на Email (лучше в PDF-формате)
+      Почтовый адрес:
+      Familienkasse Berlin-Brandenburg
+      14465 Potsdam
+      *Конверт может быть объемным, сдавайте прямо на почту,чтобы правильно оплатить. Можно заказным (per Einschreiben), с квитанцией, стоит дороже.
+      Email: familienkasse-berlin-brandenburg@arbeitsagentur.de
 
-    Если Вы хотите сразу получить подтверждение сдачи заявления (для Jobcenter) и проверить правильность комплекта документов, можете попробовать обратиться в один из 3х филиалов Familienkasse в Берлине. Оттуда Ваши документы перешлют в Потсдам на обработку.
+      Если Вы хотите сразу получить подтверждение сдачи заявления (для Jobcenter) и проверить правильность комплекта документов, можете попробовать обратиться в один из 3х филиалов Familienkasse в Берлине. Оттуда Ваши документы перешлют в Потсдам на обработку.
 
 leave:
-  Правила отсутсвия при регистрации в JobCenter по срокам:
-    - "до 3 недель: Вы должны предупредить JobCenter об этом заранее и обязательно дождаться их согласия, тогда  Вы получите выплаты за эти 21 день в полном объёме. В 21 день включены и выходные и праздники. По возвращении лично являетесь и сообщаете о своём приезде."
-    - "3-6 недель: Вы должны предупредить JobCenter об этом заранее и обязательно дождаться их согласия. В этом случае, Вы получите выплаты за 21 день отсутствия, а за остальные оставшиеся дни - нет. По возвращении лично являетесь и сообщаете о своём приезде."
-    - |
-      Более 6 недель: Вы должны уведомить JobCenter, но Вы не получите выплат, начиная с первого дня отсутствия. По возвращении Вам нужно будет заново подать заявление на получение пособия в JobCenter и Вашу кандидатуру  будут рассматривать по новой.
-  Как уведомить:
-    - |
-      Если у Вас уже есть доступ в личный кабинет на сайте JobCenter, уведомить о своём отсутствии можно онлайн, заполнив эту форму и прикрепив ее к своему электронному письму: https://www.arbeitsagentur.de/arbeitslosengeld-2/ortsabwesenheit-online-anfragen
-  Важно:
-    - Выплаты сохраняются на 21 день В ГОД. Периоды отсутсвия сверх этого времени не оплачиваются.
+  description: Как сообщить Jobcenter о временном отсутствии
+  contents:
+    Правила отсутсвия при регистрации в JobCenter по срокам:
+      - "до 3 недель: Вы должны предупредить JobCenter об этом заранее и обязательно дождаться их согласия, тогда  Вы получите выплаты за эти 21 день в полном объёме. В 21 день включены и выходные и праздники. По возвращении лично являетесь и сообщаете о своём приезде."
+      - "3-6 недель: Вы должны предупредить JobCenter об этом заранее и обязательно дождаться их согласия. В этом случае, Вы получите выплаты за 21 день отсутствия, а за остальные оставшиеся дни - нет. По возвращении лично являетесь и сообщаете о своём приезде."
+      - |
+        Более 6 недель: Вы должны уведомить JobCenter, но Вы не получите выплат, начиная с первого дня отсутствия. По возвращении Вам нужно будет заново подать заявление на получение пособия в JobCenter и Вашу кандидатуру  будут рассматривать по новой.
+    Как уведомить:
+      - |
+        Если у Вас уже есть доступ в личный кабинет на сайте JobCenter, уведомить о своём отсутствии можно онлайн, заполнив эту форму и прикрепив ее к своему электронному письму: https://www.arbeitsagentur.de/arbeitslosengeld-2/ortsabwesenheit-online-anfragen
+    Важно:
+      - Выплаты сохраняются на 21 день В ГОД. Периоды отсутсвия сверх этого времени не оплачиваются.
 legal:
-  Юридическая помощь/консультации:
-    - https://www.rlc-berlin.org
-    - https://kub-berlin.org
-    - https://germania.diplo.de/ru-ru/service/rechtsberatung/2121490
-  Чаты юридической помощи:
-    - https://t.me/help4ukrainerefugee2
-    - https://t.me/zakon_de
+  description: Юридическая помощь
+  contents:
+    Юридическая помощь/консультации:
+      - https://www.rlc-berlin.org
+      - https://kub-berlin.org
+      - https://germania.diplo.de/ru-ru/service/rechtsberatung/2121490
+    Чаты юридической помощи:
+      - https://t.me/help4ukrainerefugee2
+      - https://t.me/zakon_de
 medical:
-  Информация о бесплатном медицинском обслуживании:
-    - Бот с ответами на вопросы https://t.me/Cures_for_ukrainians_bot
-    - https://www.berlin.de/ukraine/ru/pribytie/okasanie-medizinskoj/
-    - https://handbookgermany.de/de/ukraine-info/ru/medizinische-versorgung.html
-    - https://www.kvberlin.de/fuer-patienten/ukraine
-    - |
-      https://www.nowar.help/ru/medical-support
-  При проблемах со страховкой:
-    - |
-      Консультация Berliner Stadtmission https://www.berliner-stadtmission.de/clearingstelle/sprachen#c1501
-  Где искать врачей:
-    - |
-      На сайтах
-      https://www.doctolib.de/
-      https://www.jameda.de/
-      https://www.sanego.de/
-      https://www.kvberlin.de/fuer-patienten/arzt-und-psychotherapeutensuche
-      Можно искать врачей по специальности, городу и языку.
-      Augenarzt = Офтальмолог
-      Frauenarzt = Гинеколог
-      Hausarzt или Allgemeinarzt = Терапевт
-      Zahnarzt = Дантист
-  Удаленные врачебные консультации:
-    - https://www.teleclinic.com/
-    - https://doctors4ua.com/
-    - https://likari.net.ua/
-    - https://viveohealth.com/free-online-doctor-consultation-for-ukraine
-    - |
-      https://shorties.io/remote-doctors-ukraine
-  Лекарства для людей без медицинской страховки:
-    - https://www.malteser.de/menschen-ohne-krankenversicherung.html
-    - |
-      https://www.aekb.de/service-kontakt/hilfreiche-informationen-links/hilfsorganisationen-und-angebote-zur-medizinischen-versorgung-in-berlin
-  Поиск аптеки экстренной помощи:
-    - |
-      https://www.aponet.de/apotheke/notdienstsuche
-  Поиск больниц по Германии:
-    - |
-      https://www.deutsches-krankenhaus-verzeichnis.de/app/suche/landkarte
-  Помощь для людей с ВИЧ:
-    - |
-      https://www.berlin-aidshilfe.de/
-  Онкология:
-    - "Информация: https://medwatch.de/2022/03/11/информация-для-онкобольных-из-украин/"
-    - |
-      Клиники Германии, специализирующиеся на разных видах болезни: https://msp-ger.ru/oncology-in-germany/
-  Зубные врачи:
-    - |
-      В экстренном случае зубные врачи могут предоставить бесплатную стоматологическую помошь. При себе необходимо иметь украинский паспорт.
-      https://news.kzv-berlin.de/detail/nachricht/zahnmedizinische-versorgung-von-fluechtlingen-aus-der-ukraine
+  description: Медицинская помощь
+  contents:
+    Информация о бесплатном медицинском обслуживании:
+      - Бот с ответами на вопросы https://t.me/Cures_for_ukrainians_bot
+      - https://www.berlin.de/ukraine/ru/pribytie/okasanie-medizinskoj/
+      - https://handbookgermany.de/de/ukraine-info/ru/medizinische-versorgung.html
+      - https://www.kvberlin.de/fuer-patienten/ukraine
+      - |
+        https://www.nowar.help/ru/medical-support
+    При проблемах со страховкой:
+      - |
+        Консультация Berliner Stadtmission https://www.berliner-stadtmission.de/clearingstelle/sprachen#c1501
+    Где искать врачей:
+      - |
+        На сайтах
+        https://www.doctolib.de/
+        https://www.jameda.de/
+        https://www.sanego.de/
+        https://www.kvberlin.de/fuer-patienten/arzt-und-psychotherapeutensuche
+        Можно искать врачей по специальности, городу и языку.
+        Augenarzt = Офтальмолог
+        Frauenarzt = Гинеколог
+        Hausarzt или Allgemeinarzt = Терапевт
+        Zahnarzt = Дантист
+    Удаленные врачебные консультации:
+      - https://www.teleclinic.com/
+      - https://doctors4ua.com/
+      - https://likari.net.ua/
+      - https://viveohealth.com/free-online-doctor-consultation-for-ukraine
+      - |
+        https://shorties.io/remote-doctors-ukraine
+    Лекарства для людей без медицинской страховки:
+      - https://www.malteser.de/menschen-ohne-krankenversicherung.html
+      - |
+        https://www.aekb.de/service-kontakt/hilfreiche-informationen-links/hilfsorganisationen-und-angebote-zur-medizinischen-versorgung-in-berlin
+    Поиск аптеки экстренной помощи:
+      - |
+        https://www.aponet.de/apotheke/notdienstsuche
+    Поиск больниц по Германии:
+      - |
+        https://www.deutsches-krankenhaus-verzeichnis.de/app/suche/landkarte
+    Помощь для людей с ВИЧ:
+      - |
+        https://www.berlin-aidshilfe.de/
+    Онкология:
+      - "Информация: https://medwatch.de/2022/03/11/информация-для-онкобольных-из-украин/"
+      - |
+        Клиники Германии, специализирующиеся на разных видах болезни: https://msp-ger.ru/oncology-in-germany/
+    Зубные врачи:
+      - |
+        В экстренном случае зубные врачи могут предоставить бесплатную стоматологическую помошь. При себе необходимо иметь украинский паспорт.
+        https://news.kzv-berlin.de/detail/nachricht/zahnmedizinische-versorgung-von-fluechtlingen-aus-der-ukraine
 minors:
-  Несовершеннолетние без сопровождения:
-    - |
-      Официальная информация:
-      https://www.berlin.de/ukraine/ru/pribytie/deti-i-podrostki/
-      
-      https://www.bamf.de/EN/Themen/AsylFluechtlingsschutz/UnbegleiteteMinderjaehrige/unbegleiteteminderjaehrige-node.html
-    - "Ответы на часто задаваемые вопросы: https://handbookgermany.de/ru/rights-laws/asylum/under-18.html"
+  description: Информация о несовершеннолетних без сопровождения
+  contents:
+    Несовершеннолетние без сопровождения:
+      - |
+        Официальная информация:
+        https://www.berlin.de/ukraine/ru/pribytie/deti-i-podrostki/
+
+        https://www.bamf.de/EN/Themen/AsylFluechtlingsschutz/UnbegleiteteMinderjaehrige/unbegleiteteminderjaehrige-node.html
+      - "Ответы на часто задаваемые вопросы: https://handbookgermany.de/ru/rights-laws/asylum/under-18.html"
 no_ads:
-  - |
-    Напоминаем что наша группа не доска объявлений.
-    Для поиска и предложения услуг перейдите пожалуйста в соответствующие группы.
+  description: Доски объявления и чаты с поиском и предложением услуг
+  contents:
+    - |
+      Напоминаем что наша группа не доска объявлений.
+      Для поиска и предложения услуг перейдите пожалуйста в соответствующие группы.
 
-    Доски объявлений
-    - https://t.me/alles_in_Deutschland
-    - https://t.me/kaufberli (язык группы - русский).
-    - https://t.me/+IKWVcfw2ohJmZjI6
+      Доски объявлений
+      - https://t.me/alles_in_Deutschland
+      - https://t.me/kaufberli (язык группы - русский).
+      - https://t.me/+IKWVcfw2ohJmZjI6
 
-    Бесплатные вещи бежавшим от войны, Берлин:
-    - https://t.me/+OpAHxhJ3OEAxYzgy
+      Бесплатные вещи бежавшим от войны, Берлин:
+      - https://t.me/+OpAHxhJ3OEAxYzgy
 
-    Работа Берлин / Бранденбург
-    - https://t.me/work_ukr_berlin
-    - https://t.me/ukraine_berlin_jobs
+      Работа Берлин / Бранденбург
+      - https://t.me/work_ukr_berlin
+      - https://t.me/ukraine_berlin_jobs
 
-    Работа по всей Германии
-    - https://t.me/ukrainegermanywork
-    - https://t.me/arbeit_doska_deutschland
-    - https://t.me/workersplatform
-    - https://t.me/WORKandHOUS_DE
+      Работа по всей Германии
+      - https://t.me/ukrainegermanywork
+      - https://t.me/arbeit_doska_deutschland
+      - https://t.me/workersplatform
+      - https://t.me/WORKandHOUS_DE
 
-    Бьюти сообщества
-    - https://t.me/beauty_berlin_ua
-    - https://t.me/beauty_master_Germany
-    - https://t.me/Beauty_Masters_from_Ukraine
-    - https://t.me/+hLE6UEtJZiwwYzMy
+      Бьюти сообщества
+      - https://t.me/beauty_berlin_ua
+      - https://t.me/beauty_master_Germany
+      - https://t.me/Beauty_Masters_from_Ukraine
+      - https://t.me/+hLE6UEtJZiwwYzMy
 passport:
-  - |
-    Если Вам не удается получить термин на изготовление паспорта в посольствах Германии, Вы можете обратиться в одно из представительств паспортного сервиса.
+  description: Получение украинского загранпаспорта
+  contents:
+    - |
+      Если Вам не удается получить термин на изготовление паспорта в посольствах Германии, Вы можете обратиться в одно из представительств паспортного сервиса.
 
-    Представительства ГП "Документ":
-    - Берлин: Am Treptower Park 14
-      https://t.me/berlindp_service
-      https://berlin.pasport.org.ua
-    - Кёльн: Breslauer Platz
-      https://cologne.pasport.org.ua
-    - Вроцлав: Tarczyński Arena
-      https://wroclaw.pasport.org.ua
-    - Краков: Plac Jana Nowaka - Jezioranskiego 31-154
-      https://krakow.pasport.org.ua
-    - Гданьск: Chelm. Shopping center Cienista 30, 80-046
-      https://gdansk.pasport.org.ua
-    - Варшава: Al. Jerozolimskie 179, Blue City (2-й этаж) 
-      https://warszawa.pasport.org.ua
+      Представительства ГП "Документ":
+      - Берлин: Am Treptower Park 14
+        https://t.me/berlindp_service
+        https://berlin.pasport.org.ua
+      - Кёльн: Breslauer Platz
+        https://cologne.pasport.org.ua
+      - Вроцлав: Tarczyński Arena
+        https://wroclaw.pasport.org.ua
+      - Краков: Plac Jana Nowaka - Jezioranskiego 31-154
+        https://krakow.pasport.org.ua
+      - Гданьск: Chelm. Shopping center Cienista 30, 80-046
+        https://gdansk.pasport.org.ua
+      - Варшава: Al. Jerozolimskie 179, Blue City (2-й этаж)
+        https://warszawa.pasport.org.ua
 
-    Вы можете прийти в Паспортный сервис утром и получить талон на обслуживание в течение рабочего дня в живую очередь.
-    
-    ВАЖНО: Чтобы выехать в Польшу и вообще в любую другую страну ЕС или Шенгена, необходим или безвиз и биозагран, или внж Германии и любой загранпаспорт. Если Вы ждёте изготовления пластика, при наличии нормального паспорта можно получить в ЛЕА спец. справку для выезда из страны.
+      Вы можете прийти в Паспортный сервис утром и получить талон на обслуживание в течение рабочего дня в живую очередь.
+
+      ВАЖНО: Чтобы выехать в Польшу и вообще в любую другую страну ЕС или Шенгена, необходим или безвиз и биозагран, или внж Германии и любой загранпаспорт. Если Вы ждёте изготовления пластика, при наличии нормального паспорта можно получить в ЛЕА спец. справку для выезда из страны.
 photo:
-  - |
-    Jet-Foto am Alex - 8€ за 4 фото для украинцев
-    https://www.jet-foto.de/
-    Часы работы: Пн-Пт 10 – 19, Сб 11 – 19
-    Адрес: Dircksenstraße 89, 10178 Berlin
-  - |
-    DM: найдите ближайший филиал тут https://www.passbilder.net/orte/dm-passbildservice, цена 6,95€ за 6 шт.
-  - |
-    Если у Вас уже есть фото в цифровом формате, его можно распечатать в автоматах магазинов DM или Rossmann ещё дешевле.
+  description: Где сделать фотографию на документы
+  contents:
+    - |
+      Jet-Foto am Alex - 8€ за 4 фото для украинцев
+      https://www.jet-foto.de/
+      Часы работы: Пн-Пт 10 – 19, Сб 11 – 19
+      Адрес: Dircksenstraße 89, 10178 Berlin
+    - |
+      DM: найдите ближайший филиал тут https://www.passbilder.net/orte/dm-passbildservice, цена 6,95€ за 6 шт.
+    - |
+      Если у Вас уже есть фото в цифровом формате, его можно распечатать в автоматах магазинов DM или Rossmann ещё дешевле.
 pregnant:
-  Группы для беременных:
-    - https://t.me/+CV3HHp893l84MDdi (Берлин)
-    - https://t.me/beremennost_germaniya (Гамбург)
-    - https://t.me/pregnantinmunich (Мюнхен)
-    - https://t.me/schwangerschaft_deutschland (Германия)
-  Дополнительная консультационная и финансовая помощь от фонда матери и ребенка:
-    - https://www.familienplanung.de/beratung/beratungsstelle-finden/
-  Центр сексуального здоворья и планирования семьи:
-    - https://www.berlin.de/ba-friedrichshain-kreuzberg/politik-und-verwaltung/aemter/gesundheitsamt/zentrum-fuer-sexuelle-gesundheit-und-familienplanung/ (внизу есть флаер на русском языке)
-  Чат с гинекологом:
-    - https://www.justanswer.de/sip/gynaekologie
-  Бесплатное гинекологическое, психологическое и социальное консультирование для женщин и девочек-беженцев из Украины:
-    - https://shorties.io/balance-ukraine
+  description: Информация для беременных
+  contents:
+    Группы для беременных:
+      - https://t.me/+CV3HHp893l84MDdi (Берлин)
+      - https://t.me/beremennost_germaniya (Гамбург)
+      - https://t.me/pregnantinmunich (Мюнхен)
+      - https://t.me/schwangerschaft_deutschland (Германия)
+    Дополнительная консультационная и финансовая помощь от фонда матери и ребенка:
+      - https://www.familienplanung.de/beratung/beratungsstelle-finden/
+    Центр сексуального здоворья и планирования семьи:
+      - https://www.berlin.de/ba-friedrichshain-kreuzberg/politik-und-verwaltung/aemter/gesundheitsamt/zentrum-fuer-sexuelle-gesundheit-und-familienplanung/ (внизу есть флаер на русском языке)
+    Чат с гинекологом:
+      - https://www.justanswer.de/sip/gynaekologie
+    Бесплатное гинекологическое, психологическое и социальное консультирование для женщин и девочек-беженцев из Украины:
+      - https://shorties.io/balance-ukraine
 psychological:
-  Где вы можете получить психологическую помощь:
-    - Центр помощи для украинцев в Charite https://charite.digital/helpforukraine
-    - Центр помощи для украинцев в Vivantes https://www.vivantes.de/fileadmin/Klinika/HUK/PDFs/flyer-offene-sprechstunde-ukraine-zentrum-fuer-transkulturelle-psychiatrie-humboldt-klinikum.pdf
-    - постоянно пополняемый список ресурсов и контактов https://shorties.io/resources-psychological-help
-  Бесплатные онлайн консультации с психологами:
-    - https://www.imja.online/charity
-    - https://ipso-care.com/home-177.html
-    - https://krisenchat.de/ukraine
-  Боты в телеграме:
-    - https://t.me/UA_MentalHelpBot
-    - https://t.me/WordsHelpingBot
-    - https://t.me/mental_help_ua_bot
-  Снижение стресса с помощью майндфулнес:
-    - abishevzhassulan.com/learn
+  description: Психологическая помощь
+  contents:
+    Где вы можете получить психологическую помощь:
+      - Центр помощи для украинцев в Charite https://charite.digital/helpforukraine
+      - Центр помощи для украинцев в Vivantes https://www.vivantes.de/fileadmin/Klinika/HUK/PDFs/flyer-offene-sprechstunde-ukraine-zentrum-fuer-transkulturelle-psychiatrie-humboldt-klinikum.pdf
+      - постоянно пополняемый список ресурсов и контактов https://shorties.io/resources-psychological-help
+    Бесплатные онлайн консультации с психологами:
+      - https://www.imja.online/charity
+      - https://ipso-care.com/home-177.html
+      - https://krisenchat.de/ukraine
+    Боты в телеграме:
+      - https://t.me/UA_MentalHelpBot
+      - https://t.me/WordsHelpingBot
+      - https://t.me/mental_help_ua_bot
+    Снижение стресса с помощью майндфулнес:
+      - abishevzhassulan.com/learn
 
 return_to_ukraine:
-  - |
-    ✅ Алгоритм действий при возвращении в Украину:
+  description: Возвращение в Украину
+  contents:
+    - |
+      ✅ Алгоритм действий при возвращении в Украину:
 
-    1. Отказаться от пособий через электронную почту, либо лично в соответствующей инстанции.
-    Отказаться нужно вообще от всех пособий: социал, ДЦ, Kindergeld.
+      1. Отказаться от пособий через электронную почту, либо лично в соответствующей инстанции.
+      Отказаться нужно вообще от всех пособий: социал, ДЦ, Kindergeld.
 
-    Подготовьте такое письмо:
+      Подготовьте такое письмо:
 
-    Sehr geehrte Damen und Herren,
-    
-    Ich habe am XX (число, когда вы оформляли документы) XX (для ДЦ:
-      die Leistungen nach HARTZ IV als ukrainische Flüchtling) / (для социала:
-        die Leistungen nach AsylbLG beantragt) / (для Famillienkasse: Kindergeld) beantragt. Aus persönlichen Gründen bitte ich Sie die Zahlungen zum (число, с которого выплаты должны прекратиться) einzustellen und mich entsprechend abzumelden.
-    Meine Daten:
-      - Имя, Фамилия (ваша и/или детей)
-      - идентификационный номер в ДЦ/социале
-      - дата рождения
-      - электронная почта
+      Sehr geehrte Damen und Herren,
 
-    Bitte senden Sie mir eine schriftliche Bestätigung an meine Email Adresse zu.
+      Ich habe am XX (число, когда вы оформляли документы) XX (для ДЦ:
+        die Leistungen nach HARTZ IV als ukrainische Flüchtling) / (для социала:
+          die Leistungen nach AsylbLG beantragt) / (для Famillienkasse: Kindergeld) beantragt. Aus persönlichen Gründen bitte ich Sie die Zahlungen zum (число, с которого выплаты должны прекратиться) einzustellen und mich entsprechend abzumelden.
+      Meine Daten:
+        - Имя, Фамилия (ваша и/или детей)
+        - идентификационный номер в ДЦ/социале
+        - дата рождения
+        - электронная почта
 
-    Mit freundlichen Grüßen
+      Bitte senden Sie mir eine schriftliche Bestätigung an meine Email Adresse zu.
 
-    Имя, фамилия
-    
-    2. Если у Вас есть дети, и они ходят в немецкую школу/садик, то обязательно сообщаете им об отъезде. В садике пишите расторжение договора - Kündigung der Kinderbetreung.
-    
-    3. Если Вы прописаны где-то (Anmeldung), то идёте туда, где Вы делали прописку, и выписываетесь из квартиры - Abmeldung einer Wohnung. Это также можно сделать по почте: https://service.berlin.de/dienstleistung/120335.
+      Mit freundlichen Grüßen
 
-    4. Закрываете счет в банке.
+      Имя, фамилия
 
-    5. Расторгаете договор аренды.
-    Будьте внимательны, многие договоры предусматривают минимальный срок для расторжения договора (Kündigungsfrist) в 3 месяца. Это значит, что за 3 месяца до отъезда Вы обязаны предупредить арендодателя об отъезде. Если Вы не укладываетесь в срок 3 месяца, то обязательно поговорите с арендодателем. Он может пойти вам на встречу и расторгнуть договор раньше. В противном случае вы продолжаете платить за квартиру все 3 месяца.
-    Квартиру нужно сдать в том виде, в котором Вы её сняли. Мебель, эл. товары и т.д. необходимо вывезти (не выставить перед подъездом) в пункты сбора мусора. Куда, можно узнать у хозяина квартиры. В некоторых городах есть так называемые Entrümpelungsfirmen. За определенную сумму они освободят квартиру и вывезут всё куда нужно.
+      2. Если у Вас есть дети, и они ходят в немецкую школу/садик, то обязательно сообщаете им об отъезде. В садике пишите расторжение договора - Kündigung der Kinderbetreung.
 
-    6. Расторгаете договор на свет, газ, интернет, мобильный номер. Многое можно расторгнуть онлайн. Тут тоже обращайте внимание на минимальный срок для расторжения договора (Kündigungsfrist).
-    
-    7. Расторгаете договор со страховой компанией (например страховку Haftpflichtversicherung).
+      3. Если Вы прописаны где-то (Anmeldung), то идёте туда, где Вы делали прописку, и выписываетесь из квартиры - Abmeldung einer Wohnung. Это также можно сделать по почте: https://service.berlin.de/dienstleistung/120335.
 
-    8. Вспоминаете, что ещё Вы оформляли в Германии: спорт, кружки для ребенка, подписки на онлайн-сервисы. Все эти договоры нужно расторгнуть.
+      4. Закрываете счет в банке.
 
-    9. Миграционная служба.
+      5. Расторгаете договор аренды.
+      Будьте внимательны, многие договоры предусматривают минимальный срок для расторжения договора (Kündigungsfrist) в 3 месяца. Это значит, что за 3 месяца до отъезда Вы обязаны предупредить арендодателя об отъезде. Если Вы не укладываетесь в срок 3 месяца, то обязательно поговорите с арендодателем. Он может пойти вам на встречу и расторгнуть договор раньше. В противном случае вы продолжаете платить за квартиру все 3 месяца.
+      Квартиру нужно сдать в том виде, в котором Вы её сняли. Мебель, эл. товары и т.д. необходимо вывезти (не выставить перед подъездом) в пункты сбора мусора. Куда, можно узнать у хозяина квартиры. В некоторых городах есть так называемые Entrümpelungsfirmen. За определенную сумму они освободят квартиру и вывезут всё куда нужно.
 
-    Если вы получили только Fiktionsbescheinigung, но НЕ хотите или не можете ждать пластиковый ВНЖ, пишите в миграционную службу E-Mail:
-    
-    Sehr geehrte Damen und Herren,
-    
-    aus persönlichen Gründen bitte ich Sie meine Registrierung als Schutzsuchende nach §24 AufenthG zu annullieren.
+      6. Расторгаете договор на свет, газ, интернет, мобильный номер. Многое можно расторгнуть онлайн. Тут тоже обращайте внимание на минимальный срок для расторжения договора (Kündigungsfrist).
 
-    Meine Daten:
-      - имя фамилия
-      - дата рождения
-    
-    Bitte senden Sie mir eine schriftliche Bestätigung an die folgende E-Mail-Adresse: ваш эл.адрес zu.
+      7. Расторгаете договор со страховой компанией (например страховку Haftpflichtversicherung).
 
-    Mit freundlichen Grüßen
+      8. Вспоминаете, что ещё Вы оформляли в Германии: спорт, кружки для ребенка, подписки на онлайн-сервисы. Все эти договоры нужно расторгнуть.
 
-    Имя Фамилия
-    
-    Если Вы уже получили ВНЖ, то возвращайтесь домой, не отказываясь от вида на жительство в Германии. С вклейкой или картой Вы имеете право до 6 месяцев жить за границей, в том числе и в Украине. Не жгите все мосты. Никто не знает, что будет через пару месяцев.
-    
-    Спасибо @afasode_ves за текст 💙💛
+      9. Миграционная служба.
+
+      Если вы получили только Fiktionsbescheinigung, но НЕ хотите или не можете ждать пластиковый ВНЖ, пишите в миграционную службу E-Mail:
+
+      Sehr geehrte Damen und Herren,
+
+      aus persönlichen Gründen bitte ich Sie meine Registrierung als Schutzsuchende nach §24 AufenthG zu annullieren.
+
+      Meine Daten:
+        - имя фамилия
+        - дата рождения
+
+      Bitte senden Sie mir eine schriftliche Bestätigung an die folgende E-Mail-Adresse: ваш эл.адрес zu.
+
+      Mit freundlichen Grüßen
+
+      Имя Фамилия
+
+      Если Вы уже получили ВНЖ, то возвращайтесь домой, не отказываясь от вида на жительство в Германии. С вклейкой или картой Вы имеете право до 6 месяцев жить за границей, в том числе и в Украине. Не жгите все мосты. Никто не знает, что будет через пару месяцев.
+
+      Спасибо @afasode_ves за текст 💙💛
 qrcode:
-  - |
-    QR-Code предназначен для всех взрослых, получающих в Берлине Bürgergeld или иную социальную помощь, инвалидов и т.п.
-    
-    Владельцы QR-Code получают скидку на:
-    - проезд
-    - бассейны
-    - библиотеки
-    - зоопарки и все платные парки Берлина
-    - театр, кино
-    - музеи
-    Полный список льгот можно посмотреть тут: https://www.berlin.de/sen/soziales/soziale-sicherung/berlinpass/angebote/
+  description: Информация по QR-кодам
+  contents:
+    - |
+      QR-Code предназначен для всех взрослых, получающих в Берлине Bürgergeld или иную социальную помощь, инвалидов и т.п.
 
-    ❓Где получить: по месту получения соц. помощи.
-    Sozialamt может выдать на месте. 
-    Jobcenter рассылает QR-Codes по определенным датам: 
-    - 24.04.-28.04.2023
-    - 05.06.-09.06.2023
-    - 31.07.-04.08.2023
-    - 04.09.-08.09.2023
-    - 23.10.-27.10.2023
-    - 11.12.-15.12.2023
+      Владельцы QR-Code получают скидку на:
+      - проезд
+      - бассейны
+      - библиотеки
+      - зоопарки и все платные парки Берлина
+      - театр, кино
+      - музеи
+      Полный список льгот можно посмотреть тут: https://www.berlin.de/sen/soziales/soziale-sicherung/berlinpass/angebote/
 
-    Срок действия QR-Code указан на бумаге с QR-Code. 
+      ❓Где получить: по месту получения соц. помощи.
+      Sozialamt может выдать на месте.
+      Jobcenter рассылает QR-Codes по определенным датам:
+      - 24.04.-28.04.2023
+      - 05.06.-09.06.2023
+      - 31.07.-04.08.2023
+      - 04.09.-08.09.2023
+      - 23.10.-27.10.2023
+      - 11.12.-15.12.2023
 
-    ‼️ВНИМАНИЕ: Сам QR-Code НЕ ЯВЛЯЕТСЯ проездным билетом. Получив его, нужно заполнить онлайн-заявку на карту клиента VBB, и с уже ней покупать социальный проездной Berlin-Ticket S. Действует только в зоне AB, с 1 по 30/31 число месяца. На этот проездной вписывается номер карты клиента VBB, без этого проездной НЕДЕЙСТВИТЕЛЕН! Штраф 60 €.
+      Срок действия QR-Code указан на бумаге с QR-Code.
 
-    Для детей сохраняются Berlinpass! Смотрите “Berlinpass BuT”:
-    https://but-beratung.de/ru/
+      ‼️ВНИМАНИЕ: Сам QR-Code НЕ ЯВЛЯЕТСЯ проездным билетом. Получив его, нужно заполнить онлайн-заявку на карту клиента VBB, и с уже ней покупать социальный проездной Berlin-Ticket S. Действует только в зоне AB, с 1 по 30/31 число месяца. На этот проездной вписывается номер карты клиента VBB, без этого проездной НЕДЕЙСТВИТЕЛЕН! Штраф 60 €.
 
-    Дети получают QR-Code, только если родители не подали на них заявку на Berlinpass.
+      Для детей сохраняются Berlinpass! Смотрите “Berlinpass BuT”:
+      https://but-beratung.de/ru/
 
-    #berlinpass #qrcode #berlinpassbut
+      Дети получают QR-Code, только если родители не подали на них заявку на Berlinpass.
+
+      #berlinpass #qrcode #berlinpassbut
 rundfunk:
-  Инструкция по заполнению освобождения от налога на радио и ТВ:
-    - |
-      Если вы уже получили от Jobcenter бланк "Bescheinigung über Leistungsbezug zur Vorlage beim Beitragsservice von ARD, ZDF und Deutschlandradio", нужно отослать этот бланк в Rundfunkbeitrag, оформив задним числом Befreiung (освобождение от уплаты налога) на их сайте: https://www.rundfunkbeitrag.de/buergerinnen_und_buerger/formulare/befreiung_oder_ermaessigung_beantragen/index_ger.html
-  Пошаговая инструкция:
-      - 1. Кликаем на "Befreiung/Ermäßigung beantragen".
-      - 2. Кликаем на „aus sozialen Gründen".
-      - 3. Кликаем на „ALG II (Hartz IV)".
-      - 4. На первый вопрос "Sie sind bereits mit einer Wohnung angemeldet?" (зарегистрировали ли вы уже эту квартиру на этом сайте) отвечаем "nein".
-      - 5. На вопрос "Anmeldung zu" ставим ту дату, с которой у вас начинается договор на квартиру. Внимание - эта дата должна совпадать с той датой, которая стоит на бланке от Jobcenter. Именно с этой даты у вас и начинается освобождение от налога на радио и ТВ.
-      - 6. Далее заполняем формуляр на имя того человека, который указан в бланке от Jobcenter.
-      - 7. Кликаем на "Antrag erstellen" и потом на „drucken“.
+  description: Освобождение от сбора на радио, ТВ и Интернет
+  contents:
+    Инструкция по заполнению освобождения от налога на радио, ТВ и Интернет:
       - |
-        8. Откроется PDF документ, если нет, сохраняем полученный PDF документ на своем устройстве. Его нужно распечать, подписать и отослать вместе с "Bescheinigung über Leistungsbezug zur Vorlage beim Beitragsservice von ARD, ZDF und Deutschlandradio" по адресу:
-        ARD ZDF Deutschlandradio
-        Beitragsservice
-        50656 Köln
-  Бот с ответами на вопросы:
-    - https://t.me/Beitragservice_Ukraine
+        Если вы уже получили от Jobcenter бланк "Bescheinigung über Leistungsbezug zur Vorlage beim Beitragsservice von ARD, ZDF und Deutschlandradio", нужно отослать этот бланк в Rundfunkbeitrag, оформив задним числом Befreiung (освобождение от уплаты налога) на их сайте: https://www.rundfunkbeitrag.de/buergerinnen_und_buerger/formulare/befreiung_oder_ermaessigung_beantragen/index_ger.html
+    Пошаговая инструкция:
+        - 1. Кликаем на "Befreiung/Ermäßigung beantragen".
+        - 2. Кликаем на „aus sozialen Gründen".
+        - 3. Кликаем на „ALG II (Hartz IV)".
+        - 4. На первый вопрос "Sie sind bereits mit einer Wohnung angemeldet?" (зарегистрировали ли вы уже эту квартиру на этом сайте) отвечаем "nein".
+        - 5. На вопрос "Anmeldung zu" ставим ту дату, с которой у вас начинается договор на квартиру. Внимание - эта дата должна совпадать с той датой, которая стоит на бланке от Jobcenter. Именно с этой даты у вас и начинается освобождение от налога на радио и ТВ.
+        - 6. Далее заполняем формуляр на имя того человека, который указан в бланке от Jobcenter.
+        - 7. Кликаем на "Antrag erstellen" и потом на „drucken“.
+        - |
+          8. Откроется PDF документ, если нет, сохраняем полученный PDF документ на своем устройстве. Его нужно распечать, подписать и отослать вместе с "Bescheinigung über Leistungsbezug zur Vorlage beim Beitragsservice von ARD, ZDF und Deutschlandradio" по адресу:
+          ARD ZDF Deutschlandradio
+          Beitragsservice
+          50656 Köln
+    Бот с ответами на вопросы:
+      - https://t.me/Beitragservice_Ukraine
 school:
-  Самое важное о школьном образовании в Германии:
-    - https://handbookgermany.de/ru/learn/school.html
-  Русскоязычные школы (список пополняется):
-    - https://masimovasif.net/русскоязычные-школы-в-германии/
+  description: Информация о школах и образовании
+  contents:
+    Самое важное о школьном образовании в Германии:
+      - https://handbookgermany.de/ru/learn/school.html
+    Русскоязычные школы (список пополняется):
+      - https://masimovasif.net/русскоязычные-школы-в-германии/
 schufa:
-  - |
-    Schufa - документ, подтверждающий Вашу кредитную историю.
+  description: Как получить справку Schufa
+  contents:
+    - |
+      Schufa - документ, подтверждающий Вашу кредитную историю.
 
-    Заказать можно здесь: https://www.meineschufa.de/de/datenkopie
-    Вариант слева (SCHUFA-Datenkopie) бесплатный, но может занять до 4 недель.
-    Вариант справа (SCHUFA-BonitätsAuskunft) платный, но быстрее.
+      Заказать можно здесь: https://www.meineschufa.de/de/datenkopie
+      Вариант слева (SCHUFA-Datenkopie) бесплатный, но может занять до 4 недель.
+      Вариант справа (SCHUFA-BonitätsAuskunft) платный, но быстрее.
 search:
-  - |
-    Иногда ответы на «справочные» вопросы гораздо быстрее найти в поисковике Гугл, чем спрашивать в группе. Например:
-    
-    1. Если Вы ищете адрес Джобцентра Штеглиц-Целендорф — откройте maps.google.com и забейте «jobcenter steglitz zehlendorf». В результатах поиска будут часы открытия ДЦ.
-    
-    2. Если Вы ищете русскоговорящих врачей в Берлине - откройте google.com и забейте «врач Берлин по-русски».
-    
-    3. Если Вас интересуют границы зон A, B и C в Берлине: забейте «Berlin ABC» и переключитесь на поиск картинок. Вам покажут миллион разных карт с этими зонами.
-    
-    4. Если у Вас трудности с переводом немецкого слова, обозначающим какой-то конкретный предмет, например «Zwiebelmett»: забейте «Zwiebelmett» в поиск и переключитесь на поиск картинок — Вам покажут миллион картинок с цвибельметтом.
+  description: Как самостоятельно искать информацию в Интернете
+  contents:
+    - |
+      Иногда ответы на «справочные» вопросы гораздо быстрее найти в поисковике Гугл, чем спрашивать в группе. Например:
+
+      1. Если Вы ищете адрес Джобцентра Штеглиц-Целендорф — откройте maps.google.com и забейте «jobcenter steglitz zehlendorf». В результатах поиска будут часы открытия ДЦ.
+
+      2. Если Вы ищете русскоговорящих врачей в Берлине - откройте google.com и забейте «врач Берлин по-русски».
+
+      3. Если Вас интересуют границы зон A, B и C в Берлине: забейте «Berlin ABC» и переключитесь на поиск картинок. Вам покажут миллион разных карт с этими зонами.
+
+      4. Если у Вас трудности с переводом немецкого слова, обозначающим какой-то конкретный предмет, например «Zwiebelmett»: забейте «Zwiebelmett» в поиск и переключитесь на поиск картинок — Вам покажут миллион картинок с цвибельметтом.
 simcards:
-  Для украинцев доступны специальные льготные тарифы у следующих компаний:
-    - Telekom (https://www.telekom.de/hilfe/prepaid-ukraine-ua) предлагает специальный тарифы за 10€/4 недели (10 Гб, 300 минут в Украину). Оформить сим-карту можно в любом филиале оператора, из документов нужен только паспорт.
-    - Если нужен безлимитный интернет, можно воспользоваться тарифом от Freenet за 0,99€/день (https://www.freenet-funk.de).
-    - Если есть украинская сим-карта или смартфон поддерживает eSIM, можно подключить роуминг и пользоваться своим домашним тарифом, находясь в Германии.
+  description: Где получить сим-карту
+  contents:
+    Для украинцев доступны специальные льготные тарифы у следующих компаний:
+      - Telekom (https://www.telekom.de/hilfe/prepaid-ukraine-ua) предлагает специальный тарифы за 10€/4 недели (10 Гб, 300 минут в Украину). Оформить сим-карту можно в любом филиале оператора, из документов нужен только паспорт.
+      - Если нужен безлимитный интернет, можно воспользоваться тарифом от Freenet за 0,99€/день (https://www.freenet-funk.de).
+      - Если есть украинская сим-карта или смартфон поддерживает eSIM, можно подключить роуминг и пользоваться своим домашним тарифом, находясь в Германии.
 social_help:
-  Ответы на часто задаваемые вопросы:
-    - https://www.berlin.de/ukraine/ru/tschasto-sadawaemye-woprosy/
-  Горячая линия сената для информации о предложениях помощи в размещении, регистрации, визах и правах на проживание:
-    - (030) 9012 7127  (пн - вск, 7:00 - 18:00)
-  Запись в LEA - заполните анкету, сохраните pdf и ждите email с приглашением (может занять несколько дней):
-    - https://www.berlin.de/ukraine/ru/pribytie/onlajn-chodatajstwo-o-rasreschenii-na-wremennoe-prebywanie/
+  description: Информация о социальной помощи
+  contents:
+    Ответы на часто задаваемые вопросы:
+      - https://www.berlin.de/ukraine/ru/tschasto-sadawaemye-woprosy/
+    Горячая линия сената для информации о предложениях помощи в размещении, регистрации, визах и правах на проживание:
+      - (030) 9012 7127  (пн - вск, 7:00 - 18:00)
+    Запись в LEA - заполните анкету, сохраните pdf и ждите email с приглашением (может занять несколько дней):
+      - https://www.berlin.de/ukraine/ru/pribytie/onlajn-chodatajstwo-o-rasreschenii-na-wremennoe-prebywanie/
 telegram_translation:
-  Автоматическая опция перевода чатов в телеграме/Переклад повідомлень Telegram:
-  - |
-    Щоб активувати опцію перекладу: налаштування -> мова
-    Щоб перекласти: натисніть на повідомлення та виберіть 'перекласти'
+  description: Функция перевода в Телеграме
+  contents:
+    Автоматическая опция перевода чатов в телеграме/Переклад повідомлень Telegram:
+    - |
+      Щоб активувати опцію перекладу: налаштування -> мова
+      Щоб перекласти: натисніть на повідомлення та виберіть 'перекласти'
 translators:
-  Чат переводчиков в Берлине:
-    - https://t.me/berlintranslators
-  MoovaBot помогает связаться людям, нуждающимся в помощи в устном общении на немецком, с переводчиками-волонтёрами:
-    - https://t.me/moovaBot
-  Другие Чаты переводчиков в Телеграме:
-    - https://bit.ly/lingvolunteers — LINGVO волонтеры
-    - https://bit.ly/lingvoaudio — AUDIO LINGVO волонтеры, переводчики по громкой связи
-    - https://t.me/translators_team_ua — Translators_Team
-    - https://t.me/linguaHElP — LinguaHELP, чат переводчиков и славистов для беженцев из Украины
-    - |
-      https://t.me/berlintranslators - чат с информацией о переводах и переводчиках
-  Поиск переводчиков по языкам и городам:
-    - https://suche.bdue.de/ 
-      Выставляете нужные Вам языки, место расположения (много переводов делают удалённо - например, Вы им сканы, они Вам бумажной почтой переводы)
-    - |
-      https://www.justiz-dolmetscher.de/Recherche/de/Suchen
-      Dolmetscher - устный переводчик
-      Übersetzer - переводчик (документов)
+  description: Помощь переводчиков
+  contents:
+    Чат переводчиков в Берлине:
+      - https://t.me/berlintranslators
+    MoovaBot помогает связаться людям, нуждающимся в помощи в устном общении на немецком, с переводчиками-волонтёрами:
+      - https://t.me/moovaBot
+    Другие Чаты переводчиков в Телеграме:
+      - https://bit.ly/lingvolunteers — LINGVO волонтеры
+      - https://bit.ly/lingvoaudio — AUDIO LINGVO волонтеры, переводчики по громкой связи
+      - https://t.me/translators_team_ua — Translators_Team
+      - https://t.me/linguaHElP — LinguaHELP, чат переводчиков и славистов для беженцев из Украины
+      - |
+        https://t.me/berlintranslators - чат с информацией о переводах и переводчиках
+    Поиск переводчиков по языкам и городам:
+      - https://suche.bdue.de/
+        Выставляете нужные Вам языки, место расположения (много переводов делают удалённо - например, Вы им сканы, они Вам бумажной почтой переводы)
+      - |
+        https://www.justiz-dolmetscher.de/Recherche/de/Suchen
+        Dolmetscher - устный переводчик
+        Übersetzer - переводчик (документов)
 transport:
-    - |
-      Месячный социальный проездной билет Berlin Ticket S для получателей пособий - 9€:
-      https://sbahn.berlin/tickets/alle-tickets/wochen-monats-abo-jahrestickets/berlin-ticket-s/
-      Действует только в зоне АВ.
-      ‼️ На билет пишется номер VBB-Kundenkarte Berlin S.
-      ‼️ Только до 30.06.23 можно вписывать номер действующего BerlinPass ИЛИ номер из распечатки о пособии (Jobcenter BG-Nr./Sozialamt S0135...).
-      ‼️ Без VBB-Kundenkarte или BerlinPass носить с собой удостоверение личности с фото + первую страницу (копию) справки о пособии.
-      
-      Получить VBB-Kundenkarte Berlin S можно только онлайн, используя QR код, полученный из Jobcenter/Sozialamt.
-      Сайт оформления VBB-Kundenkarte: https://www.vbb-kundenkarte-berlin-ticket-s.de/
-      Подробности здесь: https://www.berlin.de/sen/soziales/soziale-sicherung/bn-berlin-ticket-s/
-      
-      С этим билетом МОЖНО взять с собой БЕСПЛАТНО
-      ✅ Детей до 6 лет
-      ✅ собаку
-      ✅ Небольшое животное размером с кошку
-      ✅ Ручную кладь
-      ✅ Инвалидную или детскую коляску
-      
-      НЕЛЬЗЯ брать с собой
-      ⛔️ Других людей
-      ⛔️ Велосипед 👉🏼 нужен велосипедный билет Fahrradkarte
-      
-      Где купить:
-      - в офисах и красных автоматах S-Bahn/Deutsche Bahn
-      - в офисах и жёлтых автоматах BVG
-      - в газетных киосках и магазинчиках, имеющих наклейку BVG или Tickets
-      
-      Цены на обычные (не социальные) проездные билеты:
-      Monatskarte (VBB Umweltkarte)
-      https://www.bvg.de/de/tickets-und-tarife/alle-tickets/zeitkarten/monatskarte
-      
-      Информацию про билет за 49€ можно прочитать здесь /DeutschlandTicket
+  description: Общественный транспорт
+  contents:
+      - |
+        Месячный социальный проездной билет Berlin Ticket S для получателей пособий - 9€:
+        https://sbahn.berlin/tickets/alle-tickets/wochen-monats-abo-jahrestickets/berlin-ticket-s/
+        Действует только в зоне АВ.
+        ‼️ На билет пишется номер VBB-Kundenkarte Berlin S.
+        ‼️ Только до 30.06.23 можно вписывать номер действующего BerlinPass ИЛИ номер из распечатки о пособии (Jobcenter BG-Nr./Sozialamt S0135...).
+        ‼️ Без VBB-Kundenkarte или BerlinPass носить с собой удостоверение личности с фото + первую страницу (копию) справки о пособии.
+
+        Получить VBB-Kundenkarte Berlin S можно только онлайн, используя QR код, полученный из Jobcenter/Sozialamt.
+        Сайт оформления VBB-Kundenkarte: https://www.vbb-kundenkarte-berlin-ticket-s.de/
+        Подробности здесь: https://www.berlin.de/sen/soziales/soziale-sicherung/bn-berlin-ticket-s/
+
+        С этим билетом МОЖНО взять с собой БЕСПЛАТНО
+        ✅ Детей до 6 лет
+        ✅ собаку
+        ✅ Небольшое животное размером с кошку
+        ✅ Ручную кладь
+        ✅ Инвалидную или детскую коляску
+
+        НЕЛЬЗЯ брать с собой
+        ⛔️ Других людей
+        ⛔️ Велосипед 👉🏼 нужен велосипедный билет Fahrradkarte
+
+        Где купить:
+        - в офисах и красных автоматах S-Bahn/Deutsche Bahn
+        - в офисах и жёлтых автоматах BVG
+        - в газетных киосках и магазинчиках, имеющих наклейку BVG или Tickets
+
+        Цены на обычные (не социальные) проездные билеты:
+        Monatskarte (VBB Umweltkarte)
+        https://www.bvg.de/de/tickets-und-tarife/alle-tickets/zeitkarten/monatskarte
+
+        Информацию про билет за 49€ можно прочитать здесь /DeutschlandTicket
 university:
-  Список университетов и предложений для беженцев в Берлине:
-    - https://www.fu-berlin.de/sites/studienberatung/_media/Angebote-der-Hochschulen-refugee.pdf
-  К чему приравниваются дипломы и количество учебных годов:
-    - https://anabin.kmk.org/no_cache/filter/schulabschluesse-mit-hochschulzugang.html#land_gewaehlt
-    - https://www.kmk.org/zab/zeugnisbewertung.html
-  Группы в телеграме:
-    - https://t.me/uchebadeukr
-    - https://t.me/studyuade_chat
-    - https://t.me/orsggermany
+  description: Высшее образование в Германии
+  contents:
+    Список университетов и предложений для беженцев в Берлине:
+      - https://www.fu-berlin.de/sites/studienberatung/_media/Angebote-der-Hochschulen-refugee.pdf
+    К чему приравниваются дипломы и количество учебных годов:
+      - https://anabin.kmk.org/no_cache/filter/schulabschluesse-mit-hochschulzugang.html#land_gewaehlt
+      - https://www.kmk.org/zab/zeugnisbewertung.html
+    Группы в телеграме:
+      - https://t.me/uchebadeukr
+      - https://t.me/studyuade_chat
+      - https://t.me/orsggermany
 vaccination:
-  Список врачей, предлагающих вакцинацию:
-   - https://www.kvberlin.de/fuer-patienten/corona/corona-impfungen/covid-19-impfungen-fuer-nicht-bestandspatientinnen
-  Список аптек, предлагающих вакцинацию (как от короны, так и от гриппа) вблизи от вас можно найти по ссылке внизу, введя Ваш почтовый код:
-    - https://www.mein-apothekenmanager.de/apothekensuche?search=&services[]=vaccinationCovid
-  Что вам нужно взять с собой:
-    - паспорт
-    - свидетельство о рождении для ребенка / загран для ребенка
-    - Вам НЕ НУЖНЫ регистрация/прописка или страховка!!!
-  Какие документы вам нужно будет заполнить:
-    - Анамнез
-    - Согласие на вакцинацию
-    - |
-      Документы на русском, английском и других языках вы найдете тут:
-      https://www.rki.de/DE/Content/Infekt/Impfen/Materialien/COVID-19-Aufklaerungsbogen-Tab.html
-      Вам НЕ ОБЯЗАТЕЛЬНО их распечатывать, в центре вакцинации вам все дадут.
-  Правила о прививках:
-    - |
-      Если Вы вакцинированы Модерной или АстраЗенекой в Украине и у вас есть сертификат, то Вы считаетесь привитыми в Германии. 
-      Если с последней прививки прошло больше 3 месяцев, то Вы можете сделать бустерную вакцину.
+  description: Информация о прививках
+  contents:
+    Список врачей, предлагающих вакцинацию:
+     - https://www.kvberlin.de/fuer-patienten/corona/corona-impfungen/covid-19-impfungen-fuer-nicht-bestandspatientinnen
+    Список аптек, предлагающих вакцинацию (как от короны, так и от гриппа) вблизи от вас можно найти по ссылке внизу, введя Ваш почтовый код:
+      - https://www.mein-apothekenmanager.de/apothekensuche?search=&services[]=vaccinationCovid
+    Что вам нужно взять с собой:
+      - паспорт
+      - свидетельство о рождении для ребенка / загран для ребенка
+      - Вам НЕ НУЖНЫ регистрация/прописка или страховка!!!
+    Какие документы вам нужно будет заполнить:
+      - Анамнез
+      - Согласие на вакцинацию
+      - |
+        Документы на русском, английском и других языках вы найдете тут:
+        https://www.rki.de/DE/Content/Infekt/Impfen/Materialien/COVID-19-Aufklaerungsbogen-Tab.html
+        Вам НЕ ОБЯЗАТЕЛЬНО их распечатывать, в центре вакцинации вам все дадут.
+    Правила о прививках:
+      - |
+        Если Вы вакцинированы Модерной или АстраЗенекой в Украине и у вас есть сертификат, то Вы считаетесь привитыми в Германии.
+        Если с последней прививки прошло больше 3 месяцев, то Вы можете сделать бустерную вакцину.
 volunteer:
-  Donate your time in Berlin:
-    - https://t.me/teamsuedkreuz
-    - https://t.me/BerlinHbfArrival
-    - https://t.me/arrivalcenter
-    - http://volunteer-planner.org/
-  Donate things in Berlin:
-    - https://adiuto.org/tasks?query=berlin
+  description: Информация о волонтерстве
+  contents:
+    Donate your time in Berlin:
+      - https://t.me/teamsuedkreuz
+      - https://t.me/BerlinHbfArrival
+      - https://t.me/arrivalcenter
+      - http://volunteer-planner.org/
+    Donate things in Berlin:
+      - https://adiuto.org/tasks?query=berlin
 wbs:
-  Что это такое:
-    - |
-      WohnBerechtigungsSchein - разрешение претендовать на "социальное" жильё. Чаще всего на сайтах доступные (в соц. рамках) квартиры сдаются только с WBS.
-  Что нужно:
-    - ВНЖ, действительный как минимум на 11 месяцев с момента подачи заявки
-    - прописка
-    - сведения о доходах - Leistungsbescheid (распечатка от социаламта или от Jobcenter, что получаете помощь)
-    - паспорта всех членов семьи
-    - |
-      свидетельства о браке, о разводе (если в разводе), о рождении детей - всё, что есть - с переводом
-  Как получить:
-    - делаете копии со всех документов
-    - заполняете анкету/анкеты https://www.stadtentwicklung.berlin.de/service/formulare/de/wohnen.shtml#wohnwirt
-    - |
-      отдаёте всё это либо в Bürgeramt по прописке на информации (они сами направят куда надо), либо идёте сами в Wohnungsamt своего района (если они принимают, отдаёте лично, либо посылаете/кидаете в почтовый ящик)
-  Вся информация на сайте:
-    - https://service.berlin.de/dienstleistung/120671/
+  description: Что такое WBS / Wohnberechtigungsschein
+  contents:
+    Что это такое:
+      - |
+        WohnBerechtigungsSchein - разрешение претендовать на "социальное" жильё. Чаще всего на сайтах доступные (в соц. рамках) квартиры сдаются только с WBS.
+    Что нужно:
+      - ВНЖ, действительный как минимум на 11 месяцев с момента подачи заявки
+      - прописка
+      - сведения о доходах - Leistungsbescheid (распечатка от социаламта или от Jobcenter, что получаете помощь)
+      - паспорта всех членов семьи
+      - |
+        свидетельства о браке, о разводе (если в разводе), о рождении детей - всё, что есть - с переводом
+    Как получить:
+      - делаете копии со всех документов
+      - заполняете анкету/анкеты https://www.stadtentwicklung.berlin.de/service/formulare/de/wohnen.shtml#wohnwirt
+      - |
+        отдаёте всё это либо в Bürgeramt по прописке на информации (они сами направят куда надо), либо идёте сами в Wohnungsamt своего района (если они принимают, отдаёте лично, либо посылаете/кидаете в почтовый ящик)
+    Вся информация на сайте:
+      - https://service.berlin.de/dienstleistung/120671/
 
 lost_passport:
-  Утеря или кража паспорта с ВНЖ:
-    - Заявление в полицию об утере/краже документов.
-    - Термин на оформление нового заграна в консульстве или центра "Документ".
-    - |
-      Оформление нового ВНЖ
+  description: Утеря документов - что делать?
+  contents:
+    Утеря или кража паспорта с ВНЖ:
+      - Заявление в полицию об утере/краже документов.
+      - Термин на оформление нового заграна в консульстве или центра "Документ".
+      - |
+        Оформление нового ВНЖ
 
-      Послать емейл в реферат Е5 берлинского Ауслендербехёрде (отдел по укр.гражданам) с заявлением об утере и на восстановление ВНЖ/получение Fiktionsbescheinigung.
-      Адрес электронной почты: e5@lea.berlin.de
-      Можно продублировать на общий адрес электронной почты: beratung@lea.berlin.de
-      В теме емейла пишите: фамилию, имя, дату рождения, номер ВНЖ (смотрите на копиях, правый верхний угол вклейки), "Pass- und AT-verlust".
+        Послать емейл в реферат Е5 берлинского Ауслендербехёрде (отдел по укр.гражданам) с заявлением об утере и на восстановление ВНЖ/получение Fiktionsbescheinigung.
+        Адрес электронной почты: e5@lea.berlin.de
+        Можно продублировать на общий адрес электронной почты: beratung@lea.berlin.de
+        В теме емейла пишите: фамилию, имя, дату рождения, номер ВНЖ (смотрите на копиях, правый верхний угол вклейки), "Pass- und AT-verlust".
 
-      Ссылка на формуляр обращения в реферат E5: https://www.berlin.de/einwanderung/ueber-uns/kontakt/formular.1193600.php
+        Ссылка на формуляр обращения в реферат E5: https://www.berlin.de/einwanderung/ueber-uns/kontakt/formular.1193600.php
 
-      В тексте опишите ситуацию с утерей и сроками изготовления нового украинского паспорта: возможно/невозможно/подали/почему не можете подать/какие сроки изготовления.
-      И просите срочный термин на восстановление ВНЖ* или Fiktionsbescheinigung** на время ожидания нового паспорта.
-      Приложите все имеющиеся копии: заявление от полиции, копии утерянного внж и паспорта, прописка, и термин на подачу паспорта в украинское консульство.
-      *Если нет возможности сделать украинский загранпаспорт, укажите, что Вы хотите оформить Reiseausweis für Ausländer серый паспорт путешественника для иностранцев (стоит 60 €, оплата картой на термине, ожидание 6-8 недель).
-      Если украинский загранпаспорт реально сделать, то в сером немецком могут отказать.
+        В тексте опишите ситуацию с утерей и сроками изготовления нового украинского паспорта: возможно/невозможно/подали/почему не можете подать/какие сроки изготовления.
+        И просите срочный термин на восстановление ВНЖ* или Fiktionsbescheinigung** на время ожидания нового паспорта.
+        Приложите все имеющиеся копии: заявление от полиции, копии утерянного внж и паспорта, прописка, и термин на подачу паспорта в украинское консульство.
+        *Если нет возможности сделать украинский загранпаспорт, укажите, что Вы хотите оформить Reiseausweis für Ausländer серый паспорт путешественника для иностранцев (стоит 60 €, оплата картой на термине, ожидание 6-8 недель).
+        Если украинский загранпаспорт реально сделать, то в сером немецком могут отказать.
 
-      ‼️**ВНЖ может быть выдан только при наличии действующего заграна.
-      На время ожидания Вам должны дать Fiktionsbescheinigung, с которым сохраняется ваш 24й параграф и все связанные с ним права. В качестве удостоверения личности Вам выдадут Ausweisersatz - такая же складная зелёная бумажечка, как и Fiktionsbescheinigung, но с фотографией, поэтому советуем на термин взять фото.
-      Позже, ближе к получению паспорта, нужно будет просить у них термин на вклейку  ВНЖ (с тем же сроком) в новый паспорт.
-      #внж #lea #документ
+        ‼️**ВНЖ может быть выдан только при наличии действующего заграна.
+        На время ожидания Вам должны дать Fiktionsbescheinigung, с которым сохраняется ваш 24й параграф и все связанные с ним права. В качестве удостоверения личности Вам выдадут Ausweisersatz - такая же складная зелёная бумажечка, как и Fiktionsbescheinigung, но с фотографией, поэтому советуем на термин взять фото.
+        Позже, ближе к получению паспорта, нужно будет просить у них термин на вклейку  ВНЖ (с тем же сроком) в новый паспорт.
+        #внж #lea #документ
