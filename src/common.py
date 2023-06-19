@@ -1,7 +1,8 @@
 import logging
 from functools import wraps
-from typing import List, Optional
+from typing import Dict, List, Optional
 
+import toml
 from telegram import Bot, Update
 from telegram.error import BadRequest
 from telegram.ext import CallbackContext
@@ -14,7 +15,12 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-guidebook = Guidebook()
+settings: Dict[str, str] = toml.load("settings.toml")
+
+guidebook = Guidebook(
+    guidebook_path=settings["GUIDEBOOK_PATH"],
+    vocabulary_path=settings["VOCABULARY_PATH"],
+)
 
 
 def send_results(bot: Bot, update: Update, group_name: str, name: str = None):
@@ -105,5 +111,3 @@ def parse_article(message: str, command: str, bot_name: str) -> Optional[Article
 def format_knowledge_results(results: str) -> str:
     separator = "=" * 30
     return separator + "\n" + results + "\n" + separator
-
-
