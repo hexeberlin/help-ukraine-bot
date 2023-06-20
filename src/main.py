@@ -1,22 +1,9 @@
 """main module running the bot"""
 
-from telegram.ext import (
-    Updater,
-    MessageHandler,
-    InlineQueryHandler,
-    Filters,
-)
-from src import apartments
+from telegram.ext import Filters, InlineQueryHandler, MessageHandler, Updater
+
 from src import commands
-from src import education
-from src import finance
-from src import general_information
-from src import medical
-from src.config import (
-    APP_NAME,
-    TOKEN,
-    PORT,
-)
+from src.config import APP_NAME, PORT, TOKEN
 
 
 def main() -> None:
@@ -41,6 +28,7 @@ def main() -> None:
         updater.bot.setWebhook(f"https://{APP_NAME}.herokuapp.com/{TOKEN}")
 
     updater.idle()
+
 
 if __name__ == "__main__":
     main()
