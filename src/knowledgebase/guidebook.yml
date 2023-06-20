@@ -526,8 +526,8 @@ general_information:
       - https://handbookgermany.de/uk/
       - https://uahelp.wiki/
 handicap:
-  description: Общая информация
-  contents: Помощь для людей с особыми потребностями
+  description: Помощь для людей с особыми потребностями
+  contents:
     Помощь для взрослых:
       - Чат в телеграм - https://t.me/+P4KcHm2zl55mYmQ6
       - https://handbookgermany.de/ru/rights-laws/special-needs.html
