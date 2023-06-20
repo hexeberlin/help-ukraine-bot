@@ -58,7 +58,5 @@ def main() -> None:
 
     updater.idle()
 
-bla
-
 if __name__ == "__main__":
     main()
