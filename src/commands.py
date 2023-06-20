@@ -109,10 +109,12 @@ def add_commands(dispatcher) -> List[BotCommand]:
         if command in {"cities", "countries"}:
             continue
 
-        def handler(bot: Bot, update: Update):
-            send_results(bot, update, group_name=command)
+        def build_handler(command: str):
+            def handler(bot: Bot, update: Update):
+                send_results(bot, update, group_name=command)
+            return handler
 
-        dispatcher.add_handler(CommandHandler(command, handler))
+        dispatcher.add_handler(CommandHandler(command, build_handler(command)))
 
     # Those are special.
     dispatcher.add_handler(CommandHandler("cities", cities_command))
