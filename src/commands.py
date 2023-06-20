@@ -104,17 +104,16 @@ def add_commands(dispatcher) -> List[BotCommand]:
     dispatcher.add_handler(CommandHandler("adminsonly", admins_only))
     dispatcher.add_handler(CommandHandler("adminsonly_revert", admins_only_revert))
 
+    def build_handler(command: str):
+        def handler(bot: Bot, update: Update):
+            send_results(bot, update, group_name=command)
+
+        return handler
+
     for command in guidebook.guidebook.keys():
         # Those are special.
-        if command in {"cities", "countries"}:
-            continue
-
-        def build_handler(command: str):
-            def handler(bot: Bot, update: Update):
-                send_results(bot, update, group_name=command)
-            return handler
-
-        dispatcher.add_handler(CommandHandler(command, build_handler(command)))
+        if command not in {"cities", "countries"}:
+            dispatcher.add_handler(CommandHandler(command, build_handler(command)))
 
     # Those are special.
     dispatcher.add_handler(CommandHandler("cities", cities_command))
