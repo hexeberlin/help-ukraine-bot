@@ -5,15 +5,43 @@ import os
 from typing import List, Tuple
 
 from schedule import Job
-from telegram import BotCommand, Bot, Update, Message, InlineQueryResultArticle, ParseMode, InputTextMessageContent
+from telegram import (
+    Bot,
+    BotCommand,
+    InlineQueryResultArticle,
+    InputTextMessageContent,
+    Message,
+    ParseMode,
+    Update,
+)
 from telegram.error import BadRequest
 from telegram.ext import CommandHandler, JobQueue
 from telegram.utils.helpers import effective_message_type
 
-from src.common import restricted, parse_article, reply_to_message, get_param, guidebook, delete_command, \
-    format_knowledge_results, send_results
-from src.config import REMINDER_INTERVAL_INFO, SOCIAL_JOB, REMINDER_INTERVAL_PINNED, PINNED_JOB, REMINDER_MESSAGE, \
-    BERLIN_HELPS_UKRAINE_CHAT_ID, ADMIN_ONLY_CHAT_IDS, THUMB_URL, MONGO_HOST, MONGO_USER, MONGO_PASS, MONGO_BASE
+from src.common import (
+    delete_command,
+    format_knowledge_results,
+    get_param,
+    guidebook,
+    parse_article,
+    reply_to_message,
+    restricted,
+    send_results,
+)
+from src.config import (
+    ADMIN_ONLY_CHAT_IDS,
+    BERLIN_HELPS_UKRAINE_CHAT_ID,
+    MONGO_BASE,
+    MONGO_HOST,
+    MONGO_PASS,
+    MONGO_USER,
+    PINNED_JOB,
+    REMINDER_INTERVAL_INFO,
+    REMINDER_INTERVAL_PINNED,
+    REMINDER_MESSAGE,
+    SOCIAL_JOB,
+    THUMB_URL,
+)
 from src.guidebook import NameType
 from src.mongo import connect
 from src.services import Articles
@@ -30,44 +58,44 @@ logger = logging.getLogger(__name__)
 
 def help_text():
     return (
-            "Привет! 🤖 "
-            + os.linesep
-            + "Я бот для помощи беженцам из Украины 🇺🇦 в Германии. "
-            + os.linesep
-            + "Большинство моих знаний относятся к Берлину, но есть и общая "
-            + "полезная информация. Чтобы увидеть список поддерживаемых команд, "
-            + "введите символ '/'. "
-            + "\n\n"
-            + "Если добавите меня в свой чат, не забудьте дать мне права "
-            + "админа, пожалуйста, чтобы я мог удалять ненужные сообщения с "
-            + "вызванными командами."
-            + "\n\n\n"
-            + "Вітання! 🤖 "
-            + os.linesep
-            + "Я бот для допомоги біженцям з України 🇺🇦 в Німеччині."
-            + os.linesep
-            + "Більшість моїх знань стосуються Берліну, але є й загальна "
-            + "корисна інформація. Щоб побачити список команд, що підтримуються, "
-            + "введіть символ '/'. "
-            + "\n\n"
-            + "Якщо додасте мене до свого чату, будь ласка, не забудьте надати "
-            + "мені права адміна, щоб я зміг видаляти непотрібні повідомлення із "
-            + "викликаними командами."
-            + "\n\n\n"
-            + "Hi! 🤖"
-            + os.linesep
-            + "I'm a bot helping refugees from Ukraine 🇺🇦 in Germany. "
-            + os.linesep
-            + "Most of my knowledge focuses on Berlin, but I have some "
-            + "general useful information too. Type '/' to see the list of my "
-            + "available commands."
-            + "\n\n"
-            + "If you add me to your chat, don't forget to grant me admin "
-            + "rights, so that I can delete log messages and keep your chat clean."
+        "Привет! 🤖 "
+        + os.linesep
+        + "Я бот для помощи беженцам из Украины 🇺🇦 в Германии. "
+        + os.linesep
+        + "Большинство моих знаний относятся к Берлину, но есть и общая "
+        + "полезная информация. Чтобы увидеть список поддерживаемых команд, "
+        + "введите символ '/'. "
+        + "\n\n"
+        + "Если добавите меня в свой чат, не забудьте дать мне права "
+        + "админа, пожалуйста, чтобы я мог удалять ненужные сообщения с "
+        + "вызванными командами."
+        + "\n\n\n"
+        + "Вітання! 🤖 "
+        + os.linesep
+        + "Я бот для допомоги біженцям з України 🇺🇦 в Німеччині."
+        + os.linesep
+        + "Більшість моїх знань стосуються Берліну, але є й загальна "
+        + "корисна інформація. Щоб побачити список команд, що підтримуються, "
+        + "введіть символ '/'. "
+        + "\n\n"
+        + "Якщо додасте мене до свого чату, будь ласка, не забудьте надати "
+        + "мені права адміна, щоб я зміг видаляти непотрібні повідомлення із "
+        + "викликаними командами."
+        + "\n\n\n"
+        + "Hi! 🤖"
+        + os.linesep
+        + "I'm a bot helping refugees from Ukraine 🇺🇦 in Germany. "
+        + os.linesep
+        + "Most of my knowledge focuses on Berlin, but I have some "
+        + "general useful information too. Type '/' to see the list of my "
+        + "available commands."
+        + "\n\n"
+        + "If you add me to your chat, don't forget to grant me admin "
+        + "rights, so that I can delete log messages and keep your chat clean."
     )
 
 
-def add_commands(dispatcher) -> None:
+def add_commands(dispatcher) -> List[BotCommand]:
     # Commands
     dispatcher.add_handler(CommandHandler("start", start_timer, pass_job_queue=True))
     dispatcher.add_handler(CommandHandler("stop", stop_timer, pass_job_queue=True))
@@ -75,25 +103,24 @@ def add_commands(dispatcher) -> None:
 
     dispatcher.add_handler(CommandHandler("adminsonly", admins_only))
     dispatcher.add_handler(CommandHandler("adminsonly_revert", admins_only_revert))
-    dispatcher.add_handler(CommandHandler("animals", animal_help_command))
-    dispatcher.add_handler(CommandHandler("beauty", beauty_command))
+
+    for command in guidebook.guidebook.keys():
+        # Those are special.
+        if command in {"cities", "countries"}:
+            continue
+
+        def build_handler(command: str):
+            def handler(bot: Bot, update: Update):
+                send_results(bot, update, group_name=command)
+            return handler
+
+        dispatcher.add_handler(CommandHandler(command, build_handler(command)))
+
+    # Those are special.
     dispatcher.add_handler(CommandHandler("cities", cities_command))
-    dispatcher.add_handler(CommandHandler("cities_all", cities_all_command))
     dispatcher.add_handler(CommandHandler("countries", countries_command))
+    dispatcher.add_handler(CommandHandler("cities_all", cities_all_command))
     dispatcher.add_handler(CommandHandler("countries_all", countries_all_command))
-    dispatcher.add_handler(CommandHandler("entertainment", entertainment_command))
-    dispatcher.add_handler(CommandHandler("evacuation", evac_command))
-    dispatcher.add_handler(CommandHandler("evacuation_cities", evac_cities_command))
-    dispatcher.add_handler(CommandHandler("free_stuff", free_stuff_command))
-    dispatcher.add_handler(CommandHandler("food", food_command))
-    dispatcher.add_handler(CommandHandler("jobs", jobs_command))
-    dispatcher.add_handler(CommandHandler("photo", photo_command))
-    dispatcher.add_handler(CommandHandler("return_to_ukraine", return_to_ukraine_command))
-    dispatcher.add_handler(CommandHandler("school", school_command))
-    dispatcher.add_handler(CommandHandler("search", search_command))
-    dispatcher.add_handler(CommandHandler("simcards", simcards_command))
-    dispatcher.add_handler(CommandHandler("vaccination", vaccination_command))
-    dispatcher.add_handler(CommandHandler("volunteer", volunteer_command))
 
     # Articles
     dispatcher.add_handler(CommandHandler("add", add_article_command))
@@ -101,11 +128,12 @@ def add_commands(dispatcher) -> None:
     dispatcher.add_handler(CommandHandler("faq", get_article_command))
     dispatcher.add_handler(CommandHandler("delete", delete_article_command))
 
-
-def get_command_list() -> List[BotCommand]:
-    command_list = [
-        BotCommand("animals", "Помощь домашним животным"),
-        BotCommand("beauty", "Beauty сообщества"),
+    all_commands = [
+        BotCommand(command, description)
+        for command, description in guidebook.descriptions.items()
+        # Those are special.
+        if command not in {"cities", "countries"}
+    ] + [
         BotCommand(
             "cities",
             "Чаты помощи по городам Германии (введите /cities ГОРОД)",
@@ -116,23 +144,9 @@ def get_command_list() -> List[BotCommand]:
         ),
         BotCommand("countries", "Чаты по странам (введите /countries СТРАНА)"),
         BotCommand("countries_all", "Список всех чатов по странам"),
-        BotCommand("entertainment", "Бесплатные развлечения"),
-        BotCommand("evacuation", "Информация об эвакуации"),
-        BotCommand("evacuation_cities", "Чаты эвакуации по городам"),
-        BotCommand("food", "Бесплатная еда в Берлине"),
-        BotCommand("free_stuff", "Гуманитарная помощь в Берлине"),
-        BotCommand("help", "Что умеет этот бот?"),
-        BotCommand("jobs", "Работа в Германии"),
-        BotCommand("photo", "Где сделать фото"),
-        BotCommand("return_to_ukraine", "Алгоритм действий при возвращении в Украину"),
-        BotCommand("simcards", "Где получить СИМ карту"),
-        BotCommand("school", "Школы"),
-        BotCommand("search", "Как пользоваться поиском"),
-        BotCommand("vaccination", "Вакцинация"),
-        BotCommand("volunteer", "Волонтёрство"),
     ]
-    command_list.sort(key=lambda x: x.command)
-    return command_list
+
+    return all_commands
 
 
 @restricted
@@ -185,68 +199,10 @@ def countries_all_command(bot: Bot, update: Update):
     send_results(bot, update, group_name=NameType.countries, name=None)
 
 
-def entertainment_command(bot: Bot, update: Update):
-    send_results(bot, update, group_name=NameType.entertainment, name=None)
-
-
-def evac_command(bot: Bot, update: Update):
-    send_results(bot, update, group_name=NameType.evacuation, name=None)
-
-
-def evac_cities_command(bot: Bot, update: Update):
-    name = get_param(bot, update, "/evacuation_cities")
-    send_results(bot, update, group_name=NameType.evacuation_cities, name=name)
-
-
-def free_stuff_command(bot: Bot, update: Update):
-    name = get_param(bot, update, "/free_stuff")
-    send_results(bot, update, group_name=NameType.free_stuff, name=name)
-
-
-def food_command(bot: Bot, update: Update):
-    send_results(bot, update, group_name=NameType.food, name=None)
-
-
 def help_command(bot: Bot, update: Update):
     delete_command(bot, update)
     results = format_knowledge_results(help_text())
     reply_to_message(bot, update, results)
-
-
-def jobs_command(bot: Bot, update: Update):
-    send_results(bot, update, group_name=NameType.jobs, name=None)
-
-
-def photo_command(bot: Bot, update: Update):
-    send_results(bot, update, group_name=NameType.photo, name=None)
-
-
-def return_to_ukraine_command(bot: Bot, update: Update):
-    send_results(bot, update, group_name=NameType.return_to_ukraine, name=None)
-
-
-def school_command(bot: Bot, update: Update):
-    send_results(bot, update, group_name=NameType.school, name=None)
-
-
-def simcards_command(bot: Bot, update: Update):
-    send_results(bot, update, group_name=NameType.simcards, name=None)
-
-
-def volunteer_command(bot: Bot, update: Update):
-    send_results(bot, update, group_name=NameType.volunteer, name=None)
-
-
-def vaccination_command(bot: Bot, update: Update):
-    send_results(bot, update, group_name=NameType.vaccination, name=None)
-
-
-def animal_help_command(bot: Bot, update: Update):
-    send_results(bot, update, group_name=NameType.animal_help, name=None)
-
-
-def beauty_command(bot: Bot, update: Update):
-    send_results(bot, update, group_name=NameType.beauty, name=None)
 
 
 def cities_command(bot: Bot, update: Update):
