@@ -24,23 +24,7 @@ def main() -> None:
     updater = Updater(TOKEN)
     dispatcher = updater.dispatcher
 
-    commands.add_commands(dispatcher)
-
-    apartment_commands = apartments.register_commands(dispatcher)
-    education_commands = education.register_commands(dispatcher)
-    finance_commands = finance.register_commands(dispatcher)
-    general_information_commands = general_information.register_commands(dispatcher)
-    medical_commands = medical.register_commands(dispatcher)
-
-    command_list = (
-        apartment_commands
-        + education_commands
-        + finance_commands
-        + general_information_commands
-        + medical_commands
-        + commands.get_command_list()
-    )
-    command_list.sort(key=lambda x: x.command)
+    command_list = sorted(commands.add_commands(dispatcher), key=lambda c: c.command)
 
     updater.bot.set_my_commands(command_list)
 

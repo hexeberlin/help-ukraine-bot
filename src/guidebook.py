@@ -70,7 +70,7 @@ class Guidebook:
             guidebook = safe_load(f)
 
         self.guidebook = {k.lower(): v.get("contents") for k, v in guidebook.items()}
-        self.description = {k.lower(): v.get("description") for k, v in guidebook.items()}
+        self.descriptions = {k.lower(): v.get("description") for k, v in guidebook.items()}
 
         with open(vocabulary_path, "r") as f:
             self.vocabulary = {
