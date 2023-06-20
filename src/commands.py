@@ -105,6 +105,7 @@ def add_commands(dispatcher) -> List[BotCommand]:
     dispatcher.add_handler(CommandHandler("adminsonly_revert", admins_only_revert))
 
     for command in guidebook.guidebook.keys():
+        # Those are special.
         if command in {"cities", "countries"}:
             continue
 
@@ -128,6 +129,7 @@ def add_commands(dispatcher) -> List[BotCommand]:
     all_commands = [
         BotCommand(command, description)
         for command, description in guidebook.descriptions.items()
+        # Those are special.
         if command not in {"cities", "countries"}
     ] + [
         BotCommand(
