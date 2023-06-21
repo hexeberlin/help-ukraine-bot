@@ -24,7 +24,6 @@ guidebook = Guidebook(
 
 
 def send_results(bot: Bot, update: Update, group_name: str, name: str = None):
-    delete_command(bot, update)
     results = f"#{group_name}\n{guidebook.get_info(group_name=group_name, name=name)}"
     reply_to_message(bot, update, results)
 
@@ -57,6 +56,7 @@ def reply_to_message(bot, update, reply, disable_web_page_preview=True) -> None:
             text=reply,
             disable_web_page_preview=disable_web_page_preview,
         )
+    # Finally delete the original command.
     delete_command(bot, update)
 
 
