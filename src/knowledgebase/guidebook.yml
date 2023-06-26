@@ -1129,3 +1129,21 @@ lost_passport:
         На время ожидания Вам должны дать Fiktionsbescheinigung, с которым сохраняется ваш 24й параграф и все связанные с ним права. В качестве удостоверения личности Вам выдадут Ausweisersatz - такая же складная зелёная бумажечка, как и Fiktionsbescheinigung, но с фотографией, поэтому советуем на термин взять фото.
         Позже, ближе к получению паспорта, нужно будет просить у них термин на вклейку  ВНЖ (с тем же сроком) в новый паспорт.
         #внж #lea #документ
+forms:
+  description: Каналы с переводами типовых форм и заявлений
+  contents:
+    - |
+      Социал
+      https://t.me/Soz_AsylbLG_Grundsicherung
+
+      Джобцентр
+      https://t.me/Jobcenter_Soz_Formular_ru
+
+      Kindergeld Unterhalt
+      https://t.me/Kindergeld_Berlin
+
+      WBS Wohnungssuche
+      https://t.me/wbs_berlin
+
+      ARD ZDF
+      https://t.me/ard_zdf_befreiung
