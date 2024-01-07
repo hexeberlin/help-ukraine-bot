@@ -1064,13 +1064,13 @@ transport:
         https://www.bvg.de/de/tickets-und-tarife/alle-tickets/zeitkarten/monatskarte
 
         Информацию про билет за 49€ можно прочитать здесь /DeutschlandTicket
- transport_route:
-   description: Как проложить маршрут общественного транспорта
-   contents:
+transport_route:
+  description: Как проложить маршрут общественного транспорта
+  contents:
       - |
         Используйте приложения bvg.de и vbb.de для прокладки маршрута с желаемым временем прибытия в пункт назначения.
         Приложения будут знать о возможных ремонтных работах, забастовках и т.д. и предложат альтернативный вариант.
- university:
+university:
   description: Высшее образование в Германии
   contents:
       - |
