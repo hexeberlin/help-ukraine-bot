@@ -31,11 +31,11 @@ def send_results(bot: Bot, update: Update, group_name: str, name: str = None):
 def delete_command(bot: Bot, update: Update) -> None:
     message = update.message
     chat_id = message.chat_id
-    command_message_id = message.message_id
+    message_id = message.message_id
     try:
-        bot.delete_message(chat_id=chat_id, message_id=command_message_id)
+        bot.delete_message(chat_id=chat_id, message_id=message_id)
     except BadRequest as e:
-        logger.info("BadRequest: %s", str(e))
+        logger.error(f"BadRequest: {e}, update: {update}, chat_id={chat_id}, message={message}, message_id={message_id}")
 
 
 def reply_to_message(bot, update, reply, disable_web_page_preview=True) -> None:
