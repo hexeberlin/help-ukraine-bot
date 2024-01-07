@@ -1064,7 +1064,7 @@ transport:
         https://www.bvg.de/de/tickets-und-tarife/alle-tickets/zeitkarten/monatskarte
 
         Информацию про билет за 49€ можно прочитать здесь /DeutschlandTicket
-  transport_route:
+transport_route:
   description: Как проложить маршрут общественного транспорта
   contents:
       - |
