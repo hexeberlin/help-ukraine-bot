@@ -34,8 +34,8 @@ def delete_command(bot: Bot, update: Update) -> None:
     command_message_id = message.message_id
     try:
         bot.delete_message(chat_id=chat_id, message_id=command_message_id)
-    except BadRequest:
-        logger.info("Command was already deleted %s", command_message_id)
+    except BadRequest as e:
+        logger.info("BadRequest: %s", str(e))
 
 
 def reply_to_message(bot, update, reply, disable_web_page_preview=True) -> None:
