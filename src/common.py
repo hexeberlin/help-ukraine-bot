@@ -35,7 +35,7 @@ def delete_command(bot: Bot, update: Update) -> None:
     try:
         bot.delete_message(chat_id=chat_id, message_id=message_id)
     except BadRequest as e:
-        logger.error(f"BadRequest: {e}, update: {update}, chat_id={chat_id}, message={message}, message_id={message_id}")
+        logger.error(f"BadRequest: {e}, chat_id={chat_id}, message={message}")
 
 
 def reply_to_message(bot, update, reply, disable_web_page_preview=True) -> None:
