@@ -19,7 +19,6 @@ from telegram.ext import CommandHandler, JobQueue
 from telegram.utils.helpers import effective_message_type
 
 from src.common import (
-    delete_command,
     format_knowledge_results,
     get_param,
     guidebook,
@@ -189,7 +188,6 @@ def cities_all_command(bot: Bot, update: Update):
 
 def countries_command(bot: Bot, update: Update):
     name = get_param(bot, update, "/countries")
-    delete_command(bot, update)
     results = guidebook.get_countries(name=name)
     reply_to_message(bot, update, results)
 
@@ -199,14 +197,12 @@ def countries_all_command(bot: Bot, update: Update):
 
 
 def help_command(bot: Bot, update: Update):
-    delete_command(bot, update)
     results = format_knowledge_results(help_text())
     reply_to_message(bot, update, results)
 
 
 def cities_command(bot: Bot, update: Update):
     name = get_param(bot, update, "/cities")
-    delete_command(bot, update)
     results = guidebook.get_cities(name=name)
     reply_to_message(bot, update, results)
 
