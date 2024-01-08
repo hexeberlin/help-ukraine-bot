@@ -1073,8 +1073,7 @@ transport_route:
 university:
   description: Высшее образование в Германии
   contents:
-      - |
-    Список университетов и предложений для беженцев в Берлине:
+      Список университетов и предложений для беженцев в Берлине:
       - https://www.fu-berlin.de/sites/studienberatung/_media/Angebote-der-Hochschulen-refugee.pdf
     К чему приравниваются дипломы и количество учебных годов:
       - https://anabin.kmk.org/no_cache/filter/schulabschluesse-mit-hochschulzugang.html#land_gewaehlt
