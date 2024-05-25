@@ -1100,16 +1100,6 @@ vaccination:
       - |
         Если Вы вакцинированы Модерной или АстраЗенекой в Украине и у вас есть сертификат, то Вы считаетесь привитыми в Германии.
         Если с последней прививки прошло больше 3 месяцев, то Вы можете сделать бустерную вакцину.
-volunteer:
-  description: Информация о волонтерстве
-  contents:
-    Donate your time in Berlin:
-      - https://t.me/teamsuedkreuz
-      - https://t.me/BerlinHbfArrival
-      - https://t.me/arrivalcenter
-      - http://volunteer-planner.org/
-    Donate things in Berlin:
-      - https://adiuto.org/tasks?query=berlin
 wbs:
   description: Что такое WBS / Wohnberechtigungsschein
   contents:
