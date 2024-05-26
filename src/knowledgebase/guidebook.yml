@@ -1078,16 +1078,6 @@ university:
       - https://t.me/uchebadeukr
       - https://t.me/studyuade_chat
       - https://t.me/orsggermany
-volunteer:
-  description: Информация о волонтерстве
-  contents:
-    Donate your time in Berlin:
-      - https://t.me/teamsuedkreuz
-      - https://t.me/BerlinHbfArrival
-      - https://t.me/arrivalcenter
-      - http://volunteer-planner.org/
-    Donate things in Berlin:
-      - https://adiuto.org/tasks?query=berlin
 wbs:
   description: Что такое WBS / Wohnberechtigungsschein
   contents:
