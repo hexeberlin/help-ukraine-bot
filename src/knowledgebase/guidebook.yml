@@ -87,23 +87,6 @@ beauty:
       - https://t.me/beauty_berlin_ua
       - https://t.me/Beauty_Masters_from_Ukraine
       - https://t.me/+hLE6UEtJZiwwYzMy
-change_region:
-  description: Процедура смены земли проживания
-  contents:
-    Процедура смены земли проживания:
-      - |
-        Для смены земли проживания необходимо сделать запрос в миграционку принимающей земли на Umverteilung и своей земли на Umverteilung+Streichung der Wohnsitzauflage. 
-        Формуляр заявления на смену земли проживания: https://t.me/Joncenter_Soz_Formular_ru/130
-        Заявление необходимо обосновать: приложить трудовой договор и подтверждение наличия жилья, договор на учёбу, документы супруга/родителей/несовершеннолетних детей, с которыми вы хотите воссоединиться (Familienzusammenführung).
-        В Берлине запрос делается через контактную форму LEA в реферат E5: https://www.berlin.de/einwanderung/ueber-uns/kontakt/formular.1193600.php Из выпадающего списка тем выбрать Wohnsitzzuweisung - Änderung der Auflage. Дополнительно можно отослать запрос в Берлин по почте с опцией Einschreiben на адреc:
-      - |
-        An das Referat E5        
-        Landesamt für Einwanderung
-        Friedrich-Krause-Ufer 24
-        13353 Berlin
-      - |
-        В принимающей земле ищите Ausländerbehörde + город/округ Kreis.        
-        Сроки обработки неизвестны. Напоминайте о себе регулярно как минимум спустя месяц после подачи заявки. 
 beschwerde:
   description: Куда обратиться с жалобой
   contents:
@@ -122,6 +105,23 @@ beschwerde:
 
         Общий контакт: info@bubs.berlin
         Контакт для подачи жалоб: beschwerde@bubs.berlin
+change_region:
+  description: Процедура смены земли проживания
+  contents:
+    Процедура смены земли проживания:
+      - |
+        Для смены земли проживания необходимо сделать запрос в миграционку принимающей земли на Umverteilung и своей земли на Umverteilung+Streichung der Wohnsitzauflage. 
+        Формуляр заявления на смену земли проживания: https://t.me/Jobcenter_Soz_Formular_ru/130
+        Заявление необходимо обосновать: приложить трудовой договор и подтверждение наличия жилья, договор на учёбу, документы супруга/родителей/несовершеннолетних детей, с которыми вы хотите воссоединиться (Familienzusammenführung).
+        В Берлине запрос делается через контактную форму LEA в реферат E5: https://www.berlin.de/einwanderung/ueber-uns/kontakt/formular.1193600.php Из выпадающего списка тем выбрать Wohnsitzzuweisung - Änderung der Auflage. Дополнительно можно отослать запрос в Берлин по почте с опцией Einschreiben на адреc:
+      - |
+        An das Referat E5        
+        Landesamt für Einwanderung
+        Friedrich-Krause-Ufer 24
+        13353 Berlin
+      - |
+        В принимающей земле ищите Ausländerbehörde + город/округ Kreis.        
+        Сроки обработки неизвестны. Напоминайте о себе регулярно как минимум спустя месяц после подачи заявки. 
 cities:
   description: Чаты по городам Германии (введите /cities ГОРОД)
   contents:
