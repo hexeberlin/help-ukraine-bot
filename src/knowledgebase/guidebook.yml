@@ -981,11 +981,12 @@ schufa:
   description: Как получить справку Schufa
   contents:
     - |
-      Schufa - документ, подтверждающий Вашу кредитную историю.
-
-      Заказать можно здесь: https://www.meineschufa.de/de/datenkopie
-      Вариант слева (SCHUFA-Datenkopie) бесплатный, но может занять до 4 недель.
-      Вариант справа (SCHUFA-BonitätsAuskunft) платный, но быстрее.
+      Schufa - документ, подтверждающий Вашу кредитную историю. Есть два вида Schufa: 
+      1. Сертификат о кредитоспособности Bonitätscheck - всегда платный. Можно заказать онлайн на сайте https://www.meineschufa.de (29.95 EUR) или лично только в одном банке в Берлине (50 EUR).
+      2. Копия всех ваших данных Datenkopie - бесплатно один раз в год. Можно заказать только на сайте Schufa: https://www.meineschufa.de/de/datenkopie.
+    - |   
+      Получение Schufa-Datenkopie может занять до 4 недель.
+      Вариант Schufa-Bonitätscheck - быстрее.
 search:
   description: Как самостоятельно искать информацию в Интернете
   contents:
