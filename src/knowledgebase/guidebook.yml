@@ -539,12 +539,13 @@ general_information:
       - медицинских услуг и страховки,
       - выплат социальной помощи,
       - и многого другого
-    читайте официальную информацию:
-      - по-украински https://www.berlin.de/ukraine/uk/
-      - по-русски https://www.berlin.de/ukraine/ru/
-    А также:
+    читайте общую информацию по Германии:
       - https://handbookgermany.de/uk/
       - https://uahelp.wiki/
+    А также официальную информацию сената Берлина:
+      - по-украински https://www.berlin.de/ukraine/uk/
+      - по-русски https://www.berlin.de/ukraine/ru/
+
 handicap:
   description: Помощь для людей с особыми потребностями
   contents:
