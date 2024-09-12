@@ -540,18 +540,24 @@ general_information:
 handicap:
   description: Помощь для людей с особыми потребностями
   contents:
-    Помощь для взрослых:
-      - Чат в телеграм - https://t.me/+P4KcHm2zl55mYmQ6
-      - https://handbookgermany.de/ru/rights-laws/special-needs.html
-      - https://www.familienratgeber.de/beratung-hilfe/weitere-hilfen/fluechtlinge-behinderung.php
-      - http://mina-berlin.eu/beratungsangebot-fuer-menschen-mit-fluchterfahrung-und-behinderung-aus-der-ukraine/
-      - https://www.berlin.de/ukraine/ru/pribytie/informazija-dlja-beshenzew-s-inwalidnostjju-1194628.ru.php
-      - https://www.hi-deutschland-projekte.de/crossroads/flucht-aus-der-ukraine/
-      - |
-        https://www.interaktiv-berlin.de/ru/beratungsprojekt/Ознакомление-с-системами-Здравоохранения-Социальной-помощи-и-Образования-в-Германииagbh/
-    Помощь для детей:
+    Общая информация: 
+    - https://handbookgermany.de/ru/disability
+    - https://www.berlin.de/ukraine/ru/pribytie/informazija-dlja-beshenzew-s-inwalidnostjju-1194628.ru.php 
+    - https://www.hi-deutschland-projekte.de/crossroads/fuer-gefluechtete/faqs-fuer-gefluchtete-aus-der-ukraine/
+        
+    Возможности получения консультации: 
+    - https://www.interaktiv-berlin.de/ru/beratungsprojekt/Ознакомление-с-системами-Здравоохранения-Социальной-помощи-и-Образования-в-Германииagbh/
+    - https://www.familienratgeber.de/beratung-hilfe/weitere-hilfen/fluechtlinge-behinderung.php
+    - http://mina-berlin.eu/beratungsangebot-fuer-menschen-mit-fluchterfahrung-und-behinderung-aus-der-ukraine/
+    
+    Группы в телеграме помощь для взрослых:
+      - https://t.me/prolisok38
+      - https://t.me/disabled_in_Germany_help
+      - https://t.me/+f36DBGIqh_42NzNi
+            
+    Группы в телеграме помощь для детей:
       - https://linktr.ee/diesputniks
-      - Чат для родителей https://t.me/+P4KcHm2zl55mYmQ6
+      
 jobs:
   description: Работа в Германии
   contents:
