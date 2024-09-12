@@ -469,6 +469,9 @@ food:
 free_stuff:
   description: Гуманитарная помощь в Берлине
   contents:
+    Бесплатные вещи бежавшим от войны, Берлин:
+      - |
+        https://t.me/+BePRRAtCs-AxYzcy
     Чат обмена вещами:
       - |
         https://t.me/joinchat/CbD5mEn20K3k-gd-ckIXBw
