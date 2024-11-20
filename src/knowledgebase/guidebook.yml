@@ -79,6 +79,9 @@ apartments:
         https://www.vonovia.de/
         https://www.covivio.immo/
         https://www.stadtentwicklung.berlin.de/wohnen/wohnungsbaugesellschaften.shtml
+      - |
+        Сайт-агрегатор квартир застройщиков, принадлежащих Берлину:
+        https://inberlinwohnen.de/wohnungsfinder/
 beauty:
   description: Beauty сообщества
   contents:
