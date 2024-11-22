@@ -1047,17 +1047,15 @@ transport:
   description: Общественный транспорт
   contents:
       - |
-        Месячный социальный проездной билет Berlin Ticket S для получателей пособий - 9€:
+        Месячный социальный проездной билет Berlin Ticket S для получателей пособий:
         https://sbahn.berlin/tickets/alle-tickets/wochen-monats-abo-jahrestickets/berlin-ticket-s/
-        Действует только в зоне АВ. Berlin Ticket S действует также в последний день месяца, предшествующего месяцу, на который он куплен, и в первый день следующего месяца.
-        ‼️ На билет пишется номер VBB-Kundenkarte Berlin Ticket S или Kundennummer (указан в Bescheid от Jobcenter)/Aktenzeichen (указан в Bescheid от Sozialamt).
-        Подать заявку на VBB-Kundenkarte Berlin Ticket S можно онлайн, используя Berechtigungsnachweis (QR-код), полученный из Jobcenter/Sozialamt.
-        Сайт оформления VBB-Kundenkarte: https://www.vbb-kundenkarte-berlin-ticket-s.de/
+        Действует только в зоне АВ. Действует также в последний день месяца, предшествующего месяцу, на который он куплен, и в первый день следующего месяца.
+        ‼️ На билет пишется Kundennummer из Bescheid (до 31.12.2024) или полное имя и фамилию (c 01.01.2025). С собой иметь Bescheid. Без этой информации билет недействителен. Штраф 60 евро. 
         Подробности здесь: https://www.berlin.de/sen/soziales/soziale-sicherung/bn-berlin-ticket-s/
 
-        С этим билетом МОЖНО взять с собой БЕСПЛАТНО
+        С этим билетом МОЖНО взять с собой БЕСПЛАТНО:
         ✅ Детей до 6 лет
-        ✅ собаку
+        ✅ Собаку
         ✅ Небольшое животное размером с кошку
         ✅ Ручную кладь
         ✅ Инвалидную или детскую коляску
@@ -1075,7 +1073,7 @@ transport:
         Monatskarte (VBB Umweltkarte)
         https://www.bvg.de/de/tickets-und-tarife/alle-tickets/zeitkarten/monatskarte
 
-        Информацию про билет за 49€ можно прочитать здесь /DeutschlandTicket
+        Информацию про абонемент Deutschlandticket можно прочитать здесь /Deutschlandticket
 transport_route:
   description: Как проложить маршрут общественного транспорта
   contents:
