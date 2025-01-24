@@ -963,13 +963,13 @@ schufa:
   contents:
     - |
       Schufa - документ, подтверждающий Вашу кредитную историю. Есть два вида Schufa: 
-      1. Сертификат о кредитоспособности Bonitätscheck - всегда платный. Можно заказать онлайн на сайте https://www.meineschufa.de (29.95 EUR) или лично только в одном банке в Берлине (стоимость 50 EUR). https://www.psd-berlin-brandenburg.de/Immobilien/schufa-auskunft.html
+      1. Сертификат о кредитоспособности Bonitätscheck - всегда платный. Можно заказать онлайн на сайте https://www.meineschufa.de (29,95 EUR) или лично только в одном банке в Берлине (стоимость 49,95 EUR). https://www.psd-berlin-brandenburg.de/Immobilien/schufa-auskunft.html
       2. Копия всех ваших данных Datenkopie - бесплатно один раз в год. Можно заказать только на сайте Schufa: https://www.meineschufa.de/de/datenkopie. Бесплатную копию данных можно запрашивать несколько раз в год. Schufa имеет право отказать в выдаче бесплатной копии при чрезмерно частых запросах.
     - |   
       Получение Schufa-Datenkopie может занять до 4 недель.
       Вариант Schufa-Bonitätscheck - быстрее.
 
-      Также есть возможность получить сертификат о кредитоспособности Bonitätscheck онлайн при условии оформлении подписки на Immobilienscout24.de на 6-12 месяцев: каждые 2 месяца можно обновить Schufa. При подписке на 3 месяца Schufa даётся 1 раз.
+      При оформлении подписки MieterPlus на Immobilienscout24.de на 3 - 12 месяцев можно получить скидку на Schufa-сертификат о кредитоспособности Bonitätscheck .
 search:
   description: Как самостоятельно искать информацию в Интернете
   contents:
