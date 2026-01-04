@@ -14,9 +14,7 @@ accommodation:
 animals:
   description: Помощь домашним животным
   contents:
-    Официальная информация для прибывших с животными:
-      - |
-        https://www.berlin.de/ukraine/uk/pributtja/artikel.1183481.uk.php
+
     Полезные ссылки:
       - https://tasso.net
       - https://linktr.ee/support_ukrainian_pets
