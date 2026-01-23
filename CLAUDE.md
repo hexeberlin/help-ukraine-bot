@@ -9,8 +9,8 @@ A Telegram bot providing FAQ answers and helpful information for Ukrainian refug
 ## Build & Development Commands
 
 ```bash
-# Setup environment (Python 3.9.16 per runtime.txt)
-python3.9 -m venv venv && source venv/bin/activate
+# Setup environment (Python 3.11 per runtime.txt)
+python3.11 -m venv venv && source venv/bin/activate
 pip install -r requirements.txt
 
 # Run locally (requires settings.env with credentials)
