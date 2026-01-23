@@ -52,6 +52,24 @@ This creates a **temporary app for each PR** automatically, which is ideal for t
 }
 ```
 
+### Secrets Management
+
+**Important**: The `app.json` file above is **safe to commit** to your repository. Here's why:
+
+- **Config vars WITH `value` field** (like `APP_NAME`): Safe to commit, these are non-sensitive settings
+- **Config vars WITHOUT `value` field** (like `TOKEN`, `MONGO_PASS`): These are secrets that will NOT be stored in the repository
+
+To provide the actual secret values to Review Apps, configure them at the **Pipeline level**:
+
+1. Go to your Heroku Pipeline → Settings
+2. Click "Reveal Config Vars" under "Review Apps"
+3. Add all sensitive values here (TOKEN, MONGO_HOST, MONGO_USER, MONGO_PASS, MONGO_BASE)
+4. These values will be automatically applied to all Review Apps created from this pipeline
+
+This way, secrets are stored securely in Heroku and never committed to your Git repository. Each review app inherits the pipeline's config vars automatically.
+
+**Alternative**: If you don't set pipeline-level config vars, Heroku will prompt you to enter them manually when creating each review app (less convenient).
+
 ### Pros
 - Isolated testing per PR
 - Automatic cleanup when PR closes
