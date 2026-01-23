@@ -31,13 +31,13 @@ This is a **major migration** with fundamental architectural changes. The bigges
 | File | Changes Needed |
 |------|----------------|
 | `src/main.py` | Replace `Updater` with `Application` builder pattern, change `Filters` to `filters` module |
-| `src/commands.py` | Convert all 15+ handler functions to `async def`, add `await` to all bot method calls, update JobQueue API |
-| `src/common.py` | Convert `send_results`, `delete_command`, `reply_to_message`, `restricted` decorator to async |
+| `src/commands.py` | Convert all 20+ handler functions to `async def`, add `await` to all bot method calls, update JobQueue API |
+| `src/common.py` | Convert `send_results`, `delete_command`, `reply_to_message`, `restricted` decorator to async; fix `restricted` decorator signature inconsistency (see note below) |
 | `src/services/articles.py` | Consider async MongoDB driver (`motor`) or keep sync with `run_in_executor` |
 
 ### Specific Code Patterns to Change
 
-**1. Handler signatures** (15+ functions in `commands.py`):
+**1. Handler signatures** (20+ functions in `commands.py`):
 ```python
 # Current (v12)
 def help_command(bot: Bot, update: Update):
@@ -48,7 +48,9 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await reply_to_message(update, context, results)
 ```
 
-**2. Entry point** (`main.py:9-12`):
+Note: `find_articles_command` already uses a different signature `(update: Update)` without `bot` parameter (valid for inline query handlers in v12).
+
+**2. Entry point** (`main.py:11-12`):
 ```python
 # Current
 updater = Updater(TOKEN)
@@ -78,6 +80,19 @@ MessageHandler(Filters.all, ...)
 # Required
 from telegram.ext import filters
 MessageHandler(filters.ALL, ...)
+```
+
+**5. `restricted` decorator** (`common.py:64-80`):
+
+⚠️ **Pre-existing issue:** The decorator wrapper uses `context: CallbackContext` parameter but decorated functions pass `update: Update`. This works because both have `effective_user` and `effective_chat` attributes, but the typing is inconsistent. Fix this during migration:
+```python
+# Current (inconsistent typing)
+def wrapped(bot: Bot, context: CallbackContext, *args, **kwargs):
+    user_id = context.effective_user.id  # works but typed as CallbackContext
+
+# Required (v21 - also fixes typing)
+async def wrapped(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    user_id = update.effective_user.id
 ```
 
 ---
