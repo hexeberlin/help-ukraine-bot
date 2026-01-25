@@ -13,10 +13,6 @@ except KeyError:
     TOKEN = parser.get("DEVELOPMENT", "TOKEN")
 
 PORT = int(env.get("PORT", 5000))
-THUMB_URL = env.get(
-    "THUMB_URL",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Flag_of_Ukraine.svg/2560px-Flag_of_Ukraine.svg.png",
-)
 
 REMINDER_MESSAGE = "I WILL POST PINNED MESSAGE HERE"
 REMINDER_INTERVAL_PINNED = 30 * 60

@@ -31,7 +31,6 @@ from src.config import (
     REMINDER_INTERVAL_PINNED,
     REMINDER_MESSAGE,
     SOCIAL_JOB,
-    THUMB_URL,
 )
 from src.guidebook import NameType
 
