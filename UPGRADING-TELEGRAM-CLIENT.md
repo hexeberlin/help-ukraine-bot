@@ -33,7 +33,6 @@ This is a **major migration** with fundamental architectural changes. The bigges
 | `src/main.py` | Replace `Updater` with `Application` builder pattern, change `Filters` to `filters` module |
 | `src/commands.py` | Convert all 20+ handler functions to `async def`, add `await` to all bot method calls, update JobQueue API |
 | `src/common.py` | Convert `send_results`, `delete_command`, `reply_to_message`, `restricted` decorator to async; fix `restricted` decorator signature inconsistency (see note below) |
-| `src/services/articles.py` | Consider async MongoDB driver (`motor`) or keep sync with `run_in_executor` |
 
 ### Specific Code Patterns to Change
 
@@ -47,8 +46,6 @@ def help_command(bot: Bot, update: Update):
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await reply_to_message(update, context, results)
 ```
-
-Note: `find_articles_command` already uses a different signature `(update: Update)` without `bot` parameter (valid for inline query handlers in v12).
 
 **2. Entry point** (`main.py:11-12`):
 ```python
@@ -109,8 +106,7 @@ async def wrapped(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 ### Prerequisites for v21 Upgrade
 1. Python 3.9+ required (currently using 3.11 per `runtime.txt` ✓)
-2. Consider `motor` for async MongoDB or use `asyncio.to_thread()` for sync calls
-3. Update all test mocks to handle async functions
+2. Update all test mocks to handle async functions
 
 ---
 

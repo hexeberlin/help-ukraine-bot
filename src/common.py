@@ -8,7 +8,6 @@ from telegram.error import BadRequest
 from telegram.ext import CallbackContext
 
 from src.guidebook import Guidebook
-from src.models import Article
 
 logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
@@ -85,27 +84,6 @@ def get_param(bot, update, command):
     return (
         update.message.text.removeprefix(command).replace(bot_name, "").strip().lower()
     )
-
-
-def parse_keys(line: str) -> List[str]:
-    keys = line.split(" ")
-    non_empty_keys = list(filter(lambda x: x.strip() != "", keys))
-    return non_empty_keys
-
-
-def parse_article(message: str, command: str, bot_name: str) -> Optional[Article]:
-    message = message.removeprefix(command).replace(bot_name, "")
-    lines = message.splitlines()
-    if len(lines) < 3:
-        return None
-    else:
-        keys = parse_keys(lines[0])
-        if len(keys) < 1:
-            return None
-        else:
-            title = lines[1]
-            content = "".join(lines[2:])
-            return Article(keys, title, content)
 
 
 def format_knowledge_results(results: str) -> str:

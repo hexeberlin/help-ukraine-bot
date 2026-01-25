@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-A Telegram bot providing FAQ answers and helpful information for Ukrainian refugees in Germany, primarily focused on Berlin. Built with python-telegram-bot and MongoDB.
+A Telegram bot providing FAQ answers and helpful information for Ukrainian refugees in Germany, primarily focused on Berlin. Built with python-telegram-bot.
 
 ## Build & Development Commands
 
@@ -31,10 +31,6 @@ Local development requires `settings.env`:
 [DEVELOPMENT]
 APP_NAME=TESTING
 TOKEN=<telegram_bot_token>
-MONGO_HOST=<host>
-MONGO_USER=<user>
-MONGO_PASS=<password>
-MONGO_BASE=<database>
 ```
 
 `settings.toml` defines paths to knowledge base files and is read at runtime.
@@ -49,10 +45,6 @@ MONGO_BASE=<database>
 - `src/guidebook.py` - `Guidebook` class loads YAML and provides `get_info()`, `get_cities()`, `get_countries()` methods. `NameType` enum defines all valid topic keys.
 
 **Commands**: `src/commands.py` dynamically generates handlers for each topic in the guidebook. Special handling for `/cities` and `/countries` which take parameters. Admin-restricted commands use `@restricted` decorator from `src/common.py`.
-
-**Articles service**: `src/services/articles.py` - MongoDB-backed FAQ storage for user-contributed content, accessed via inline queries.
-
-**MongoDB**: `src/mongo/__init__.py` - Connection helper returning a database handle.
 
 ## Key Patterns
 
