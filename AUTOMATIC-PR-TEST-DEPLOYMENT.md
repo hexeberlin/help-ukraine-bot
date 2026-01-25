@@ -93,18 +93,6 @@ Create a **temporary app for each PR** automatically, ideal for testing multiple
     },
     "TOKEN": {
       "description": "Telegram bot token"
-    },
-    "MONGO_HOST": {
-      "description": "MongoDB host"
-    },
-    "MONGO_USER": {
-      "description": "MongoDB user"
-    },
-    "MONGO_PASS": {
-      "description": "MongoDB password"
-    },
-    "MONGO_BASE": {
-      "description": "MongoDB database"
     }
   },
   "buildpacks": [

@@ -14,10 +14,6 @@ development.
 [DEVELOPMENT]
 APP_NAME=TESTING
 TOKEN=very_secret_token
-MONGO_HOST=host
-MONGO_USER=user
-MONGO_PASS=very_secret_password
-MONGO_BASE=base
 ```
 
 ## Deploy

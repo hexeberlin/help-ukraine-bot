@@ -33,7 +33,6 @@ This is a **major migration** with fundamental architectural changes. The bigges
 | `src/main.py` | Replace `Updater` with `Application` builder pattern, change `Filters` to `filters` module |
 | `src/commands.py` | Convert all 20+ handler functions to `async def`, add `await` to all bot method calls, update JobQueue API |
 | `src/common.py` | Convert `send_results`, `delete_command`, `reply_to_message`, `restricted` decorator to async; fix `restricted` decorator signature inconsistency (see note below) |
-| `src/services/articles.py` | Consider async MongoDB driver (`motor`) or keep sync with `run_in_executor` |
 
 ### Specific Code Patterns to Change
 
@@ -48,9 +47,7 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await reply_to_message(update, context, results)
 ```
 
-Note: `find_articles_command` already uses a different signature `(update: Update)` without `bot` parameter (valid for inline query handlers in v12).
-
-**2. Entry point** (`main.py:11-12`):
+**2. Entry point** (`main.py:11-16`):
 ```python
 # Current
 updater = Updater(TOKEN)
@@ -60,7 +57,7 @@ dispatcher = updater.dispatcher
 application = Application.builder().token(TOKEN).build()
 ```
 
-**3. Job callbacks** (`commands.py:305-323`):
+**3. Job callbacks** (`commands.py:249-268`):
 ```python
 # Current
 def send_pinned_reminder(bot: Bot, job: Job):
@@ -82,7 +79,7 @@ from telegram.ext import filters
 MessageHandler(filters.ALL, ...)
 ```
 
-**5. `restricted` decorator** (`common.py:64-80`):
+**5. `restricted` decorator** (`common.py:63-79`):
 
 ⚠️ **Pre-existing issue:** The decorator wrapper uses `context: CallbackContext` parameter but decorated functions pass `update: Update`. This works because both have `effective_user` and `effective_chat` attributes, but the typing is inconsistent. Fix this during migration:
 ```python
@@ -109,8 +106,7 @@ async def wrapped(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 ### Prerequisites for v21 Upgrade
 1. Python 3.9+ required (currently using 3.11 per `runtime.txt` ✓)
-2. Consider `motor` for async MongoDB or use `asyncio.to_thread()` for sync calls
-3. Update all test mocks to handle async functions
+2. Update all test mocks to handle async functions
 
 ---
 

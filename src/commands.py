@@ -8,10 +8,7 @@ from schedule import Job
 from telegram import (
     Bot,
     BotCommand,
-    InlineQueryResultArticle,
-    InputTextMessageContent,
     Message,
-    ParseMode,
     Update,
 )
 from telegram.error import BadRequest
@@ -22,7 +19,6 @@ from src.common import (
     format_knowledge_results,
     get_param,
     guidebook,
-    parse_article,
     reply_to_message,
     restricted,
     send_results,
@@ -30,24 +26,13 @@ from src.common import (
 from src.config import (
     ADMIN_ONLY_CHAT_IDS,
     BERLIN_HELPS_UKRAINE_CHAT_ID,
-    MONGO_BASE,
-    MONGO_HOST,
-    MONGO_PASS,
-    MONGO_USER,
     PINNED_JOB,
     REMINDER_INTERVAL_INFO,
     REMINDER_INTERVAL_PINNED,
     REMINDER_MESSAGE,
     SOCIAL_JOB,
-    THUMB_URL,
 )
 from src.guidebook import NameType
-from src.mongo import connect
-from src.services import Articles
-
-db = connect(MONGO_HOST, MONGO_USER, MONGO_PASS, MONGO_BASE)
-TEST_CHAT = "tests"
-articles_service = Articles(db, TEST_CHAT)
 
 logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
@@ -120,12 +105,6 @@ def add_commands(dispatcher) -> List[BotCommand]:
     dispatcher.add_handler(CommandHandler("cities_all", cities_all_command))
     dispatcher.add_handler(CommandHandler("countries_all", countries_all_command))
 
-    # Articles
-    dispatcher.add_handler(CommandHandler("add", add_article_command))
-    dispatcher.add_handler(CommandHandler("list", list_articles_command))
-    dispatcher.add_handler(CommandHandler("faq", get_article_command))
-    dispatcher.add_handler(CommandHandler("delete", delete_article_command))
-
     all_commands = [
         BotCommand(command, description)
         for command, description in guidebook.descriptions.items()
@@ -145,41 +124,6 @@ def add_commands(dispatcher) -> List[BotCommand]:
     ]
 
     return all_commands
-
-
-@restricted
-def add_article_command(bot: Bot, update: Update):
-    article = parse_article(update.message, "/add", bot.name)
-    if article:
-        articles_service.add(article)
-        reply_to_message(bot, update, "article added")
-    else:
-        reply_to_message(bot, update, "Invalid message format")
-
-
-@restricted
-def list_articles_command(bot: Bot, update: Update):
-    articles = articles_service.list()
-    keys_title = "".join([str(a) for a in articles])
-    msg = f"**Available articles:**\n{keys_title}"
-    reply_to_message(bot, update, msg)
-
-
-@restricted
-def get_article_command(bot: Bot, update: Update):
-    key = get_param(bot, update, "/faq")
-    article = articles_service.get(key)
-    keys = "".join(article.keys)
-    message = f"**keys:** {keys}\n{article.title}\n{article.content}"
-    reply_to_message(bot, update, message)
-
-
-@restricted
-def delete_article_command(bot: Bot, update: Update):
-    key = get_param(bot, update, "/delete")
-    articles_service.delete(key)
-    message = f"key {key} deleted"
-    reply_to_message(bot, update, message)
 
 
 def cities_all_command(bot: Bot, update: Update):
@@ -321,26 +265,6 @@ def send_social_reminder(bot: Bot, job: Job):
     logger.info("Sending a social reminder to chat %s", chat_id)
     results = guidebook.get_results(group_name=NameType.social_help, name=None)
     bot.send_message(chat_id=chat_id, text=results, disable_web_page_preview=True)
-
-
-def find_articles_command(update: Update) -> None:
-    """Handle the inline query."""
-    query = update.inline_query.query
-
-    articles = articles_service.find(query)
-    results = [
-        InlineQueryResultArticle(
-            id=a.id,
-            title=a.title,
-            input_message_content=InputTextMessageContent(
-                str(a), parse_mode=ParseMode.MARKDOWN
-            ),
-            thumb_url=THUMB_URL,
-        )
-        for a in articles
-    ]
-
-    update.inline_query.answer(results)
 
 
 def delete_greetings(bot: Bot, update: Update) -> None:

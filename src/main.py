@@ -1,6 +1,6 @@
 """main module running the bot"""
 
-from telegram.ext import Filters, InlineQueryHandler, MessageHandler, Updater
+from telegram.ext import Filters, MessageHandler, Updater
 
 from src import commands
 from src.config import APP_NAME, PORT, TOKEN
@@ -17,9 +17,6 @@ def main() -> None:
 
     # Messages
     dispatcher.add_handler(MessageHandler(Filters.all, commands.delete_greetings))
-
-    # Inlines
-    dispatcher.add_handler(InlineQueryHandler(commands.find_articles_command))
 
     if APP_NAME == "TESTING":
         updater.start_polling()
