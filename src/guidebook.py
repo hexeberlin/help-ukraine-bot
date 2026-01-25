@@ -135,7 +135,7 @@ class Guidebook:
 
     def get_cities(self, group_name: Enum = NameType.cities, name: str = None) -> str:
         if not name:
-            return self._format_results(
+            return self.format_results(
                 "Пожалуйста, уточните название города: /cities Name\n"
             )
         if name in self.vocabulary:
@@ -148,7 +148,7 @@ class Guidebook:
         self, group_name: Enum = NameType.countries, name: Optional[str] = None
     ) -> str:
         if not name:
-            return self._format_results(
+            return self.format_results(
                 "Пожалуйста, уточните название страны: /countries Name\n"
             )
         return self.get_info(group_name=group_name.value, name=name)
