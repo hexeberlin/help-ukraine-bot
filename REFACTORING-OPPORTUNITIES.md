@@ -23,33 +23,31 @@ This document identifies areas of the codebase that could benefit from refactori
 
 ## Medium Priority Issues
 
-### 4. Duplicated Logging Configuration (2 locations)
-- `src/commands.py:37-40`
-- `src/common.py:12-15`
+### 4. ~~Duplicated Logging Configuration~~ ✅ RESOLVED
+- Removed duplicate from `src/commands.py` (2026-01-25)
 
-### 5. Duplicated Formatting Functions
-- `src/common.py:89-91` - `format_knowledge_results()`
-- `src/guidebook.py:83-85` - `_format_results()`
+### 5. ~~Duplicated Formatting Functions~~ ✅ RESOLVED
+- Consolidated into `Guidebook.format_results()` as public static method (2026-01-25)
 
-### 6. Type Hint Lies
-- `src/common.py:82` - `get_param()` has no type hints at all
+### 6. ~~Type Hint Lies~~ ✅ RESOLVED
+- Added type hints to `get_param()` (2026-01-25)
 
-### 7. Inefficient Repeated Work
-- `src/guidebook.py:110` - Creates lowercase dictionary on every `get_info()` call instead of caching at init
-- `src/commands.py:274-276` - Computes `effective_message_type()` twice, ignoring the stored variable
+### 7. ~~Inefficient Repeated Work~~ ✅ RESOLVED
+- Cached lowercase dictionary at init in `Guidebook.__init__()` (2026-01-25)
+- Fixed duplicate `effective_message_type()` call in `delete_greetings()` (2026-01-25)
 
 ---
 
 ## Low Priority Issues
 
-### 8. Unused Code
-- `src/commands.py:154-155` - `search_command()` defined but never registered
+### 8. ~~Unused Code~~ ✅ RESOLVED
+- Removed `search_command()` from commands.py (2026-01-25)
 
 ### 9. ~~Unfinished Validation~~ ✅ RESOLVED
 - Removed with MongoDB/Articles service removal (2026-01-25)
 
-### 10. Duplicate Delete-Message Logic
-- Error handling for `delete_message()` appears in both `src/commands.py:166-169` and `src/common.py:34-37` with inconsistent logging
+### 10. ~~Duplicate Delete-Message Logic~~ ✅ RESOLVED
+- Consolidated to use `delete_command()` from common.py consistently (2026-01-25)
 
 ### 11. Outdated Dependency
 - `requirements.txt` - `python-telegram-bot==12.7` is very old (current is 21.x)
@@ -58,6 +56,4 @@ This document identifies areas of the codebase that could benefit from refactori
 
 ## Quick Wins
 
-| Issue | Location | Fix |
-|-------|----------|-----|
-| Use existing variable | `commands.py:274-276` | Use `msg_type` instead of calling `effective_message_type()` again |
+All quick wins have been resolved! ✅

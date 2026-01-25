@@ -16,7 +16,7 @@ from telegram.ext import CommandHandler, JobQueue
 from telegram.utils.helpers import effective_message_type
 
 from src.common import (
-    format_knowledge_results,
+    delete_command,
     get_param,
     guidebook,
     reply_to_message,
@@ -32,11 +32,8 @@ from src.config import (
     REMINDER_MESSAGE,
     SOCIAL_JOB,
 )
-from src.guidebook import NameType
+from src.guidebook import Guidebook, NameType
 
-logging.basicConfig(
-    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
-)
 logger = logging.getLogger(__name__)
 
 
@@ -141,7 +138,7 @@ def countries_all_command(bot: Bot, update: Update):
 
 
 def help_command(bot: Bot, update: Update):
-    results = format_knowledge_results(help_text())
+    results = Guidebook.format_results(help_text())
     reply_to_message(bot, update, results)
 
 
@@ -151,22 +148,14 @@ def cities_command(bot: Bot, update: Update):
     reply_to_message(bot, update, results)
 
 
-def search_command(bot: Bot, update: Update):
-    send_results(bot, update, group_name=NameType.search, name=None)
-
-
 @restricted
 def start_timer(bot: Bot, update: Update, job_queue: JobQueue):
     """start_timer"""
     message = update.message
     chat_id = message.chat_id
-    command_message_id = message.message_id
     if chat_id in BERLIN_HELPS_UKRAINE_CHAT_ID:
         reminder(bot, update, job_queue)
-    try:
-        bot.delete_message(chat_id=chat_id, message_id=command_message_id)
-    except BadRequest:
-        logger.info("Command was already deleted %s", command_message_id)
+    delete_command(bot, update)
 
 
 @restricted
@@ -273,7 +262,7 @@ def delete_greetings(bot: Bot, update: Update) -> None:
     if message:
         msg_type = effective_message_type(message)
         logger.debug("Handling type is %s", msg_type)
-        if effective_message_type(message) in [
+        if msg_type in [
             "new_chat_members",
             "left_chat_member",
         ]:
