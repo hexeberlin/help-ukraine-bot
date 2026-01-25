@@ -1,0 +1,51 @@
+name: Deploy to Test App
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches: [ master ]
+
+permissions:
+  pull-requests: write
+  checks: read
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wait for build to succeed
+        uses: lewagon/wait-on-check-action@v1.3.1
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          check-name: 'build'
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          wait-interval: 10
+
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Deploy to Heroku
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+          HEROKU_APP_NAME: telegram-bot-help-in-berlin-te
+        run: |
+          git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git HEAD:main --force
+
+      - name: Post deployment comment
+        uses: peter-evans/create-or-update-comment@v3
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            ## ✅ Deployed to test environment!
+
+            **Test the changes:**
+            - 🤖 Test bot: https://t.me/+pgshscn8iYM3M2Ey
+            - 🌐 App URL: https://telegram-bot-help-in-berlin-te.herokuapp.com
+            - 📝 View logs: `heroku logs --tail --app telegram-bot-help-in-berlin-te`
+
+            **Deployment info:**
+            - Commit: ${{ github.event.pull_request.head.sha }}
+            - Branch: `${{ github.event.pull_request.head.ref }}`
