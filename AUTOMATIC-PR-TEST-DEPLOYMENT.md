@@ -81,48 +81,33 @@ This way, secrets are stored securely in Heroku and never committed to your Git 
 
 ## Option 2: GitHub Actions (Single Test App) ✅ IMPLEMENTED
 
-Deploy to the **existing test app** (`telegram-bot-help-in-berlin-te`) on every PR using GitHub Actions.
+Deploy to the **existing test app** (`telegram-bot-help-in-berlin-te`) on every PR using GitHub Actions, integrated into the build workflow.
 
-**Status**: Fully implemented with workflow file `.github/workflows/deploy-test.yml`
+**Status**: Fully implemented - deployment job added to `.github/workflows/build.yml`
 
 ### Features
 
 - ✅ Waits for build/test workflow to pass before deploying
 - ✅ Deploys automatically on PR open, update, or reopen
-- ✅ Posts a comment to the PR with deployment info and test bot link
 - ✅ Uses existing test Heroku app
+- ✅ Simple single-workflow approach
 
 ### Setup Steps
 
-#### 1. Workflow File (Already Created)
+#### 1. Workflow Integration (Already Created)
 
-The workflow file `.github/workflows/deploy-test.yml` is already created with the following features:
+The deployment is integrated into the existing `.github/workflows/build.yml` workflow as a separate job:
 
 ```yaml
-name: Deploy to Test App
-
-on:
-  pull_request:
-    types: [opened, synchronize, reopened]
-    branches: [ master ]
-
-permissions:
-  pull-requests: write
-  checks: read
-  contents: read
-
 jobs:
+  build:
+    # ... existing lint and test steps ...
+
   deploy:
+    needs: build  # Only runs if build succeeds
+    if: github.event_name == 'pull_request'  # Only on PRs
     runs-on: ubuntu-latest
     steps:
-      - name: Wait for build to succeed
-        uses: lewagon/wait-on-check-action@v1.3.1
-        with:
-          ref: ${{ github.event.pull_request.head.sha }}
-          check-name: 'build'
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-          wait-interval: 10
-
       - name: Checkout code
         uses: actions/checkout@v3
         with:
@@ -134,23 +119,12 @@ jobs:
           HEROKU_APP_NAME: telegram-bot-help-in-berlin-te
         run: |
           git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git HEAD:main --force
-
-      - name: Post deployment comment
-        uses: peter-evans/create-or-update-comment@v3
-        with:
-          issue-number: ${{ github.event.pull_request.number }}
-          body: |
-            ## ✅ Deployed to test environment!
-
-            **Test the changes:**
-            - 🤖 Test bot: https://t.me/+pgshscn8iYM3M2Ey
-            - 🌐 App URL: https://telegram-bot-help-in-berlin-te.herokuapp.com
-            - 📝 View logs: `heroku logs --tail --app telegram-bot-help-in-berlin-te`
-
-            **Deployment info:**
-            - Commit: ${{ github.event.pull_request.head.sha }}
-            - Branch: `${{ github.event.pull_request.head.ref }}`
 ```
+
+**Key points**:
+- The `deploy` job depends on the `build` job via `needs: build`
+- Deployment only runs on pull requests, not on pushes to master
+- If tests fail, deployment is automatically skipped
 
 #### 2. Add GitHub Secret (Required)
 
@@ -171,30 +145,29 @@ You need to add the Heroku API key as a GitHub secret:
 
 ### How It Works
 
-1. **PR is opened or updated** → Workflow triggers
-2. **Workflow waits** for the `build` job from `.github/workflows/build.yml` to complete successfully
-3. **If tests pass** → Deploys PR branch to `telegram-bot-help-in-berlin-te` Heroku app
-4. **Posts a comment** on the PR with test bot link and deployment details
-5. **If tests fail** → Deployment is skipped (workflow fails)
+1. **PR is opened or updated** → Build workflow triggers
+2. **Build job runs** → Lints code and runs tests
+3. **If tests pass** → Deploy job automatically starts and deploys to `telegram-bot-help-in-berlin-te`
+4. **If tests fail** → Deploy job is skipped automatically
+5. **Check deployment status** → View in GitHub Actions tab
 
 ### Verification Steps
 
 After adding the `HEROKU_API_KEY` secret:
 
 1. **Open a test PR** to the `master` branch
-2. **Wait for build workflow** to complete
-3. **Check deployment workflow** in GitHub Actions tab
-4. **Verify PR comment** is posted with deployment info
-5. **Test the bot** in the Telegram group: https://t.me/+pgshscn8iYM3M2Ey
-6. **Check Heroku logs** (if needed): `heroku logs --tail --app telegram-bot-help-in-berlin-te`
+2. **Check GitHub Actions tab** - build job runs first, then deploy job
+3. **Verify deployment** - deploy job should show success after build passes
+4. **Test the bot** in the Telegram group: https://t.me/+pgshscn8iYM3M2Ey
+5. **Check Heroku logs** (if needed): `heroku logs --tail --app telegram-bot-help-in-berlin-te`
 
 ### Pros
-- ✅ Simple setup - just add one GitHub secret
+- ✅ Very simple setup - just add one GitHub secret
 - ✅ Uses existing test app (`telegram-bot-help-in-berlin-te`)
 - ✅ No additional Heroku infrastructure needed
 - ✅ Only deploys if tests pass (prevents broken code)
-- ✅ Helpful PR comments with test links
-- ✅ Fast feedback for reviewers
+- ✅ Single workflow file - all CI/CD in one place
+- ✅ Native job dependencies - no external actions needed
 
 ### Cons
 - ⚠️ Multiple concurrent PRs will overwrite each other (last one wins)
