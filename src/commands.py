@@ -32,7 +32,7 @@ from src.config import (
     REMINDER_MESSAGE,
     SOCIAL_JOB,
 )
-from src.guidebook import Guidebook, NameType
+from src.guidebook import Guidebook
 
 logger = logging.getLogger(__name__)
 
@@ -124,7 +124,7 @@ def add_commands(dispatcher) -> List[BotCommand]:
 
 
 def cities_all_command(bot: Bot, update: Update):
-    send_results(bot, update, group_name=NameType.cities, name=None)
+    send_results(bot, update, group_name="cities", name=None)
 
 
 def countries_command(bot: Bot, update: Update):
@@ -134,7 +134,7 @@ def countries_command(bot: Bot, update: Update):
 
 
 def countries_all_command(bot: Bot, update: Update):
-    send_results(bot, update, group_name=NameType.countries, name=None)
+    send_results(bot, update, group_name="countries", name=None)
 
 
 def help_command(bot: Bot, update: Update):
@@ -252,7 +252,7 @@ def send_social_reminder(bot: Bot, job: Job):
     """send_reminder"""
     chat_id = job.context
     logger.info("Sending a social reminder to chat %s", chat_id)
-    results = guidebook.get_results(group_name=NameType.social_help, name=None)
+    results = guidebook.get_results(group_name="social_help", name=None)
     bot.send_message(chat_id=chat_id, text=results, disable_web_page_preview=True)
 
 

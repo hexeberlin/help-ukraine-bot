@@ -42,13 +42,13 @@ TOKEN=<telegram_bot_token>
 **Knowledge base system**:
 - `src/knowledgebase/guidebook.yml` - Primary content: topics mapped to information lists/dicts
 - `src/knowledgebase/vocabulary.yml` - Aliases for city/topic name lookups
-- `src/guidebook.py` - `Guidebook` class loads YAML and provides `get_info()`, `get_cities()`, `get_countries()` methods. `NameType` enum defines all valid topic keys.
+- `src/guidebook.py` - `Guidebook` class loads YAML, exposes the available topic keys, and provides `get_info()`, `get_cities()`, `get_countries()` helpers.
 
 **Commands**: `src/commands.py` dynamically generates handlers for each topic in the guidebook. Special handling for `/cities` and `/countries` which take parameters. Admin-restricted commands use `@restricted` decorator from `src/common.py`.
 
 ## Key Patterns
 
-- Bot commands are auto-registered from guidebook keys; add new topics by adding entries to `guidebook.yml` with matching `NameType` enum values
+- Bot commands are auto-registered from guidebook keys; add new topics by adding entries to `guidebook.yml`
 - City/country name aliases go in `vocabulary.yml` (lowercase keys)
 - The `@restricted` decorator limits commands to chat admins
 - APP_NAME="TESTING" triggers polling mode; any other value uses webhooks
