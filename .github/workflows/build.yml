@@ -34,7 +34,7 @@ jobs:
       run: |
         python -m pytest tests
 
-  deploy:
+  test-deploy:
     needs: build
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
@@ -44,7 +44,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Deploy to Heroku
+      - name: Deploy to Heroku test environment
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
           HEROKU_APP_NAME: telegram-bot-help-in-berlin-te

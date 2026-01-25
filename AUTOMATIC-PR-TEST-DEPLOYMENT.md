@@ -23,7 +23,7 @@ jobs:
   build:
     # ... lint and test steps ...
 
-  deploy:
+  test-deploy:
     needs: build  # Only runs if build succeeds
     if: github.event_name == 'pull_request'  # Only on PRs
     runs-on: ubuntu-latest
@@ -33,7 +33,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Deploy to Heroku
+      - name: Deploy to Heroku test environment
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
           HEROKU_APP_NAME: telegram-bot-help-in-berlin-te
