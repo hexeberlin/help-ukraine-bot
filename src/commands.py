@@ -162,14 +162,14 @@ def start_timer(bot: Bot, update: Update, job_queue: JobQueue):
 def admins_only(bot: Bot, update: Update):
     chat_id = update.message.chat_id
     ADMIN_ONLY_CHAT_IDS.append(chat_id)
-    bot.delete_message(chat_id=chat_id, message_id=update.message.message_id)
+    delete_command(bot, update)
 
 
 @restricted
 def admins_only_revert(bot: Bot, update: Update):
     chat_id = update.message.chat_id
     ADMIN_ONLY_CHAT_IDS.remove(chat_id)
-    bot.delete_message(chat_id=chat_id, message_id=update.message.message_id)
+    delete_command(bot, update)
 
 
 def reminder(bot: Bot, update: Update, job_queue: JobQueue):
@@ -266,4 +266,4 @@ def delete_greetings(bot: Bot, update: Update) -> None:
             "new_chat_members",
             "left_chat_member",
         ]:
-            bot.delete_message(chat_id=message.chat_id, message_id=message.message_id)
+            delete_command(bot, update)
