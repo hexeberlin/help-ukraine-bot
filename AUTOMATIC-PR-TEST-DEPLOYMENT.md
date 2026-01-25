@@ -79,13 +79,24 @@ This way, secrets are stored securely in Heroku and never committed to your Git 
 - Need to manage environment variables per review app
 - Requires Heroku Pipeline setup
 
-## Option 2: GitHub Actions (Single Test App)
+## Option 2: GitHub Actions (Single Test App) ✅ IMPLEMENTED
 
-Deploy to your **existing test app** on every PR using GitHub Actions.
+Deploy to the **existing test app** (`telegram-bot-help-in-berlin-te`) on every PR using GitHub Actions.
+
+**Status**: Fully implemented with workflow file `.github/workflows/deploy-test.yml`
+
+### Features
+
+- ✅ Waits for build/test workflow to pass before deploying
+- ✅ Deploys automatically on PR open, update, or reopen
+- ✅ Posts a comment to the PR with deployment info and test bot link
+- ✅ Uses existing test Heroku app
 
 ### Setup Steps
 
-1. Create `.github/workflows/deploy-test.yml`:
+#### 1. Workflow File (Already Created)
+
+The workflow file `.github/workflows/deploy-test.yml` is already created with the following features:
 
 ```yaml
 name: Deploy to Test App
@@ -93,36 +104,102 @@ name: Deploy to Test App
 on:
   pull_request:
     types: [opened, synchronize, reopened]
+    branches: [ master ]
+
+permissions:
+  pull-requests: write
+  checks: read
+  contents: read
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Wait for build to succeed
+        uses: lewagon/wait-on-check-action@v1.3.1
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          check-name: 'build'
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          wait-interval: 10
+
+      - name: Checkout code
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
       - name: Deploy to Heroku
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-          HEROKU_APP_NAME: your-test-app-name
+          HEROKU_APP_NAME: telegram-bot-help-in-berlin-te
         run: |
           git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git HEAD:main --force
+
+      - name: Post deployment comment
+        uses: peter-evans/create-or-update-comment@v3
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            ## ✅ Deployed to test environment!
+
+            **Test the changes:**
+            - 🤖 Test bot: https://t.me/+pgshscn8iYM3M2Ey
+            - 🌐 App URL: https://telegram-bot-help-in-berlin-te.herokuapp.com
+            - 📝 View logs: `heroku logs --tail --app telegram-bot-help-in-berlin-te`
+
+            **Deployment info:**
+            - Commit: ${{ github.event.pull_request.head.sha }}
+            - Branch: `${{ github.event.pull_request.head.ref }}`
 ```
 
-2. Add `HEROKU_API_KEY` to GitHub Repository Secrets:
-   - Go to GitHub repo → Settings → Secrets and variables → Actions
-   - Create new secret named `HEROKU_API_KEY`
-   - Get your Heroku API key from: https://dashboard.heroku.com/account
+#### 2. Add GitHub Secret (Required)
+
+You need to add the Heroku API key as a GitHub secret:
+
+1. Go to your GitHub repository
+2. Click **Settings** → **Secrets and variables** → **Actions**
+3. Click **New repository secret**
+4. Add the following secret:
+   - **Name**: `HEROKU_API_KEY`
+   - **Value**: Your Heroku API key
+5. To get your Heroku API key:
+   - Visit https://dashboard.heroku.com/account
+   - Scroll to "API Key" section
+   - Click "Reveal" and copy the key
+
+**Security note**: The API key is encrypted and only accessible to GitHub Actions workflows in this repository.
+
+### How It Works
+
+1. **PR is opened or updated** → Workflow triggers
+2. **Workflow waits** for the `build` job from `.github/workflows/build.yml` to complete successfully
+3. **If tests pass** → Deploys PR branch to `telegram-bot-help-in-berlin-te` Heroku app
+4. **Posts a comment** on the PR with test bot link and deployment details
+5. **If tests fail** → Deployment is skipped (workflow fails)
+
+### Verification Steps
+
+After adding the `HEROKU_API_KEY` secret:
+
+1. **Open a test PR** to the `master` branch
+2. **Wait for build workflow** to complete
+3. **Check deployment workflow** in GitHub Actions tab
+4. **Verify PR comment** is posted with deployment info
+5. **Test the bot** in the Telegram group: https://t.me/+pgshscn8iYM3M2Ey
+6. **Check Heroku logs** (if needed): `heroku logs --tail --app telegram-bot-help-in-berlin-te`
 
 ### Pros
-- Simple setup
-- Uses existing test app
-- No additional Heroku infrastructure needed
+- ✅ Simple setup - just add one GitHub secret
+- ✅ Uses existing test app (`telegram-bot-help-in-berlin-te`)
+- ✅ No additional Heroku infrastructure needed
+- ✅ Only deploys if tests pass (prevents broken code)
+- ✅ Helpful PR comments with test links
+- ✅ Fast feedback for reviewers
 
 ### Cons
-- Multiple concurrent PRs would overwrite each other on the test app
-- Only one PR can be tested at a time
+- ⚠️ Multiple concurrent PRs will overwrite each other (last one wins)
+- ⚠️ Only one PR can be tested at a time
+- ⚠️ No automatic cleanup when PR closes (deployment stays until next PR)
 
 ## Option 3: Switch Test App to GitHub Integration
 
