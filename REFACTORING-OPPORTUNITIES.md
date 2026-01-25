@@ -24,32 +24,32 @@ This document identifies areas of the codebase that could benefit from refactori
 ## Medium Priority Issues
 
 ### 4. Duplicated Logging Configuration (2 locations)
-- `src/commands.py:52-55`
-- `src/common.py:13-16`
+- `src/commands.py:37-40`
+- `src/common.py:12-15`
 
 ### 5. Duplicated Formatting Functions
-- `src/common.py:111-113` - `format_knowledge_results()`
+- `src/common.py:89-91` - `format_knowledge_results()`
 - `src/guidebook.py:83-85` - `_format_results()`
 
 ### 6. Type Hint Lies
-- `src/common.py:83` - `get_param()` has no type hints at all
+- `src/common.py:82` - `get_param()` has no type hints at all
 
 ### 7. Inefficient Repeated Work
 - `src/guidebook.py:110` - Creates lowercase dictionary on every `get_info()` call instead of caching at init
-- `src/commands.py:351-353` - Computes `effective_message_type()` twice, ignoring the stored variable
+- `src/commands.py:274-276` - Computes `effective_message_type()` twice, ignoring the stored variable
 
 ---
 
 ## Low Priority Issues
 
 ### 8. Unused Code
-- `src/commands.py:210-211` - `search_command()` defined but never registered
+- `src/commands.py:154-155` - `search_command()` defined but never registered
 
 ### 9. ~~Unfinished Validation~~ ✅ RESOLVED
 - Removed with MongoDB/Articles service removal (2026-01-25)
 
 ### 10. Duplicate Delete-Message Logic
-- Error handling for `delete_message()` appears in both `src/commands.py:222-225` and `src/common.py:35-38` with inconsistent logging
+- Error handling for `delete_message()` appears in both `src/commands.py:166-169` and `src/common.py:34-37` with inconsistent logging
 
 ### 11. Outdated Dependency
 - `requirements.txt` - `python-telegram-bot==12.7` is very old (current is 21.x)
@@ -60,4 +60,4 @@ This document identifies areas of the codebase that could benefit from refactori
 
 | Issue | Location | Fix |
 |-------|----------|-----|
-| Use existing variable | `commands.py:~290` | Use `msg_type` instead of calling `effective_message_type()` again |
+| Use existing variable | `commands.py:274-276` | Use `msg_type` instead of calling `effective_message_type()` again |

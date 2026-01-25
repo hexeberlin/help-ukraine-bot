@@ -47,7 +47,7 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await reply_to_message(update, context, results)
 ```
 
-**2. Entry point** (`main.py:11-12`):
+**2. Entry point** (`main.py:11-16`):
 ```python
 # Current
 updater = Updater(TOKEN)
@@ -57,7 +57,7 @@ dispatcher = updater.dispatcher
 application = Application.builder().token(TOKEN).build()
 ```
 
-**3. Job callbacks** (`commands.py:305-323`):
+**3. Job callbacks** (`commands.py:249-268`):
 ```python
 # Current
 def send_pinned_reminder(bot: Bot, job: Job):
@@ -79,7 +79,7 @@ from telegram.ext import filters
 MessageHandler(filters.ALL, ...)
 ```
 
-**5. `restricted` decorator** (`common.py:64-80`):
+**5. `restricted` decorator** (`common.py:63-79`):
 
 ⚠️ **Pre-existing issue:** The decorator wrapper uses `context: CallbackContext` parameter but decorated functions pass `update: Update`. This works because both have `effective_user` and `effective_chat` attributes, but the typing is inconsistent. Fix this during migration:
 ```python
