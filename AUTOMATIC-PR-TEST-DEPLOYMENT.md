@@ -1,32 +1,95 @@
-# Automatic PR Test Deployment Options
+# Automatic PR Test Deployment
 
-This document outlines solutions for automatically deploying the test app on Heroku when there are new pull requests.
+This document describes the current automatic test deployment strategy and alternative approaches for future consideration.
 
-## Current Setup
+## Current Implementation: GitHub Actions Deployment ✅
 
-- **Production app**: Uses Heroku's GitHub deployment method, auto-deploys from `master` branch
-- **Test app**: Uses Heroku Git deployment method (manual)
-- **Source code**: Hosted on GitHub
+Pull requests to `master` are **automatically deployed** to the test Heroku app (`telegram-bot-help-in-berlin-te`) using GitHub Actions.
 
-## Option 1: Heroku Review Apps (Recommended for PRs)
+### How It Works
 
-This creates a **temporary app for each PR** automatically, which is ideal for testing PRs in isolation.
+1. **PR is opened or updated** → Build workflow triggers (`.github/workflows/build.yml`)
+2. **Build job runs** → Lints code and runs tests
+3. **If tests pass** → Deploy job automatically deploys to test app
+4. **If tests fail** → Deploy job is skipped automatically
+5. **Check deployment status** → View in GitHub Actions tab
 
-### Setup Steps
+### Technical Details
 
-1. Create a Heroku Pipeline and add both your prod and test apps to it
-2. Enable Review Apps in the pipeline settings
-3. Add `app.json` to your repository:
+The deployment is integrated into `.github/workflows/build.yml` as a separate job:
 
+```yaml
+jobs:
+  build:
+    # ... lint and test steps ...
+
+  test-deploy:
+    needs: build  # Only runs if build succeeds
+    if: github.event_name == 'pull_request'  # Only on PRs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Deploy to Heroku test environment
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+          HEROKU_APP_NAME: telegram-bot-help-in-berlin-te
+        run: |
+          git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git HEAD:main --force
+```
+
+### Setup Requirements
+
+- **GitHub Secret**: `HEROKU_API_KEY` must be added to repository secrets
+  - Location: GitHub repo → Settings → Secrets and variables → Actions
+  - Value: Get from https://dashboard.heroku.com/account (API Key section)
+
+### Testing
+
+- **Test bot**: https://t.me/+pgshscn8iYM3M2Ey
+- **Check deployment status**: GitHub Actions tab
+- **View logs**: `heroku logs --tail --app telegram-bot-help-in-berlin-te`
+
+### Advantages
+
+- ✅ Simple setup - single workflow file, one GitHub secret
+- ✅ Uses existing test app (`telegram-bot-help-in-berlin-te`)
+- ✅ Only deploys if tests pass (prevents broken code)
+- ✅ Native job dependencies - no external actions needed
+- ✅ All CI/CD logic in one place
+
+### Limitations
+
+- ⚠️ Multiple concurrent PRs will overwrite each other (last one wins)
+- ⚠️ Only one PR can be tested at a time
+- ⚠️ No automatic cleanup when PR closes
+
+---
+
+## Alternative Approaches for Future Consideration
+
+### Option 1: Heroku Review Apps
+
+Create a **temporary app for each PR** automatically, ideal for testing multiple PRs in isolation.
+
+**Setup Steps:**
+1. Create a Heroku Pipeline and add both prod and test apps
+2. Enable Review Apps in pipeline settings
+3. Add `app.json` to repository with environment variable definitions
+4. Configure secrets at pipeline level in Heroku dashboard
+
+**Configuration Example (`app.json`):**
 ```json
 {
   "name": "help-ukraine-bot",
   "description": "Telegram bot for Ukrainian refugees",
-  "repository": "https://github.com/YOUR_USERNAME/help-ukraine-bot",
+  "repository": "https://github.com/hexeberlin/help-ukraine-bot",
   "env": {
     "APP_NAME": {
-      "description": "App name for bot mode",
-      "value": "REVIEW"
+      "description": "App name for bot mode"
     },
     "TOKEN": {
       "description": "Telegram bot token"
@@ -52,104 +115,49 @@ This creates a **temporary app for each PR** automatically, which is ideal for t
 }
 ```
 
-### Secrets Management
+**Pros:**
+- ✅ Isolated testing per PR
+- ✅ Automatic cleanup when PR closes
+- ✅ Each PR gets its own URL for testing
+- ✅ Multiple PRs can be tested simultaneously
 
-**Important**: The `app.json` file above is **safe to commit** to your repository. Here's why:
+**Cons:**
+- ⚠️ Need to manage environment variables per review app
+- ⚠️ Requires Heroku Pipeline setup
+- ⚠️ Additional Heroku infrastructure complexity
 
-- **Config vars WITH `value` field** (like `APP_NAME`): Safe to commit, these are non-sensitive settings
-- **Config vars WITHOUT `value` field** (like `TOKEN`, `MONGO_PASS`): These are secrets that will NOT be stored in the repository
+### Option 2: Branch-Based GitHub Integration
 
-To provide the actual secret values to Review Apps, configure them at the **Pipeline level**:
+Change test app to use GitHub integration (like production), pointing to a `develop` or `staging` branch.
 
-1. Go to your Heroku Pipeline → Settings
-2. Click "Reveal Config Vars" under "Review Apps"
-3. Add all sensitive values here (TOKEN, MONGO_HOST, MONGO_USER, MONGO_PASS, MONGO_BASE)
-4. These values will be automatically applied to all Review Apps created from this pipeline
-
-This way, secrets are stored securely in Heroku and never committed to your Git repository. Each review app inherits the pipeline's config vars automatically.
-
-**Alternative**: If you don't set pipeline-level config vars, Heroku will prompt you to enter them manually when creating each review app (less convenient).
-
-### Pros
-- Isolated testing per PR
-- Automatic cleanup when PR closes
-- Each PR gets its own URL for testing
-
-### Cons
-- Need to manage environment variables per review app
-- Requires Heroku Pipeline setup
-
-## Option 2: GitHub Actions (Single Test App)
-
-Deploy to your **existing test app** on every PR using GitHub Actions.
-
-### Setup Steps
-
-1. Create `.github/workflows/deploy-test.yml`:
-
-```yaml
-name: Deploy to Test App
-
-on:
-  pull_request:
-    types: [opened, synchronize, reopened]
-
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-
-      - name: Deploy to Heroku
-        env:
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-          HEROKU_APP_NAME: your-test-app-name
-        run: |
-          git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git HEAD:main --force
-```
-
-2. Add `HEROKU_API_KEY` to GitHub Repository Secrets:
-   - Go to GitHub repo → Settings → Secrets and variables → Actions
-   - Create new secret named `HEROKU_API_KEY`
-   - Get your Heroku API key from: https://dashboard.heroku.com/account
-
-### Pros
-- Simple setup
-- Uses existing test app
-- No additional Heroku infrastructure needed
-
-### Cons
-- Multiple concurrent PRs would overwrite each other on the test app
-- Only one PR can be tested at a time
-
-## Option 3: Switch Test App to GitHub Integration
-
-Change your test app to use GitHub integration like prod, but point it to a `develop` or `staging` branch.
-
-### Setup Steps
-
-1. Create a `develop` branch in your repository
+**Setup Steps:**
+1. Create a `develop` branch in repository
 2. In Heroku test app settings:
    - Change deployment method from "Heroku Git" to "GitHub"
-   - Connect to your repository
+   - Connect to repository
    - Enable automatic deploys from `develop` branch
 
-### Workflow
+**Workflow:**
 - PRs merge to `develop` → auto-deploys to test app
 - `develop` merges to `master` → auto-deploys to prod app
 
-### Pros
-- Same deployment method as production
-- Simple branch-based workflow
-- No GitHub Actions or Pipeline setup needed
+**Pros:**
+- ✅ Same deployment method as production
+- ✅ Simple branch-based workflow
+- ✅ No GitHub Actions or additional setup needed
 
-### Cons
-- Requires PR to be merged to `develop` before testing
-- Cannot test multiple PRs simultaneously
-- Need to maintain an additional branch
+**Cons:**
+- ⚠️ Requires PR to be merged to `develop` before testing
+- ⚠️ Cannot test multiple PRs simultaneously
+- ⚠️ Need to maintain an additional branch
+
+---
 
 ## Recommendation
 
-**For this project**: Option 1 (Review Apps) is recommended if you want to test multiple PRs independently. Option 2 (GitHub Actions) is simpler if you only need to test one PR at a time and want quick setup.
+The **current GitHub Actions approach** is simple and effective for projects with one active PR at a time.
+
+**Consider switching to Heroku Review Apps** if:
+- You need to test multiple PRs simultaneously
+- You want isolated environments per PR
+- You need automatic cleanup when PRs close
