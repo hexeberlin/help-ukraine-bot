@@ -72,6 +72,13 @@ class Guidebook:
         self.guidebook = {k.lower(): v.get("contents") for k, v in guidebook.items()}
         self.descriptions = {k.lower(): v.get("description") for k, v in guidebook.items()}
 
+        # Cache lowercase versions of dict keys to avoid rebuilding on every get_info() call
+        self._guidebook_lower_cache = {
+            k: {inner_k.lower(): inner_v for inner_k, inner_v in v.items()}
+            for k, v in self.guidebook.items()
+            if isinstance(v, dict)
+        }
+
         with open(vocabulary_path, "r") as f:
             self.vocabulary = {
                 alias.lower(): name.lower()
@@ -80,7 +87,7 @@ class Guidebook:
             }
 
     @staticmethod
-    def _format_results(info: str) -> str:
+    def format_results(info: str) -> str:
         separator: str = "=" * 30
         return separator + "\n" + info + separator
 
@@ -93,7 +100,7 @@ class Guidebook:
             result = ""
         for item in group_list:
             result += item + "\n"
-        return self._format_results(result)
+        return self.format_results(result)
 
     def _convert_dict_to_str(self, group_dict: Dict[str, Any]) -> str:
         result: str = ""
@@ -101,13 +108,13 @@ class Guidebook:
             result += k + ":\n"
             for value in v:
                 result += "- " + value + "\n"
-        return self._format_results(result)
+        return self.format_results(result)
 
     def get_info(self, group_name: str, name: Optional[str] = None) -> str:
         group = self.guidebook.get(group_name.lower())
         if group:
             if isinstance(group, dict):
-                group_lower = {k.lower(): v for k, v in group.items()}
+                group_lower = self._guidebook_lower_cache.get(group_name.lower())
                 if name:
                     if name.lower() not in group_lower.keys():
                         return (
@@ -128,7 +135,7 @@ class Guidebook:
 
     def get_cities(self, group_name: Enum = NameType.cities, name: str = None) -> str:
         if not name:
-            return self._format_results(
+            return self.format_results(
                 "Пожалуйста, уточните название города: /cities Name\n"
             )
         if name in self.vocabulary:
@@ -141,7 +148,7 @@ class Guidebook:
         self, group_name: Enum = NameType.countries, name: Optional[str] = None
     ) -> str:
         if not name:
-            return self._format_results(
+            return self.format_results(
                 "Пожалуйста, уточните название страны: /countries Name\n"
             )
         return self.get_info(group_name=group_name.value, name=name)

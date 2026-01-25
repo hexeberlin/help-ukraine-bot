@@ -79,13 +79,8 @@ def restricted(func):
     return wrapped
 
 
-def get_param(bot, update, command):
+def get_param(bot: Bot, update: Update, command: str) -> str:
     bot_name = bot.name
     return (
         update.message.text.removeprefix(command).replace(bot_name, "").strip().lower()
     )
-
-
-def format_knowledge_results(results: str) -> str:
-    separator = "=" * 30
-    return separator + "\n" + results + "\n" + separator
