@@ -3,6 +3,9 @@
 **Date:** 2026-01-23
 
 ## Current Version
+**`python-telegram-bot==21.11`** (upgraded 2026-01-23)
+
+## Previous Version
 **`python-telegram-bot==12.7`** (released ~2020)
 
 Latest stable version: **21.11.1** (or 22.x in testing)
@@ -11,7 +14,7 @@ Latest stable version: **21.11.1** (or 22.x in testing)
 
 ## Migration Scope: v12 → v21+
 
-This is a **major migration** with fundamental architectural changes. The biggest breaking change happened in **v20.0** which rewrote the library to use `asyncio`.
+This was a **major migration** with fundamental architectural changes. The biggest breaking change happened in **v20.0** which rewrote the library to use `asyncio`. The notes below capture the code areas that were updated during the upgrade.
 
 ### Key Breaking Changes
 
@@ -94,7 +97,7 @@ async def wrapped(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 ---
 
-## Recommendation
+## Recommendation & Outcome
 
 | Option | Effort | Risk |
 |--------|--------|------|
@@ -102,7 +105,7 @@ async def wrapped(update: Update, context: ContextTypes.DEFAULT_TYPE):
 | **Upgrade to v13** | Low | Minimal changes; deprecated but more stable intermediate step |
 | **Upgrade to v21+** | High | Full async rewrite; access to latest Bot API features |
 
-**Suggested approach:** If upgrading, go directly to v21+ since v13-v19 are also deprecated. The async rewrite is unavoidable for long-term maintenance.
+**Chosen approach:** Upgraded directly to v21+ since v13-v19 are also deprecated and the async rewrite is unavoidable for long-term maintenance.
 
 ### Prerequisites for v21 Upgrade
 1. Python 3.9+ required (currently using 3.11 per `runtime.txt` ✓)

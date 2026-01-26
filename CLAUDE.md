@@ -37,7 +37,7 @@ TOKEN=<telegram_bot_token>
 
 ## Architecture
 
-**Entry point**: `src/main.py` - Initializes the Telegram Updater, registers command handlers from `src/commands.py`, and starts either polling (local dev) or webhook mode (Heroku production).
+**Entry point**: `src/main.py` - Builds the PTB `Application`, registers async handlers from `src/commands.py`, and starts either polling (local dev) or webhook mode (Heroku production).
 
 **Knowledge base system**:
 - `src/knowledgebase/guidebook.yml` - Primary content: topics mapped to information lists/dicts

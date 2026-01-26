@@ -2,18 +2,17 @@
 
 import logging
 import os
-from typing import List, Tuple
+from typing import List, Optional
 
-from schedule import Job
-from telegram import (
-    Bot,
-    BotCommand,
-    Message,
-    Update,
+from telegram import BotCommand, Message, Update
+from telegram.ext import (
+    Application,
+    CommandHandler,
+    ContextTypes,
+    Job,
+    JobQueue,
 )
-from telegram.error import BadRequest
-from telegram.ext import CommandHandler, JobQueue
-from telegram.utils.helpers import effective_message_type
+from telegram.helpers import effective_message_type
 
 from src.common import (
     delete_command,
@@ -35,6 +34,19 @@ from src.config import (
 from src.guidebook import Guidebook
 
 logger = logging.getLogger(__name__)
+
+
+def _job_name(job_type: str, chat_id: int) -> str:
+    return f"{job_type}-{chat_id}"
+
+
+def _chat_jobs(job_queue: Optional[JobQueue], chat_id: int) -> List[Job]:
+    if job_queue is None:
+        return []
+    jobs: List[Job] = []
+    for job_type in (PINNED_JOB, SOCIAL_JOB):
+        jobs.extend(job_queue.get_jobs_by_name(_job_name(job_type, chat_id)))
+    return jobs
 
 
 def help_text():
@@ -76,31 +88,31 @@ def help_text():
     )
 
 
-def add_commands(dispatcher) -> List[BotCommand]:
+def register(application: Application) -> List[BotCommand]:
     # Commands
-    dispatcher.add_handler(CommandHandler("start", start_timer, pass_job_queue=True))
-    dispatcher.add_handler(CommandHandler("stop", stop_timer, pass_job_queue=True))
-    dispatcher.add_handler(CommandHandler("help", help_command))
+    application.add_handler(CommandHandler("start", start_timer))
+    application.add_handler(CommandHandler("stop", stop_timer))
+    application.add_handler(CommandHandler("help", help_command))
 
-    dispatcher.add_handler(CommandHandler("adminsonly", admins_only))
-    dispatcher.add_handler(CommandHandler("adminsonly_revert", admins_only_revert))
+    application.add_handler(CommandHandler("adminsonly", admins_only))
+    application.add_handler(CommandHandler("adminsonly_revert", admins_only_revert))
 
     def build_handler(command: str):
-        def handler(bot: Bot, update: Update):
-            send_results(bot, update, group_name=command)
+        async def handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
+            await send_results(update, context, group_name=command)
 
         return handler
 
     for command in guidebook.guidebook.keys():
         # Those are special.
         if command not in {"cities", "countries"}:
-            dispatcher.add_handler(CommandHandler(command, build_handler(command)))
+            application.add_handler(CommandHandler(command, build_handler(command)))
 
     # Those are special.
-    dispatcher.add_handler(CommandHandler("cities", cities_command))
-    dispatcher.add_handler(CommandHandler("countries", countries_command))
-    dispatcher.add_handler(CommandHandler("cities_all", cities_all_command))
-    dispatcher.add_handler(CommandHandler("countries_all", countries_all_command))
+    application.add_handler(CommandHandler("cities", cities_command))
+    application.add_handler(CommandHandler("countries", countries_command))
+    application.add_handler(CommandHandler("cities_all", cities_all_command))
+    application.add_handler(CommandHandler("countries_all", countries_all_command))
 
     all_commands = [
         BotCommand(command, description)
@@ -123,142 +135,185 @@ def add_commands(dispatcher) -> List[BotCommand]:
     return all_commands
 
 
-def cities_all_command(bot: Bot, update: Update):
-    send_results(bot, update, group_name="cities", name=None)
+async def cities_all_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await send_results(update, context, group_name="cities", name=None)
 
 
-def countries_command(bot: Bot, update: Update):
-    name = get_param(bot, update, "/countries")
+async def countries_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    name = get_param(update, "/countries")
     results = guidebook.get_countries(name=name)
-    reply_to_message(bot, update, results)
+    await reply_to_message(update, context, results)
 
 
-def countries_all_command(bot: Bot, update: Update):
-    send_results(bot, update, group_name="countries", name=None)
+async def countries_all_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await send_results(update, context, group_name="countries", name=None)
 
 
-def help_command(bot: Bot, update: Update):
+async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     results = Guidebook.format_results(help_text())
-    reply_to_message(bot, update, results)
+    await reply_to_message(update, context, results)
 
 
-def cities_command(bot: Bot, update: Update):
-    name = get_param(bot, update, "/cities")
+async def cities_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    name = get_param(update, "/cities")
     results = guidebook.get_cities(name=name)
-    reply_to_message(bot, update, results)
+    await reply_to_message(update, context, results)
 
 
 @restricted
-def start_timer(bot: Bot, update: Update, job_queue: JobQueue):
+async def start_timer(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """start_timer"""
-    message = update.message
+    message = update.effective_message
+    if not message:
+        return
     chat_id = message.chat_id
     if chat_id in BERLIN_HELPS_UKRAINE_CHAT_ID:
-        reminder(bot, update, job_queue)
-    delete_command(bot, update)
+        await reminder(update, context)
+    await delete_command(update, context)
 
 
 @restricted
-def admins_only(bot: Bot, update: Update):
-    chat_id = update.message.chat_id
+async def admins_only(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    chat = update.effective_chat
+    if not chat:
+        return
+    chat_id = chat.id
     ADMIN_ONLY_CHAT_IDS.append(chat_id)
-    delete_command(bot, update)
+    await delete_command(update, context)
 
 
 @restricted
-def admins_only_revert(bot: Bot, update: Update):
-    chat_id = update.message.chat_id
-    ADMIN_ONLY_CHAT_IDS.remove(chat_id)
-    delete_command(bot, update)
+async def admins_only_revert(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    chat = update.effective_chat
+    if not chat:
+        return
+    chat_id = chat.id
+    if chat_id in ADMIN_ONLY_CHAT_IDS:
+        ADMIN_ONLY_CHAT_IDS.remove(chat_id)
+    await delete_command(update, context)
 
 
-def reminder(bot: Bot, update: Update, job_queue: JobQueue):
-    chat_id = update.message.chat_id
+async def reminder(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    message = update.effective_message
+    if not message:
+        return
+    chat_id = message.chat_id
+    job_queue = context.job_queue
+    if job_queue is None:
+        logger.warning("Job queue not configured; reminders cannot be scheduled.")
+        return
+
     logger.info("Started reminders in channel %s", chat_id)
 
-    jobs: Tuple[Job] = job_queue.get_jobs_by_name(
-        PINNED_JOB
-    ) + job_queue.get_jobs_by_name(SOCIAL_JOB)
+    jobs = _chat_jobs(job_queue, chat_id)
 
-    #  Restart already existing jobs
+    # Restart already existing jobs
     for job in jobs:
         if not job.enabled:
             job.enabled = True
 
     # Start a new job if there was none previously
     if not jobs:
-        add_pinned_reminder_job(bot, update, job_queue)
-        add_info_job(bot, update, job_queue)
+        await add_pinned_reminder_job(context, chat_id)
+        await add_info_job(context, chat_id)
 
 
-def add_pinned_reminder_job(bot: Bot, update: Update, job_queue: JobQueue):
-    chat_id = update.message.chat_id
-    bot.send_message(
+async def add_pinned_reminder_job(context: ContextTypes.DEFAULT_TYPE, chat_id: int):
+    await context.bot.send_message(
         chat_id=chat_id,
         text=f"I'm starting sending the pinned reminder every {REMINDER_INTERVAL_PINNED}s.",
     )
+    job_queue = context.job_queue
+    if job_queue is None:
+        return
     job_queue.run_repeating(
         send_pinned_reminder,
-        REMINDER_INTERVAL_PINNED,
+        interval=REMINDER_INTERVAL_PINNED,
         first=1,
-        context=chat_id,
-        name=PINNED_JOB,
+        chat_id=chat_id,
+        name=_job_name(PINNED_JOB, chat_id),
+        data={"chat_id": chat_id},
     )
 
 
-def add_info_job(bot: Bot, update: Update, job_queue: JobQueue):
-    chat_id = update.message.chat_id
-    bot.send_message(
+async def add_info_job(context: ContextTypes.DEFAULT_TYPE, chat_id: int):
+    await context.bot.send_message(
         chat_id=chat_id,
         text=f"I'm starting sending the info reminder every {REMINDER_INTERVAL_INFO}s.",
     )
+    job_queue = context.job_queue
+    if job_queue is None:
+        return
     job_queue.run_repeating(
         send_social_reminder,
-        REMINDER_INTERVAL_INFO,
+        interval=REMINDER_INTERVAL_INFO,
         first=1,
-        context=chat_id,
-        name=SOCIAL_JOB,
+        chat_id=chat_id,
+        name=_job_name(SOCIAL_JOB, chat_id),
+        data={"chat_id": chat_id},
     )
 
 
 @restricted
-def stop_timer(bot: Bot, update: Update, job_queue: JobQueue):
+async def stop_timer(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """stop_timer"""
-    chat_id = update.message.chat_id
+    chat = update.effective_chat
+    if not chat:
+        return
+    chat_id = chat.id
+    job_queue = context.job_queue
+    if job_queue is None:
+        logger.warning("Job queue not configured; cannot stop reminders.")
+        return
 
-    #  Stop already existing jobs
-    jobs: Tuple[Job] = job_queue.get_jobs_by_name(chat_id)
+    jobs = _chat_jobs(job_queue, chat_id)
+
+    if jobs:
+        await context.bot.send_message(
+            chat_id=chat_id, text="I'm stopping sending the reminders."
+        )
+
+    # Stop already existing jobs
     for job in jobs:
-        bot.send_message(chat_id=chat_id, text="I'm stopping sending the reminders.")
         job.enabled = False
 
     logger.info("Stopped reminders in channel %s", chat_id)
 
 
-def send_pinned_reminder(bot: Bot, job: Job):
+async def send_pinned_reminder(context: ContextTypes.DEFAULT_TYPE):
     """send_reminder"""
-    chat_id = job.context
-    chat = bot.get_chat(chat_id)
-    msg: Message = chat.pinned_message
+    job = context.job
+    if job is None:
+        return
+    chat_id = job.chat_id
+    chat = await context.bot.get_chat(chat_id)
+    msg: Optional[Message] = chat.pinned_message
     logger.info("Sending pinned message to chat %s", chat_id)
 
     if msg:
-        bot.forward_message(chat_id, chat_id, msg.message_id)
+        await context.bot.forward_message(
+            chat_id=chat_id, from_chat_id=chat_id, message_id=msg.message_id
+        )
     else:
-        bot.send_message(chat_id=chat_id, text=REMINDER_MESSAGE)
+        await context.bot.send_message(chat_id=chat_id, text=REMINDER_MESSAGE)
 
 
-def send_social_reminder(bot: Bot, job: Job):
+async def send_social_reminder(context: ContextTypes.DEFAULT_TYPE):
     """send_reminder"""
-    chat_id = job.context
+    job = context.job
+    if job is None:
+        return
+    chat_id = job.chat_id
     logger.info("Sending a social reminder to chat %s", chat_id)
     results = guidebook.get_results(group_name="social_help", name=None)
-    bot.send_message(chat_id=chat_id, text=results, disable_web_page_preview=True)
+    await context.bot.send_message(
+        chat_id=chat_id, text=results, disable_web_page_preview=True
+    )
 
 
-def delete_greetings(bot: Bot, update: Update) -> None:
-    """Echo the user message."""
-    message = update.message
+async def delete_greetings(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    """Delete join/left notifications to keep chats tidy."""
+    message = update.effective_message
     if message:
         msg_type = effective_message_type(message)
         logger.debug("Handling type is %s", msg_type)
@@ -266,4 +321,4 @@ def delete_greetings(bot: Bot, update: Update) -> None:
             "new_chat_members",
             "left_chat_member",
         ]:
-            delete_command(bot, update)
+            await delete_command(update, context)
