@@ -1,3 +1,12 @@
+### 20260126
+- **MAJOR**: Upgrade python-telegram-bot from v12.7 to v21.11
+  - Complete async/await rewrite of all command handlers and helpers
+  - Replace `Updater`/`Dispatcher` with `Application` builder pattern
+  - Update JobQueue API for scheduled reminders
+  - Add comprehensive test coverage (unit and integration tests)
+  - Remove obsolete dependencies (`future`, `tornado`, `decorator`, `schedule`)
+  - Full migration details in `UPGRADING-TELEGRAM-CLIENT.md`
+
 ### 20230618
 - update `/no_ads`
 - update `/translators`
