@@ -8,22 +8,38 @@ A Telegram bot providing FAQ answers and helpful information for Ukrainian refug
 
 ## Build & Development Commands
 
+This project uses [uv](https://docs.astral.sh/uv/) for dependency management.
+
 ```bash
 # Setup environment (Python 3.11 per runtime.txt)
-python3.11 -m venv venv && source venv/bin/activate
-pip install -r requirements.txt
+# uv automatically creates and manages virtual environments
+uv sync
 
 # Run locally (requires settings.env with credentials)
-python -m src.main
+uv run python -m src.main
 
 # Run tests
-pytest tests
-pytest tests/unit/  # unit tests only
-pytest tests/integration/  # integration tests only
+uv run pytest tests
+uv run pytest tests/unit/  # unit tests only
+uv run pytest tests/integration/  # integration tests only
 
 # Lint (CI runs with -E flag for errors only)
-pylint -E src tests
+uv run pylint -E src tests
+
+# Add a new dependency
+uv add <package-name>
+
+# Add a dev dependency
+uv add --dev <package-name>
+
+# Update dependencies
+uv lock --upgrade
 ```
+
+**Important Notes:**
+- Heroku natively supports uv and uses `uv.lock` for deployments
+- Always commit both `pyproject.toml` and `uv.lock` when dependencies change
+- No need for `requirements.txt` - Heroku reads directly from `uv.lock`
 
 ## Configuration
 

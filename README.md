@@ -6,6 +6,39 @@ Telegram bot containing the answers to the FAQs for Ukrainian refugees in Berlin
 
 Support us: https://ko-fi.com/berlinhelpsukrainians
 
+## Setup
+
+This project uses [uv](https://docs.astral.sh/uv/) for fast, reliable dependency management.
+
+### Install uv
+
+```bash
+# macOS/Linux
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# Or via Homebrew
+brew install uv
+
+# Or via pip
+pip install uv
+```
+
+### Install dependencies
+
+```bash
+# Install all dependencies (creates/manages virtual environment automatically)
+uv sync
+
+# Run the bot
+uv run python -m src.main
+
+# Run tests
+uv run pytest tests
+
+# Run linting
+uv run pylint -E src tests
+```
+
 ## Local development
 To run the bot locally, add this lines to your `settings.env` file and replace the token with your bot token for local 
 development.
@@ -19,10 +52,9 @@ TOKEN=very_secret_token
 With `APP_NAME=TESTING` the bot runs in polling mode using PTB's async
 `Application.run_polling()`. In every other environment the app runs as an
 async webhook server via `Application.run_webhook()` (requires
-`python-telegram-bot[webhooks]`, which is now included in
-`requirements.txt`). Webhook mode automatically registers
-`https://<APP_NAME>.herokuapp.com/<TOKEN>` and deletes incoming `/command`
-messages after responding to keep chats clean.
+`python-telegram-bot[webhooks]`, which is included in project dependencies).
+Webhook mode automatically registers `https://<APP_NAME>.herokuapp.com/<TOKEN>`
+and deletes incoming `/command` messages after responding to keep chats clean.
 
 **Note:** The bot uses `python-telegram-bot` v21.11, which requires async/await
 throughout. All command handlers and helpers are async functions.
