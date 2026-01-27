@@ -55,6 +55,5 @@
 - Successfully deployed to production and test environments via automatic deployment pipeline.
 
 ### 📝 Optional Future Work
-- Consider upgrading to PTB 22.x for Bot API 7.10 features (see `PROPOSED-DEPENDENCIES-UPGRADE.md`).
+- Consider upgrading to PTB 22.x for Bot API 7.10 features.
 - Address existing pylint docstring/style warnings if desired (unchanged from pre-upgrade).
-- Modernize HTTP/TLS dependency stack (`requests`, `urllib3`, `certifi`, etc.) per `PROPOSED-DEPENDENCIES-UPGRADE.md`.
