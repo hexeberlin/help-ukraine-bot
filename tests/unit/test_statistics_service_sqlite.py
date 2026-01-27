@@ -9,9 +9,7 @@ def test_record_request_purges_old_entries():
     service.record_request(user_id=1, topic="cities", timestamp=100)
     service.record_request(user_id=2, topic="countries", timestamp=115)
 
-    cursor = service._conn.execute(  # type: ignore[attr-defined]
-        "SELECT COUNT(*) FROM guidebook_requests"
-    )
+    cursor = service._conn.execute("SELECT COUNT(*) FROM guidebook_requests")
     count = cursor.fetchone()[0]
 
     assert count == 1
