@@ -220,7 +220,7 @@ class TestTelegramBotAdapter:
     async def test_handle_cities_records_stats(
         self, adapter, mock_stats_service, mock_auth_service
     ):
-        """Ensure /cities logs stats with user and topic."""
+        """Ensure /cities logs stats with topic."""
         mock_auth_service.is_admin_only_chat.return_value = False
         adapter._reply_to_message = AsyncMock()
         update = SimpleNamespace(
@@ -233,19 +233,15 @@ class TestTelegramBotAdapter:
         await adapter._handle_cities(update, context)
 
         mock_stats_service.record_request.assert_called_once_with(
-            user_id=42,
-            user_name="User FortyTwo",
             topic="cities",
             topic_description=None,
-            parameter="berlin",
-            extra=None,
         )
 
     @pytest.mark.anyio
     async def test_handle_cities_records_stats_username_fallback(
         self, adapter, mock_stats_service, mock_auth_service
     ):
-        """Ensure /cities logs @username when display name is missing."""
+        """Ensure /cities logs stats even when user display name is missing."""
         mock_auth_service.is_admin_only_chat.return_value = False
         adapter._reply_to_message = AsyncMock()
         update = SimpleNamespace(
@@ -260,12 +256,8 @@ class TestTelegramBotAdapter:
         await adapter._handle_cities(update, context)
 
         mock_stats_service.record_request.assert_called_once_with(
-            user_id=42,
-            user_name="@ghost",
             topic="cities",
             topic_description=None,
-            parameter="berlin",
-            extra=None,
         )
 
     @pytest.mark.anyio
@@ -286,12 +278,8 @@ class TestTelegramBotAdapter:
         await handler(update, context)
 
         mock_stats_service.record_request.assert_called_once_with(
-            user_id=7,
-            user_name="User Seven",
             topic="accommodation",
             topic_description="Housing info",
-            parameter=None,
-            extra=None,
         )
 
     @pytest.mark.anyio
@@ -308,21 +296,6 @@ class TestTelegramBotAdapter:
         await adapter._handle_topic_stats(update, context)
 
         mock_stats_service.top_topics.assert_called_once_with(10)
-
-    @pytest.mark.anyio
-    async def test_handle_user_stats_custom_k(self, adapter, mock_stats_service):
-        """Ensure /user_stats uses provided k."""
-        mock_stats_service.top_users.return_value = [(1, 5)]
-        adapter._reply_to_message = AsyncMock()
-        update = SimpleNamespace(
-            effective_message=SimpleNamespace(text="/user_stats 3", chat_id=123),
-            effective_user=SimpleNamespace(id=1),
-        )
-        context = SimpleNamespace()
-
-        await adapter._handle_user_stats(update, context)
-
-        mock_stats_service.top_users.assert_called_once_with(3)
 
     @pytest.mark.anyio
     async def test_check_access_public_chat(self, adapter, mock_auth_service):

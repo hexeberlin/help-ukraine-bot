@@ -1,10 +1,9 @@
 """SQLite-backed statistics service (in-memory)."""
 
-import json
 import sqlite3
 import threading
 import time
-from typing import Any, Dict, Optional
+from typing import Optional
 
 from src.domain.protocols import IStatisticsService, StatisticsServiceError
 
@@ -24,12 +23,8 @@ class StatisticsServiceSQLite(IStatisticsService):
                 """
                 CREATE TABLE IF NOT EXISTS guidebook_requests (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    user_id INTEGER NOT NULL,
-                    display_name TEXT,
                     topic TEXT NOT NULL,
                     topic_description TEXT,
-                    parameter TEXT,
-                    extra_json TEXT,
                     created_at INTEGER NOT NULL
                 )
                 """
@@ -44,39 +39,26 @@ class StatisticsServiceSQLite(IStatisticsService):
 
     def record_request(
         self,
-        user_id: int,
         topic: str,
         *,
-        user_name: Optional[str] = None,
         topic_description: Optional[str] = None,
-        parameter: Optional[str] = None,
-        extra: Optional[Dict[str, Any]] = None,
         timestamp: Optional[int] = None,
     ) -> None:
         created_at = int(time.time()) if timestamp is None else int(timestamp)
         try:
-            extra_json = json.dumps(extra) if extra else None
             with self._lock:
                 self._conn.execute(
                     """
                     INSERT INTO guidebook_requests (
-                        user_id,
-                        display_name,
                         topic,
                         topic_description,
-                        parameter,
-                        extra_json,
                         created_at
                     )
-                    VALUES (?, ?, ?, ?, ?, ?, ?)
+                    VALUES (?, ?, ?)
                     """,
                     (
-                        user_id,
-                        user_name,
                         topic,
                         topic_description,
-                        parameter,
-                        extra_json,
                         created_at,
                     ),
                 )
@@ -97,21 +79,6 @@ class StatisticsServiceSQLite(IStatisticsService):
                 FROM guidebook_requests
                 GROUP BY label
                 ORDER BY cnt DESC, label ASC
-                LIMIT ?
-                """,
-                (k,),
-            )
-            return [(row[0], row[1]) for row in cursor.fetchall()]
-
-    def top_users(self, k: int) -> list[tuple[str, int]]:
-        with self._lock:
-            cursor = self._conn.execute(
-                """
-                SELECT display_name, COUNT(*) as cnt
-                FROM guidebook_requests
-                WHERE display_name IS NOT NULL AND display_name != ''
-                GROUP BY display_name
-                ORDER BY cnt DESC, display_name ASC
                 LIMIT ?
                 """,
                 (k,),

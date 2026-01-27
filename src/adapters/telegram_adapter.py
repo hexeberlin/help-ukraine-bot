@@ -98,7 +98,6 @@ class TelegramBotAdapter:
         application.add_handler(CommandHandler("stop", self._handle_stop_timer))
         application.add_handler(CommandHandler("help", self._handle_help))
         application.add_handler(CommandHandler("topic_stats", self._handle_topic_stats))
-        application.add_handler(CommandHandler("user_stats", self._handle_user_stats))
 
         # Admin commands
         application.add_handler(CommandHandler("adminsonly", self._handle_admins_only))
@@ -156,15 +155,6 @@ class TelegramBotAdapter:
         reply = self._format_topic_stats(rows, k)
         await self._reply_to_message(update, context, reply)
 
-    async def _handle_user_stats(
-        self, update: Update, context: ContextTypes.DEFAULT_TYPE
-    ) -> None:
-        """Handle /user_stats command (public)."""
-        k = self._extract_k_parameter(update, "/user_stats")
-        rows = self.stats_service.top_users(k)
-        reply = self._format_user_stats(rows, k)
-        await self._reply_to_message(update, context, reply)
-
     def _create_topic_handler(
         self, topic: str
     ) -> Callable[[Update, ContextTypes.DEFAULT_TYPE], Awaitable[None]]:
@@ -176,7 +166,7 @@ class TelegramBotAdapter:
             if not await self._check_access(update, context):
                 return
             results = self.service.handle_topic(topic)
-            self._record_stats(update, topic, parameter=None)
+            self._record_stats(topic)
             await self._reply_to_message(update, context, results)
 
         return handler
@@ -189,7 +179,7 @@ class TelegramBotAdapter:
             return
         city_name = self._extract_parameter(update, "/cities")
         results = self.service.handle_cities(city_name, show_all=False)
-        self._record_stats(update, "cities", parameter=city_name or None)
+        self._record_stats("cities")
         await self._reply_to_message(update, context, results)
 
     async def _handle_cities_all(
@@ -199,7 +189,7 @@ class TelegramBotAdapter:
         if not await self._check_access(update, context):
             return
         results = self.service.handle_cities(None, show_all=True)
-        self._record_stats(update, "cities", parameter=None, extra={"show_all": True})
+        self._record_stats("cities")
         await self._reply_to_message(update, context, results)
 
     async def _handle_countries(
@@ -210,7 +200,7 @@ class TelegramBotAdapter:
             return
         country_name = self._extract_parameter(update, "/countries")
         results = self.service.handle_countries(country_name, show_all=False)
-        self._record_stats(update, "countries", parameter=country_name or None)
+        self._record_stats("countries")
         await self._reply_to_message(update, context, results)
 
     async def _handle_countries_all(
@@ -220,9 +210,7 @@ class TelegramBotAdapter:
         if not await self._check_access(update, context):
             return
         results = self.service.handle_countries(None, show_all=True)
-        self._record_stats(
-            update, "countries", parameter=None, extra={"show_all": True}
-        )
+        self._record_stats("countries")
         await self._reply_to_message(update, context, results)
 
     async def _handle_start_timer(
@@ -416,7 +404,6 @@ class TelegramBotAdapter:
             BotCommand("countries", "Чаты по странам (введите /countries СТРАНА)"),
             BotCommand("countries_all", "Список всех чатов по странам"),
             BotCommand("topic_stats", "Топ тем по количеству запросов"),
-            BotCommand("user_stats", "Топ пользователей по количеству запросов"),
         ]
 
     def _format_topic_stats(self, rows: List[tuple[str, int]], k: int) -> str:
@@ -427,37 +414,11 @@ class TelegramBotAdapter:
             lines.append(f"{idx}. {topic_desc} — {count}")
         return "\n".join(lines)
 
-    def _format_user_stats(self, rows: List[tuple[str, int]], k: int) -> str:
-        if not rows:
-            return "No user statistics yet."
-        lines = [f"Top {k} users:"]
-        for idx, (display_name, count) in enumerate(rows, start=1):
-            lines.append(f"{idx}. {display_name} — {count}")
-        return "\n".join(lines)
-
-    def _record_stats(
-        self,
-        update: Update,
-        topic: str,
-        *,
-        parameter: Optional[str],
-        extra: Optional[dict] = None,
-    ) -> None:
-        user = getattr(update, "effective_user", None)
-        if not user:
-            return
-        display_name = " ".join(
-            part for part in [user.first_name, user.last_name] if part
-        ).strip()
-        user_name = display_name or (f"@{user.username}" if user.username else None)
+    def _record_stats(self, topic: str) -> None:
         try:
             self.stats_service.record_request(
-                user_id=user.id,
-                user_name=user_name,
                 topic=topic,
                 topic_description=self.guidebook.get_descriptions().get(topic),
-                parameter=parameter,
-                extra=extra,
             )
         except StatisticsServiceError:
             logger.exception("Failed to record stats for topic %s", topic)
