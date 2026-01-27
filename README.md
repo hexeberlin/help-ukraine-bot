@@ -25,8 +25,7 @@ async webhook server via `Application.run_webhook()` (requires
 messages after responding to keep chats clean.
 
 **Note:** The bot uses `python-telegram-bot` v21.11, which requires async/await
-throughout. See `UPGRADING-TELEGRAM-CLIENT.md` and `UPGRADING-TO-PTB-21.md` for
-migration details from the previous v12.7 codebase.
+throughout. All command handlers and helpers are async functions.
 
 ### Tests
 

@@ -1,3 +1,10 @@
+### 20260127
+- Upgrade all dependencies except python-telegram-bot
+  - PyYAML 6.0 → 6.0.3 (bug fixes for safe_load)
+  - HTTP/TLS stack: requests, urllib3, certifi, charset-normalizer (security updates)
+  - Cryptography stack: cryptography, cffi, pycparser (OpenSSL 3.x compatibility)
+  - Development tools: pytest ~=9.0, pylint ~=4.0 (latest testing/linting)
+
 ### 20260126
 - **MAJOR**: Upgrade python-telegram-bot from v12.7 to v21.11
   - Complete async/await rewrite of all command handlers and helpers
@@ -5,7 +12,6 @@
   - Update JobQueue API for scheduled reminders
   - Add comprehensive test coverage (unit and integration tests)
   - Remove obsolete dependencies (`future`, `tornado`, `decorator`, `schedule`)
-  - Full migration details in `UPGRADING-TELEGRAM-CLIENT.md`
 
 ### 20230618
 - update `/no_ads`
