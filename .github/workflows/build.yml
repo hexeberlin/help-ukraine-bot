@@ -35,7 +35,7 @@ jobs:
         uv run pylint -E src tests
     - name: Type check
       run: |
-        uv run mypy src --no-incremental
+        uv run mypy src tests --no-incremental
     - name: Test with pytest
       run: |
         uv run pytest tests
