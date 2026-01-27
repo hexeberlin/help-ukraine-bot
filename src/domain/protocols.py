@@ -2,6 +2,11 @@
 from typing import Protocol, List, Dict, Optional, Set, Any
 
 
+class StatisticsServiceError(Exception):
+    """Raised when statistics logging fails."""
+    ...
+
+
 class IGuidebook(Protocol):
     """Protocol for guidebook data access."""
 

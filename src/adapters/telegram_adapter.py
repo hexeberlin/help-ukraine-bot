@@ -20,6 +20,7 @@ from src.domain.protocols import (
     IBerlinHelpService,
     IAuthorizationService,
     IStatisticsService,
+    StatisticsServiceError,
 )
 from src.adapters.telegram_auth import TelegramAuthorizationAdapter
 
@@ -450,14 +451,18 @@ class TelegramBotAdapter:
         display_name = " ".join(
             part for part in [user.first_name, user.last_name] if part
         ).strip()
-        self.stats_service.record_request(
-            user_id=user.id,
-            user_name=display_name or None,
-            topic=topic,
-            topic_description=self.guidebook_descriptions.get(topic),
-            parameter=parameter,
-            extra=extra,
-        )
+        user_name = display_name or (f"@{user.username}" if user.username else None)
+        try:
+            self.stats_service.record_request(
+                user_id=user.id,
+                user_name=user_name,
+                topic=topic,
+                topic_description=self.guidebook_descriptions.get(topic),
+                parameter=parameter,
+                extra=extra,
+            )
+        except StatisticsServiceError:
+            logger.exception("Failed to record stats for topic %s", topic)
 
     async def _reply_to_message(
         self,

@@ -1,5 +1,8 @@
 """Unit tests for StatisticsServiceSQLite."""
 
+import pytest
+
+from src.domain.protocols import StatisticsServiceError
 from src.infrastructure.sqlite_statistics import StatisticsServiceSQLite
 
 
@@ -59,6 +62,25 @@ def test_top_topics_and_users():
         timestamp=103,
     )
     service.record_request(user_id=3, topic="cities", timestamp=104)
+    service.record_request(user_id=4, topic="transport", timestamp=105)
 
-    assert service.top_topics(2) == [("City chats", 3), ("Country chats", 1)]
+    assert service.top_topics(3) == [
+        ("City chats", 3),
+        ("Country chats", 1),
+        ("cities", 1),
+    ]
     assert service.top_users(2) == [("Alice Smith", 3), ("Bob Jones", 1)]
+
+
+def test_record_request_raises_statistics_service_error_on_bad_extra():
+    service = StatisticsServiceSQLite(retention_seconds=1000)
+
+    with pytest.raises(StatisticsServiceError):
+        service.record_request(
+            user_id=1,
+            user_name="Bad Extra",
+            topic="cities",
+            topic_description="City chats",
+            extra={"bad": object()},
+            timestamp=100,
+        )

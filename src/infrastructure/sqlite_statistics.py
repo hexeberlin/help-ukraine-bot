@@ -6,7 +6,7 @@ import threading
 import time
 from typing import Any, Dict, Optional
 
-from src.domain.protocols import IStatisticsService
+from src.domain.protocols import IStatisticsService, StatisticsServiceError
 
 
 class StatisticsServiceSQLite(IStatisticsService):
@@ -54,47 +54,49 @@ class StatisticsServiceSQLite(IStatisticsService):
         timestamp: Optional[int] = None,
     ) -> None:
         created_at = int(time.time()) if timestamp is None else int(timestamp)
-        extra_json = json.dumps(extra) if extra else None
-        with self._lock:
-            self._conn.execute(
-                """
-                INSERT INTO guidebook_requests (
-                    user_id,
-                    display_name,
-                    topic,
-                    topic_description,
-                    parameter,
-                    extra_json,
-                    created_at
+        try:
+            extra_json = json.dumps(extra) if extra else None
+            with self._lock:
+                self._conn.execute(
+                    """
+                    INSERT INTO guidebook_requests (
+                        user_id,
+                        display_name,
+                        topic,
+                        topic_description,
+                        parameter,
+                        extra_json,
+                        created_at
+                    )
+                    VALUES (?, ?, ?, ?, ?, ?, ?)
+                    """,
+                    (
+                        user_id,
+                        user_name,
+                        topic,
+                        topic_description,
+                        parameter,
+                        extra_json,
+                        created_at,
+                    ),
                 )
-                VALUES (?, ?, ?, ?, ?, ?, ?)
-                """,
-                (
-                    user_id,
-                    user_name,
-                    topic,
-                    topic_description,
-                    parameter,
-                    extra_json,
-                    created_at,
-                ),
-            )
-            cutoff = created_at - self._retention_seconds
-            self._conn.execute(
-                "DELETE FROM guidebook_requests WHERE created_at < ?",
-                (cutoff,),
-            )
-            self._conn.commit()
+                cutoff = created_at - self._retention_seconds
+                self._conn.execute(
+                    "DELETE FROM guidebook_requests WHERE created_at < ?",
+                    (cutoff,),
+                )
+                self._conn.commit()
+        except (sqlite3.Error, TypeError, ValueError) as exc:
+            raise StatisticsServiceError("Failed to record statistics") from exc
 
     def top_topics(self, k: int) -> list[tuple[str, int]]:
         with self._lock:
             cursor = self._conn.execute(
                 """
-                SELECT topic_description, COUNT(*) as cnt
+                SELECT COALESCE(NULLIF(topic_description, ''), topic) as label, COUNT(*) as cnt
                 FROM guidebook_requests
-                WHERE topic_description IS NOT NULL AND topic_description != ''
-                GROUP BY topic_description
-                ORDER BY cnt DESC, topic_description ASC
+                GROUP BY label
+                ORDER BY cnt DESC, label ASC
                 LIMIT ?
                 """,
                 (k,),

@@ -222,6 +222,33 @@ class TestTelegramBotAdapter:
         )
 
     @pytest.mark.anyio
+    async def test_handle_cities_records_stats_username_fallback(
+        self, adapter, mock_stats_service, mock_auth_service
+    ):
+        """Ensure /cities logs @username when display name is missing."""
+        mock_auth_service.is_admin_only_chat.return_value = False
+        adapter._reply_to_message = AsyncMock()
+        update = SimpleNamespace(
+            effective_chat=SimpleNamespace(id=123),
+            effective_user=SimpleNamespace(
+                id=42, first_name=None, last_name=None, username="ghost"
+            ),
+            effective_message=SimpleNamespace(text="/cities Berlin", chat_id=123),
+        )
+        context = SimpleNamespace()
+
+        await adapter._handle_cities(update, context)
+
+        mock_stats_service.record_request.assert_called_once_with(
+            user_id=42,
+            user_name="@ghost",
+            topic="cities",
+            topic_description=None,
+            parameter="berlin",
+            extra=None,
+        )
+
+    @pytest.mark.anyio
     async def test_handle_topic_records_stats(
         self, adapter, mock_stats_service, mock_auth_service
     ):
