@@ -448,6 +448,15 @@ def _register_handlers(self, application: Application):
     application.add_handler(CommandHandler("newcommand", self._handle_new_command))
 ```
 
+### Statistics Commands
+
+Two public commands expose aggregated statistics:
+
+- `/topic_stats k` → Top-k most requested topics (defaults to 10)
+- `/user_stats k` → Top-k most active users by request count (defaults to 10)
+
+These commands call `IStatisticsService.top_topics()` and `IStatisticsService.top_users()` from the adapter layer and are intentionally **not** admin-restricted.
+
 ### Extending to New Platform (e.g., Discord)
 
 1. Keep domain and application layers unchanged
