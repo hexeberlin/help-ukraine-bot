@@ -240,9 +240,9 @@ class YamlGuidebook:  # Implements IGuidebook protocol
         with open(guidebook_path, "r") as f:
             self.guidebook = safe_load(f)
 
-    def get_info(self, topic: str) -> str:
+    def get_info(self, group_name: str, name: Optional[str] = None) -> str:
         # Pure data access, no business logic
-        return self._format_topic_info(self.guidebook.get(topic))
+        return self._format_topic_info(self.guidebook.get(group_name), name=name)
 ```
 
 ## Migration Patterns

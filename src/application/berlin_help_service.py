@@ -8,7 +8,7 @@ from src.domain.protocols import IGuidebook
 class BerlinHelpService:
     """Service handling business logic for Berlin help requests."""
 
-    def __init__(self, guidebook: IGuidebook):
+    def __init__(self, guidebook: IGuidebook) -> None:
         """
         Initialize the service.
 

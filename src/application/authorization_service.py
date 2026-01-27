@@ -6,7 +6,7 @@ from typing import Set
 class AuthorizationService:
     """Service handling authorization business rules."""
 
-    def __init__(self, admin_only_chat_ids: Set[int]):
+    def __init__(self, admin_only_chat_ids: Set[int]) -> None:
         """
         Initialize the service.
 

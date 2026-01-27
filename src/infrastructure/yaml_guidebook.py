@@ -11,12 +11,16 @@ logger = logging.getLogger(__name__)
 class YamlGuidebook:
     """YAML-based implementation of guidebook data access."""
 
-    def __init__(self, guidebook_path: str, vocabulary_path: str):
+    def __init__(self, guidebook_path: str, vocabulary_path: str) -> None:
         with open(guidebook_path, "r", encoding="utf-8") as f:
-            guidebook = safe_load(f)
+            guidebook: Dict[str, Dict[str, Any]] = safe_load(f)
 
-        self.guidebook = {k.lower(): v.get("contents") for k, v in guidebook.items()}
-        self.descriptions = {k.lower(): v.get("description") for k, v in guidebook.items()}
+        self.guidebook: Dict[str, Any] = {
+            k.lower(): v.get("contents") for k, v in guidebook.items()
+        }
+        self.descriptions: Dict[str, str] = {
+            k.lower(): v.get("description", "") or "" for k, v in guidebook.items()
+        }
 
         # Cache lowercase versions of dict keys to avoid rebuilding on every get_info() call
         self._guidebook_lower_cache = {
@@ -61,6 +65,10 @@ class YamlGuidebook:
         if group:
             if isinstance(group, dict):
                 group_lower = self._guidebook_lower_cache.get(group_name.lower())
+                if group_lower is None:
+                    group_lower = {
+                        inner_k.lower(): inner_v for inner_k, inner_v in group.items()
+                    }
                 if name:
                     if name.lower() not in group_lower.keys():
                         return (
@@ -76,28 +84,26 @@ class YamlGuidebook:
             + f"по запросу {group_name}."
         )
 
-    def get_results(self, group_name: str, name: str = None) -> str:
+    def get_results(self, group_name: str, name: Optional[str] = None) -> str:
         return self.get_info(group_name=group_name, name=name)
 
-    def get_cities(self, group_name: str = "cities", name: str = None) -> str:
+    def get_cities(self, name: Optional[str] = None) -> str:
         if not name:
             return self.format_results(
                 "Пожалуйста, уточните название города: /cities Name\n"
             )
         if name in self.vocabulary:
             return self.get_info(
-                group_name=group_name, name=self.vocabulary.get(name)
+                group_name="cities", name=self.vocabulary.get(name)
             )
-        return self.get_info(group_name=group_name, name=name)
+        return self.get_info(group_name="cities", name=name)
 
-    def get_countries(
-        self, group_name: str = "countries", name: Optional[str] = None
-    ) -> str:
+    def get_countries(self, name: Optional[str] = None) -> str:
         if not name:
             return self.format_results(
                 "Пожалуйста, уточните название страны: /countries Name\n"
             )
-        return self.get_info(group_name=group_name, name=name)
+        return self.get_info(group_name="countries", name=name)
 
     def get_topics(self) -> List[str]:
         """Get list of all available topics."""

@@ -1,23 +1,23 @@
 """Domain protocols - Interfaces for dependency injection."""
-from typing import Protocol, List, Dict, Any, Optional, Set
+from typing import Protocol, List, Dict, Optional, Set
 
 
 class IGuidebook(Protocol):
     """Protocol for guidebook data access."""
 
-    def get_info(self, topic: str) -> Optional[Any]:
+    def get_info(self, group_name: str, name: Optional[str] = None) -> str:
         """Get information for a specific topic."""
         ...
 
-    def get_cities(self) -> List[str]:
-        """Get list of available cities."""
+    def get_cities(self, name: Optional[str] = None) -> str:
+        """Get city information or prompt for a city."""
         ...
 
-    def get_countries(self) -> List[str]:
-        """Get list of available countries."""
+    def get_countries(self, name: Optional[str] = None) -> str:
+        """Get country information or prompt for a country."""
         ...
 
-    def get_results(self, query: str, show_all: bool = False) -> str:
+    def get_results(self, group_name: str, name: Optional[str] = None) -> str:
         """Get formatted results for a query."""
         ...
 
@@ -29,7 +29,7 @@ class IGuidebook(Protocol):
         """Get topic descriptions."""
         ...
 
-    def format_results(self, results: List[Dict[str, Any]], show_all: bool = False) -> str:
+    def format_results(self, info: str) -> str:
         """Format results into a readable string."""
         ...
 
