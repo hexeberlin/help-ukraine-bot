@@ -275,7 +275,6 @@ def test_service_with_real_guidebook(real_service):
 - Create `src/domain/` with protocols.py, models.py
 - Create `src/infrastructure/` with yaml_guidebook.py
 - Copy Guidebook → YamlGuidebook
-- Extend the Guidebook implementation to expose `get_topics()` and `get_descriptions()` so later phases can build command metadata without touching YAML files directly
 - Write unit tests for YamlGuidebook
 - **Risk: Zero** (purely additive)
 
@@ -313,7 +312,6 @@ def test_service_with_real_guidebook(real_service):
 
 ### To Extract/Refactor
 1. `src/guidebook.py` → infrastructure/yaml_guidebook.py
-   - While moving, add `get_topics()` and `get_descriptions()` helpers so adapters/services no longer reach into `.guidebook`/`.descriptions` internals
 2. `src/commands.py` → Split:
    - Business logic → application/berlin_help_service.py
    - Telegram handlers → adapters/telegram_adapter.py
