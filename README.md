@@ -52,10 +52,9 @@ TOKEN=very_secret_token
 With `APP_NAME=TESTING` the bot runs in polling mode using PTB's async
 `Application.run_polling()`. In every other environment the app runs as an
 async webhook server via `Application.run_webhook()` (requires
-`python-telegram-bot[webhooks]`, which is now included in
-`requirements.txt`). Webhook mode automatically registers
-`https://<APP_NAME>.herokuapp.com/<TOKEN>` and deletes incoming `/command`
-messages after responding to keep chats clean.
+`python-telegram-bot[webhooks]`, which is included in project dependencies).
+Webhook mode automatically registers `https://<APP_NAME>.herokuapp.com/<TOKEN>`
+and deletes incoming `/command` messages after responding to keep chats clean.
 
 **Note:** The bot uses `python-telegram-bot` v21.11, which requires async/await
 throughout. All command handlers and helpers are async functions.

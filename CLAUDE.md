@@ -28,34 +28,18 @@ uv run pylint -E src tests
 
 # Add a new dependency
 uv add <package-name>
-uv lock
-./scripts/generate_requirements.sh
-git add pyproject.toml uv.lock requirements.txt
 
 # Add a dev dependency
 uv add --dev <package-name>
-uv lock
-./scripts/generate_requirements.sh
-git add pyproject.toml uv.lock requirements.txt
 
 # Update dependencies
 uv lock --upgrade
-./scripts/generate_requirements.sh
-git add uv.lock requirements.txt
-```
-
-### Legacy pip workflow (deprecated)
-If you need to use pip for some reason:
-```bash
-python3.11 -m venv venv && source venv/bin/activate
-pip install -r requirements.txt
 ```
 
 **Important Notes:**
-- `requirements.txt` is auto-generated from `pyproject.toml` for Heroku compatibility
-- **Always regenerate and commit `requirements.txt`** when dependencies change
-- The file is tracked in git and deployed to Heroku's GitHub integration
-- Do not edit `requirements.txt` manually - edit `pyproject.toml` instead
+- Heroku natively supports uv and uses `uv.lock` for deployments
+- Always commit both `pyproject.toml` and `uv.lock` when dependencies change
+- No need for `requirements.txt` - Heroku reads directly from `uv.lock`
 
 ## Configuration
 
