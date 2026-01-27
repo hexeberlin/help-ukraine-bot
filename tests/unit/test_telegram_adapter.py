@@ -83,15 +83,16 @@ class TestTelegramBotAdapter:
         with patch("src.adapters.telegram_adapter.Application") as mock_app_class:
             mock_builder = Mock()
             mock_app = Mock()
-            mock_app.job_queue.run_once = Mock()
             mock_builder.build.return_value = mock_app
             mock_builder.token.return_value = mock_builder
+            mock_builder.post_init.return_value = mock_builder
             mock_app_class.builder.return_value = mock_builder
 
             result = adapter.build_application()
 
             mock_app_class.builder.assert_called_once()
             mock_builder.token.assert_called_once_with("test_token")
+            mock_builder.post_init.assert_called_once()
             mock_builder.build.assert_called_once()
             assert mock_app.add_handler.called
 

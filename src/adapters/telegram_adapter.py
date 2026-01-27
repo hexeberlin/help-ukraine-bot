@@ -83,7 +83,12 @@ class TelegramBotAdapter:
         Returns:
             Configured Application instance
         """
-        application = Application.builder().token(self.token).build()
+        application = (
+            Application.builder()
+            .token(self.token)
+            .post_init(self._post_init)
+            .build()
+        )
         self._register_handlers(application)
         return application
 
@@ -127,32 +132,7 @@ class TelegramBotAdapter:
             )
         )
 
-        # Set bot commands for UI
-        all_commands = [
-            BotCommand(topic, description)
-            for topic, description in self.guidebook_descriptions.items()
-            if topic not in {"cities", "countries"}
-        ] + [
-            BotCommand(
-                "cities",
-                "Чаты помощи по городам Германии (введите /cities ГОРОД)",
-            ),
-            BotCommand(
-                "cities_all",
-                "Список всех чатов по городам Германии",
-            ),
-            BotCommand("countries", "Чаты по странам (введите /countries СТРАНА)"),
-            BotCommand("countries_all", "Список всех чатов по странам"),
-            BotCommand("topic_stats", "Топ тем по количеству запросов"),
-            BotCommand("user_stats", "Топ пользователей по количеству запросов"),
-        ]
-
-        # Schedule the set_my_commands call after the bot is initialized
-        if application.job_queue:
-            application.job_queue.run_once(
-                lambda context: context.bot.set_my_commands(all_commands),
-                when=0,
-            )
+        # Bot commands are set in _post_init to avoid JobQueue dependency.
 
     # Handler methods
     async def _handle_help(
@@ -163,6 +143,10 @@ class TelegramBotAdapter:
             return
         results = self.service.handle_help()
         await self._reply_to_message(update, context, results)
+
+    async def _post_init(self, application: Application) -> None:
+        """Initialize bot commands after the bot is ready."""
+        await application.bot.set_my_commands(self._bot_commands())
 
     async def _handle_topic_stats(
         self, update: Update, context: ContextTypes.DEFAULT_TYPE
@@ -415,6 +399,26 @@ class TelegramBotAdapter:
         except ValueError:
             return 10
         return max(1, k)
+
+    def _bot_commands(self) -> List[BotCommand]:
+        return [
+            BotCommand(topic, description)
+            for topic, description in self.guidebook_descriptions.items()
+            if topic not in {"cities", "countries"}
+        ] + [
+            BotCommand(
+                "cities",
+                "Чаты помощи по городам Германии (введите /cities ГОРОД)",
+            ),
+            BotCommand(
+                "cities_all",
+                "Список всех чатов по городам Германии",
+            ),
+            BotCommand("countries", "Чаты по странам (введите /countries СТРАНА)"),
+            BotCommand("countries_all", "Список всех чатов по странам"),
+            BotCommand("topic_stats", "Топ тем по количеству запросов"),
+            BotCommand("user_stats", "Топ пользователей по количеству запросов"),
+        ]
 
     def _format_topic_stats(self, rows: List[tuple[str, int]], k: int) -> str:
         if not rows:
