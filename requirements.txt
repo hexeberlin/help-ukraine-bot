@@ -4,7 +4,7 @@ charset-normalizer==2.0.12
 cryptography==36.0.1
 pycparser==2.21
 python-telegram-bot[webhooks]==21.11
-PyYAML==6.0
+PyYAML==6.0.3
 requests==2.26.0
 toml==0.10.2
 urllib3==1.26.8
