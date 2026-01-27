@@ -38,8 +38,7 @@ async def test_application_processes_help_command():
     adapter = TelegramBotAdapter(
         token=TOKEN,
         service=service,
-        guidebook_topics=guidebook.get_topics(),
-        guidebook_descriptions=guidebook.get_descriptions(),
+        guidebook=guidebook,
         auth_service=auth_service,
         stats_service=stats_service,
         telegram_auth=telegram_auth,
