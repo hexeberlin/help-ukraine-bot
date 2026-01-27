@@ -1,7 +1,7 @@
 """Telegram bot adapter - Encapsulates all Telegram-specific logic."""
 
 import logging
-from typing import List, Optional
+from typing import Awaitable, Callable, List, Optional
 
 from telegram import BotCommand, Message, Update
 from telegram.error import BadRequest
@@ -154,10 +154,14 @@ class TelegramBotAdapter:
         results = self.service.handle_help()
         await self._reply_to_message(update, context, results)
 
-    def _create_topic_handler(self, topic: str):
+    def _create_topic_handler(
+        self, topic: str
+    ) -> Callable[[Update, ContextTypes.DEFAULT_TYPE], Awaitable[None]]:
         """Create a handler for a specific topic."""
 
-        async def handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
+        async def handler(
+            update: Update, context: ContextTypes.DEFAULT_TYPE
+        ) -> None:
             if not await self._check_access(update, context):
                 return
             results = self.service.handle_topic(topic)
