@@ -1,5 +1,5 @@
 """Domain protocols - Interfaces for dependency injection."""
-from typing import Protocol, List, Dict, Optional, Set, Any
+from typing import Protocol, List, Dict, Optional, Set
 
 
 class StatisticsServiceError(Exception):
@@ -88,13 +88,9 @@ class IStatisticsService(Protocol):
 
     def record_request(
         self,
-        user_id: int,
         topic: str,
         *,
-        user_name: Optional[str] = None,
         topic_description: Optional[str] = None,
-        parameter: Optional[str] = None,
-        extra: Optional[Dict[str, Any]] = None,
         timestamp: Optional[int] = None,
     ) -> None:
         """Record a guidebook request."""
@@ -102,8 +98,4 @@ class IStatisticsService(Protocol):
 
     def top_topics(self, k: int) -> List[tuple[str, int]]:
         """Return top-k topic descriptions by request count."""
-        ...
-
-    def top_users(self, k: int) -> List[tuple[str, int]]:
-        """Return top-k display names by request count."""
         ...
