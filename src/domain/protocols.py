@@ -87,6 +87,7 @@ class IStatisticsService(Protocol):
         topic: str,
         *,
         user_name: Optional[str] = None,
+        topic_description: Optional[str] = None,
         parameter: Optional[str] = None,
         extra: Optional[Dict[str, Any]] = None,
         timestamp: Optional[int] = None,
@@ -95,9 +96,9 @@ class IStatisticsService(Protocol):
         ...
 
     def top_topics(self, k: int) -> List[tuple[str, int]]:
-        """Return top-k topics by request count."""
+        """Return top-k topic descriptions by request count."""
         ...
 
     def top_users(self, k: int) -> List[tuple[str, int]]:
-        """Return top-k usernames by request count."""
+        """Return top-k display names by request count."""
         ...

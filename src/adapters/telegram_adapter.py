@@ -420,16 +420,16 @@ class TelegramBotAdapter:
         if not rows:
             return "No topic statistics yet."
         lines = [f"Top {k} topics:"]
-        for idx, (topic, count) in enumerate(rows, start=1):
-            lines.append(f"{idx}. {topic} — {count}")
+        for idx, (topic_desc, count) in enumerate(rows, start=1):
+            lines.append(f"{idx}. {topic_desc} — {count}")
         return "\n".join(lines)
 
     def _format_user_stats(self, rows: List[tuple[str, int]], k: int) -> str:
         if not rows:
             return "No user statistics yet."
         lines = [f"Top {k} users:"]
-        for idx, (user_name, count) in enumerate(rows, start=1):
-            lines.append(f"{idx}. @{user_name} — {count}")
+        for idx, (display_name, count) in enumerate(rows, start=1):
+            lines.append(f"{idx}. {display_name} — {count}")
         return "\n".join(lines)
 
     def _record_stats(
@@ -443,10 +443,14 @@ class TelegramBotAdapter:
         user = getattr(update, "effective_user", None)
         if not user:
             return
+        display_name = " ".join(
+            part for part in [user.first_name, user.last_name] if part
+        ).strip()
         self.stats_service.record_request(
             user_id=user.id,
-            user_name=user.username,
+            user_name=display_name or None,
             topic=topic,
+            topic_description=self.guidebook_descriptions.get(topic),
             parameter=parameter,
             extra=extra,
         )

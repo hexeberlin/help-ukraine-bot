@@ -204,7 +204,7 @@ class TestTelegramBotAdapter:
         adapter._reply_to_message = AsyncMock()
         update = SimpleNamespace(
             effective_chat=SimpleNamespace(id=123),
-            effective_user=SimpleNamespace(id=42, username="user42"),
+            effective_user=SimpleNamespace(id=42, first_name="User", last_name="FortyTwo"),
             effective_message=SimpleNamespace(text="/cities Berlin", chat_id=123),
         )
         context = SimpleNamespace()
@@ -213,8 +213,9 @@ class TestTelegramBotAdapter:
 
         mock_stats_service.record_request.assert_called_once_with(
             user_id=42,
-            user_name="user42",
+            user_name="User FortyTwo",
             topic="cities",
+            topic_description=None,
             parameter="berlin",
             extra=None,
         )
@@ -228,7 +229,7 @@ class TestTelegramBotAdapter:
         adapter._reply_to_message = AsyncMock()
         update = SimpleNamespace(
             effective_chat=SimpleNamespace(id=123),
-            effective_user=SimpleNamespace(id=7, username="user7"),
+            effective_user=SimpleNamespace(id=7, first_name="User", last_name="Seven"),
             effective_message=SimpleNamespace(text="/accommodation", chat_id=123),
         )
         context = SimpleNamespace()
@@ -238,8 +239,9 @@ class TestTelegramBotAdapter:
 
         mock_stats_service.record_request.assert_called_once_with(
             user_id=7,
-            user_name="user7",
+            user_name="User Seven",
             topic="accommodation",
+            topic_description="Housing info",
             parameter=None,
             extra=None,
         )

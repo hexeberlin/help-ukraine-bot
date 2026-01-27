@@ -25,8 +25,9 @@ class StatisticsServiceSQLite(IStatisticsService):
                 CREATE TABLE IF NOT EXISTS guidebook_requests (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     user_id INTEGER NOT NULL,
-                    user_name TEXT,
+                    display_name TEXT,
                     topic TEXT NOT NULL,
+                    topic_description TEXT,
                     parameter TEXT,
                     extra_json TEXT,
                     created_at INTEGER NOT NULL
@@ -36,6 +37,9 @@ class StatisticsServiceSQLite(IStatisticsService):
             self._conn.execute(
                 "CREATE INDEX IF NOT EXISTS idx_requests_created_at ON guidebook_requests(created_at)"
             )
+            self._conn.execute(
+                "CREATE INDEX IF NOT EXISTS idx_requests_topic_desc ON guidebook_requests(topic_description)"
+            )
             self._conn.commit()
 
     def record_request(
@@ -44,6 +48,7 @@ class StatisticsServiceSQLite(IStatisticsService):
         topic: str,
         *,
         user_name: Optional[str] = None,
+        topic_description: Optional[str] = None,
         parameter: Optional[str] = None,
         extra: Optional[Dict[str, Any]] = None,
         timestamp: Optional[int] = None,
@@ -54,11 +59,25 @@ class StatisticsServiceSQLite(IStatisticsService):
             self._conn.execute(
                 """
                 INSERT INTO guidebook_requests (
-                    user_id, user_name, topic, parameter, extra_json, created_at
+                    user_id,
+                    display_name,
+                    topic,
+                    topic_description,
+                    parameter,
+                    extra_json,
+                    created_at
                 )
-                VALUES (?, ?, ?, ?, ?, ?)
+                VALUES (?, ?, ?, ?, ?, ?, ?)
                 """,
-                (user_id, user_name, topic, parameter, extra_json, created_at),
+                (
+                    user_id,
+                    user_name,
+                    topic,
+                    topic_description,
+                    parameter,
+                    extra_json,
+                    created_at,
+                ),
             )
             cutoff = created_at - self._retention_seconds
             self._conn.execute(
@@ -71,10 +90,11 @@ class StatisticsServiceSQLite(IStatisticsService):
         with self._lock:
             cursor = self._conn.execute(
                 """
-                SELECT topic, COUNT(*) as cnt
+                SELECT topic_description, COUNT(*) as cnt
                 FROM guidebook_requests
-                GROUP BY topic
-                ORDER BY cnt DESC, topic ASC
+                WHERE topic_description IS NOT NULL AND topic_description != ''
+                GROUP BY topic_description
+                ORDER BY cnt DESC, topic_description ASC
                 LIMIT ?
                 """,
                 (k,),
@@ -85,11 +105,11 @@ class StatisticsServiceSQLite(IStatisticsService):
         with self._lock:
             cursor = self._conn.execute(
                 """
-                SELECT user_name, COUNT(*) as cnt
+                SELECT display_name, COUNT(*) as cnt
                 FROM guidebook_requests
-                WHERE user_name IS NOT NULL AND user_name != ''
-                GROUP BY user_name
-                ORDER BY cnt DESC, user_name ASC
+                WHERE display_name IS NOT NULL AND display_name != ''
+                GROUP BY display_name
+                ORDER BY cnt DESC, display_name ASC
                 LIMIT ?
                 """,
                 (k,),
