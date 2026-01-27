@@ -16,7 +16,12 @@ from telegram.ext import (
 )
 from telegram.helpers import effective_message_type
 
-from src.domain.protocols import IBerlinHelpService, IAuthorizationService
+from src.domain.protocols import (
+    IBerlinHelpService,
+    IAuthorizationService,
+    IStatisticsService,
+    StatisticsServiceError,
+)
 from src.adapters.telegram_auth import TelegramAuthorizationAdapter
 
 logger = logging.getLogger(__name__)
@@ -32,6 +37,7 @@ class TelegramBotAdapter:
         guidebook_topics: List[str],
         guidebook_descriptions: dict,
         auth_service: IAuthorizationService,
+        stats_service: IStatisticsService,
         telegram_auth: TelegramAuthorizationAdapter,
         berlin_chat_ids: List[int],
         reminder_interval_pinned: int,
@@ -62,6 +68,7 @@ class TelegramBotAdapter:
         self.guidebook_topics = guidebook_topics
         self.guidebook_descriptions = guidebook_descriptions
         self.auth_service = auth_service
+        self.stats_service = stats_service
         self.telegram_auth = telegram_auth
         self.berlin_chat_ids = berlin_chat_ids
         self.reminder_interval_pinned = reminder_interval_pinned
@@ -77,7 +84,12 @@ class TelegramBotAdapter:
         Returns:
             Configured Application instance
         """
-        application = Application.builder().token(self.token).build()
+        application = (
+            Application.builder()
+            .token(self.token)
+            .post_init(self._post_init)
+            .build()
+        )
         self._register_handlers(application)
         return application
 
@@ -87,6 +99,8 @@ class TelegramBotAdapter:
         application.add_handler(CommandHandler("start", self._handle_start_timer))
         application.add_handler(CommandHandler("stop", self._handle_stop_timer))
         application.add_handler(CommandHandler("help", self._handle_help))
+        application.add_handler(CommandHandler("topic_stats", self._handle_topic_stats))
+        application.add_handler(CommandHandler("user_stats", self._handle_user_stats))
 
         # Admin commands
         application.add_handler(CommandHandler("adminsonly", self._handle_admins_only))
@@ -119,30 +133,7 @@ class TelegramBotAdapter:
             )
         )
 
-        # Set bot commands for UI
-        all_commands = [
-            BotCommand(topic, description)
-            for topic, description in self.guidebook_descriptions.items()
-            if topic not in {"cities", "countries"}
-        ] + [
-            BotCommand(
-                "cities",
-                "Чаты помощи по городам Германии (введите /cities ГОРОД)",
-            ),
-            BotCommand(
-                "cities_all",
-                "Список всех чатов по городам Германии",
-            ),
-            BotCommand("countries", "Чаты по странам (введите /countries СТРАНА)"),
-            BotCommand("countries_all", "Список всех чатов по странам"),
-        ]
-
-        # Schedule the set_my_commands call after the bot is initialized
-        if application.job_queue:
-            application.job_queue.run_once(
-                lambda context: context.bot.set_my_commands(all_commands),
-                when=0,
-            )
+        # Bot commands are set in _post_init to avoid JobQueue dependency.
 
     # Handler methods
     async def _handle_help(
@@ -153,6 +144,28 @@ class TelegramBotAdapter:
             return
         results = self.service.handle_help()
         await self._reply_to_message(update, context, results)
+
+    async def _post_init(self, application: Application) -> None:
+        """Initialize bot commands after the bot is ready."""
+        await application.bot.set_my_commands(self._bot_commands())
+
+    async def _handle_topic_stats(
+        self, update: Update, context: ContextTypes.DEFAULT_TYPE
+    ) -> None:
+        """Handle /topic_stats command (public)."""
+        k = self._extract_k_parameter(update, "/topic_stats")
+        rows = self.stats_service.top_topics(k)
+        reply = self._format_topic_stats(rows, k)
+        await self._reply_to_message(update, context, reply)
+
+    async def _handle_user_stats(
+        self, update: Update, context: ContextTypes.DEFAULT_TYPE
+    ) -> None:
+        """Handle /user_stats command (public)."""
+        k = self._extract_k_parameter(update, "/user_stats")
+        rows = self.stats_service.top_users(k)
+        reply = self._format_user_stats(rows, k)
+        await self._reply_to_message(update, context, reply)
 
     def _create_topic_handler(
         self, topic: str
@@ -165,6 +178,7 @@ class TelegramBotAdapter:
             if not await self._check_access(update, context):
                 return
             results = self.service.handle_topic(topic)
+            self._record_stats(update, topic, parameter=None)
             await self._reply_to_message(update, context, results)
 
         return handler
@@ -177,6 +191,7 @@ class TelegramBotAdapter:
             return
         city_name = self._extract_parameter(update, "/cities")
         results = self.service.handle_cities(city_name, show_all=False)
+        self._record_stats(update, "cities", parameter=city_name or None)
         await self._reply_to_message(update, context, results)
 
     async def _handle_cities_all(
@@ -186,6 +201,7 @@ class TelegramBotAdapter:
         if not await self._check_access(update, context):
             return
         results = self.service.handle_cities(None, show_all=True)
+        self._record_stats(update, "cities", parameter=None, extra={"show_all": True})
         await self._reply_to_message(update, context, results)
 
     async def _handle_countries(
@@ -196,6 +212,7 @@ class TelegramBotAdapter:
             return
         country_name = self._extract_parameter(update, "/countries")
         results = self.service.handle_countries(country_name, show_all=False)
+        self._record_stats(update, "countries", parameter=country_name or None)
         await self._reply_to_message(update, context, results)
 
     async def _handle_countries_all(
@@ -205,6 +222,9 @@ class TelegramBotAdapter:
         if not await self._check_access(update, context):
             return
         results = self.service.handle_countries(None, show_all=True)
+        self._record_stats(
+            update, "countries", parameter=None, extra={"show_all": True}
+        )
         await self._reply_to_message(update, context, results)
 
     async def _handle_start_timer(
@@ -370,6 +390,79 @@ class TelegramBotAdapter:
             remainder = remainder.split(maxsplit=1)
             remainder = remainder[1] if len(remainder) > 1 else ""
         return remainder.strip()
+
+    def _extract_k_parameter(self, update: Update, command: str) -> int:
+        raw = self._extract_parameter(update, command)
+        if not raw:
+            return 10
+        try:
+            k = int(raw)
+        except ValueError:
+            return 10
+        return max(1, k)
+
+    def _bot_commands(self) -> List[BotCommand]:
+        return [
+            BotCommand(topic, description)
+            for topic, description in self.guidebook_descriptions.items()
+            if topic not in {"cities", "countries"}
+        ] + [
+            BotCommand(
+                "cities",
+                "Чаты помощи по городам Германии (введите /cities ГОРОД)",
+            ),
+            BotCommand(
+                "cities_all",
+                "Список всех чатов по городам Германии",
+            ),
+            BotCommand("countries", "Чаты по странам (введите /countries СТРАНА)"),
+            BotCommand("countries_all", "Список всех чатов по странам"),
+            BotCommand("topic_stats", "Топ тем по количеству запросов"),
+            BotCommand("user_stats", "Топ пользователей по количеству запросов"),
+        ]
+
+    def _format_topic_stats(self, rows: List[tuple[str, int]], k: int) -> str:
+        if not rows:
+            return "No topic statistics yet."
+        lines = [f"Top {k} topics:"]
+        for idx, (topic_desc, count) in enumerate(rows, start=1):
+            lines.append(f"{idx}. {topic_desc} — {count}")
+        return "\n".join(lines)
+
+    def _format_user_stats(self, rows: List[tuple[str, int]], k: int) -> str:
+        if not rows:
+            return "No user statistics yet."
+        lines = [f"Top {k} users:"]
+        for idx, (display_name, count) in enumerate(rows, start=1):
+            lines.append(f"{idx}. {display_name} — {count}")
+        return "\n".join(lines)
+
+    def _record_stats(
+        self,
+        update: Update,
+        topic: str,
+        *,
+        parameter: Optional[str],
+        extra: Optional[dict] = None,
+    ) -> None:
+        user = getattr(update, "effective_user", None)
+        if not user:
+            return
+        display_name = " ".join(
+            part for part in [user.first_name, user.last_name] if part
+        ).strip()
+        user_name = display_name or (f"@{user.username}" if user.username else None)
+        try:
+            self.stats_service.record_request(
+                user_id=user.id,
+                user_name=user_name,
+                topic=topic,
+                topic_description=self.guidebook_descriptions.get(topic),
+                parameter=parameter,
+                extra=extra,
+            )
+        except StatisticsServiceError:
+            logger.exception("Failed to record stats for topic %s", topic)
 
     async def _reply_to_message(
         self,

@@ -4,6 +4,8 @@
 
 The Help Ukraine Telegram Bot follows **Clean Architecture** principles with clear separation of concerns across four distinct layers. This architecture ensures testability, maintainability, and framework independence.
 
+As of the statistics feature, guidebook requests are logged via a statistics service (SQLite in-memory) from the adapter layer, without leaking Telegram types into the application layer.
+
 ## Layer Dependency Diagram
 
 ```
@@ -20,6 +22,7 @@ The Help Ukraine Telegram Bot follows **Clean Architecture** principles with cle
 │  │  - Command routing                              │   │
 │  │  - Message formatting                           │   │
 │  │  - Job scheduling                               │   │
+│  │  - Statistics logging                           │   │
 │  └─────────────────────────────────────────────────┘   │
 │  ┌─────────────────────────────────────────────────┐   │
 │  │      TelegramAuthorizationAdapter               │   │
@@ -54,6 +57,7 @@ The Help Ukraine Telegram Bot follows **Clean Architecture** principles with cle
 │  │  - IGuidebook                                   │   │
 │  │  - IBerlinHelpService                           │   │
 │  │  - IAuthorizationService                        │   │
+│  │  - IStatisticsService                            │   │
 │  └─────────────────────────────────────────────────┘   │
 │  ┌─────────────────────────────────────────────────┐   │
 │  │  Models (Value Objects)                         │   │
@@ -70,6 +74,12 @@ The Help Ukraine Telegram Bot follows **Clean Architecture** principles with cle
 │  │  - Load YAML files                              │   │
 │  │  - Format results                               │   │
 │  │  - Vocabulary lookups                           │   │
+│  └─────────────────────────────────────────────────┘   │
+│  ┌─────────────────────────────────────────────────┐   │
+│  │      StatisticsServiceSQLite                    │   │
+│  │  - In-memory SQLite storage                     │   │
+│  │  - Record guidebook requests                    │   │
+│  │  - Purge old records (retention window)         │   │
 │  └─────────────────────────────────────────────────┘   │
 │  ┌─────────────────────────────────────────────────┐   │
 │  │      ConfigLoader                               │   │
@@ -94,6 +104,7 @@ The Help Ukraine Telegram Bot follows **Clean Architecture** principles with cle
 5. **TelegramBotAdapter** → Sends reply via `_reply_to_message()`
    - Calls Telegram API to send message
    - Deletes original command message
+6. **TelegramBotAdapter** → Records statistics (topic, user, timestamp) via `IStatisticsService`
 
 ## Key Principles
 
@@ -104,6 +115,7 @@ All dependencies point inward toward the domain layer. Outer layers depend on pr
 **Example:**
 - `BerlinHelpService` depends on `IGuidebook` protocol, not `YamlGuidebook`
 - `TelegramBotAdapter` depends on `IBerlinHelpService`, not `BerlinHelpService`
+- `TelegramBotAdapter` depends on `IStatisticsService`, not `StatisticsServiceSQLite`
 
 ### 2. No Global State
 
@@ -225,6 +237,7 @@ class TelegramBotAdapter:
 
 **Files:**
 - `yaml_guidebook.py` - YAML file access
+- `sqlite_statistics.py` - In-memory SQLite statistics storage
 - `config_loader.py` - Configuration loading
 
 **Rules:**
@@ -244,6 +257,17 @@ class YamlGuidebook:  # Implements IGuidebook protocol
         # Pure data access, no business logic
         return self._format_topic_info(self.guidebook.get(group_name), name=name)
 ```
+
+## Statistics Logging
+
+Guidebook requests initiated by users are recorded in memory:
+
+- **What**: user ID, topic (key in `guidebook.yml`), optional parameter, timestamp, optional extra metadata
+- **Where**: `StatisticsServiceSQLite` (in-memory SQLite DB)
+- **When**: after successful access checks, before reply is sent
+- **Retention**: old records are purged on each insert (default 30 days)
+
+This keeps the logging concerns in the adapter + infrastructure layers and avoids leaking Telegram types into the application layer.
 
 ## Migration Patterns
 
@@ -423,6 +447,15 @@ class TelegramBotAdapter:
 def _register_handlers(self, application: Application):
     application.add_handler(CommandHandler("newcommand", self._handle_new_command))
 ```
+
+### Statistics Commands
+
+Two public commands expose aggregated statistics:
+
+- `/topic_stats k` → Top-k most requested topics (defaults to 10)
+- `/user_stats k` → Top-k most active users by request count (defaults to 10)
+
+These commands call `IStatisticsService.top_topics()` and `IStatisticsService.top_users()` from the adapter layer and are intentionally **not** admin-restricted.
 
 ### Extending to New Platform (e.g., Discord)
 

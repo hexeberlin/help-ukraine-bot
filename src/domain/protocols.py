@@ -1,5 +1,10 @@
 """Domain protocols - Interfaces for dependency injection."""
-from typing import Protocol, List, Dict, Optional, Set
+from typing import Protocol, List, Dict, Optional, Set, Any
+
+
+class StatisticsServiceError(Exception):
+    """Raised when statistics logging fails."""
+    ...
 
 
 class IGuidebook(Protocol):
@@ -75,4 +80,30 @@ class IAuthorizationService(Protocol):
 
     def get_admin_only_chats(self) -> Set[int]:
         """Get copy of admin-only chat IDs."""
+        ...
+
+
+class IStatisticsService(Protocol):
+    """Protocol for request statistics logging."""
+
+    def record_request(
+        self,
+        user_id: int,
+        topic: str,
+        *,
+        user_name: Optional[str] = None,
+        topic_description: Optional[str] = None,
+        parameter: Optional[str] = None,
+        extra: Optional[Dict[str, Any]] = None,
+        timestamp: Optional[int] = None,
+    ) -> None:
+        """Record a guidebook request."""
+        ...
+
+    def top_topics(self, k: int) -> List[tuple[str, int]]:
+        """Return top-k topic descriptions by request count."""
+        ...
+
+    def top_users(self, k: int) -> List[tuple[str, int]]:
+        """Return top-k display names by request count."""
         ...

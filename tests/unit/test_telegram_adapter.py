@@ -4,7 +4,11 @@ from types import SimpleNamespace
 from unittest.mock import AsyncMock, Mock, patch
 import pytest
 from src.adapters.telegram_adapter import TelegramBotAdapter
-from src.domain.protocols import IBerlinHelpService, IAuthorizationService
+from src.domain.protocols import (
+    IBerlinHelpService,
+    IAuthorizationService,
+    IStatisticsService,
+)
 from src.adapters.telegram_auth import TelegramAuthorizationAdapter
 
 
@@ -37,7 +41,13 @@ def mock_telegram_auth():
 
 
 @pytest.fixture
-def adapter(mock_service, mock_auth_service, mock_telegram_auth):
+def mock_stats_service():
+    """Create a mock statistics service."""
+    return Mock(spec=IStatisticsService)
+
+
+@pytest.fixture
+def adapter(mock_service, mock_auth_service, mock_stats_service, mock_telegram_auth):
     """Create a TelegramBotAdapter instance."""
     return TelegramBotAdapter(
         token="test_token",
@@ -48,6 +58,7 @@ def adapter(mock_service, mock_auth_service, mock_telegram_auth):
             "transport": "Transport info",
         },
         auth_service=mock_auth_service,
+        stats_service=mock_stats_service,
         telegram_auth=mock_telegram_auth,
         berlin_chat_ids=[-1001589772550],
         reminder_interval_pinned=30 * 60,
@@ -72,15 +83,16 @@ class TestTelegramBotAdapter:
         with patch("src.adapters.telegram_adapter.Application") as mock_app_class:
             mock_builder = Mock()
             mock_app = Mock()
-            mock_app.job_queue.run_once = Mock()
             mock_builder.build.return_value = mock_app
             mock_builder.token.return_value = mock_builder
+            mock_builder.post_init.return_value = mock_builder
             mock_app_class.builder.return_value = mock_builder
 
             result = adapter.build_application()
 
             mock_app_class.builder.assert_called_once()
             mock_builder.token.assert_called_once_with("test_token")
+            mock_builder.post_init.assert_called_once()
             mock_builder.build.assert_called_once()
             assert mock_app.add_handler.called
 
@@ -183,6 +195,114 @@ class TestTelegramBotAdapter:
             text="Test reply",
             disable_web_page_preview=True,
         )
+
+    @pytest.mark.anyio
+    async def test_handle_cities_records_stats(
+        self, adapter, mock_stats_service, mock_auth_service
+    ):
+        """Ensure /cities logs stats with user and topic."""
+        mock_auth_service.is_admin_only_chat.return_value = False
+        adapter._reply_to_message = AsyncMock()
+        update = SimpleNamespace(
+            effective_chat=SimpleNamespace(id=123),
+            effective_user=SimpleNamespace(id=42, first_name="User", last_name="FortyTwo"),
+            effective_message=SimpleNamespace(text="/cities Berlin", chat_id=123),
+        )
+        context = SimpleNamespace()
+
+        await adapter._handle_cities(update, context)
+
+        mock_stats_service.record_request.assert_called_once_with(
+            user_id=42,
+            user_name="User FortyTwo",
+            topic="cities",
+            topic_description=None,
+            parameter="berlin",
+            extra=None,
+        )
+
+    @pytest.mark.anyio
+    async def test_handle_cities_records_stats_username_fallback(
+        self, adapter, mock_stats_service, mock_auth_service
+    ):
+        """Ensure /cities logs @username when display name is missing."""
+        mock_auth_service.is_admin_only_chat.return_value = False
+        adapter._reply_to_message = AsyncMock()
+        update = SimpleNamespace(
+            effective_chat=SimpleNamespace(id=123),
+            effective_user=SimpleNamespace(
+                id=42, first_name=None, last_name=None, username="ghost"
+            ),
+            effective_message=SimpleNamespace(text="/cities Berlin", chat_id=123),
+        )
+        context = SimpleNamespace()
+
+        await adapter._handle_cities(update, context)
+
+        mock_stats_service.record_request.assert_called_once_with(
+            user_id=42,
+            user_name="@ghost",
+            topic="cities",
+            topic_description=None,
+            parameter="berlin",
+            extra=None,
+        )
+
+    @pytest.mark.anyio
+    async def test_handle_topic_records_stats(
+        self, adapter, mock_stats_service, mock_auth_service
+    ):
+        """Ensure topic handlers log stats."""
+        mock_auth_service.is_admin_only_chat.return_value = False
+        adapter._reply_to_message = AsyncMock()
+        update = SimpleNamespace(
+            effective_chat=SimpleNamespace(id=123),
+            effective_user=SimpleNamespace(id=7, first_name="User", last_name="Seven"),
+            effective_message=SimpleNamespace(text="/accommodation", chat_id=123),
+        )
+        context = SimpleNamespace()
+
+        handler = adapter._create_topic_handler("accommodation")
+        await handler(update, context)
+
+        mock_stats_service.record_request.assert_called_once_with(
+            user_id=7,
+            user_name="User Seven",
+            topic="accommodation",
+            topic_description="Housing info",
+            parameter=None,
+            extra=None,
+        )
+
+    @pytest.mark.anyio
+    async def test_handle_topic_stats_default_k(self, adapter, mock_stats_service):
+        """Ensure /topic_stats defaults to k=10."""
+        mock_stats_service.top_topics.return_value = [("cities", 2)]
+        adapter._reply_to_message = AsyncMock()
+        update = SimpleNamespace(
+            effective_message=SimpleNamespace(text="/topic_stats", chat_id=123),
+            effective_user=SimpleNamespace(id=1),
+        )
+        context = SimpleNamespace()
+
+        await adapter._handle_topic_stats(update, context)
+
+        mock_stats_service.top_topics.assert_called_once_with(10)
+
+    @pytest.mark.anyio
+    async def test_handle_user_stats_custom_k(self, adapter, mock_stats_service):
+        """Ensure /user_stats uses provided k."""
+        mock_stats_service.top_users.return_value = [(1, 5)]
+        adapter._reply_to_message = AsyncMock()
+        update = SimpleNamespace(
+            effective_message=SimpleNamespace(text="/user_stats 3", chat_id=123),
+            effective_user=SimpleNamespace(id=1),
+        )
+        context = SimpleNamespace()
+
+        await adapter._handle_user_stats(update, context)
+
+        mock_stats_service.top_users.assert_called_once_with(3)
 
     @pytest.mark.anyio
     async def test_check_access_public_chat(self, adapter, mock_auth_service):
