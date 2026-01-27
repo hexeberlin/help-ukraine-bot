@@ -7,6 +7,7 @@ from src.adapters.telegram_adapter import TelegramBotAdapter
 from src.domain.protocols import (
     IBerlinHelpService,
     IAuthorizationService,
+    IGuidebook,
     IStatisticsService,
 )
 from src.adapters.telegram_auth import TelegramAuthorizationAdapter
@@ -47,16 +48,35 @@ def mock_stats_service():
 
 
 @pytest.fixture
-def adapter(mock_service, mock_auth_service, mock_stats_service, mock_telegram_auth):
+def mock_guidebook():
+    """Create a mock guidebook."""
+    guidebook = Mock(spec=IGuidebook)
+    guidebook.get_topics.return_value = [
+        "accommodation",
+        "transport",
+        "cities",
+        "countries",
+    ]
+    guidebook.get_descriptions.return_value = {
+        "accommodation": "Housing info",
+        "transport": "Transport info",
+    }
+    return guidebook
+
+
+@pytest.fixture
+def adapter(
+    mock_service,
+    mock_auth_service,
+    mock_stats_service,
+    mock_telegram_auth,
+    mock_guidebook,
+):
     """Create a TelegramBotAdapter instance."""
     return TelegramBotAdapter(
         token="test_token",
         service=mock_service,
-        guidebook_topics=["accommodation", "transport", "cities", "countries"],
-        guidebook_descriptions={
-            "accommodation": "Housing info",
-            "transport": "Transport info",
-        },
+        guidebook=mock_guidebook,
         auth_service=mock_auth_service,
         stats_service=mock_stats_service,
         telegram_auth=mock_telegram_auth,

@@ -19,6 +19,7 @@ from telegram.helpers import effective_message_type
 from src.domain.protocols import (
     IBerlinHelpService,
     IAuthorizationService,
+    IGuidebook,
     IStatisticsService,
     StatisticsServiceError,
 )
@@ -34,8 +35,7 @@ class TelegramBotAdapter:
         self,
         token: str,
         service: IBerlinHelpService,
-        guidebook_topics: List[str],
-        guidebook_descriptions: dict,
+        guidebook: IGuidebook,
         auth_service: IAuthorizationService,
         stats_service: IStatisticsService,
         telegram_auth: TelegramAuthorizationAdapter,
@@ -52,8 +52,7 @@ class TelegramBotAdapter:
         Args:
             token: Telegram bot token
             service: Berlin help service implementation
-            guidebook_topics: List of available topics
-            guidebook_descriptions: Dictionary of topic descriptions
+            guidebook: Guidebook data access implementation
             auth_service: Authorization service implementation
             telegram_auth: Telegram authorization adapter
             berlin_chat_ids: List of Berlin-specific chat IDs for reminders
@@ -65,8 +64,7 @@ class TelegramBotAdapter:
         """
         self.token = token
         self.service = service
-        self.guidebook_topics = guidebook_topics
-        self.guidebook_descriptions = guidebook_descriptions
+        self.guidebook = guidebook
         self.auth_service = auth_service
         self.stats_service = stats_service
         self.telegram_auth = telegram_auth
@@ -109,7 +107,7 @@ class TelegramBotAdapter:
         )
 
         # Dynamic topic handlers
-        for topic in self.guidebook_topics:
+        for topic in self.guidebook.get_topics():
             # Cities and countries are special - handled separately
             if topic not in {"cities", "countries"}:
                 application.add_handler(
@@ -404,7 +402,7 @@ class TelegramBotAdapter:
     def _bot_commands(self) -> List[BotCommand]:
         return [
             BotCommand(topic, description)
-            for topic, description in self.guidebook_descriptions.items()
+            for topic, description in self.guidebook.get_descriptions().items()
             if topic not in {"cities", "countries"}
         ] + [
             BotCommand(
@@ -457,7 +455,7 @@ class TelegramBotAdapter:
                 user_id=user.id,
                 user_name=user_name,
                 topic=topic,
-                topic_description=self.guidebook_descriptions.get(topic),
+                topic_description=self.guidebook.get_descriptions().get(topic),
                 parameter=parameter,
                 extra=extra,
             )
