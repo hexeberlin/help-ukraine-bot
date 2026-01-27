@@ -2,6 +2,7 @@
 
 from src.infrastructure.config_loader import load_env_config, load_toml_settings
 from src.infrastructure.yaml_guidebook import YamlGuidebook
+from src.infrastructure.sqlite_statistics import StatisticsServiceSQLite
 from src.application.berlin_help_service import BerlinHelpService
 from src.application.authorization_service import AuthorizationService
 from src.adapters.telegram_auth import TelegramAuthorizationAdapter
@@ -25,6 +26,7 @@ def main() -> None:
     auth_service = AuthorizationService(
         admin_only_chat_ids={-1001723117571, -735136184}
     )
+    stats_service = StatisticsServiceSQLite()
 
     # 4. Create adapters
     telegram_auth = TelegramAuthorizationAdapter()
@@ -34,6 +36,7 @@ def main() -> None:
         guidebook_topics=guidebook.get_topics(),
         guidebook_descriptions=guidebook.get_descriptions(),
         auth_service=auth_service,
+        stats_service=stats_service,
         telegram_auth=telegram_auth,
         berlin_chat_ids=[-1001589772550, -1001790676165, -735136184],
         reminder_interval_pinned=30 * 60,
