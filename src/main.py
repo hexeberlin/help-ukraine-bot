@@ -1,33 +1,59 @@
 """main module running the bot"""
 
-from telegram.ext import Application, MessageHandler, filters
-
-from src import commands
-from src.config import APP_NAME, PORT, TOKEN
+from src.infrastructure.config_loader import load_env_config, load_toml_settings
+from src.infrastructure.yaml_guidebook import YamlGuidebook
+from src.application.berlin_help_service import BerlinHelpService
+from src.application.authorization_service import AuthorizationService
+from src.adapters.telegram_auth import TelegramAuthorizationAdapter
+from src.adapters.telegram_adapter import TelegramBotAdapter
 
 
 def main() -> None:
-    """Start the bot"""
-    application = Application.builder().token(TOKEN).build()
+    """Start the bot with dependency injection."""
+    # 1. Load configuration
+    app_name, token, port = load_env_config()
+    settings = load_toml_settings("settings.toml")
 
-    command_list = sorted(commands.register(application), key=lambda c: c.command)
+    # 2. Create infrastructure (concrete implementations)
+    guidebook = YamlGuidebook(
+        guidebook_path=settings["GUIDEBOOK_PATH"],
+        vocabulary_path=settings["VOCABULARY_PATH"]
+    )
 
-    async def _post_init(app: Application) -> None:
-        await app.bot.set_my_commands(command_list)
+    # 3. Create application services
+    berlin_help_service = BerlinHelpService(guidebook=guidebook)
+    auth_service = AuthorizationService(
+        admin_only_chat_ids={-1001723117571, -735136184}
+    )
 
-    application.post_init = _post_init
+    # 4. Create adapters
+    telegram_auth = TelegramAuthorizationAdapter()
+    telegram_adapter = TelegramBotAdapter(
+        token=token,
+        service=berlin_help_service,
+        guidebook_topics=guidebook.get_topics(),
+        guidebook_descriptions=guidebook.get_descriptions(),
+        auth_service=auth_service,
+        telegram_auth=telegram_auth,
+        berlin_chat_ids=[-1001589772550, -1001790676165, -735136184],
+        reminder_interval_pinned=30 * 60,
+        reminder_interval_info=10 * 60,
+        reminder_message="I WILL POST PINNED MESSAGE HERE",
+        pinned_job_name="pinned",
+        social_job_name="social",
+    )
 
-    # Messages
-    application.add_handler(MessageHandler(filters.ALL, commands.delete_greetings))
+    # 5. Build and run
+    application = telegram_adapter.build_application()
 
-    if APP_NAME == "TESTING":
+    if app_name == "TESTING":
         application.run_polling()
     else:
-        webhook_url = f"https://{APP_NAME}.herokuapp.com/{TOKEN}"
+        webhook_url = f"https://{app_name}.herokuapp.com/{token}"
         application.run_webhook(
             listen="0.0.0.0",
-            port=int(PORT),
-            url_path=TOKEN,
+            port=port,
+            url_path=token,
             webhook_url=webhook_url,
         )
 

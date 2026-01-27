@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-A Telegram bot providing FAQ answers and helpful information for Ukrainian refugees in Germany, primarily focused on Berlin. Built with python-telegram-bot.
+A Telegram bot providing FAQ answers and helpful information for Ukrainian refugees in Germany, primarily focused on Berlin. Built with python-telegram-bot and Clean Architecture principles.
 
 ## Build & Development Commands
 
@@ -18,7 +18,8 @@ python -m src.main
 
 # Run tests
 pytest tests
-pytest tests/test_guidebook.py  # single test file
+pytest tests/unit/  # unit tests only
+pytest tests/integration/  # integration tests only
 
 # Lint (CI runs with -E flag for errors only)
 pylint -E src tests
@@ -37,22 +38,121 @@ TOKEN=<telegram_bot_token>
 
 ## Architecture
 
-**Entry point**: `src/main.py` - Builds the PTB `Application`, registers async handlers from `src/commands.py`, and starts either polling (local dev) or webhook mode (Heroku production).
+The project follows Clean Architecture with clear layer separation:
 
-**Knowledge base system**:
+```
+Domain (Protocols) → Application (Services) → Adapter (Telegram) → Infrastructure (YAML)
+```
+
+### Entry Point
+
+`src/main.py` - Constructs the application using dependency injection:
+1. Loads configuration from environment and TOML files
+2. Creates infrastructure layer (YamlGuidebook)
+3. Creates application services (BerlinHelpService, AuthorizationService)
+4. Creates adapters (TelegramBotAdapter, TelegramAuthorizationAdapter)
+5. Builds and runs the Telegram Application
+
+### Layer Details
+
+**Domain Layer** (`src/domain/`):
+- `protocols.py` - Interfaces (IGuidebook, IBerlinHelpService, IAuthorizationService)
+- `models.py` - Value objects (ChatContext, CommandRequest)
+
+**Application Layer** (`src/application/`):
+- `berlin_help_service.py` - Core business logic for handling help requests
+- `authorization_service.py` - Authorization rules (admin-only chats)
+
+**Adapter Layer** (`src/adapters/`):
+- `telegram_adapter.py` - Telegram-specific bot logic, handler registration, and job scheduling
+- `telegram_auth.py` - Telegram admin checks
+
+**Infrastructure Layer** (`src/infrastructure/`):
+- `yaml_guidebook.py` - YAML-based guidebook implementation
+- `config_loader.py` - Configuration loading utilities
+
+**Knowledge Base**:
 - `src/knowledgebase/guidebook.yml` - Primary content: topics mapped to information lists/dicts
 - `src/knowledgebase/vocabulary.yml` - Aliases for city/topic name lookups
-- `src/guidebook.py` - `Guidebook` class loads YAML, exposes the available topic keys, and provides `get_info()`, `get_cities()`, `get_countries()` helpers.
 
-**Commands**: `src/commands.py` dynamically generates handlers for each topic in the guidebook. Special handling for `/cities` and `/countries` which take parameters. Admin-restricted commands use `@restricted` decorator from `src/common.py`.
+### Request Flow
+
+1. Telegram Update → TelegramBotAdapter handler
+2. Handler calls BerlinHelpService method
+3. Service calls YamlGuidebook for data
+4. Service returns formatted result
+5. Adapter sends reply via Telegram API
 
 ## Key Patterns
 
-- Bot commands are auto-registered from guidebook keys; add new topics by adding entries to `guidebook.yml`
-- City/country name aliases go in `vocabulary.yml` (lowercase keys)
-- The `@restricted` decorator limits commands to chat admins
-- APP_NAME="TESTING" triggers polling mode; any other value uses webhooks
+### Adding New Features
+
+**New topic in guidebook:**
+1. Add entry to `src/knowledgebase/guidebook.yml`
+2. Bot automatically registers handler on next deployment
+3. No code changes needed
+
+**New command requiring custom logic:**
+1. Add method to `IBerlinHelpService` protocol
+2. Implement in `BerlinHelpService`
+3. Add handler method in `TelegramBotAdapter`
+4. Register handler in `_register_handlers()`
+
+**New data source:**
+1. Define protocol in `src/domain/protocols.py`
+2. Implement in `src/infrastructure/`
+3. Inject via `main.py`
+
+### Testing Strategy
+
+- **Unit tests** (`tests/unit/`) - Test services and adapters with mocks
+- **Integration tests** (`tests/integration/`) - Test services with real guidebook data
+- Use `Mock(spec=IProtocol)` for dependency mocking
+- Use `@pytest.mark.anyio` for async tests
+
+### Dependency Injection
+
+All dependencies are injected via constructors in `main.py`. No global state or mutable singletons.
+
+### Authorization
+
+- Public chats: Anyone can use commands
+- Admin-only chats: Only admins can use commands (managed by `AuthorizationService`)
+- Admin commands: Always require admin status (checked via `TelegramAuthorizationAdapter`)
 
 ## Deployment
 
 Main branch auto-deploys to Heroku on PR merge. The bot needs admin rights in chats to delete command messages.
+
+- APP_NAME="TESTING" triggers polling mode (local dev)
+- Any other APP_NAME uses webhooks (Heroku production)
+
+## File Structure
+
+```
+src/
+├── domain/
+│   ├── protocols.py      # Interfaces
+│   └── models.py         # Value objects
+├── application/
+│   ├── berlin_help_service.py
+│   └── authorization_service.py
+├── adapters/
+│   ├── telegram_adapter.py
+│   └── telegram_auth.py
+├── infrastructure/
+│   ├── yaml_guidebook.py
+│   └── config_loader.py
+├── knowledgebase/
+│   ├── guidebook.yml
+│   └── vocabulary.yml
+├── config.py            # Legacy config (kept for compatibility)
+└── main.py              # Entry point with DI
+
+tests/
+├── unit/                # Unit tests with mocks
+├── integration/         # Integration tests with real data
+├── test_guidebook.py    # Guidebook constructor test
+├── test_integration.py  # End-to-end test
+└── test_*.py           # Other tests
+```

@@ -2,7 +2,7 @@ from typing import Dict
 
 import pytest
 import toml
-from src.guidebook import Guidebook
+from src.infrastructure.yaml_guidebook import YamlGuidebook
 
 
 class TestGuidebook:
@@ -11,8 +11,8 @@ class TestGuidebook:
         return toml.load("settings.toml")
 
     def test_constructor(self, settings: Dict[str, str]):
-        gb = Guidebook(
+        gb = YamlGuidebook(
             guidebook_path=settings["GUIDEBOOK_PATH"],
             vocabulary_path=settings["VOCABULARY_PATH"],
         )
-        assert isinstance(gb, Guidebook)
+        assert isinstance(gb, YamlGuidebook)
