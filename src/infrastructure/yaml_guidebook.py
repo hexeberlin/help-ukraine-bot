@@ -1,4 +1,4 @@
-"""Getting information from knowledge base in guidebook.yaml"""
+"""YAML-based guidebook implementation."""
 
 import logging
 from typing import Any, Dict, List, Optional
@@ -8,11 +8,11 @@ from yaml import safe_load
 logger = logging.getLogger(__name__)
 
 
-class Guidebook:
-    """Class for the Guidebook"""
+class YamlGuidebook:
+    """YAML-based implementation of guidebook data access."""
 
     def __init__(self, guidebook_path: str, vocabulary_path: str):
-        with open(guidebook_path, "r") as f:
+        with open(guidebook_path, "r", encoding="utf-8") as f:
             guidebook = safe_load(f)
 
         self.guidebook = {k.lower(): v.get("contents") for k, v in guidebook.items()}
@@ -25,7 +25,7 @@ class Guidebook:
             if isinstance(v, dict)
         }
 
-        with open(vocabulary_path, "r") as f:
+        with open(vocabulary_path, "r", encoding="utf-8") as f:
             self.vocabulary = {
                 alias.lower(): name.lower()
                 for name, aliases in safe_load(f).items()
@@ -98,3 +98,11 @@ class Guidebook:
                 "Пожалуйста, уточните название страны: /countries Name\n"
             )
         return self.get_info(group_name=group_name, name=name)
+
+    def get_topics(self) -> List[str]:
+        """Get list of all available topics."""
+        return list(self.guidebook.keys())
+
+    def get_descriptions(self) -> Dict[str, str]:
+        """Get topic descriptions."""
+        return self.descriptions.copy()
