@@ -204,7 +204,7 @@ class TestTelegramBotAdapter:
         adapter._reply_to_message = AsyncMock()
         update = SimpleNamespace(
             effective_chat=SimpleNamespace(id=123),
-            effective_user=SimpleNamespace(id=42),
+            effective_user=SimpleNamespace(id=42, username="user42"),
             effective_message=SimpleNamespace(text="/cities Berlin", chat_id=123),
         )
         context = SimpleNamespace()
@@ -212,7 +212,11 @@ class TestTelegramBotAdapter:
         await adapter._handle_cities(update, context)
 
         mock_stats_service.record_request.assert_called_once_with(
-            user_id=42, topic="cities", parameter="berlin", extra=None
+            user_id=42,
+            user_name="user42",
+            topic="cities",
+            parameter="berlin",
+            extra=None,
         )
 
     @pytest.mark.anyio
@@ -224,7 +228,7 @@ class TestTelegramBotAdapter:
         adapter._reply_to_message = AsyncMock()
         update = SimpleNamespace(
             effective_chat=SimpleNamespace(id=123),
-            effective_user=SimpleNamespace(id=7),
+            effective_user=SimpleNamespace(id=7, username="user7"),
             effective_message=SimpleNamespace(text="/accommodation", chat_id=123),
         )
         context = SimpleNamespace()
@@ -233,7 +237,11 @@ class TestTelegramBotAdapter:
         await handler(update, context)
 
         mock_stats_service.record_request.assert_called_once_with(
-            user_id=7, topic="accommodation", parameter=None, extra=None
+            user_id=7,
+            user_name="user7",
+            topic="accommodation",
+            parameter=None,
+            extra=None,
         )
 
     @pytest.mark.anyio

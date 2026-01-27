@@ -25,6 +25,7 @@ class StatisticsServiceSQLite(IStatisticsService):
                 CREATE TABLE IF NOT EXISTS guidebook_requests (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     user_id INTEGER NOT NULL,
+                    user_name TEXT,
                     topic TEXT NOT NULL,
                     parameter TEXT,
                     extra_json TEXT,
@@ -42,6 +43,7 @@ class StatisticsServiceSQLite(IStatisticsService):
         user_id: int,
         topic: str,
         *,
+        user_name: Optional[str] = None,
         parameter: Optional[str] = None,
         extra: Optional[Dict[str, Any]] = None,
         timestamp: Optional[int] = None,
@@ -51,10 +53,12 @@ class StatisticsServiceSQLite(IStatisticsService):
         with self._lock:
             self._conn.execute(
                 """
-                INSERT INTO guidebook_requests (user_id, topic, parameter, extra_json, created_at)
-                VALUES (?, ?, ?, ?, ?)
+                INSERT INTO guidebook_requests (
+                    user_id, user_name, topic, parameter, extra_json, created_at
+                )
+                VALUES (?, ?, ?, ?, ?, ?)
                 """,
-                (user_id, topic, parameter, extra_json, created_at),
+                (user_id, user_name, topic, parameter, extra_json, created_at),
             )
             cutoff = created_at - self._retention_seconds
             self._conn.execute(
@@ -77,14 +81,15 @@ class StatisticsServiceSQLite(IStatisticsService):
             )
             return [(row[0], row[1]) for row in cursor.fetchall()]
 
-    def top_users(self, k: int) -> list[tuple[int, int]]:
+    def top_users(self, k: int) -> list[tuple[str, int]]:
         with self._lock:
             cursor = self._conn.execute(
                 """
-                SELECT user_id, COUNT(*) as cnt
+                SELECT user_name, COUNT(*) as cnt
                 FROM guidebook_requests
-                GROUP BY user_id
-                ORDER BY cnt DESC, user_id ASC
+                WHERE user_name IS NOT NULL AND user_name != ''
+                GROUP BY user_name
+                ORDER BY cnt DESC, user_name ASC
                 LIMIT ?
                 """,
                 (k,),
