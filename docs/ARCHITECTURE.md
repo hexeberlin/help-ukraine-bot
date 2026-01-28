@@ -4,7 +4,7 @@
 
 The Help Ukraine Telegram Bot follows **Clean Architecture** principles with clear separation of concerns across four distinct layers. This architecture ensures testability, maintainability, and framework independence.
 
-As of the statistics feature, guidebook requests are logged via a statistics service (SQLite in-memory) from the adapter layer, without leaking Telegram types into the application layer.
+As of the statistics feature, guidebook requests are logged via a statistics service (SQLite in-memory) from the adapter layer, without leaking Telegram types into the application layer. Only topic-level statistics are retained.
 
 ## Layer Dependency Diagram
 
@@ -57,7 +57,7 @@ As of the statistics feature, guidebook requests are logged via a statistics ser
 │  │  - IGuidebook                                   │   │
 │  │  - IBerlinHelpService                           │   │
 │  │  - IAuthorizationService                        │   │
-│  │  - IStatisticsService                            │   │
+│  │  - IStatisticsService                           │   │
 │  └─────────────────────────────────────────────────┘   │
 │  ┌─────────────────────────────────────────────────┐   │
 │  │  Models (Value Objects)                         │   │
@@ -104,7 +104,7 @@ As of the statistics feature, guidebook requests are logged via a statistics ser
 5. **TelegramBotAdapter** → Sends reply via `_reply_to_message()`
    - Calls Telegram API to send message
    - Deletes original command message
-6. **TelegramBotAdapter** → Records statistics (topic, user, timestamp) via `IStatisticsService`
+6. **TelegramBotAdapter** → Records statistics (topic, timestamp) via `IStatisticsService`
 
 ## Key Principles
 
@@ -450,12 +450,11 @@ def _register_handlers(self, application: Application):
 
 ### Statistics Commands
 
-Two public commands expose aggregated statistics:
+One public command exposes aggregated statistics:
 
 - `/topic_stats k` → Top-k most requested topics (defaults to 10)
-- `/user_stats k` → Top-k most active users by request count (defaults to 10)
 
-These commands call `IStatisticsService.top_topics()` and `IStatisticsService.top_users()` from the adapter layer and are intentionally **not** admin-restricted.
+This command calls `IStatisticsService.top_topics()` from the adapter layer and is intentionally **not** admin-restricted.
 
 ### Extending to New Platform (e.g., Discord)
 
