@@ -4,6 +4,19 @@
   - HTTP/TLS stack: requests, urllib3, certifi, charset-normalizer (security updates)
   - Cryptography stack: cryptography, cffi, pycparser (OpenSSL 3.x compatibility)
   - Development tools: pytest ~=9.0, pylint ~=4.0 (latest testing/linting)
+- Clean architecture refactor
+  - Split code into adapters/application/domain/infrastructure modules
+  - Add architecture documentation and update tests layout
+- Introduce uv as the build tool
+  - Add pyproject + uv.lock, update CI workflow
+  - Remove requirements.txt/runtime.txt and update README/CLAUDE notes
+- Fix API inconsistencies across services and adapters
+  - Update authorization/berlin help services and guidebook adapter
+  - Align tests and build config with the updated APIs
+- Add statistics commands backed by SQLite
+  - Add stats persistence layer and unit tests
+- Streamline the IGuidebook protocol
+- Remove user stats, keep only topic stats
 
 ### 20260126
 - **MAJOR**: Upgrade python-telegram-bot from v12.7 to v21.11

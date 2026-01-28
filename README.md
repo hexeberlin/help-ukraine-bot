@@ -6,6 +6,19 @@ Telegram bot containing the answers to the FAQs for Ukrainian refugees in Berlin
 
 Support us: https://ko-fi.com/berlinhelpsukrainians
 
+## Architecture (Clean Architecture)
+
+```
+Domain (Protocols) → Application (Services) → Adapter (Telegram) → Infrastructure (YAML/SQLite)
+```
+
+- **Domain**: protocols for guidebook, authorization, and statistics
+- **Application**: business logic in `BerlinHelpService` and `AuthorizationService`
+- **Adapters**: Telegram integration in `TelegramBotAdapter` and `TelegramAuthorizationAdapter`
+- **Infrastructure**: YAML guidebook + SQLite statistics
+
+The adapter layer logs guidebook requests to an in-memory SQLite statistics service. The public `/topic_stats` command exposes top topics.
+
 ## Setup
 
 This project uses [uv](https://docs.astral.sh/uv/) for fast, reliable dependency management.

@@ -11,7 +11,7 @@ A Telegram bot providing FAQ answers and helpful information for Ukrainian refug
 This project uses [uv](https://docs.astral.sh/uv/) for dependency management.
 
 ```bash
-# Setup environment (Python 3.11 per runtime.txt)
+# Setup environment (Python 3.11)
 # uv automatically creates and manages virtual environments
 uv sync
 
@@ -86,6 +86,7 @@ Domain (Protocols) → Application (Services) → Adapter (Telegram) → Infrast
 **Infrastructure Layer** (`src/infrastructure/`):
 - `yaml_guidebook.py` - YAML-based guidebook implementation
 - `config_loader.py` - Configuration loading utilities
+- `sqlite_statistics.py` - In-memory SQLite statistics storage
 
 **Knowledge Base**:
 - `src/knowledgebase/guidebook.yml` - Primary content: topics mapped to information lists/dicts
@@ -97,7 +98,8 @@ Domain (Protocols) → Application (Services) → Adapter (Telegram) → Infrast
 2. Handler calls BerlinHelpService method
 3. Service calls YamlGuidebook for data
 4. Service returns formatted result
-5. Adapter sends reply via Telegram API
+5. Adapter records topic statistics via StatisticsServiceSQLite
+6. Adapter sends reply via Telegram API
 
 ## Key Patterns
 
@@ -113,6 +115,11 @@ Domain (Protocols) → Application (Services) → Adapter (Telegram) → Infrast
 2. Implement in `BerlinHelpService`
 3. Add handler method in `TelegramBotAdapter`
 4. Register handler in `_register_handlers()`
+
+**New stats aggregation:**
+1. Extend `IStatisticsService` in `src/domain/protocols.py`
+2. Implement in `StatisticsServiceSQLite`
+3. Call from adapter handlers only
 
 **New data source:**
 1. Define protocol in `src/domain/protocols.py`

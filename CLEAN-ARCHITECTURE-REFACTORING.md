@@ -2,7 +2,19 @@
 
 ## Overview
 
-Transform the Telegram bot into a Clean Architecture design with clear separation between business logic and framework:
+The Telegram bot has been refactored to a Clean Architecture design with clear separation between business logic and framework.
+
+**Status (2026-01-27): Completed.** The refactor is now implemented end-to-end, including updated tests and documentation.
+
+### What Changed (Implemented)
+
+- Split source into domain/application/adapters/infrastructure layers
+- Migrated Guidebook to `YamlGuidebook` (infrastructure) with protocol-based access
+- Centralized business logic in `BerlinHelpService` and `AuthorizationService`
+- Moved Telegram wiring to `TelegramBotAdapter` + `TelegramAuthorizationAdapter`
+- Introduced DI bootstrap in `src/main.py`
+- Added SQLite-backed statistics service and commands
+- Removed legacy modules (`src/commands.py`, `src/common.py`, `src/guidebook.py`)
 
 ```
 Domain Layer (Protocols) → Application Layer (Services) → Adapter Layer (Telegram) → Infrastructure (YAML)
@@ -174,16 +186,16 @@ src/
 │   ├── __init__.py
 │   ├── protocols.py          # IGuidebook, IBerlinHelpService, IAuthorizationService
 │   ├── models.py             # ChatContext, CommandRequest (value objects)
-│   └── exceptions.py         # Domain exceptions
 │
 ├── application/
 │   ├── __init__.py
 │   ├── berlin_help_service.py  # Core business logic
-│   └── authorization.py        # Authorization service
+│   └── authorization_service.py # Authorization service
 │
 ├── infrastructure/
 │   ├── __init__.py
 │   ├── yaml_guidebook.py      # YamlGuidebook (from current guidebook.py)
+│   ├── sqlite_statistics.py   # StatisticsServiceSQLite
 │   └── config_loader.py       # Load settings.toml
 │
 ├── adapters/
@@ -196,11 +208,14 @@ src/
 
 tests/
 ├── unit/
+│   ├── test_authorization_service.py
 │   ├── test_berlin_help_service.py
-│   ├── test_yaml_guidebook.py
-│   └── test_telegram_adapter.py
+│   ├── test_statistics_service_sqlite.py
+│   ├── test_telegram_adapter.py
+│   └── test_yaml_guidebook.py
 ├── integration/
-│   └── test_bot_integration.py
+│   └── test_service_with_real_guidebook.py
+├── test_integration.py
 └── conftest.py
 ```
 
@@ -269,63 +284,43 @@ def test_service_with_real_guidebook(real_service):
     assert "#accommodation" in result
 ```
 
-## Migration Path (6 Phases)
+## Migration Path (6 Phases) — Completed
 
-### Phase 1: Domain & Infrastructure (No Breaking Changes)
-- Create `src/domain/` with protocols.py, models.py
-- Create `src/infrastructure/` with yaml_guidebook.py
-- Copy Guidebook → YamlGuidebook
-- Extend the Guidebook implementation to expose `get_topics()` and `get_descriptions()` so later phases can build command metadata without touching YAML files directly
-- Write unit tests for YamlGuidebook
-- **Risk: Zero** (purely additive)
+### Phase 1: Domain & Infrastructure
+- Created `src/domain/` with protocols and models
+- Added `src/infrastructure/` with `yaml_guidebook.py` + `config_loader.py`
+- Exposed topic metadata for adapters
 
 ### Phase 2: Application Layer
-- Create `src/application/` with berlin_help_service.py
-- Extract business logic from commands.py
-- Create authorization.py
-- Write unit tests with mocked guidebook
-- **Risk: Low** (parallel implementation)
+- Added `BerlinHelpService` and `AuthorizationService`
+- Extracted logic from legacy commands
 
 ### Phase 3: Adapter Layer
-- Create `src/adapters/` with telegram_adapter.py
-- Move handler registration from commands.py
-- Create telegram_auth.py
-- Write tests with mocked service
-- **Risk: Medium** (complex adapter)
+- Added Telegram adapters and migrated handler registration
+- Implemented Telegram-specific authorization checks
 
-### Phase 4: Refactor main.py (Cutover)
-- Rewrite main.py with dependency injection
-- Update imports
-- Run full test suite
-- **Risk: High** (cutover point)
+### Phase 4: main.py Cutover
+- Rewrote `src/main.py` with DI wiring for all layers
 
 ### Phase 5: Remove Legacy Code
-- Delete src/guidebook.py, src/commands.py, src/common.py
-- Update all tests
-- **Risk: Low** (if Phase 4 succeeded)
+- Removed `src/guidebook.py`, `src/commands.py`, `src/common.py`
+- Updated unit/integration tests
 
 ### Phase 6: Documentation
-- Update CLAUDE.md
-- Add architecture diagrams
-- Document testing approach
+- Updated architecture documentation and testing guidance
 
-## Critical Files
+## Implemented Moves
 
 ### To Extract/Refactor
-1. `src/guidebook.py` → infrastructure/yaml_guidebook.py
-   - While moving, add `get_topics()` and `get_descriptions()` helpers so adapters/services no longer reach into `.guidebook`/`.descriptions` internals
-2. `src/commands.py` → Split:
-   - Business logic → application/berlin_help_service.py
-   - Telegram handlers → adapters/telegram_adapter.py
-3. `src/common.py` → Distribute:
-   - send_results, reply_to_message → adapters/telegram_adapter.py
-   - @restricted logic → adapters/telegram_auth.py
+1. `src/guidebook.py` → `src/infrastructure/yaml_guidebook.py`
+2. `src/commands.py` → business logic in `src/application/berlin_help_service.py`, handlers in `src/adapters/telegram_adapter.py`
+3. `src/common.py` → messaging helpers in adapter, authorization checks in `src/adapters/telegram_auth.py`
 
 ### To Rewrite
-4. `src/main.py` → Dependency injection pattern
+4. `src/main.py` → Dependency injection pattern (done)
 
 ### Test Patterns
-5. `tests/test_commands.py` → Adapt for new architecture
+5. `tests/test_commands.py` → Replaced with unit + integration suites (done)
 
 ## Verification
 
@@ -339,15 +334,15 @@ def test_service_with_real_guidebook(real_service):
 4. **Existing tests pass**: `pytest tests/`
 5. **Lint passes**: `pylint -E src tests`
 
-### Functionality Checklist
-- [ ] Help command works
-- [ ] Dynamic topic commands work (accommodation, animals, etc.)
-- [ ] Cities command with parameter works
-- [ ] Countries command works
-- [ ] Admin-only commands restricted properly
-- [ ] Reminder system functions
-- [ ] Message deletion works
-- [ ] Greeting deletion works
+### Functionality Checklist (Post-Refactor)
+- [x] Help command works
+- [x] Dynamic topic commands work (accommodation, animals, etc.)
+- [x] Cities command with parameter works
+- [x] Countries command works
+- [x] Admin-only commands restricted properly
+- [x] Reminder system functions
+- [x] Message deletion works
+- [x] Greeting deletion works
 
 ## Benefits
 
