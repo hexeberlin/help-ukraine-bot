@@ -26,11 +26,11 @@ Both features are cleanly separated across architectural layers and can be remov
   - Remove `handle_social_reminder()` method (lines 108-115)
 
 ### Adapter Layer
-- `src/adapters/telegram_adapter.py` (largest change - ~400 lines removed)
+- `src/adapters/telegram_adapter.py` (largest change - ~270-280 lines removed)
   - Remove imports: `IAuthorizationService`, `TelegramAuthorizationAdapter`, `Job`, `JobQueue`
   - Remove 8 constructor parameters (auth services + reminder config)
   - Remove 4 handler registrations: `/start`, `/stop`, `/adminsonly`, `/adminsonly_revert`
-  - Remove 11 methods:
+  - Remove 13 methods:
     - Handler methods: `_handle_start_timer()`, `_handle_stop_timer()`, `_handle_admins_only()`, `_handle_admins_only_revert()`
     - Auth methods: `_check_access()`, `_check_admin_access()`
     - Reminder methods: `_start_reminder()`, `_add_pinned_reminder_job()`, `_add_info_job()`, `_send_pinned_reminder()`, `_send_social_reminder()`, `_job_name()`, `_chat_jobs()`
@@ -121,8 +121,8 @@ Test commands:
 
 ## Architecture Benefits
 
-- **Simplified adapter**: Constructor reduced from 10 to 3 parameters
-- **Reduced complexity**: 11 methods and ~400 lines removed from telegram_adapter.py
+- **Simplified adapter**: Constructor reduced from 12 to 4 parameters
+- **Reduced complexity**: 13 methods and ~270-280 lines removed from telegram_adapter.py
 - **Cleaner contracts**: Focused service layer without access control logic
 - **Better performance**: No background jobs or periodic API calls
 - **3 fewer files** in codebase
