@@ -92,14 +92,6 @@ class TestServiceWithRealGuidebook:
         assert isinstance(result, str)
         assert len(result) > 0
 
-    def test_handle_social_reminder(self, service):
-        """Test handle_social_reminder returns real content."""
-        result = service.handle_social_reminder()
-
-        # Should return content (not error message)
-        assert isinstance(result, str)
-        assert len(result) > 0
-
     def test_all_topics_can_be_handled(self, service, real_guidebook):
         """Test that all topics in the guidebook can be handled."""
         topics = real_guidebook.get_topics()

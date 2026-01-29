@@ -6,11 +6,9 @@ import pytest
 from src.adapters.telegram_adapter import TelegramBotAdapter
 from src.domain.protocols import (
     IBerlinHelpService,
-    IAuthorizationService,
     IGuidebook,
     IStatisticsService,
 )
-from src.adapters.telegram_auth import TelegramAuthorizationAdapter
 
 
 @pytest.fixture
@@ -21,24 +19,7 @@ def mock_service():
     service.handle_topic.return_value = "#topic\nTopic info"
     service.handle_cities.return_value = "City info"
     service.handle_countries.return_value = "Country info"
-    service.handle_social_reminder.return_value = "Social help"
     return service
-
-
-@pytest.fixture
-def mock_auth_service():
-    """Create a mock authorization service."""
-    auth_service = Mock(spec=IAuthorizationService)
-    auth_service.is_admin_only_chat.return_value = False
-    return auth_service
-
-
-@pytest.fixture
-def mock_telegram_auth():
-    """Create a mock Telegram auth adapter."""
-    telegram_auth = Mock(spec=TelegramAuthorizationAdapter)
-    telegram_auth.is_user_admin = AsyncMock(return_value=True)
-    return telegram_auth
 
 
 @pytest.fixture
@@ -67,9 +48,7 @@ def mock_guidebook():
 @pytest.fixture
 def adapter(
     mock_service,
-    mock_auth_service,
     mock_stats_service,
-    mock_telegram_auth,
     mock_guidebook,
 ):
     """Create a TelegramBotAdapter instance."""
@@ -77,15 +56,7 @@ def adapter(
         token="test_token",
         service=mock_service,
         guidebook=mock_guidebook,
-        auth_service=mock_auth_service,
         stats_service=mock_stats_service,
-        telegram_auth=mock_telegram_auth,
-        berlin_chat_ids=[-1001589772550],
-        reminder_interval_pinned=30 * 60,
-        reminder_interval_info=10 * 60,
-        reminder_message="Reminder message",
-        pinned_job_name="pinned",
-        social_job_name="social",
     )
 
 
@@ -95,8 +66,6 @@ class TestTelegramBotAdapter:
     def test_initialization(self, adapter):
         """Test adapter initialization."""
         assert adapter.token == "test_token"
-        assert adapter.reminder_interval_pinned == 30 * 60
-        assert adapter.reminder_interval_info == 10 * 60
 
     def test_build_application(self, adapter):
         """Test building the application."""
@@ -218,10 +187,9 @@ class TestTelegramBotAdapter:
 
     @pytest.mark.anyio
     async def test_handle_cities_records_stats(
-        self, adapter, mock_stats_service, mock_auth_service
+        self, adapter, mock_stats_service
     ):
         """Ensure /cities logs stats with topic."""
-        mock_auth_service.is_admin_only_chat.return_value = False
         adapter._reply_to_message = AsyncMock()
         update = SimpleNamespace(
             effective_chat=SimpleNamespace(id=123),
@@ -239,10 +207,9 @@ class TestTelegramBotAdapter:
 
     @pytest.mark.anyio
     async def test_handle_cities_records_stats_username_fallback(
-        self, adapter, mock_stats_service, mock_auth_service
+        self, adapter, mock_stats_service
     ):
         """Ensure /cities logs stats even when user display name is missing."""
-        mock_auth_service.is_admin_only_chat.return_value = False
         adapter._reply_to_message = AsyncMock()
         update = SimpleNamespace(
             effective_chat=SimpleNamespace(id=123),
@@ -262,10 +229,9 @@ class TestTelegramBotAdapter:
 
     @pytest.mark.anyio
     async def test_handle_topic_records_stats(
-        self, adapter, mock_stats_service, mock_auth_service
+        self, adapter, mock_stats_service
     ):
         """Ensure topic handlers log stats."""
-        mock_auth_service.is_admin_only_chat.return_value = False
         adapter._reply_to_message = AsyncMock()
         update = SimpleNamespace(
             effective_chat=SimpleNamespace(id=123),
@@ -296,85 +262,6 @@ class TestTelegramBotAdapter:
         await adapter._handle_topic_stats(update, context)
 
         mock_stats_service.top_topics.assert_called_once_with(10)
-
-    @pytest.mark.anyio
-    async def test_check_access_public_chat(self, adapter, mock_auth_service):
-        """Test check_access for public (non-admin-only) chat."""
-        mock_auth_service.is_admin_only_chat.return_value = False
-        update = SimpleNamespace(effective_chat=SimpleNamespace(id=123))
-        context = SimpleNamespace()
-
-        result = await adapter._check_access(update, context)
-
-        assert result is True
-        mock_auth_service.is_admin_only_chat.assert_called_once_with(123)
-
-    @pytest.mark.anyio
-    async def test_check_access_admin_only_chat_admin_user(
-        self, adapter, mock_auth_service, mock_telegram_auth
-    ):
-        """Test check_access for admin-only chat with admin user."""
-        mock_auth_service.is_admin_only_chat.return_value = True
-        mock_telegram_auth.is_user_admin = AsyncMock(return_value=True)
-        update = SimpleNamespace(
-            effective_chat=SimpleNamespace(id=123),
-            effective_user=SimpleNamespace(id=999),
-        )
-        context = SimpleNamespace(bot=AsyncMock())
-
-        result = await adapter._check_access(update, context)
-
-        assert result is True
-
-    @pytest.mark.anyio
-    async def test_check_access_admin_only_chat_non_admin_user(
-        self, adapter, mock_auth_service, mock_telegram_auth
-    ):
-        """Test check_access for admin-only chat with non-admin user."""
-        mock_auth_service.is_admin_only_chat.return_value = True
-        mock_telegram_auth.is_user_admin = AsyncMock(return_value=False)
-        update = SimpleNamespace(
-            effective_chat=SimpleNamespace(id=123),
-            effective_user=SimpleNamespace(id=999),
-        )
-        context = SimpleNamespace(bot=AsyncMock())
-
-        result = await adapter._check_access(update, context)
-
-        assert result is False
-
-    @pytest.mark.anyio
-    async def test_check_admin_access_admin_user(self, adapter, mock_telegram_auth):
-        """Test check_admin_access with admin user."""
-        mock_telegram_auth.is_user_admin = AsyncMock(return_value=True)
-        update = SimpleNamespace(
-            effective_chat=SimpleNamespace(id=123),
-            effective_user=SimpleNamespace(id=999),
-        )
-        context = SimpleNamespace(bot=AsyncMock())
-
-        result = await adapter._check_admin_access(update, context)
-
-        assert result is True
-        mock_telegram_auth.is_user_admin.assert_called_once_with(
-            999, 123, context.bot
-        )
-
-    @pytest.mark.anyio
-    async def test_check_admin_access_non_admin_user(
-        self, adapter, mock_telegram_auth
-    ):
-        """Test check_admin_access with non-admin user."""
-        mock_telegram_auth.is_user_admin = AsyncMock(return_value=False)
-        update = SimpleNamespace(
-            effective_chat=SimpleNamespace(id=123),
-            effective_user=SimpleNamespace(id=999),
-        )
-        context = SimpleNamespace(bot=AsyncMock())
-
-        result = await adapter._check_admin_access(update, context)
-
-        assert result is False
 
     @pytest.mark.anyio
     async def test_handle_help(self, adapter, mock_service):
@@ -445,55 +332,3 @@ class TestTelegramBotAdapter:
         mock_service.handle_countries.assert_called_once_with(
             "poland", show_all=False
         )
-
-    @pytest.mark.anyio
-    async def test_handle_admins_only(self, adapter, mock_auth_service):
-        """Test handling /adminsonly command."""
-        update = SimpleNamespace(
-            effective_chat=SimpleNamespace(id=123),
-            effective_user=SimpleNamespace(id=999),
-            effective_message=SimpleNamespace(chat_id=123, message_id=456),
-        )
-        context = SimpleNamespace(bot=AsyncMock())
-
-        await adapter._handle_admins_only(update, context)
-
-        mock_auth_service.add_admin_only_chat.assert_called_once_with(123)
-        context.bot.delete_message.assert_called_once()
-
-    @pytest.mark.anyio
-    async def test_handle_admins_only_revert(self, adapter, mock_auth_service):
-        """Test handling /adminsonly_revert command."""
-        update = SimpleNamespace(
-            effective_chat=SimpleNamespace(id=123),
-            effective_user=SimpleNamespace(id=999),
-            effective_message=SimpleNamespace(chat_id=123, message_id=456),
-        )
-        context = SimpleNamespace(bot=AsyncMock())
-
-        await adapter._handle_admins_only_revert(update, context)
-
-        mock_auth_service.remove_admin_only_chat.assert_called_once_with(123)
-        context.bot.delete_message.assert_called_once()
-
-    def test_job_name(self, adapter):
-        """Test job name generation."""
-        result = adapter._job_name("pinned", 123)
-        assert result == "pinned-123"
-
-    def test_chat_jobs(self, adapter):
-        """Test getting jobs for a chat."""
-        job1 = Mock()
-        job2 = Mock()
-        job_queue = Mock()
-        job_queue.get_jobs_by_name.side_effect = [[job1], [job2]]
-
-        result = adapter._chat_jobs(job_queue, 123)
-
-        assert result == [job1, job2]
-        assert job_queue.get_jobs_by_name.call_count == 2
-
-    def test_chat_jobs_no_queue(self, adapter):
-        """Test getting jobs when no job queue."""
-        result = adapter._chat_jobs(None, 123)
-        assert result == []

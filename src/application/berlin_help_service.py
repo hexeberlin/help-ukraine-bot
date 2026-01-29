@@ -104,12 +104,3 @@ class BerlinHelpService:
         if show_all:
             return self.guidebook.get_info("countries", name=None)
         return self.guidebook.get_countries(name=country_name)
-
-    def handle_social_reminder(self) -> str:
-        """
-        Handle social reminder - return social help information.
-
-        Returns:
-            Social help content from guidebook
-        """
-        return self.guidebook.get_results("social_help")
