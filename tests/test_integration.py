@@ -12,11 +12,9 @@ os.environ.setdefault("TOKEN", "123:TESTTOKEN")
 
 from src.infrastructure.yaml_guidebook import YamlGuidebook  # noqa: E402
 from src.application.berlin_help_service import BerlinHelpService  # noqa: E402
-from src.application.authorization_service import AuthorizationService  # noqa: E402
 from src.infrastructure.sqlite_statistics import (  # noqa: E402
     StatisticsServiceSQLite,
 )
-from src.adapters.telegram_auth import TelegramAuthorizationAdapter  # noqa: E402
 from src.adapters.telegram_adapter import TelegramBotAdapter  # noqa: E402
 
 TOKEN = "123:TESTTOKEN"
@@ -31,23 +29,13 @@ async def test_application_processes_help_command():
         vocabulary_path="src/knowledgebase/vocabulary.yml"
     )
     service = BerlinHelpService(guidebook=guidebook)
-    auth_service = AuthorizationService(admin_only_chat_ids=set())
     stats_service = StatisticsServiceSQLite()
-    telegram_auth = TelegramAuthorizationAdapter()
 
     adapter = TelegramBotAdapter(
         token=TOKEN,
         service=service,
         guidebook=guidebook,
-        auth_service=auth_service,
         stats_service=stats_service,
-        telegram_auth=telegram_auth,
-        berlin_chat_ids=[],
-        reminder_interval_pinned=30 * 60,
-        reminder_interval_info=10 * 60,
-        reminder_message="Test reminder",
-        pinned_job_name="pinned",
-        social_job_name="social",
     )
 
     application = adapter.build_application()

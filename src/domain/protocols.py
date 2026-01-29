@@ -1,5 +1,5 @@
 """Domain protocols - Interfaces for dependency injection."""
-from typing import Protocol, List, Dict, Optional, Set
+from typing import Protocol, List, Dict, Optional
 
 
 class StatisticsServiceError(Exception):
@@ -56,30 +56,6 @@ class IBerlinHelpService(Protocol):
 
     def handle_countries(self, country_name: Optional[str], show_all: bool = False) -> str:
         """Handle countries command - return country information."""
-        ...
-
-    def handle_social_reminder(self) -> str:
-        """Handle social reminder - return social help information."""
-        ...
-
-
-class IAuthorizationService(Protocol):
-    """Protocol for authorization business rules."""
-
-    def is_admin_only_chat(self, chat_id: int) -> bool:
-        """Check if chat is admin-only."""
-        ...
-
-    def add_admin_only_chat(self, chat_id: int) -> None:
-        """Add chat to admin-only list."""
-        ...
-
-    def remove_admin_only_chat(self, chat_id: int) -> None:
-        """Remove chat from admin-only list."""
-        ...
-
-    def get_admin_only_chats(self) -> Set[int]:
-        """Get copy of admin-only chat IDs."""
         ...
 
 

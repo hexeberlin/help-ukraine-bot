@@ -21,12 +21,7 @@ As of the statistics feature, guidebook requests are logged via a statistics ser
 │  │  - Handler registration                         │   │
 │  │  - Command routing                              │   │
 │  │  - Message formatting                           │   │
-│  │  - Job scheduling                               │   │
 │  │  - Statistics logging                           │   │
-│  └─────────────────────────────────────────────────┘   │
-│  ┌─────────────────────────────────────────────────┐   │
-│  │      TelegramAuthorizationAdapter               │   │
-│  │  - Telegram admin checks                        │   │
 │  └─────────────────────────────────────────────────┘   │
 └───────────────────────┬─────────────────────────────────┘
                         │ Uses protocols from
@@ -39,13 +34,6 @@ As of the statistics feature, guidebook requests are logged via a statistics ser
 │  │  - handle_topic()                               │   │
 │  │  - handle_cities()                              │   │
 │  │  - handle_countries()                           │   │
-│  │  - handle_social_reminder()                     │   │
-│  └─────────────────────────────────────────────────┘   │
-│  ┌─────────────────────────────────────────────────┐   │
-│  │      AuthorizationService                       │   │
-│  │  - is_admin_only_chat()                         │   │
-│  │  - add_admin_only_chat()                        │   │
-│  │  - remove_admin_only_chat()                     │   │
 │  └─────────────────────────────────────────────────┘   │
 └───────────────────────┬─────────────────────────────────┘
                         │ Uses protocols from
@@ -56,7 +44,6 @@ As of the statistics feature, guidebook requests are logged via a statistics ser
 │  │  Protocols (Interfaces)                         │   │
 │  │  - IGuidebook                                   │   │
 │  │  - IBerlinHelpService                           │   │
-│  │  - IAuthorizationService                        │   │
 │  │  - IStatisticsService                           │   │
 │  └─────────────────────────────────────────────────┘   │
 │  ┌─────────────────────────────────────────────────┐   │
@@ -95,16 +82,22 @@ As of the statistics feature, guidebook requests are logged via a statistics ser
 
 1. **Telegram** → Update arrives at bot
 2. **TelegramBotAdapter** → Routes to `_handle_help()` handler
-3. **TelegramBotAdapter** → Checks access via `_check_access()`
-   - Uses `AuthorizationService.is_admin_only_chat()`
-   - If admin-only, uses `TelegramAuthorizationAdapter.is_user_admin()`
-4. **BerlinHelpService** → Calls `handle_help()`
+3. **BerlinHelpService** → Calls `handle_help()`
    - Formats multilingual help text
    - Uses `YamlGuidebook.format_results()`
-5. **TelegramBotAdapter** → Sends reply via `_reply_to_message()`
+4. **TelegramBotAdapter** → Sends reply via `_reply_to_message()`
    - Calls Telegram API to send message
    - Deletes original command message
-6. **TelegramBotAdapter** → Records statistics (topic, timestamp) via `IStatisticsService`
+
+**User sends `/cities Berlin` command:**
+
+1. **Telegram** → Update arrives at bot
+2. **TelegramBotAdapter** → Routes to `_handle_cities()` handler
+3. **TelegramBotAdapter** → Extracts "Berlin" parameter
+4. **BerlinHelpService** → Calls `handle_cities("Berlin", show_all=False)`
+5. **YamlGuidebook** → Returns formatted city information
+6. **TelegramBotAdapter** → Records statistics via `IStatisticsService`
+7. **TelegramBotAdapter** → Sends reply via `_reply_to_message()`
 
 ## Key Principles
 
@@ -124,22 +117,21 @@ All state is managed explicitly through dependency injection. No global variable
 **Before (problematic):**
 ```python
 # Global mutable state
-ADMIN_ONLY_CHAT_IDS = [-1001723117571]
 guidebook = Guidebook(...)
+REMINDER_MESSAGE = "..."
 
-# Runtime mutation
-ADMIN_ONLY_CHAT_IDS.append(chat_id)
+# Direct global access
+def handler():
+    return guidebook.get_info(...)
 ```
 
 **After (clean):**
 ```python
-# Immutable dependency injection
-auth_service = AuthorizationService(
-    admin_only_chat_ids={-1001723117571}
-)
-
-# Explicit mutation through service
-auth_service.add_admin_only_chat(chat_id)
+# Dependency injection
+class TelegramBotAdapter:
+    def __init__(self, service: IBerlinHelpService, guidebook: IGuidebook):
+        self.service = service
+        self.guidebook = guidebook
 ```
 
 ### 3. Framework Independence
@@ -180,7 +172,6 @@ Each layer can be tested independently:
 
 **Files:**
 - `berlin_help_service.py` - Core help request handling logic
-- `authorization_service.py` - Access control rules
 
 **Rules:**
 - Depends only on domain protocols
@@ -206,7 +197,6 @@ class BerlinHelpService:
 
 **Files:**
 - `telegram_adapter.py` - Main bot adapter for python-telegram-bot
-- `telegram_auth.py` - Telegram-specific authorization
 
 **Rules:**
 - Depends on application services via protocols
@@ -262,62 +252,15 @@ class YamlGuidebook:  # Implements IGuidebook protocol
 
 Guidebook requests initiated by users are recorded in memory:
 
-- **What**: user ID, topic (key in `guidebook.yml`), optional parameter, timestamp, optional extra metadata
+- **What**: topic (key in `guidebook.yml`), topic description, timestamp
 - **Where**: `StatisticsServiceSQLite` (in-memory SQLite DB)
-- **When**: after successful access checks, before reply is sent
+- **When**: after command is processed, before reply is sent
 - **Retention**: old records are purged on each insert (default 30 days)
+- **Access**: Public command `/topic_stats [k]` returns top-k topics by request count
 
 This keeps the logging concerns in the adapter + infrastructure layers and avoids leaking Telegram types into the application layer.
 
 ## Migration Patterns
-
-### Pattern 1: Global State → Dependency Injection
-
-**Before:**
-```python
-# Global mutable list
-ADMIN_ONLY_CHAT_IDS = [-1001723117571]
-
-# Mutated at runtime
-ADMIN_ONLY_CHAT_IDS.append(chat_id)
-```
-
-**After:**
-```python
-# Service with encapsulated state
-class AuthorizationService:
-    def __init__(self, admin_only_chat_ids: Set[int]):
-        self._admin_only_chat_ids = admin_only_chat_ids.copy()
-
-    def add_admin_only_chat(self, chat_id: int):
-        self._admin_only_chat_ids.add(chat_id)
-
-# Injected in main.py
-auth_service = AuthorizationService(
-    admin_only_chat_ids={-1001723117571}
-)
-```
-
-### Pattern 2: Decorator → Explicit Check
-
-**Before:**
-```python
-@restricted
-async def start_timer(update: Update, context: Context):
-    # Decorator magically checks if user is admin
-    ...
-```
-
-**After:**
-```python
-async def _handle_start_timer(self, update: Update, context: Context):
-    # Explicit access check
-    if not await self._check_admin_access(update, context):
-        return
-    ...
-```
-
-### Pattern 3: Tight Coupling → Protocol-Based Injection
 
 **Before:**
 ```python
@@ -338,6 +281,21 @@ class BerlinHelpService:
     def handle_cities(self, city_name: str) -> str:
         return self.guidebook.get_cities(name=city_name)
 ```
+
+### Pattern 2: Simplified Architecture
+
+The project has evolved toward simplicity by removing features that added complexity without sufficient value:
+
+**Removed features:**
+- Authorization system (admin-only chats, access control)
+- Reminder/scheduling system (pinned messages, social reminders)
+- Related commands: `/start`, `/stop`, `/adminsonly`, `/adminsonly_revert`
+
+**Result:**
+- Simpler constructor: `TelegramBotAdapter` reduced from 12 to 4 parameters
+- Fewer dependencies: No authorization service, no job scheduling
+- Clearer focus: Bot provides information, no access control or automation
+- All commands are public and accessible to anyone
 
 ## Benefits
 
@@ -435,8 +393,6 @@ class BerlinHelpService:
 ```python
 class TelegramBotAdapter:
     async def _handle_new_command(self, update: Update, context: Context):
-        if not await self._check_access(update, context):
-            return
         param = self._extract_parameter(update, "/newcommand")
         result = self.service.handle_new_command(param)
         await self._reply_to_message(update, context, result)
@@ -448,13 +404,16 @@ def _register_handlers(self, application: Application):
     application.add_handler(CommandHandler("newcommand", self._handle_new_command))
 ```
 
-### Statistics Commands
+### Available Commands
 
-One public command exposes aggregated statistics:
-
-- `/topic_stats k` → Top-k most requested topics (defaults to 10)
-
-This command calls `IStatisticsService.top_topics()` from the adapter layer and is intentionally **not** admin-restricted.
+**Public Commands** (accessible to all users):
+- `/help` - Display help text with available commands
+- `/cities [name]` - Get information about a specific city
+- `/cities_all` - List all available cities
+- `/countries [name]` - Get information about a specific country
+- `/countries_all` - List all available countries
+- `/topic_*` - Dynamic handlers for all topics in guidebook.yml
+- `/topic_stats [k]` - Top-k most requested topics (defaults to 10)
 
 ### Extending to New Platform (e.g., Discord)
 

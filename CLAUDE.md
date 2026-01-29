@@ -64,24 +64,22 @@ Domain (Protocols) → Application (Services) → Adapter (Telegram) → Infrast
 
 `src/main.py` - Constructs the application using dependency injection:
 1. Loads configuration from environment and TOML files
-2. Creates infrastructure layer (YamlGuidebook)
-3. Creates application services (BerlinHelpService, AuthorizationService)
-4. Creates adapters (TelegramBotAdapter, TelegramAuthorizationAdapter)
+2. Creates infrastructure layer (YamlGuidebook, StatisticsServiceSQLite)
+3. Creates application service (BerlinHelpService)
+4. Creates adapter (TelegramBotAdapter)
 5. Builds and runs the Telegram Application
 
 ### Layer Details
 
 **Domain Layer** (`src/domain/`):
-- `protocols.py` - Interfaces (IGuidebook, IBerlinHelpService, IAuthorizationService)
+- `protocols.py` - Interfaces (IGuidebook, IBerlinHelpService, IStatisticsService)
 - `models.py` - Value objects (ChatContext, CommandRequest)
 
 **Application Layer** (`src/application/`):
 - `berlin_help_service.py` - Core business logic for handling help requests
-- `authorization_service.py` - Authorization rules (admin-only chats)
 
 **Adapter Layer** (`src/adapters/`):
-- `telegram_adapter.py` - Telegram-specific bot logic, handler registration, and job scheduling
-- `telegram_auth.py` - Telegram admin checks
+- `telegram_adapter.py` - Telegram-specific bot logic, handler registration, and message handling
 
 **Infrastructure Layer** (`src/infrastructure/`):
 - `yaml_guidebook.py` - YAML-based guidebook implementation
@@ -137,12 +135,6 @@ Domain (Protocols) → Application (Services) → Adapter (Telegram) → Infrast
 
 All dependencies are injected via constructors in `main.py`. No global state or mutable singletons.
 
-### Authorization
-
-- Public chats: Anyone can use commands
-- Admin-only chats: Only admins can use commands (managed by `AuthorizationService`)
-- Admin commands: Always require admin status (checked via `TelegramAuthorizationAdapter`)
-
 ## Deployment
 
 Main branch auto-deploys to Heroku on PR merge. The bot needs admin rights in chats to delete command messages.
@@ -158,13 +150,12 @@ src/
 │   ├── protocols.py      # Interfaces
 │   └── models.py         # Value objects
 ├── application/
-│   ├── berlin_help_service.py
-│   └── authorization_service.py
+│   └── berlin_help_service.py
 ├── adapters/
-│   ├── telegram_adapter.py
-│   └── telegram_auth.py
+│   └── telegram_adapter.py
 ├── infrastructure/
 │   ├── yaml_guidebook.py
+│   ├── sqlite_statistics.py
 │   └── config_loader.py
 ├── knowledgebase/
 │   ├── guidebook.yml

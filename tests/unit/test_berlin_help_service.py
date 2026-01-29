@@ -98,12 +98,3 @@ class TestBerlinHelpService:
 
         assert result == "All countries info"
         mock_guidebook.get_info.assert_called_once_with("countries", name=None)
-
-    def test_handle_social_reminder(self, service, mock_guidebook):
-        """Test handle_social_reminder returns social help info."""
-        mock_guidebook.get_results.return_value = "Social help content"
-
-        result = service.handle_social_reminder()
-
-        assert result == "Social help content"
-        mock_guidebook.get_results.assert_called_once_with("social_help")
