@@ -2,6 +2,8 @@
 
 This document captures the proposed simplification of the `IGuidebook` protocol and the corresponding changes needed across the codebase.
 
+**Status**: This plan was created after commit 7eb3256 (Jan 27, 2026) which introduced the guidebook dependency to `TelegramBotAdapter`. The auth/reminder removal (commit 494095c, Jan 29, 2026) has been completed separately. This refactoring is not yet implemented.
+
 ## Terminology
 
 To ensure clarity and consistency, this document uses the following terminology when referring to the structure of `src/knowledgebase/guidebook.yml`:
@@ -135,7 +137,7 @@ Formatting moves out of the guidebook interface into a separate formatter module
 
 ## Removing `TelegramBotAdapter`'s Guidebook Dependency
 
-The adapter currently imports `IGuidebook` to (a) enumerate topics for handler registration, (b) build `BotCommand`s with human-readable topic descriptions, and (c) look up topic descriptions while recording statistics (`src/adapters/telegram_adapter.py:109-422`). All of that information already flows through `BerlinHelpService` via its injected guidebook, so we can keep the adapter unaware of guidebook details by expanding the service contract:
+The adapter currently imports `IGuidebook` to (a) enumerate topics for handler registration (line 74), (b) build `BotCommand`s with human-readable topic descriptions (line 222), and (c) look up topic descriptions while recording statistics (line 250). All of that information already flows through `BerlinHelpService` via its injected guidebook, so we can keep the adapter unaware of guidebook details by expanding the service contract:
 
 1. **Extend `IBerlinHelpService`**
    - Add `list_topics() -> List[str]` to return all topic names. Delegates to `guidebook.get_topics()`.
@@ -147,16 +149,33 @@ The adapter currently imports `IGuidebook` to (a) enumerate topics for handler r
    - Consider caching the topic names and topic descriptions to avoid re-reading from YAML on every adapter call, especially when `_bot_commands()` iterates over topics more than once.
 
 3. **Refactor `TelegramBotAdapter`**
-   - Drop the `guidebook: IGuidebook` constructor parameter.
-   - Use `service.list_topics()` for handler registration (line 109).
-   - Use `service.get_topic_description(topic)` when building `BotCommand` objects in `_bot_commands()` (line 393) and when recording statistics in `_record_stats()` (line 421).
+   - Drop the `guidebook: IGuidebook` constructor parameter (line 34).
+   - Use `service.list_topics()` for handler registration (line 74).
+   - Use `service.get_topic_description(topic)` when building `BotCommand` objects in `_bot_commands()` (line 222) and when recording statistics in `_record_stats()` (line 250).
    - Ensure `_record_stats` continues to send a topic description string to `IStatisticsService` by fetching it from the service.
 
 4. **Adjust Composition & Tests**
-   - Remove the `guidebook` argument when constructing `TelegramBotAdapter` in `main.py` (line 36); only the service retains the guidebook dependency.
+   - Remove the `guidebook` argument when constructing `TelegramBotAdapter` in `main.py` (lines 27-32); only the service retains the guidebook dependency.
    - Update unit tests in `tests/unit/test_telegram_adapter.py`:
-     - Remove the `mock_guidebook` fixture.
+     - Remove the `mock_guidebook` fixture (lines 32-45).
      - Mock `service.list_topics()` and `service.get_topic_description(topic)` instead.
      - Verify that stats recording calls fetch topic descriptions from the service.
+     - Note: Auth-related test code has already been removed in commit 494095c.
 
 With this change the adapter talks exclusively to `IBerlinHelpService`, keeping the I/O layer ignorant of the domain data source while the service remains the single consumer of `IGuidebook`.
+
+## Notes on Recent Changes
+
+The authorization and reminder functionality referenced in earlier versions of this document has been removed in commit 494095c (Jan 29, 2026). The current adapter constructor signature is:
+
+```python
+def __init__(
+    self,
+    token: str,
+    service: IBerlinHelpService,
+    guidebook: IGuidebook,
+    stats_service: IStatisticsService,
+):
+```
+
+This refactoring plan is designed to remove the `guidebook: IGuidebook` parameter, leaving only `service` and `stats_service` as dependencies.
