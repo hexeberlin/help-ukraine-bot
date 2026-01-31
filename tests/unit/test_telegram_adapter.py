@@ -53,6 +53,7 @@ class TestTelegramBotAdapter:
     def test_initialization(self, adapter):
         """Test adapter initialization."""
         assert adapter.token == "test_token"
+        assert adapter._deletion_disabled_chats == set()
 
     def test_build_application(self, adapter):
         """Test building the application."""
@@ -333,3 +334,71 @@ class TestTelegramBotAdapter:
         mock_service.handle_countries.assert_called_once_with(
             "poland", show_all=False
         )
+
+    @pytest.mark.anyio
+    async def test_delete_command_handles_forbidden(self, adapter):
+        """Test that Forbidden errors are cached to prevent repeated attempts."""
+        from telegram.error import Forbidden
+
+        update = SimpleNamespace(
+            effective_message=SimpleNamespace(chat_id=123, message_id=456)
+        )
+        context = SimpleNamespace(bot=AsyncMock())
+        context.bot.delete_message.side_effect = Forbidden("Not enough rights")
+
+        # First attempt should try deletion and cache the failure
+        await adapter._delete_command(update, context)
+        assert context.bot.delete_message.call_count == 1
+        assert 123 in adapter._deletion_disabled_chats
+
+        # Second attempt should skip deletion entirely
+        await adapter._delete_command(update, context)
+        assert context.bot.delete_message.call_count == 1  # Still 1, not 2
+
+    @pytest.mark.anyio
+    async def test_delete_command_handles_bad_request(self, adapter):
+        """Test that BadRequest errors don't disable deletion."""
+        from telegram.error import BadRequest
+
+        update = SimpleNamespace(
+            effective_message=SimpleNamespace(chat_id=123, message_id=456)
+        )
+        context = SimpleNamespace(bot=AsyncMock())
+        context.bot.delete_message.side_effect = BadRequest("Message to delete not found")
+
+        await adapter._delete_command(update, context)
+
+        # Should not cache the chat (BadRequest is not a permission issue)
+        assert 123 not in adapter._deletion_disabled_chats
+
+    @pytest.mark.anyio
+    async def test_delete_command_handles_network_error(self, adapter):
+        """Test that network errors don't disable deletion."""
+        from telegram.error import NetworkError
+
+        update = SimpleNamespace(
+            effective_message=SimpleNamespace(chat_id=123, message_id=456)
+        )
+        context = SimpleNamespace(bot=AsyncMock())
+        context.bot.delete_message.side_effect = NetworkError("Connection timeout")
+
+        await adapter._delete_command(update, context)
+
+        # Should not cache the chat (network errors are temporary)
+        assert 123 not in adapter._deletion_disabled_chats
+
+    @pytest.mark.anyio
+    async def test_delete_command_skips_cached_chats(self, adapter):
+        """Test that deletion is skipped for chats in the cache."""
+        # Pre-populate cache
+        adapter._deletion_disabled_chats.add(123)
+
+        update = SimpleNamespace(
+            effective_message=SimpleNamespace(chat_id=123, message_id=456)
+        )
+        context = SimpleNamespace(bot=AsyncMock())
+
+        await adapter._delete_command(update, context)
+
+        # Should not attempt deletion
+        context.bot.delete_message.assert_not_called()

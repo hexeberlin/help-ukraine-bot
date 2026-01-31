@@ -4,7 +4,7 @@ import logging
 from typing import Awaitable, Callable, List
 
 from telegram import BotCommand, Update
-from telegram.error import BadRequest, NetworkError, TelegramError, TimedOut
+from telegram.error import BadRequest, Forbidden, NetworkError, TelegramError, TimedOut
 from telegram.ext import (
     Application,
     CommandHandler,
@@ -44,6 +44,8 @@ class TelegramBotAdapter:
         self.token = token
         self.service = service
         self.stats_service = stats_service
+        # Cache of chat IDs where bot lacks deletion permissions
+        self._deletion_disabled_chats: set[int] = set()
 
     def build_application(self) -> Application:
         """
@@ -436,7 +438,12 @@ class TelegramBotAdapter:
     async def _delete_command(
         self, update: Update, context: ContextTypes.DEFAULT_TYPE
     ) -> None:
-        """Delete the command message."""
+        """
+        Delete the command message if bot has permissions.
+
+        Attempts to delete messages to keep chats clean. If the bot lacks
+        permissions (e.g., not admin), caches the chat and stops trying.
+        """
         message = update.effective_message
         if not message:
             return
@@ -444,10 +451,37 @@ class TelegramBotAdapter:
         chat_id = message.chat_id
         message_id = message.message_id
 
+        # Skip deletion if we know bot lacks permissions in this chat
+        if chat_id in self._deletion_disabled_chats:
+            logger.debug(
+                "Skipping deletion in chat_id=%s (permissions previously denied)",
+                chat_id
+            )
+            return
+
         try:
             await context.bot.delete_message(chat_id=chat_id, message_id=message_id)
+            logger.debug("Successfully deleted message_id=%s in chat_id=%s", message_id, chat_id)
+        except Forbidden as e:
+            # Bot doesn't have admin rights to delete messages
+            logger.warning(
+                "Bot lacks permission to delete messages in chat_id=%s. "
+                "Disabling deletion attempts for this chat. Error: %s",
+                chat_id, e
+            )
+            self._deletion_disabled_chats.add(chat_id)
         except BadRequest as e:
-            logger.error("BadRequest: %s, chat_id=%s, message=%s", e, chat_id, message)
+            # Message already deleted, too old, or other client error
+            logger.debug(
+                "Could not delete message_id=%s in chat_id=%s: %s",
+                message_id, chat_id, e
+            )
+        except (NetworkError, TimedOut) as e:
+            # Network issues - don't cache, might be temporary
+            logger.warning(
+                "Network error deleting message_id=%s in chat_id=%s: %s",
+                message_id, chat_id, e
+            )
 
     async def _send_error_message(
         self, update: Update, context: ContextTypes.DEFAULT_TYPE, error_text: str
