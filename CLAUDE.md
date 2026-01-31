@@ -72,7 +72,7 @@ Domain (Protocols) → Application (Services) → Adapter (Telegram) → Infrast
 ### Layer Details
 
 **Domain Layer** (`src/domain/`):
-- `protocols.py` - Interfaces (IGuidebook, IBerlinHelpService, IStatisticsService) and type aliases (GuidebookContent)
+- `protocols.py` - Interfaces (IGuidebook, IBerlinHelpService, IStatisticsService), type aliases (GuidebookContent), and exception classes (GuidebookError, GuidebookValidationError, StatisticsServiceError)
 - `models.py` - Value objects (ChatContext, CommandRequest)
 
 **Application Layer** (`src/application/`):
@@ -82,7 +82,7 @@ Domain (Protocols) → Application (Services) → Adapter (Telegram) → Infrast
 - `telegram_adapter.py` - Telegram-specific bot logic, handler registration, and message handling (depends only on service, not guidebook)
 
 **Infrastructure Layer** (`src/infrastructure/`):
-- `yaml_guidebook.py` - YAML-based guidebook implementation (data access)
+- `yaml_guidebook.py` - YAML-based guidebook implementation (data access with validation at load time)
 - `guidebook_formatter.py` - Content formatting utilities (presentation layer)
 - `config_loader.py` - Configuration loading utilities
 - `sqlite_statistics.py` - In-memory SQLite statistics storage
@@ -90,6 +90,14 @@ Domain (Protocols) → Application (Services) → Adapter (Telegram) → Infrast
 **Knowledge Base**:
 - `src/knowledgebase/guidebook.yml` - Primary content: topics mapped to information lists/dicts
 - `src/knowledgebase/vocabulary.yml` - Aliases for city/topic name lookups
+
+**Guidebook Content Structure Requirements**:
+- All topic contents must be either `List[str]` or `Dict[str, List[str]]`
+- List items must be non-empty strings (no nested lists, dicts, numbers, or None)
+- Dict keys must be non-empty strings, values must be lists of non-empty strings
+- No nested structures beyond one level (validated at load time)
+- Empty strings and empty dicts are not allowed
+- Violations raise `GuidebookValidationError` at startup (fail-fast approach)
 
 ### Request Flow
 
@@ -125,6 +133,7 @@ Domain (Protocols) → Application (Services) → Adapter (Telegram) → Infrast
 - `get_cities(name)` - Special handler for cities with formatting (legacy)
 - `get_countries(name)` - Special handler for countries with formatting (legacy)
 - Formatting is handled by `guidebook_formatter` module in infrastructure layer
+- Content structure is validated at load time by `YamlGuidebook.__init__()` (raises `GuidebookValidationError` if invalid)
 
 **New stats aggregation:**
 1. Extend `IStatisticsService` in `src/domain/protocols.py`

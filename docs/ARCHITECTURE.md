@@ -54,6 +54,11 @@ As of the statistics feature, guidebook requests are logged via a statistics ser
 │  │  - GuidebookContent (Union[List, Dict])         │   │
 │  └─────────────────────────────────────────────────┘   │
 │  ┌─────────────────────────────────────────────────┐   │
+│  │  Exceptions                                     │   │
+│  │  - GuidebookError, GuidebookValidationError     │   │
+│  │  - StatisticsServiceError                       │   │
+│  └─────────────────────────────────────────────────┘   │
+│  ┌─────────────────────────────────────────────────┐   │
 │  │  Models (Value Objects)                         │   │
 │  │  - ChatContext                                  │   │
 │  │  - CommandRequest                               │   │
@@ -66,6 +71,7 @@ As of the statistics feature, guidebook requests are logged via a statistics ser
 │  ┌─────────────────────────────────────────────────┐   │
 │  │      YamlGuidebook                              │   │
 │  │  - Load YAML files                              │   │
+│  │  - Validate content structure (fail-fast)       │   │
 │  │  - Topic/content data access                    │   │
 │  │  - Vocabulary lookups                           │   │
 │  │  - Special city/country handlers                │   │
@@ -173,13 +179,18 @@ Each layer can be tested independently:
 **Purpose:** Define the core business concepts and contracts
 
 **Files:**
-- `protocols.py` - Interface definitions (what operations are available)
+- `protocols.py` - Interface definitions (what operations are available), exception hierarchy
 - `models.py` - Immutable data structures
+
+**Exception Classes:**
+- `StatisticsServiceError` - Raised when statistics logging fails
+- `GuidebookError` - Base exception for guidebook-related errors
+- `GuidebookValidationError` - Raised when guidebook content fails structural validation
 
 **Rules:**
 - No dependencies on other layers
 - No framework-specific code
-- Only interfaces and value objects
+- Only interfaces, value objects, and domain exceptions
 
 ### Application Layer (`src/application/`)
 
@@ -260,7 +271,7 @@ class TelegramBotAdapter:
 **Purpose:** Implement technical capabilities (database, file I/O, external APIs)
 
 **Files:**
-- `yaml_guidebook.py` - YAML file access and data retrieval
+- `yaml_guidebook.py` - YAML file access, data retrieval, and content validation
 - `guidebook_formatter.py` - Content formatting utilities (presentation layer)
 - `sqlite_statistics.py` - In-memory SQLite statistics storage
 - `config_loader.py` - Configuration loading
@@ -270,6 +281,7 @@ class TelegramBotAdapter:
 - Contains all I/O operations
 - No business logic
 - Formatting is infrastructure concern (presentation/technical detail)
+- Validation is infrastructure concern (data integrity check)
 
 **Example:**
 ```python
@@ -283,6 +295,10 @@ class YamlGuidebook:  # Implements IGuidebook protocol
             for name, data in raw_data.items()
         }
 
+        # Validate all topic contents at load time (fail-fast)
+        for topic_name, topic_info in self.topics.items():
+            self._validate_topic_structure(topic_name, topic_info["contents"])
+
     def get_topic_contents(self, topic: str) -> GuidebookContent:
         """Pure data access - returns raw content (list or dict)."""
         if topic.lower() not in self.topics:
@@ -293,6 +309,15 @@ class YamlGuidebook:  # Implements IGuidebook protocol
         """Pure data access - returns topic description."""
         topic_info = self.topics.get(topic.lower())
         return topic_info["description"] if topic_info else None
+
+    def _validate_topic_structure(self, topic_name: str, contents: Any) -> None:
+        """Validate that topic contents match expected flat structure.
+
+        Raises GuidebookValidationError if contents don't match List[str]
+        or Dict[str, List[str]] structure.
+        """
+        # Validation implementation ensures data integrity at startup
+        ...
 ```
 
 ## Statistics Logging
