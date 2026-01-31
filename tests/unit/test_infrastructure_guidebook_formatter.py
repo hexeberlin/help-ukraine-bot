@@ -126,10 +126,10 @@ class TestFormatContents:
         # Should still have separator lines
         assert "=" * 30 in result
 
-    def test_raises_type_error_for_invalid_type(self):
+    def test_raises_type_error_for_invalid_type(self) -> None:
         """Test that TypeError is raised for invalid content types."""
         with pytest.raises(TypeError):
-            format_contents("invalid_string")  # type: ignore
+            format_contents("invalid_string")  # type: ignore[arg-type]
 
         with pytest.raises(TypeError):
-            format_contents(123)  # type: ignore
+            format_contents(123)  # type: ignore[arg-type]
