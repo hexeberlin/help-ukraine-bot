@@ -1,7 +1,7 @@
 """Telegram bot adapter - Encapsulates all Telegram-specific logic."""
 
 import logging
-from typing import Awaitable, Callable, List, Optional
+from typing import Awaitable, Callable, List
 
 from telegram import BotCommand, Update
 from telegram.error import BadRequest
