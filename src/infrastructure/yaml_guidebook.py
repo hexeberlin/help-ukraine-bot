@@ -6,7 +6,7 @@ from typing import Any, Dict, List, Optional
 from yaml import safe_load
 
 from src.domain.protocols import GuidebookContent
-from src.application.guidebook_formatter import format_contents, wrap_with_separator
+from src.infrastructure.guidebook_formatter import format_contents, wrap_with_separator
 
 logger = logging.getLogger(__name__)
 
