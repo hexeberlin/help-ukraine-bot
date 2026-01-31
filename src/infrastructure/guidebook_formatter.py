@@ -51,7 +51,11 @@ def format_contents(
         return _format_list_contents(contents, title)
     if isinstance(contents, dict):
         return _format_dict_contents(contents)
-    raise TypeError(f"contents must be list or dict, got {type(contents)}")
+    raise TypeError(
+        f"contents must be list or dict, got {type(contents).__name__}. "
+        f"This should have been caught by guidebook validation - "
+        f"please report this as a bug."
+    )
 
 
 def _format_list_contents(items: List[str], title: Optional[str] = None) -> str:

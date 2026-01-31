@@ -5,7 +5,7 @@ from typing import Any, Dict, List, Optional
 
 from yaml import safe_load
 
-from src.domain.protocols import GuidebookContent
+from src.domain.protocols import GuidebookContent, GuidebookValidationError
 from src.infrastructure.guidebook_formatter import format_contents, wrap_with_separator
 
 logger = logging.getLogger(__name__)
@@ -33,6 +33,10 @@ class YamlGuidebook:
             }
             for topic_name, topic_data in raw_guidebook.items()
         }
+
+        # Validate all topic contents match expected structure
+        for topic_name, topic_info in self.topics.items():
+            self._validate_topic_structure(topic_name, topic_info["contents"])
 
         # Cache lowercase versions of dict keys for case-insensitive subtopic/section lookups
         # This is used for all dict-based topics (cities, countries, animals, etc.)
@@ -154,3 +158,97 @@ class YamlGuidebook:
         # Format country contents with title
         country_contents = countries_cache[name_lower]
         return format_contents(country_contents, title=name)
+
+    def _validate_topic_structure(self, topic_name: str, contents: Any) -> None:
+        """Validate that topic contents match expected structure.
+
+        Args:
+            topic_name: Name of the topic being validated
+            contents: The topic contents to validate
+
+        Raises:
+            GuidebookValidationError: If contents don't match expected structure
+        """
+        if contents is None:
+            raise GuidebookValidationError(
+                f"Topic '{topic_name}': contents must be a list or dict, got NoneType"
+            )
+
+        if isinstance(contents, list):
+            self._validate_list_contents(topic_name, contents)
+        elif isinstance(contents, dict):
+            self._validate_dict_contents(topic_name, contents)
+        else:
+            raise GuidebookValidationError(
+                f"Topic '{topic_name}': contents must be a list or dict, "
+                f"got {type(contents).__name__}"
+            )
+
+    def _validate_list_contents(self, topic_name: str, contents: List[Any]) -> None:
+        """Validate list-based topic contents.
+
+        Args:
+            topic_name: Name of the topic being validated
+            contents: List contents to validate
+
+        Raises:
+            GuidebookValidationError: If list items are not all non-empty strings
+        """
+        for index, item in enumerate(contents):
+            if not isinstance(item, str):
+                raise GuidebookValidationError(
+                    f"Topic '{topic_name}': list item at index {index} must be a string, "
+                    f"got {type(item).__name__}"
+                )
+            if not item:
+                raise GuidebookValidationError(
+                    f"Topic '{topic_name}': list item at index {index} is an empty string"
+                )
+
+    def _validate_dict_contents(self, topic_name: str, contents: Dict[str, Any]) -> None:
+        """Validate dict-based topic contents.
+
+        Args:
+            topic_name: Name of the topic being validated
+            contents: Dict contents to validate
+
+        Raises:
+            GuidebookValidationError: If dict structure doesn't match Dict[str, List[str]]
+        """
+        if not contents:
+            raise GuidebookValidationError(
+                f"Topic '{topic_name}': dict contents cannot be empty"
+            )
+
+        for section_key, section_value in contents.items():
+            # Validate key is a non-empty string
+            if not isinstance(section_key, str):
+                raise GuidebookValidationError(
+                    f"Topic '{topic_name}': section key must be a string, "
+                    f"got {type(section_key).__name__}"
+                )
+            if not section_key:
+                raise GuidebookValidationError(
+                    f"Topic '{topic_name}': section key is an empty string"
+                )
+
+            # Validate value is a list
+            if not isinstance(section_value, list):
+                raise GuidebookValidationError(
+                    f"Topic '{topic_name}', section '{section_key}': value must be a list, "
+                    f"got {type(section_value).__name__}"
+                )
+
+            # Validate list items are non-empty strings
+            for index, item in enumerate(section_value):
+                if not isinstance(item, str):
+                    raise GuidebookValidationError(
+                        f"Topic '{topic_name}', section '{section_key}': "
+                        f"list item at index {index} must be a string, "
+                        f"got {type(item).__name__}"
+                    )
+                if not item:
+                    raise GuidebookValidationError(
+                        f"Topic '{topic_name}', section '{section_key}': "
+                        f"list item at index {index} is an empty string"
+                    )
