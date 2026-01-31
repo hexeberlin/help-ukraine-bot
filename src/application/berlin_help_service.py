@@ -2,7 +2,9 @@
 
 import os
 from typing import Optional
+
 from src.domain.protocols import IGuidebook
+from src.application.guidebook_formatter import format_contents, wrap_with_separator
 
 
 class BerlinHelpService:
@@ -60,7 +62,7 @@ class BerlinHelpService:
             + "If you add me to your chat, don't forget to grant me admin "
             + "rights, so that I can delete log messages and keep your chat clean."
         )
-        return self.guidebook.format_results(help_text)
+        return wrap_with_separator(help_text)
 
     def handle_topic(self, topic_name: str) -> str:
         """
@@ -70,10 +72,11 @@ class BerlinHelpService:
             topic_name: Name of the topic to retrieve
 
         Returns:
-            Formatted topic information with hashtag
+            Formatted topic information with hashtag prefix
         """
-        info = self.guidebook.get_results(topic_name)
-        return f"#{topic_name}\n{info}"
+        contents = self.guidebook.get_topic_contents(topic_name)
+        formatted_info = format_contents(contents)
+        return f"#{topic_name}\n{formatted_info}"
 
     def handle_cities(self, city_name: Optional[str], show_all: bool = False) -> str:
         """
@@ -87,7 +90,8 @@ class BerlinHelpService:
             Formatted city information
         """
         if show_all:
-            return self.guidebook.get_info("cities", name=None)
+            contents = self.guidebook.get_topic_contents("cities")
+            return format_contents(contents)
         return self.guidebook.get_cities(name=city_name)
 
     def handle_countries(self, country_name: Optional[str], show_all: bool = False) -> str:
@@ -102,5 +106,25 @@ class BerlinHelpService:
             Formatted country information
         """
         if show_all:
-            return self.guidebook.get_info("countries", name=None)
+            contents = self.guidebook.get_topic_contents("countries")
+            return format_contents(contents)
         return self.guidebook.get_countries(name=country_name)
+
+    def list_topics(self) -> list[str]:
+        """Return list of all available topic names.
+
+        Returns:
+            List of topic names (lowercase)
+        """
+        return self.guidebook.get_topics()
+
+    def get_topic_description(self, topic: str) -> Optional[str]:
+        """Get the description for a given topic.
+
+        Args:
+            topic: Topic name (case-insensitive)
+
+        Returns:
+            Topic description string, or None if topic doesn't exist
+        """
+        return self.guidebook.get_topic_description(topic)

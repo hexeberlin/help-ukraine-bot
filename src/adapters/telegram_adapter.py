@@ -16,7 +16,6 @@ from telegram.helpers import effective_message_type
 
 from src.domain.protocols import (
     IBerlinHelpService,
-    IGuidebook,
     IStatisticsService,
     StatisticsServiceError,
 )
@@ -31,7 +30,6 @@ class TelegramBotAdapter:
         self,
         token: str,
         service: IBerlinHelpService,
-        guidebook: IGuidebook,
         stats_service: IStatisticsService,
     ):
         """
@@ -40,12 +38,10 @@ class TelegramBotAdapter:
         Args:
             token: Telegram bot token
             service: Berlin help service implementation
-            guidebook: Guidebook data access implementation
             stats_service: Statistics service implementation
         """
         self.token = token
         self.service = service
-        self.guidebook = guidebook
         self.stats_service = stats_service
 
     def build_application(self) -> Application:
@@ -71,7 +67,7 @@ class TelegramBotAdapter:
         application.add_handler(CommandHandler("topic_stats", self._handle_topic_stats))
 
         # Dynamic topic handlers
-        for topic in self.guidebook.get_topics():
+        for topic in self.service.list_topics():
             # Cities and countries are special - handled separately
             if topic not in {"cities", "countries"}:
                 application.add_handler(
@@ -217,11 +213,17 @@ class TelegramBotAdapter:
         return max(1, k)
 
     def _bot_commands(self) -> List[BotCommand]:
-        return [
-            BotCommand(topic, description)
-            for topic, description in self.guidebook.get_descriptions().items()
-            if topic not in {"cities", "countries"}
-        ] + [
+        commands = []
+
+        # Add commands for all topics except cities and countries
+        for topic in self.service.list_topics():
+            if topic not in {"cities", "countries"}:
+                description = self.service.get_topic_description(topic)
+                if description:
+                    commands.append(BotCommand(topic, description))
+
+        # Add special commands for cities and countries
+        commands.extend([
             BotCommand(
                 "cities",
                 "Чаты помощи по городам Германии (введите /cities ГОРОД)",
@@ -233,7 +235,9 @@ class TelegramBotAdapter:
             BotCommand("countries", "Чаты по странам (введите /countries СТРАНА)"),
             BotCommand("countries_all", "Список всех чатов по странам"),
             BotCommand("topic_stats", "Топ тем по количеству запросов"),
-        ]
+        ])
+
+        return commands
 
     def _format_topic_stats(self, rows: List[tuple[str, int]], k: int) -> str:
         if not rows:
@@ -247,7 +251,7 @@ class TelegramBotAdapter:
         try:
             self.stats_service.record_request(
                 topic=topic,
-                topic_description=self.guidebook.get_descriptions().get(topic),
+                topic_description=self.service.get_topic_description(topic),
             )
         except StatisticsServiceError:
             logger.exception("Failed to record stats for topic %s", topic)

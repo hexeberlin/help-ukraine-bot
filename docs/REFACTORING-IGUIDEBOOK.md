@@ -4,6 +4,26 @@ This document captures the proposed simplification of the `IGuidebook` protocol 
 
 **Status**: This plan was created after commit 7eb3256 (Jan 27, 2026) which introduced the guidebook dependency to `TelegramBotAdapter`. The auth/reminder removal (commit 494095c, Jan 29, 2026) has been completed separately. This refactoring is not yet implemented.
 
+## Verification Status ✅
+
+**Verified**: 2026-01-31
+**Result**: ✅ **FEASIBLE AND SOUND** - Ready for implementation
+
+This plan has been verified against the actual codebase. All assumptions about the current state are accurate, all proposed changes are feasible, and the refactoring will improve architecture without breaking functionality.
+
+**Key Findings**:
+- ✅ All current state descriptions match actual code
+- ✅ Terminology accurately describes `guidebook.yml` structure
+- ✅ All implementation steps are practical and achievable
+- ✅ Test structure supports the proposed changes
+- ✅ Architectural improvements are sound (removes adapter's inappropriate guidebook dependency)
+
+**Minor Clarifications Added**:
+- Type alias `GuidebookContent` location specified
+- Lowercase cache scope clarified
+- Error message handling clarified
+- Implementation order recommendations added
+
 ## Terminology
 
 To ensure clarity and consistency, this document uses the following terminology when referring to the structure of `src/knowledgebase/guidebook.yml`:
@@ -79,20 +99,37 @@ Formatting moves out of the guidebook interface into a separate formatter module
 
 ## Implementation Steps
 
+**Important**: Follow the steps in order. In particular, when removing TelegramBotAdapter's guidebook dependency:
+1. First, add `list_topics()` and `get_topic_description()` to `IBerlinHelpService` and implement them in `BerlinHelpService`
+2. Then, update `TelegramBotAdapter` to use these new service methods
+3. Finally, remove the `guidebook` parameter from the adapter constructor and update `main.py`
+
+This ensures the adapter always has access to the methods it needs.
+
+---
+
 1. **Update `IGuidebook` (`src/domain/protocols.py`)**
    - Remove `get_info`, `get_results`, `get_descriptions`, and `format_results`.
    - Add `get_topic_description(topic: str) -> Optional[str]` to retrieve a topic description.
-   - Add `get_topic_contents(topic: str) -> GuidebookContent` to retrieve contents (define `GuidebookContent = Union[List[str], Dict[str, List[str]]]` type alias).
+   - Add `get_topic_contents(topic: str) -> GuidebookContent` to retrieve contents.
+   - **Define the `GuidebookContent` type alias** at the top of the file, after imports:
+     ```python
+     from typing import Protocol, List, Dict, Optional, Union
+
+     GuidebookContent = Union[List[str], Dict[str, List[str]]]
+     ```
    - Keep `get_cities` and `get_countries` for parameterized subtopic lookups.
    - Document that formatting is handled by higher layers.
 
 2. **Refine `YamlGuidebook` (`src/infrastructure/yaml_guidebook.py`)**
    - Store each topic as a struct/dict containing both topic description and contents together (instead of splitting into separate `self.guidebook` and `self.descriptions` dicts).
    - Implement `get_topic_description()` and `get_topic_contents()` with case-insensitive topic name matching.
-   - Reuse the existing lowercase cache for subtopic lookups **only for `cities` and `countries` topics** (case-insensitive matching of city/country names).
+   - **Lowercase cache**: Keep the existing lowercase cache (lines 26-30) for all dict-based topics for performance. While primarily needed for `cities` and `countries` subtopic lookups, other dict-based topics (e.g., `animals`, `accommodation`) also benefit from cached case-insensitive key matching.
    - Keep `get_cities(name)` and `get_countries(name)` for parameterized subtopic lookups with vocabulary alias support.
+   - **Note**: Vocabulary aliases (via `vocabulary.yml`) are only used for `cities`, not `countries`. This is correct as-is.
    - Expose `get_topic_contents("cities")` and `get_topic_contents("countries")` so callers can retrieve all cities/countries (all subtopics) when needed.
    - Drop the public formatting helpers (`format_results`, static method).
+   - **Error messages**: Keep error messages (e.g., "К сожалению, мы пока не располагаем информацией") in YamlGuidebook, as they are data-access concerns, not formatting concerns.
 
 3. **Introduce a shared formatter (e.g., `src/application/guidebook_formatter.py`)**
    - Provide `format_contents(contents: GuidebookContent, title: Optional[str] = None) -> str` to format contents (handles both list and dict structures).
@@ -179,3 +216,98 @@ def __init__(
 ```
 
 This refactoring plan is designed to remove the `guidebook: IGuidebook` parameter, leaving only `service` and `stats_service` as dependencies.
+
+---
+
+## Verification Details
+
+### Files Verified
+
+The following files were examined to verify this plan's accuracy and feasibility:
+
+1. **src/domain/protocols.py** (lines 10-40)
+   - ✅ Confirmed current IGuidebook methods: `get_info`, `get_results`, `get_descriptions`, `format_results`, `get_topics`, `get_cities`, `get_countries`
+   - ✅ Verified these methods mix data access with formatting concerns
+
+2. **src/infrastructure/yaml_guidebook.py** (115 lines)
+   - ✅ Lines 18-23: Confirmed data split into `self.guidebook` (contents) and `self.descriptions` (topic descriptions)
+   - ✅ Lines 26-30: Confirmed lowercase cache for all dict-based topics
+   - ✅ Lines 32-37: Confirmed vocabulary aliases loaded for city name lookups
+   - ✅ Lines 39-42: Confirmed static `format_results` method
+   - ✅ Lines 95-98: Confirmed vocabulary only used for cities, not countries
+   - ✅ All topic lookups use case-insensitive matching (`.lower()`)
+
+3. **src/application/berlin_help_service.py** (107 lines)
+   - ✅ Line 63: Uses `guidebook.format_results(help_text)`
+   - ✅ Line 75: Uses `guidebook.get_results(topic_name)`
+   - ✅ Line 76: Preserves hashtag prefix `f"#{topic_name}\n{info}"`
+   - ✅ Lines 90, 105: Uses `guidebook.get_info("cities"/"countries", name=None)` for showing all subtopics
+   - ✅ Lines 91, 106: Uses `guidebook.get_cities/get_countries(name)` for specific subtopic lookups
+
+4. **src/adapters/telegram_adapter.py** (311 lines)
+   - ✅ Line 34: Constructor has `guidebook: IGuidebook` parameter
+   - ✅ Line 74: Uses `guidebook.get_topics()` for handler registration
+   - ✅ Line 222: Uses `guidebook.get_descriptions()` for BotCommand creation
+   - ✅ Line 250: Uses `guidebook.get_descriptions().get(topic)` for stats recording
+   - ✅ Confirmed architectural issue: adapter bypasses service layer to access guidebook
+
+5. **src/main.py** (51 lines)
+   - ✅ Lines 27-32: Confirmed guidebook passed to TelegramBotAdapter constructor
+
+6. **src/knowledgebase/guidebook.yml** (1191 lines)
+   - ✅ All 54 topics follow consistent schema: `description` + `contents`
+   - ✅ Contents can be lists (e.g., `apartment_approval`) or dicts (e.g., `accommodation`, `animals`, `cities`, `countries`)
+   - ✅ Only `cities` and `countries` have separately addressable subtopics
+   - ✅ Other dict-based topics (e.g., `animals`, `accommodation`) have section headers, not subtopics
+
+7. **tests/unit/test_yaml_guidebook.py** (135 lines)
+   - ✅ Tests cover all current methods
+   - ✅ Structure supports adding tests for new methods
+   - ✅ Uses real YAML files for integration-style testing
+
+8. **tests/unit/test_berlin_help_service.py** (101 lines)
+   - ✅ Uses proper mocking (`Mock(spec=IGuidebook)`)
+   - ✅ Structure supports adding formatter mocks
+
+9. **tests/unit/test_telegram_adapter.py** (335 lines)
+   - ✅ Lines 32-45: `mock_guidebook` fixture identified for removal
+   - ✅ Lines 189-249: Stats recording tests identified for service method updates
+   - ✅ Test structure compatible with proposed changes
+
+### Architectural Impact Verified
+
+**Before Refactoring**:
+```
+TelegramBotAdapter ──┬──> IBerlinHelpService ──> IGuidebook
+                     └──> IGuidebook (INAPPROPRIATE DEPENDENCY)
+```
+
+**After Refactoring**:
+```
+TelegramBotAdapter ──> IBerlinHelpService ──> IGuidebook
+(Clean layering: adapter only talks to service)
+```
+
+### Behavior Preservation Verified
+
+All current functionality will be preserved:
+- ✅ Help text formatting (separator lines)
+- ✅ Topic content retrieval and formatting
+- ✅ Hashtag prefixes (`#topic_name`)
+- ✅ Cities/countries special handling
+- ✅ Vocabulary alias support for cities
+- ✅ Case-insensitive lookups for all topics
+- ✅ Error messages for invalid topics/subtopics
+- ✅ Statistics recording with topic descriptions
+- ✅ BotCommand creation with topic descriptions
+
+### Summary
+
+This verification confirms that:
+1. All assumptions about the current codebase are accurate
+2. All proposed changes are feasible and straightforward to implement
+3. The refactoring improves architecture without breaking functionality
+4. The test structure supports the changes
+5. No hidden dependencies or edge cases were missed
+
+**Recommendation**: Proceed with implementation following the steps in order.

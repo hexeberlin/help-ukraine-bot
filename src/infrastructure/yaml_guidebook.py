@@ -5,6 +5,9 @@ from typing import Any, Dict, List, Optional
 
 from yaml import safe_load
 
+from src.domain.protocols import GuidebookContent
+from src.application.guidebook_formatter import format_contents, wrap_with_separator
+
 logger = logging.getLogger(__name__)
 
 
@@ -12,103 +15,142 @@ class YamlGuidebook:
     """YAML-based implementation of guidebook data access."""
 
     def __init__(self, guidebook_path: str, vocabulary_path: str) -> None:
+        """Initialize the guidebook from YAML files.
+
+        Args:
+            guidebook_path: Path to guidebook.yml
+            vocabulary_path: Path to vocabulary.yml (aliases for cities)
+        """
         with open(guidebook_path, "r", encoding="utf-8") as f:
-            guidebook: Dict[str, Dict[str, Any]] = safe_load(f)
+            raw_guidebook: Dict[str, Dict[str, Any]] = safe_load(f)
 
-        self.guidebook: Dict[str, Any] = {
-            k.lower(): v.get("contents") for k, v in guidebook.items()
-        }
-        self.descriptions: Dict[str, str] = {
-            k.lower(): v.get("description", "") or "" for k, v in guidebook.items()
-        }
-
-        # Cache lowercase versions of dict keys to avoid rebuilding on every get_info() call
-        self._guidebook_lower_cache = {
-            k: {inner_k.lower(): inner_v for inner_k, inner_v in v.items()}
-            for k, v in self.guidebook.items()
-            if isinstance(v, dict)
+        # Store topics as unified structures: {topic_name: {description: ..., contents: ...}}
+        # Topic names are stored in lowercase for case-insensitive lookups
+        self.topics: Dict[str, Dict[str, Any]] = {
+            topic_name.lower(): {
+                "description": topic_data.get("description", "") or "",
+                "contents": topic_data.get("contents")
+            }
+            for topic_name, topic_data in raw_guidebook.items()
         }
 
+        # Cache lowercase versions of dict keys for case-insensitive subtopic/section lookups
+        # This is used for all dict-based topics (cities, countries, animals, etc.)
+        self._lowercase_cache: Dict[str, Dict[str, List[str]]] = {
+            topic_name: {
+                key.lower(): value
+                for key, value in topic_info["contents"].items()
+            }
+            for topic_name, topic_info in self.topics.items()
+            if isinstance(topic_info["contents"], dict)
+        }
+
+        # Load vocabulary aliases (currently only used for cities)
         with open(vocabulary_path, "r", encoding="utf-8") as f:
-            self.vocabulary = {
+            self.vocabulary: Dict[str, str] = {
                 alias.lower(): name.lower()
                 for name, aliases in safe_load(f).items()
                 for alias in aliases
             }
 
-    @staticmethod
-    def format_results(info: str) -> str:
-        separator: str = "=" * 30
-        return separator + "\n" + info + separator
+    def get_topic_description(self, topic: str) -> Optional[str]:
+        """Get the description for a given topic.
 
-    def _convert_list_to_str(
-        self, group_list: List[str], name: Optional[str] = None
-    ) -> str:
-        if name:
-            result = f"{name.title()}\n"
-        else:
-            result = ""
-        for item in group_list:
-            result += item + "\n"
-        return self.format_results(result)
+        Args:
+            topic: Topic name (case-insensitive)
 
-    def _convert_dict_to_str(self, group_dict: Dict[str, Any]) -> str:
-        result: str = ""
-        for k, v in group_dict.items():
-            result += k + ":\n"
-            for value in v:
-                result += "- " + value + "\n"
-        return self.format_results(result)
+        Returns:
+            Topic description string, or None if topic doesn't exist
+        """
+        topic_info = self.topics.get(topic.lower())
+        if topic_info:
+            return topic_info["description"]
+        return None
 
-    def get_info(self, group_name: str, name: Optional[str] = None) -> str:
-        group = self.guidebook.get(group_name.lower())
-        if group:
-            if isinstance(group, dict):
-                group_lower = self._guidebook_lower_cache.get(group_name.lower())
-                if group_lower is None:
-                    group_lower = {
-                        inner_k.lower(): inner_v for inner_k, inner_v in group.items()
-                    }
-                if name:
-                    if name.lower() not in group_lower.keys():
-                        return (
-                            "К сожалению, мы пока не располагаем информацией "
-                            + f"по запросу {group_name}, {name}."
-                        )
-                    return self._convert_list_to_str(group_lower[name.lower()], name)
-                return self._convert_dict_to_str(group)
-            if isinstance(group, List):
-                return self._convert_list_to_str(group)
-        return (
-            "К сожалению, мы пока не располагаем информацией "
-            + f"по запросу {group_name}."
-        )
+    def get_topic_contents(self, topic: str) -> GuidebookContent:
+        """Get the contents for a given topic.
 
-    def get_results(self, group_name: str, name: Optional[str] = None) -> str:
-        return self.get_info(group_name=group_name, name=name)
+        Args:
+            topic: Topic name (case-insensitive)
 
-    def get_cities(self, name: Optional[str] = None) -> str:
-        if not name:
-            return self.format_results(
-                "Пожалуйста, уточните название города: /cities Name\n"
-            )
-        if name in self.vocabulary:
-            return self.get_info(
-                group_name="cities", name=self.vocabulary.get(name)
-            )
-        return self.get_info(group_name="cities", name=name)
+        Returns:
+            Contents as either a list of strings or a dict mapping keys to lists
 
-    def get_countries(self, name: Optional[str] = None) -> str:
-        if not name:
-            return self.format_results(
-                "Пожалуйста, уточните название страны: /countries Name\n"
-            )
-        return self.get_info(group_name="countries", name=name)
+        Raises:
+            KeyError: If topic doesn't exist
+        """
+        topic_lower = topic.lower()
+        if topic_lower not in self.topics:
+            raise KeyError(f"Topic '{topic}' not found")
+
+        return self.topics[topic_lower]["contents"]
 
     def get_topics(self) -> List[str]:
-        """Get list of all available topics."""
-        return list(self.guidebook.keys())
+        """Get list of all available topics.
 
-    def get_descriptions(self) -> Dict[str, str]:
-        """Get topic descriptions."""
-        return self.descriptions.copy()
+        Returns:
+            List of topic names (lowercase)
+        """
+        return list(self.topics.keys())
+
+    def get_cities(self, name: Optional[str] = None) -> str:
+        """Get city information or prompt for a city.
+
+        Special handler for cities with formatting and vocabulary alias support.
+
+        Args:
+            name: City name (optional, case-insensitive)
+
+        Returns:
+            Formatted city information or prompt message
+        """
+        if not name:
+            return wrap_with_separator(
+                "Пожалуйста, уточните название города: /cities Name\n"
+            )
+
+        # Resolve vocabulary alias if present
+        name_lower = name.lower()
+        if name_lower in self.vocabulary:
+            name_lower = self.vocabulary[name_lower]
+
+        # Look up city in lowercase cache
+        cities_cache = self._lowercase_cache.get("cities", {})
+        if name_lower not in cities_cache:
+            return (
+                "К сожалению, мы пока не располагаем информацией "
+                f"по запросу cities, {name}."
+            )
+
+        # Format city contents with title
+        city_contents = cities_cache[name_lower]
+        return format_contents(city_contents, title=name)
+
+    def get_countries(self, name: Optional[str] = None) -> str:
+        """Get country information or prompt for a country.
+
+        Special handler for countries with formatting.
+
+        Args:
+            name: Country name (optional, case-insensitive)
+
+        Returns:
+            Formatted country information or prompt message
+        """
+        if not name:
+            return wrap_with_separator(
+                "Пожалуйста, уточните название страны: /countries Name\n"
+            )
+
+        # Look up country in lowercase cache
+        name_lower = name.lower()
+        countries_cache = self._lowercase_cache.get("countries", {})
+        if name_lower not in countries_cache:
+            return (
+                "К сожалению, мы пока не располагаем информацией "
+                f"по запросу countries, {name}."
+            )
+
+        # Format country contents with title
+        country_contents = countries_cache[name_lower]
+        return format_contents(country_contents, title=name)

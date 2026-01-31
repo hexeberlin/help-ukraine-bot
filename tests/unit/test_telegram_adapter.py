@@ -6,7 +6,6 @@ import pytest
 from src.adapters.telegram_adapter import TelegramBotAdapter
 from src.domain.protocols import (
     IBerlinHelpService,
-    IGuidebook,
     IStatisticsService,
 )
 
@@ -19,6 +18,13 @@ def mock_service():
     service.handle_topic.return_value = "#topic\nTopic info"
     service.handle_cities.return_value = "City info"
     service.handle_countries.return_value = "Country info"
+    service.list_topics.return_value = [
+        "accommodation",
+        "transport",
+        "cities",
+        "countries",
+    ]
+    service.get_topic_description.return_value = "Topic description"
     return service
 
 
@@ -29,33 +35,14 @@ def mock_stats_service():
 
 
 @pytest.fixture
-def mock_guidebook():
-    """Create a mock guidebook."""
-    guidebook = Mock(spec=IGuidebook)
-    guidebook.get_topics.return_value = [
-        "accommodation",
-        "transport",
-        "cities",
-        "countries",
-    ]
-    guidebook.get_descriptions.return_value = {
-        "accommodation": "Housing info",
-        "transport": "Transport info",
-    }
-    return guidebook
-
-
-@pytest.fixture
 def adapter(
     mock_service,
     mock_stats_service,
-    mock_guidebook,
 ):
     """Create a TelegramBotAdapter instance."""
     return TelegramBotAdapter(
         token="test_token",
         service=mock_service,
-        guidebook=mock_guidebook,
         stats_service=mock_stats_service,
     )
 
@@ -187,10 +174,11 @@ class TestTelegramBotAdapter:
 
     @pytest.mark.anyio
     async def test_handle_cities_records_stats(
-        self, adapter, mock_stats_service
+        self, adapter, mock_service, mock_stats_service
     ):
         """Ensure /cities logs stats with topic."""
         adapter._reply_to_message = AsyncMock()
+        mock_service.get_topic_description.return_value = "Cities description"
         update = SimpleNamespace(
             effective_chat=SimpleNamespace(id=123),
             effective_user=SimpleNamespace(id=42, first_name="User", last_name="FortyTwo"),
@@ -202,15 +190,16 @@ class TestTelegramBotAdapter:
 
         mock_stats_service.record_request.assert_called_once_with(
             topic="cities",
-            topic_description=None,
+            topic_description="Cities description",
         )
 
     @pytest.mark.anyio
     async def test_handle_cities_records_stats_username_fallback(
-        self, adapter, mock_stats_service
+        self, adapter, mock_service, mock_stats_service
     ):
         """Ensure /cities logs stats even when user display name is missing."""
         adapter._reply_to_message = AsyncMock()
+        mock_service.get_topic_description.return_value = "Cities description"
         update = SimpleNamespace(
             effective_chat=SimpleNamespace(id=123),
             effective_user=SimpleNamespace(
@@ -224,15 +213,16 @@ class TestTelegramBotAdapter:
 
         mock_stats_service.record_request.assert_called_once_with(
             topic="cities",
-            topic_description=None,
+            topic_description="Cities description",
         )
 
     @pytest.mark.anyio
     async def test_handle_topic_records_stats(
-        self, adapter, mock_stats_service
+        self, adapter, mock_service, mock_stats_service
     ):
         """Ensure topic handlers log stats."""
         adapter._reply_to_message = AsyncMock()
+        mock_service.get_topic_description.return_value = "Housing info"
         update = SimpleNamespace(
             effective_chat=SimpleNamespace(id=123),
             effective_user=SimpleNamespace(id=7, first_name="User", last_name="Seven"),
