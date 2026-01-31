@@ -34,7 +34,6 @@ async def test_application_processes_help_command():
     adapter = TelegramBotAdapter(
         token=TOKEN,
         service=service,
-        guidebook=guidebook,
         stats_service=stats_service,
     )
 

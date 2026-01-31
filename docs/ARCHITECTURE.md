@@ -22,6 +22,7 @@ As of the statistics feature, guidebook requests are logged via a statistics ser
 │  │  - Command routing                              │   │
 │  │  - Message formatting                           │   │
 │  │  - Statistics logging                           │   │
+│  │  (depends only on IBerlinHelpService)           │   │
 │  └─────────────────────────────────────────────────┘   │
 └───────────────────────┬─────────────────────────────────┘
                         │ Uses protocols from
@@ -34,6 +35,8 @@ As of the statistics feature, guidebook requests are logged via a statistics ser
 │  │  - handle_topic()                               │   │
 │  │  - handle_cities()                              │   │
 │  │  - handle_countries()                           │   │
+│  │  - list_topics()                                │   │
+│  │  - get_topic_description()                      │   │
 │  └─────────────────────────────────────────────────┘   │
 └───────────────────────┬─────────────────────────────────┘
                         │ Uses protocols from
@@ -42,9 +45,13 @@ As of the statistics feature, guidebook requests are logged via a statistics ser
 │              DOMAIN LAYER (Protocols)                   │
 │  ┌─────────────────────────────────────────────────┐   │
 │  │  Protocols (Interfaces)                         │   │
-│  │  - IGuidebook                                   │   │
-│  │  - IBerlinHelpService                           │   │
+│  │  - IGuidebook (simplified, data-access only)    │   │
+│  │  - IBerlinHelpService (with metadata methods)   │   │
 │  │  - IStatisticsService                           │   │
+│  └─────────────────────────────────────────────────┘   │
+│  ┌─────────────────────────────────────────────────┐   │
+│  │  Type Aliases                                   │   │
+│  │  - GuidebookContent (Union[List, Dict])         │   │
 │  └─────────────────────────────────────────────────┘   │
 │  ┌─────────────────────────────────────────────────┐   │
 │  │  Models (Value Objects)                         │   │
@@ -59,8 +66,14 @@ As of the statistics feature, guidebook requests are logged via a statistics ser
 │  ┌─────────────────────────────────────────────────┐   │
 │  │      YamlGuidebook                              │   │
 │  │  - Load YAML files                              │   │
-│  │  - Format results                               │   │
+│  │  - Topic/content data access                    │   │
 │  │  - Vocabulary lookups                           │   │
+│  │  - Special city/country handlers                │   │
+│  └─────────────────────────────────────────────────┘   │
+│  ┌─────────────────────────────────────────────────┐   │
+│  │      guidebook_formatter                        │   │
+│  │  - format_contents() (list/dict formatting)     │   │
+│  │  - wrap_with_separator() (presentation)         │   │
 │  └─────────────────────────────────────────────────┘   │
 │  ┌─────────────────────────────────────────────────┐   │
 │  │      StatisticsServiceSQLite                    │   │
@@ -84,7 +97,7 @@ As of the statistics feature, guidebook requests are logged via a statistics ser
 2. **TelegramBotAdapter** → Routes to `_handle_help()` handler
 3. **BerlinHelpService** → Calls `handle_help()`
    - Formats multilingual help text
-   - Uses `YamlGuidebook.format_results()`
+   - Uses `guidebook_formatter.wrap_with_separator()`
 4. **TelegramBotAdapter** → Sends reply via `_reply_to_message()`
    - Calls Telegram API to send message
    - Deletes original command message
@@ -107,8 +120,9 @@ All dependencies point inward toward the domain layer. Outer layers depend on pr
 
 **Example:**
 - `BerlinHelpService` depends on `IGuidebook` protocol, not `YamlGuidebook`
-- `TelegramBotAdapter` depends on `IBerlinHelpService`, not `BerlinHelpService`
+- `TelegramBotAdapter` depends only on `IBerlinHelpService` (not `IGuidebook` directly)
 - `TelegramBotAdapter` depends on `IStatisticsService`, not `StatisticsServiceSQLite`
+- All layers only import from `src.domain` or `src.infrastructure` (no cross-layer dependencies)
 
 ### 2. No Global State
 
@@ -129,9 +143,10 @@ def handler():
 ```python
 # Dependency injection
 class TelegramBotAdapter:
-    def __init__(self, service: IBerlinHelpService, guidebook: IGuidebook):
+    def __init__(self, service: IBerlinHelpService, stats_service: IStatisticsService):
         self.service = service
-        self.guidebook = guidebook
+        self.stats_service = stats_service
+        # Note: No guidebook dependency - adapter only talks to service
 ```
 
 ### 3. Framework Independence
@@ -187,8 +202,17 @@ class BerlinHelpService:
 
     def handle_cities(self, city_name: Optional[str], show_all: bool) -> str:
         if show_all:
-            return self.guidebook.get_info("cities", name=None)
+            contents = self.guidebook.get_topic_contents("cities")
+            return format_contents(contents)
         return self.guidebook.get_cities(name=city_name)
+
+    def list_topics(self) -> List[str]:
+        """Expose topic metadata to adapter layer."""
+        return self.guidebook.get_topics()
+
+    def get_topic_description(self, topic: str) -> Optional[str]:
+        """Expose topic descriptions to adapter layer."""
+        return self.guidebook.get_topic_description(topic)
 ```
 
 ### Adapter Layer (`src/adapters/`)
@@ -207,8 +231,15 @@ class BerlinHelpService:
 **Example:**
 ```python
 class TelegramBotAdapter:
-    def __init__(self, service: IBerlinHelpService, ...):
+    def __init__(self, service: IBerlinHelpService, stats_service: IStatisticsService):
         self.service = service
+        self.stats_service = stats_service
+
+    def _register_handlers(self, application: Application):
+        # Use service methods to get topic metadata (no direct guidebook access)
+        for topic in self.service.list_topics():
+            if topic not in {"cities", "countries"}:
+                application.add_handler(CommandHandler(topic, self._create_topic_handler(topic)))
 
     async def _handle_cities(self, update: Update, context: Context):
         # Extract parameter from Telegram Update
@@ -216,6 +247,9 @@ class TelegramBotAdapter:
 
         # Call business logic (framework-agnostic)
         result = self.service.handle_cities(city_name, show_all=False)
+
+        # Record statistics (gets description from service, not guidebook)
+        self._record_stats("cities")
 
         # Send via Telegram API
         await self._reply_to_message(update, context, result)
@@ -226,7 +260,8 @@ class TelegramBotAdapter:
 **Purpose:** Implement technical capabilities (database, file I/O, external APIs)
 
 **Files:**
-- `yaml_guidebook.py` - YAML file access
+- `yaml_guidebook.py` - YAML file access and data retrieval
+- `guidebook_formatter.py` - Content formatting utilities (presentation layer)
 - `sqlite_statistics.py` - In-memory SQLite statistics storage
 - `config_loader.py` - Configuration loading
 
@@ -234,18 +269,30 @@ class TelegramBotAdapter:
 - Implements domain protocols
 - Contains all I/O operations
 - No business logic
+- Formatting is infrastructure concern (presentation/technical detail)
 
 **Example:**
 ```python
 class YamlGuidebook:  # Implements IGuidebook protocol
     def __init__(self, guidebook_path: str, vocabulary_path: str):
-        # Load from filesystem
+        # Load from filesystem - store topics as unified structures
         with open(guidebook_path, "r") as f:
-            self.guidebook = safe_load(f)
+            raw_data = safe_load(f)
+        self.topics = {
+            name.lower(): {"description": data["description"], "contents": data["contents"]}
+            for name, data in raw_data.items()
+        }
 
-    def get_info(self, group_name: str, name: Optional[str] = None) -> str:
-        # Pure data access, no business logic
-        return self._format_topic_info(self.guidebook.get(group_name), name=name)
+    def get_topic_contents(self, topic: str) -> GuidebookContent:
+        """Pure data access - returns raw content (list or dict)."""
+        if topic.lower() not in self.topics:
+            raise KeyError(f"Topic '{topic}' not found")
+        return self.topics[topic.lower()]["contents"]
+
+    def get_topic_description(self, topic: str) -> Optional[str]:
+        """Pure data access - returns topic description."""
+        topic_info = self.topics.get(topic.lower())
+        return topic_info["description"] if topic_info else None
 ```
 
 ## Statistics Logging

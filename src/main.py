@@ -23,11 +23,10 @@ def main() -> None:
     berlin_help_service = BerlinHelpService(guidebook=guidebook)
     stats_service = StatisticsServiceSQLite()
 
-    # 4. Create adapter
+    # 4. Create adapter (only depends on service, not guidebook directly)
     telegram_adapter = TelegramBotAdapter(
         token=token,
         service=berlin_help_service,
-        guidebook=guidebook,
         stats_service=stats_service,
     )
 
