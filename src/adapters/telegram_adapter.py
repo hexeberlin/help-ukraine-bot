@@ -4,7 +4,7 @@ import logging
 from typing import Awaitable, Callable, List
 
 from telegram import BotCommand, Update
-from telegram.error import BadRequest
+from telegram.error import BadRequest, Forbidden, NetworkError, TelegramError, TimedOut
 from telegram.ext import (
     Application,
     CommandHandler,
@@ -15,6 +15,7 @@ from telegram.ext import (
 from telegram.helpers import effective_message_type
 
 from src.domain.protocols import (
+    GuidebookError,
     IBerlinHelpService,
     IStatisticsService,
     StatisticsServiceError,
@@ -43,6 +44,8 @@ class TelegramBotAdapter:
         self.token = token
         self.service = service
         self.stats_service = stats_service
+        # Cache of chat IDs where bot lacks deletion permissions
+        self._deletion_disabled_chats: set[int] = set()
 
     def build_application(self) -> Application:
         """
@@ -55,6 +58,10 @@ class TelegramBotAdapter:
             Application.builder()
             .token(self.token)
             .post_init(self._post_init)
+            .read_timeout(10)       # Read timeout: 10 seconds
+            .write_timeout(10)      # Write timeout: 10 seconds
+            .connect_timeout(5)     # Connection timeout: 5 seconds
+            .pool_timeout(5)        # Connection pool timeout: 5 seconds
             .build()
         )
         self._register_handlers(application)
@@ -98,8 +105,26 @@ class TelegramBotAdapter:
         self, update: Update, context: ContextTypes.DEFAULT_TYPE
     ) -> None:
         """Handle /help command."""
-        results = self.service.handle_help()
-        await self._reply_to_message(update, context, results)
+        try:
+            logger.info("Processing /help command from chat_id=%s", update.effective_chat.id if update.effective_chat else "unknown")
+            results = self.service.handle_help()
+            await self._reply_to_message(update, context, results)
+            logger.info("Successfully handled /help")
+        except GuidebookError as e:
+            logger.error("Guidebook error in /help: %s", e, exc_info=True)
+            await self._send_error_message(
+                update, context, "Sorry, there was an error accessing the help information. Please try again later."
+            )
+        except (NetworkError, TimedOut) as e:
+            logger.error("Network error in /help: %s", e, exc_info=True)
+            await self._send_error_message(
+                update, context, "Sorry, there was a network error. Please try again."
+            )
+        except Exception as e:
+            logger.exception("Unexpected error in /help handler")
+            await self._send_error_message(
+                update, context, "Sorry, an unexpected error occurred. Please try again later."
+            )
 
     async def _post_init(self, application: Application) -> None:
         """Initialize bot commands after the bot is ready."""
@@ -109,10 +134,28 @@ class TelegramBotAdapter:
         self, update: Update, context: ContextTypes.DEFAULT_TYPE
     ) -> None:
         """Handle /topic_stats command (public)."""
-        k = self._extract_k_parameter(update, "/topic_stats")
-        rows = self.stats_service.top_topics(k)
-        reply = self._format_topic_stats(rows, k)
-        await self._reply_to_message(update, context, reply)
+        try:
+            logger.info("Processing /topic_stats command from chat_id=%s", update.effective_chat.id if update.effective_chat else "unknown")
+            k = self._extract_k_parameter(update, "/topic_stats")
+            rows = self.stats_service.top_topics(k)
+            reply = self._format_topic_stats(rows, k)
+            await self._reply_to_message(update, context, reply)
+            logger.info("Successfully handled /topic_stats")
+        except StatisticsServiceError as e:
+            logger.error("Statistics error in /topic_stats: %s", e, exc_info=True)
+            await self._send_error_message(
+                update, context, "Sorry, there was an error retrieving statistics. Please try again later."
+            )
+        except (NetworkError, TimedOut) as e:
+            logger.error("Network error in /topic_stats: %s", e, exc_info=True)
+            await self._send_error_message(
+                update, context, "Sorry, there was a network error. Please try again."
+            )
+        except Exception as e:
+            logger.exception("Unexpected error in /topic_stats handler")
+            await self._send_error_message(
+                update, context, "Sorry, an unexpected error occurred. Please try again later."
+            )
 
     def _create_topic_handler(
         self, topic: str
@@ -122,9 +165,27 @@ class TelegramBotAdapter:
         async def handler(
             update: Update, context: ContextTypes.DEFAULT_TYPE
         ) -> None:
-            results = self.service.handle_topic(topic)
-            self._record_stats(topic)
-            await self._reply_to_message(update, context, results)
+            try:
+                logger.info("Processing /%s command from chat_id=%s", topic, update.effective_chat.id if update.effective_chat else "unknown")
+                results = self.service.handle_topic(topic)
+                self._record_stats(topic)
+                await self._reply_to_message(update, context, results)
+                logger.info("Successfully handled /%s", topic)
+            except GuidebookError as e:
+                logger.error("Guidebook error in /%s: %s", topic, e, exc_info=True)
+                await self._send_error_message(
+                    update, context, f"Sorry, there was an error accessing information for /{topic}. Please try again later."
+                )
+            except (NetworkError, TimedOut) as e:
+                logger.error("Network error in /%s: %s", topic, e, exc_info=True)
+                await self._send_error_message(
+                    update, context, "Sorry, there was a network error. Please try again."
+                )
+            except Exception as e:
+                logger.exception("Unexpected error in /%s handler", topic)
+                await self._send_error_message(
+                    update, context, "Sorry, an unexpected error occurred. Please try again later."
+                )
 
         return handler
 
@@ -132,49 +193,125 @@ class TelegramBotAdapter:
         self, update: Update, context: ContextTypes.DEFAULT_TYPE
     ) -> None:
         """Handle /cities command."""
-        city_name = self._extract_parameter(update, "/cities")
-        results = self.service.handle_cities(city_name, show_all=False)
-        self._record_stats("cities")
-        await self._reply_to_message(update, context, results)
+        try:
+            logger.info("Processing /cities command from chat_id=%s", update.effective_chat.id if update.effective_chat else "unknown")
+            city_name = self._extract_parameter(update, "/cities")
+            results = self.service.handle_cities(city_name, show_all=False)
+            self._record_stats("cities")
+            await self._reply_to_message(update, context, results)
+            logger.info("Successfully handled /cities")
+        except GuidebookError as e:
+            logger.error("Guidebook error in /cities: %s", e, exc_info=True)
+            await self._send_error_message(
+                update, context, "Sorry, there was an error accessing city information. Please try again later."
+            )
+        except (NetworkError, TimedOut) as e:
+            logger.error("Network error in /cities: %s", e, exc_info=True)
+            await self._send_error_message(
+                update, context, "Sorry, there was a network error. Please try again."
+            )
+        except Exception as e:
+            logger.exception("Unexpected error in /cities handler")
+            await self._send_error_message(
+                update, context, "Sorry, an unexpected error occurred. Please try again later."
+            )
 
     async def _handle_cities_all(
         self, update: Update, context: ContextTypes.DEFAULT_TYPE
     ) -> None:
         """Handle /cities_all command."""
-        results = self.service.handle_cities(None, show_all=True)
-        self._record_stats("cities")
-        await self._reply_to_message(update, context, results)
+        try:
+            logger.info("Processing /cities_all command from chat_id=%s", update.effective_chat.id if update.effective_chat else "unknown")
+            results = self.service.handle_cities(None, show_all=True)
+            self._record_stats("cities")
+            await self._reply_to_message(update, context, results)
+            logger.info("Successfully handled /cities_all")
+        except GuidebookError as e:
+            logger.error("Guidebook error in /cities_all: %s", e, exc_info=True)
+            await self._send_error_message(
+                update, context, "Sorry, there was an error accessing city information. Please try again later."
+            )
+        except (NetworkError, TimedOut) as e:
+            logger.error("Network error in /cities_all: %s", e, exc_info=True)
+            await self._send_error_message(
+                update, context, "Sorry, there was a network error. Please try again."
+            )
+        except Exception as e:
+            logger.exception("Unexpected error in /cities_all handler")
+            await self._send_error_message(
+                update, context, "Sorry, an unexpected error occurred. Please try again later."
+            )
 
     async def _handle_countries(
         self, update: Update, context: ContextTypes.DEFAULT_TYPE
     ) -> None:
         """Handle /countries command."""
-        country_name = self._extract_parameter(update, "/countries")
-        results = self.service.handle_countries(country_name, show_all=False)
-        self._record_stats("countries")
-        await self._reply_to_message(update, context, results)
+        try:
+            logger.info("Processing /countries command from chat_id=%s", update.effective_chat.id if update.effective_chat else "unknown")
+            country_name = self._extract_parameter(update, "/countries")
+            results = self.service.handle_countries(country_name, show_all=False)
+            self._record_stats("countries")
+            await self._reply_to_message(update, context, results)
+            logger.info("Successfully handled /countries")
+        except GuidebookError as e:
+            logger.error("Guidebook error in /countries: %s", e, exc_info=True)
+            await self._send_error_message(
+                update, context, "Sorry, there was an error accessing country information. Please try again later."
+            )
+        except (NetworkError, TimedOut) as e:
+            logger.error("Network error in /countries: %s", e, exc_info=True)
+            await self._send_error_message(
+                update, context, "Sorry, there was a network error. Please try again."
+            )
+        except Exception as e:
+            logger.exception("Unexpected error in /countries handler")
+            await self._send_error_message(
+                update, context, "Sorry, an unexpected error occurred. Please try again later."
+            )
 
     async def _handle_countries_all(
         self, update: Update, context: ContextTypes.DEFAULT_TYPE
     ) -> None:
         """Handle /countries_all command."""
-        results = self.service.handle_countries(None, show_all=True)
-        self._record_stats("countries")
-        await self._reply_to_message(update, context, results)
+        try:
+            logger.info("Processing /countries_all command from chat_id=%s", update.effective_chat.id if update.effective_chat else "unknown")
+            results = self.service.handle_countries(None, show_all=True)
+            self._record_stats("countries")
+            await self._reply_to_message(update, context, results)
+            logger.info("Successfully handled /countries_all")
+        except GuidebookError as e:
+            logger.error("Guidebook error in /countries_all: %s", e, exc_info=True)
+            await self._send_error_message(
+                update, context, "Sorry, there was an error accessing country information. Please try again later."
+            )
+        except (NetworkError, TimedOut) as e:
+            logger.error("Network error in /countries_all: %s", e, exc_info=True)
+            await self._send_error_message(
+                update, context, "Sorry, there was a network error. Please try again."
+            )
+        except Exception as e:
+            logger.exception("Unexpected error in /countries_all handler")
+            await self._send_error_message(
+                update, context, "Sorry, an unexpected error occurred. Please try again later."
+            )
 
     async def _handle_delete_greetings(
         self, update: Update, context: ContextTypes.DEFAULT_TYPE
     ) -> None:
         """Delete join/left notifications to keep chats tidy."""
-        message = update.effective_message
-        if message:
-            msg_type = effective_message_type(message)
-            logger.debug("Handling type is %s", msg_type)
-            if msg_type in [
-                "new_chat_members",
-                "left_chat_member",
-            ]:
-                await self._delete_command(update, context)
+        try:
+            message = update.effective_message
+            if message:
+                msg_type = effective_message_type(message)
+                logger.debug("Handling status update type: %s, chat_id=%s", msg_type, update.effective_chat.id if update.effective_chat else "unknown")
+                if msg_type in [
+                    "new_chat_members",
+                    "left_chat_member",
+                ]:
+                    await self._delete_command(update, context)
+        except Exception as e:
+            logger.exception("Error handling greeting deletion")
+            # Don't send error message to user for status updates
 
     # Utility methods
     def _extract_parameter(self, update: Update, command: str) -> str:
@@ -265,7 +402,7 @@ class TelegramBotAdapter:
         disable_web_page_preview: bool = True
     ) -> None:
         """
-        Send a reply and delete the command message.
+        Delete the command message and send a reply.
 
         Args:
             update: The Telegram update
@@ -279,6 +416,10 @@ class TelegramBotAdapter:
 
         chat_id = message.chat_id
 
+        # Delete command FIRST for immediate user feedback
+        await self._delete_command(update, context)
+
+        # THEN send reply after processing
         if message.reply_to_message is None:
             await context.bot.send_message(
                 chat_id=chat_id,
@@ -294,13 +435,15 @@ class TelegramBotAdapter:
                 disable_web_page_preview=disable_web_page_preview,
             )
 
-        # Finally delete the original command
-        await self._delete_command(update, context)
-
     async def _delete_command(
         self, update: Update, context: ContextTypes.DEFAULT_TYPE
     ) -> None:
-        """Delete the command message."""
+        """
+        Delete the command message if bot has permissions.
+
+        Attempts to delete messages to keep chats clean. If the bot lacks
+        permissions (e.g., not admin), caches the chat and stops trying.
+        """
         message = update.effective_message
         if not message:
             return
@@ -308,7 +451,50 @@ class TelegramBotAdapter:
         chat_id = message.chat_id
         message_id = message.message_id
 
+        # Skip deletion if we know bot lacks permissions in this chat
+        if chat_id in self._deletion_disabled_chats:
+            logger.debug(
+                "Skipping deletion in chat_id=%s (permissions previously denied)",
+                chat_id
+            )
+            return
+
         try:
             await context.bot.delete_message(chat_id=chat_id, message_id=message_id)
+            logger.debug("Successfully deleted message_id=%s in chat_id=%s", message_id, chat_id)
+        except Forbidden as e:
+            # Bot doesn't have admin rights to delete messages
+            logger.warning(
+                "Bot lacks permission to delete messages in chat_id=%s. "
+                "Disabling deletion attempts for this chat. Error: %s",
+                chat_id, e
+            )
+            self._deletion_disabled_chats.add(chat_id)
         except BadRequest as e:
-            logger.error("BadRequest: %s, chat_id=%s, message=%s", e, chat_id, message)
+            # Message already deleted, too old, or other client error
+            logger.debug(
+                "Could not delete message_id=%s in chat_id=%s: %s",
+                message_id, chat_id, e
+            )
+        except (NetworkError, TimedOut) as e:
+            # Network issues - don't cache, might be temporary
+            logger.warning(
+                "Network error deleting message_id=%s in chat_id=%s: %s",
+                message_id, chat_id, e
+            )
+
+    async def _send_error_message(
+        self, update: Update, context: ContextTypes.DEFAULT_TYPE, error_text: str
+    ) -> None:
+        """Send an error message to the user."""
+        message = update.effective_message
+        if not message:
+            return
+
+        try:
+            await context.bot.send_message(
+                chat_id=message.chat_id,
+                text=error_text,
+            )
+        except TelegramError as e:
+            logger.error("Failed to send error message: %s", e)

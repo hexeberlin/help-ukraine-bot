@@ -1,5 +1,7 @@
 """main module running the bot"""
 
+import logging
+
 from src.infrastructure.config_loader import load_env_config, load_toml_settings
 from src.infrastructure.yaml_guidebook import YamlGuidebook
 from src.infrastructure.sqlite_statistics import StatisticsServiceSQLite
@@ -9,6 +11,12 @@ from src.adapters.telegram_adapter import TelegramBotAdapter
 
 def main() -> None:
     """Start the bot with dependency injection."""
+    # 0. Configure logging
+    logging.basicConfig(
+        level=logging.INFO,
+        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    )
+
     # 1. Load configuration
     app_name, token, port = load_env_config()
     settings = load_toml_settings("settings.toml")
@@ -34,7 +42,11 @@ def main() -> None:
     application = telegram_adapter.build_application()
 
     if app_name == "TESTING":
-        application.run_polling()
+        application.run_polling(
+            poll_interval=1.0,           # Poll every 1 second
+            timeout=10,                  # Long polling timeout
+            drop_pending_updates=True,   # Drop old updates on startup
+        )
     else:
         webhook_url = f"https://{app_name}.herokuapp.com/{token}"
         application.run_webhook(
