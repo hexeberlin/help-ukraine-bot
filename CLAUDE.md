@@ -72,17 +72,18 @@ Domain (Protocols) → Application (Services) → Adapter (Telegram) → Infrast
 ### Layer Details
 
 **Domain Layer** (`src/domain/`):
-- `protocols.py` - Interfaces (IGuidebook, IBerlinHelpService, IStatisticsService)
+- `protocols.py` - Interfaces (IGuidebook, IBerlinHelpService, IStatisticsService) and type aliases (GuidebookContent)
 - `models.py` - Value objects (ChatContext, CommandRequest)
 
 **Application Layer** (`src/application/`):
-- `berlin_help_service.py` - Core business logic for handling help requests
+- `berlin_help_service.py` - Core business logic for handling help requests, topic metadata access
 
 **Adapter Layer** (`src/adapters/`):
-- `telegram_adapter.py` - Telegram-specific bot logic, handler registration, and message handling
+- `telegram_adapter.py` - Telegram-specific bot logic, handler registration, and message handling (depends only on service, not guidebook)
 
 **Infrastructure Layer** (`src/infrastructure/`):
-- `yaml_guidebook.py` - YAML-based guidebook implementation
+- `yaml_guidebook.py` - YAML-based guidebook implementation (data access)
+- `guidebook_formatter.py` - Content formatting utilities (presentation layer)
 - `config_loader.py` - Configuration loading utilities
 - `sqlite_statistics.py` - In-memory SQLite statistics storage
 
@@ -95,9 +96,12 @@ Domain (Protocols) → Application (Services) → Adapter (Telegram) → Infrast
 1. Telegram Update → TelegramBotAdapter handler
 2. Handler calls BerlinHelpService method
 3. Service calls YamlGuidebook for data
-4. Service returns formatted result
-5. Adapter records topic statistics via StatisticsServiceSQLite
-6. Adapter sends reply via Telegram API
+4. Service uses guidebook_formatter to format content
+5. Service returns formatted result
+6. Adapter records topic statistics via StatisticsServiceSQLite (gets description from service)
+7. Adapter sends reply via Telegram API
+
+**Key Architecture Principle**: Adapter layer has no direct access to IGuidebook - it only communicates with IBerlinHelpService. This ensures clean layer separation and proper dependency flow.
 
 ## Key Patterns
 
@@ -113,6 +117,14 @@ Domain (Protocols) → Application (Services) → Adapter (Telegram) → Infrast
 2. Implement in `BerlinHelpService`
 3. Add handler method in `TelegramBotAdapter`
 4. Register handler in `_register_handlers()`
+
+**IGuidebook Protocol** (simplified, data-access only):
+- `get_topic_description(topic)` - Returns topic description string
+- `get_topic_contents(topic)` - Returns raw content (list or dict) as `GuidebookContent`
+- `get_topics()` - Returns list of all topic names
+- `get_cities(name)` - Special handler for cities with formatting (legacy)
+- `get_countries(name)` - Special handler for countries with formatting (legacy)
+- Formatting is handled by `guidebook_formatter` module in infrastructure layer
 
 **New stats aggregation:**
 1. Extend `IStatisticsService` in `src/domain/protocols.py`
