@@ -10,6 +10,22 @@ class StatisticsServiceError(Exception):
     ...
 
 
+class GuidebookError(Exception):
+    """Base exception for guidebook-related errors."""
+    ...
+
+
+class GuidebookValidationError(GuidebookError):
+    """Raised when guidebook content fails validation.
+
+    This error is raised during guidebook initialization when content
+    does not match the expected structure:
+    - List-based content must be List[str]
+    - Dict-based content must be Dict[str, List[str]]
+    """
+    ...
+
+
 class IGuidebook(Protocol):
     """Protocol for guidebook data access.
 
