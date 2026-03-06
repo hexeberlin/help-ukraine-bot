@@ -704,6 +704,10 @@ legal:
     Чаты юридической помощи:
       - https://t.me/help4ukrainerefugee2
       - https://t.me/zakon_de
+lgbtq:
+  description: организация украинских ЛГБТК+ беженцев в Германии
+  contents:
+    - "https://kwitnequeer.de/ua/ - Официально зарегистрированная организация украинских ЛГБТК+ беженцев в Германии"
 medical:
   description: Медицинская помощь
   contents:
