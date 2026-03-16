@@ -544,13 +544,12 @@ general_information:
       - медицинских услуг и страховки,
       - выплат социальной помощи,
       - и многого другого
-    читайте общую информацию по Германии:
+    читайте общую информацию по Германии (принимающие земли и т.д.):
       - https://handbookgermany.de/uk/
       - https://uahelp.wiki/
     А также официальную информацию сената Берлина:
-      - по-украински https://www.berlin.de/ukraine/uk/
-      - по-русски https://www.berlin.de/ukraine/ru/
-
+      - https://www.berlin.de/ukraine/
+       
 handicap:
   description: Помощь для людей с особыми потребностями
   contents:
